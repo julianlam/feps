@@ -149,7 +149,7 @@ This object's source content represents a valid sanitization of its
 - [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
 - [ActivityStreams] James M Snell, Evan Prodromou, [ActivityStreams 2.0](https://www.w3.org/TR/activitystreams-core), 2017
 - [Activity Vocabulary] James M Snell, Evan Prodromou, [Activity Vocabulary](https://www.w3.org/TR/activitystreams-vocabulary/), 2017
-- [LaTeX] LaTeX authors, [The LaTeX Project](www.latex-project.org)
+- [LaTeX] LaTeX authors, [The LaTeX Project](https://www.latex-project.org)
 - [MathML Core] David Carlisle, Frédéric Wang, [MathML Core W3C Candidate Reccomendation Snapshot](https://w3c.github.io/mathml-core/), 2023
 - [Mathstodon] Mathstodon Admins, [About Mathstodon](https://mathstodon.xyz/about), retrieved 2023
 - [RFC-2119] S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels](https://datatracker.ietf.org/doc/html/rfc2119), 1997
