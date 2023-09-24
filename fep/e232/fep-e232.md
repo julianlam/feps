@@ -27,7 +27,29 @@ If an object's `name`, `summary`, or `content` has qualified links to other obje
 - `name` (OPTIONAL): the `name` SHOULD match the microsyntax used in object's content.
 - `rel` (OPTIONAL): if relevant, the `rel` SHOULD specify how the link is related to the current resource. Using `rel` can provide additional purpose to object links by signaling specific intended use-cases.
 
-Example:
+## Examples
+
+(This section is non-normative.)
+
+A link to an issue in a bug tracker:
+
+```json
+{
+    "@context": "https://www.w3.org/ns/activitystreams",
+    "type": "Note",
+    "content": "The bug was reported in #1374",
+    "tag": [
+        {
+            "type": "Link",
+            "mediaType": "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"",
+            "href": "https://forge.example/tickets/1374",
+            "name": "#1374"
+        }
+    ]
+}
+```
+
+An inline quote:
 
 ```json
 {
