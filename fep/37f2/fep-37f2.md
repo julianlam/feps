@@ -2,7 +2,8 @@
 slug: "37f2"
 authors: bengo <https://mastodon.social/@bengo>
 status: DRAFT
-dateReceived: "2023-09-28"
+dateReceived: 2023-09-28
+discussionsTo: https://codeberg.org/fediverse/fep/issues/184
 ---
 
 # FEP-37f2: a policy for calls for consensus on SWICG group decisions
