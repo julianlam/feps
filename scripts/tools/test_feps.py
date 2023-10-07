@@ -1,3 +1,4 @@
+import datetime
 import pytest
 import hashlib
 
@@ -20,6 +21,13 @@ def test_fep(fep):
         assert "dateFinalized" in parsed_frontmatter
     if parsed_frontmatter["status"] == "WITHDRAWN":
         assert "dateWithdrawn" in parsed_frontmatter
+
+    for field_name in ["dateReceived", "dateFinalized", "dateWithdrawn"]:
+        if field_name in parsed_frontmatter:
+            datetime.datetime.strptime(
+                parsed_frontmatter[field_name],
+                "%Y-%m-%d"
+            )
 
     assert "## Summary" in content
     assert "## Copyright" in content
