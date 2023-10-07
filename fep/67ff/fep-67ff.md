@@ -61,6 +61,7 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Mitra](https://codeberg.org/silverpill/mitra/src/branch/main/FEDERATION.md)
 - [Emissary](https://github.com/EmissarySocial/emissary/blob/main/FEDERATION.md)
 - [Vervis](https://vervis.peers.community/repos/WvWbo/source/FEDERATION.md)
+- [WordPress](https://github.com/Automattic/wordpress-activitypub/blob/master/FEDERATION.md)
 
 ## References
 
