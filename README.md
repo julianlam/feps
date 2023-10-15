@@ -53,6 +53,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-7628: Move actor](./fep/7628/fep-7628.md) | `DRAFT` | [#168](https://codeberg.org/fediverse/fep/issues/168) | 2023-09-20 | - |
 | [FEP-07d7: A Custom URL Scheme and Web-Based Protocol Handlers for Linking to ActivityPub Resources](./fep/07d7/fep-07d7.md) | `DRAFT` | [#171](https://codeberg.org/fediverse/fep/issues/171) | 2023-09-22 | - |
 | [FEP-37f2: a policy for calls for consensus on SWICG group decisions](./fep/37f2/fep-37f2.md) | `DRAFT` | [#184](https://codeberg.org/fediverse/fep/issues/184) | 2023-09-28 | - |
+| [FEP-2677: Identifying the Application Actor](./fep/2677/fep-2677.md) | `DRAFT` | [#190](https://codeberg.org/fediverse/fep/issues/190) | 2023-10-14 | - |
 
 ## Submitting a FEP
 
