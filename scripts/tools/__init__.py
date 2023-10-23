@@ -1,4 +1,9 @@
 import glob
+import hashlib
+
+
+def title_to_slug(title):
+    return hashlib.sha256(title.encode("utf-8")).hexdigest()[:4]
 
 
 def get_fep_ids():

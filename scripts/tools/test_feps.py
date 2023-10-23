@@ -1,8 +1,7 @@
 import datetime
 import pytest
-import hashlib
 
-from scripts.tools import get_fep_ids, FepFile
+from scripts.tools import get_fep_ids, FepFile, title_to_slug
 
 
 @pytest.mark.parametrize("fep", get_fep_ids())
@@ -24,10 +23,7 @@ def test_fep(fep):
 
     for field_name in ["dateReceived", "dateFinalized", "dateWithdrawn"]:
         if field_name in parsed_frontmatter:
-            datetime.datetime.strptime(
-                parsed_frontmatter[field_name],
-                "%Y-%m-%d"
-            )
+            datetime.datetime.strptime(parsed_frontmatter[field_name], "%Y-%m-%d")
 
     assert "## Summary" in content
     assert "## Copyright" in content
@@ -42,6 +38,6 @@ def test_fep(fep):
     assert title.startswith(begin_title)
     true_title = title.removeprefix(begin_title)
 
-    expected_slug = hashlib.sha256(true_title.encode("utf-8")).hexdigest()[:4]
+    expected_slug = title_to_slug(true_title)
 
     assert expected_slug == fep
