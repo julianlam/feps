@@ -1,6 +1,8 @@
 import glob
 import hashlib
 
+from .fep_file import FepFile
+
 
 def title_to_slug(title):
     return hashlib.sha256(title.encode("utf-8")).hexdigest()[:4]
@@ -11,70 +13,54 @@ def get_fep_ids():
         yield fep.removeprefix("fep/")
 
 
-class FepFile:
-    def __init__(self, fep):
-        self.fep = fep
-        with open(self.filename) as f:
-            self.frontmatter, self.content = FepFile.parsefile(f)
+def build_url_link(url):
+    url_number = url.split("/")[-1]
+    return f"[#{url_number}]({url})"
+
+
+class Readme:
+    @property
+    def content(self):
+        return self.frontmatter + self.table + self.backmatter
 
     @property
-    def filename(self):
-        return f"fep/{self.fep}/fep-{self.fep}.md"
+    def frontmatter(self):
+        with open("scripts/frontmatter.md") as f:
+            return f.readlines()
 
     @property
-    def summary(self):
+    def backmatter(self):
+        with open("scripts/backmatter.md") as f:
+            return f.readlines()
+
+    @property
+    def table(self):
+        fep_files = [FepFile(fep) for fep in get_fep_ids()]
+        fep_files = reversed(fep_files)
+        fep_files = sorted(
+            fep_files, key=lambda x: x.parsed_frontmatter["dateReceived"]
+        )
+
         result = []
-        is_summary = False
-        for x in self.content:
-            if is_summary:
-                if x.startswith("##"):
-                    return "\n".join(result)
-                result.append(x)
-            elif x == "## Summary":
-                is_summary = True
 
-    def write(self):
-        with open(self.filename, "w") as f:
-            f.write("---\n")
-            for x in self.frontmatter:
-                f.write(x + "\n")
-            f.write("---\n")
-            for x in self.content:
-                f.write(x + "\n")
+        for fep in fep_files:
+            link = f"[FEP-{fep.fep}: {fep.title}](./{fep.filename})"
+            parsed = fep.parsed_frontmatter
 
-    @property
-    def parsed_frontmatter(self):
-        split = [x.split(":", 1) for x in self.frontmatter]
-        return {a: b.strip() for a, b in split}
+            if "discussionsTo" in parsed:
+                url = parsed["discussionsTo"]
+                urls = url.split(", ")
+                discussions = " ".join(build_url_link(url) for url in urls)
+            else:
+                discussions = ""
 
-    @property
-    def title(self):
-        titles = [x for x in self.content if x.startswith("# ")]
-        assert len(titles) > 0
-
-        title = titles[0]
-
-        begin_title = f"# FEP-{self.fep}: "
-
-        assert title.startswith(begin_title)
-        true_title = title.removeprefix(begin_title)
-
-        return true_title
-
-    @staticmethod
-    def parsefile(f):
-        lines = f.readlines()
-
-        status = 0
-        frontmatter = []
-        content = []
-
-        for line in lines:
-            if line == "---\n" and status <= 2:
-                status += 1
-            elif status == 1:
-                frontmatter.append(line.removesuffix("\n"))
-            elif status >= 2:
-                content.append(line.removesuffix("\n"))
-
-        return frontmatter, content
+            if "dateFinalized" in parsed:
+                date_final = parsed["dateFinalized"]
+            elif "dateWithdrawn" in parsed:
+                date_final = parsed["dateWithdrawn"]
+            else:
+                date_final = "-"
+            result.append(
+                f"""| {link} | `{parsed["status"]}` | {discussions} | {parsed["dateReceived"]} | {date_final} |\n"""
+            )
+        return result
