@@ -34,7 +34,7 @@ for fep in fep_files:
     )
 
 
-# | [FEP-a4ed: The Fediverse Enhancement Proposal Process](./fep/a4ed/fep-a4ed.md)          | `FINAL` | [#10](https://git.activitypub.dev/ActivityPubDev/Fediverse-Enhancement-Proposals/issues/10) | 2020-10-16     | 2020-01-18
+# | [FEP-a4ed: The Fediverse Enhancement Proposal Process](./fep/a4ed/fep-a4ed.md)          | `FINAL` | [N/A](https://codeberg.org/fediverse/fep/issues) | 2020-10-16     | 2020-01-18
 
 
 with open("README.md", "w") as f1:
