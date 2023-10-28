@@ -18,7 +18,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-8fcf: Followers collection synchronization across servers](./fep/8fcf/fep-8fcf.md) | `FINAL` | [#6](https://codeberg.org/fediverse/fep/issues/6) [#11](https://git.activitypub.dev/ActivityPubDev/Fediverse-Enhancement-Proposals/issues/11) | 2020-10-24 | 2022-02-07 |
 | [FEP-f1d5: NodeInfo in Fediverse Software](./fep/f1d5/fep-f1d5.md) | `FINAL` | [#50](https://codeberg.org/fediverse/fep/issues/50) [#12](https://git.activitypub.dev/ActivityPubDev/Fediverse-Enhancement-Proposals/issues/12) | 2020-12-13 | 2023-06-02 |
 | [FEP-400e: Publicly-appendable ActivityPub collections](./fep/400e/fep-400e.md) | `FINAL` | [#5](https://codeberg.org/fediverse/fep/issues/5) | 2021-02-16 | 2022-02-04 |
-| [FEP-8c3f: Web Monetization](./fep/8c3f/fep-8c3f.md) | `DRAFT` | [#3](https://codeberg.org/fediverse/fep/issues/3) | 2022-01-18 | - |
+| [FEP-8c3f: Web Monetization](./fep/8c3f/fep-8c3f.md) | `WITHDRAWN` | [#3](https://codeberg.org/fediverse/fep/issues/3) | 2022-01-18 | 2023-10-27 |
 | [FEP-2100: Unbound Group and Organization](./fep/2100/fep-2100.md) | `DRAFT` | [#36](https://codeberg.org/fediverse/fep/issues/36) | 2022-03-31 | - |
 | [FEP-e232: Object Links](./fep/e232/fep-e232.md) | `DRAFT` | [#14](https://codeberg.org/fediverse/fep/issues/14) | 2022-08-01 | - |
 | [FEP-5624: Per-object reply control policies](./fep/5624/fep-5624.md) | `DRAFT` | [#18](https://codeberg.org/fediverse/fep/issues/18) | 2022-08-23 | - |
