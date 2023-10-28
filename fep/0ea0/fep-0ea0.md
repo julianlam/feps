@@ -11,6 +11,16 @@ discussionsTo: https://codeberg.org/fediverse/fep/issues/88
 
 This FEP describes a way to attach payment information to [ActivityPub](https://www.w3.org/TR/activitypub/) actors and objects. That information might be a link to donation page, a link for buying an artwork, or anything else that can be represented with a URI.
 
+## History
+
+[PeerTube](https://docs.joinpeertube.org/api/activitypub#video) videos may have `support` property, which contains a text explaining how to support the content creator.
+
+[FEP-8c3f: Web Monetization](https://codeberg.org/fediverse/fep/src/branch/main/fep/8c3f/fep-8c3f.md) was published in 2022. The ensuing discussion on SocialHub forum led to the creation of Payment Links proposal.
+
+## Requirements
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119](https://tools.ietf.org/html/rfc2119.html).
+
 ## Payment links
 
 Payment link is an object with the following properties:
@@ -30,9 +40,9 @@ Payment link attached to an actor:
 {
   "@context": "https://www.w3.org/ns/activitystreams",
   "type": "Person",
-  "id": "https://example.tld/users/alice",
-  "inbox": "https://example.tld/users/alice/inbox",
-  "outbox": "https://example.tld/users/alice/outbox",
+  "id": "https://social.example/users/alice",
+  "inbox": "https://social.example/users/alice/inbox",
+  "outbox": "https://social.example/users/alice/outbox",
   "attachment": [
     {
       "type": "Link",
@@ -50,17 +60,17 @@ Payment link attached to an object:
 {
   "@context": "https://www.w3.org/ns/activitystreams",
   "type": "Image",
-  "id": "https://example.tld/photos/123",
-  "attributedTo": "https://example.tld/users/alice",
+  "id": "https://gallery.example/photos/123",
+  "attributedTo": "https://gallery.example/users/alice",
   "name": "Painting of a cat",
   "attachment": [
     {
       "type": "Link",
       "name": "Buy",
-      "href": "https://example.tld/photos/123/order",
+      "href": "https://gallery.example/photos/123/order",
       "rel": [
         "payment",
-        "https://example.tld/ns#buy"
+        "https://gallery.example/ns#buy"
       ]
     }
   ]
@@ -76,6 +86,7 @@ Implementers may treat payment links attached to actor object in the same way as
 ## References
 
 - [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
+- [FEP-8c3f: Web Monetization] Diogo Peralta Cordeiro, Phablulo Joel, [FEP-8c3f: Web Monetization](https://codeberg.org/fediverse/fep/src/branch/main/fep/8c3f/fep-8c3f.md), 2022
 - [Link Relations Registry] IANA, [Link Relations](https://www.iana.org/assignments/link-relations/link-relations.xhtml), 2005
 
 ## Copyright
