@@ -125,9 +125,13 @@ A list of editors is maintained in the `EDITORS.md` file at the root of the FEP 
 
 A list of methods in which a proposal may be submitted is maintained in the `SUBMISSION.md` file at the root of the FEP repository.
 
-### FEP-a4ed
+### FEP Process Governance
 
 FEP-a4ed (The Fediverse Enhancement Proposal Process) is a living document and can be updated despite having the `FINAL` status.
+
+Anyone can propose a change to FEP-a4ed (or other documents related to the FEP process) using any method listed in `SUBMISSION.md` file. The change must be approved by at least two editors (one of them could be the submitter). For any part of the FEP process, there must be a sufficient number of editors who agreed to do the maintenance work. Changes should not be accepted before at least 1 month passes after the last update, to give editors and the community time to review them and provide feedback.
+
+Minor changes (i.e. a correction of a typo or of a broken link) can be accepted immediately after getting two approvals from editors.
 
 ## History
 
