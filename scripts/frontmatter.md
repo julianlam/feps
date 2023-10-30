@@ -14,4 +14,3 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 
 | Title                                                                               | Status  | Tracking issue                                                                              | `dateReceived` | `dateFinalized` (or `dateWithdrawn`) |
 | ---                                                                                 | ---     | -----                                                                                       | -------        | ------                               |
-
