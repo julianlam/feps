@@ -14,7 +14,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 
 | Title                                                                               | Status  | Tracking issue                                                                              | `dateReceived` | `dateFinalized` (or `dateWithdrawn`) |
 | ---                                                                                 | ---     | -----                                                                                       | -------        | ------                               |
-| [FEP-a4ed: The Fediverse Enhancement Proposal Process](./fep/a4ed/fep-a4ed.md) | `FINAL` | [N/A](https://codeberg.org/fediverse/fep/issues) | 2020-10-16 | 2021-01-18 |
+| [FEP-a4ed: The Fediverse Enhancement Proposal Process](./fep/a4ed/fep-a4ed.md) | `FINAL` | [#201](https://codeberg.org/fediverse/fep/issues/201) | 2020-10-16 | 2021-01-18 |
 | [FEP-8fcf: Followers collection synchronization across servers](./fep/8fcf/fep-8fcf.md) | `FINAL` | [#6](https://codeberg.org/fediverse/fep/issues/6) | 2020-10-24 | 2022-02-07 |
 | [FEP-f1d5: NodeInfo in Fediverse Software](./fep/f1d5/fep-f1d5.md) | `FINAL` | [#50](https://codeberg.org/fediverse/fep/issues/50) | 2020-12-13 | 2023-06-02 |
 | [FEP-400e: Publicly-appendable ActivityPub collections](./fep/400e/fep-400e.md) | `FINAL` | [#5](https://codeberg.org/fediverse/fep/issues/5) | 2021-02-16 | 2022-02-04 |
