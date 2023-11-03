@@ -74,6 +74,7 @@ Note that the `content` includes the `RE: <url>` microsyntax but consuming imple
 - (streams)
 - FoundKey
 - Mitra
+- Pleroma ([via MRF](https://git.pleroma.social/pleroma/pleroma/-/blob/v2.6.0/lib/pleroma/web/activity_pub/mrf/quote_to_link_tag_policy.ex))
 
 ## References
 
