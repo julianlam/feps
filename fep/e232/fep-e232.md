@@ -1,8 +1,9 @@
 ---
 slug: "e232"
 authors: silverpill <silverpill@firemail.cc>
-status: DRAFT
+status: FINAL
 dateReceived: 2022-08-01
+dateFinalized: 2023-12-03
 discussionsTo: https://codeberg.org/fediverse/fep/issues/14
 ---
 # FEP-e232: Object Links

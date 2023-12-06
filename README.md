@@ -20,7 +20,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-400e: Publicly-appendable ActivityPub collections](./fep/400e/fep-400e.md) | `FINAL` | [#5](https://codeberg.org/fediverse/fep/issues/5) | 2021-02-16 | 2022-02-04 |
 | [FEP-8c3f: Web Monetization](./fep/8c3f/fep-8c3f.md) | `WITHDRAWN` | [#3](https://codeberg.org/fediverse/fep/issues/3) | 2022-01-18 | 2023-10-27 |
 | [FEP-2100: Unbound Group and Organization](./fep/2100/fep-2100.md) | `DRAFT` | [#36](https://codeberg.org/fediverse/fep/issues/36) | 2022-03-31 | - |
-| [FEP-e232: Object Links](./fep/e232/fep-e232.md) | `DRAFT` | [#14](https://codeberg.org/fediverse/fep/issues/14) | 2022-08-01 | - |
+| [FEP-e232: Object Links](./fep/e232/fep-e232.md) | `FINAL` | [#14](https://codeberg.org/fediverse/fep/issues/14) | 2022-08-01 | 2023-12-03 |
 | [FEP-5624: Per-object reply control policies](./fep/5624/fep-5624.md) | `DRAFT` | [#18](https://codeberg.org/fediverse/fep/issues/18) | 2022-08-23 | - |
 | [FEP-1b12: Group federation](./fep/1b12/fep-1b12.md) | `FINAL` | [#22](https://codeberg.org/fediverse/fep/issues/22) | 2022-11-12 | 2023-02-09 |
 | [FEP-8b32: Object Integrity Proofs](./fep/8b32/fep-8b32.md) | `DRAFT` | [#29](https://codeberg.org/fediverse/fep/issues/29) | 2022-11-12 | - |
