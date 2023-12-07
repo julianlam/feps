@@ -3,6 +3,7 @@ slug: "ef61"
 authors: silverpill <silverpill@firemail.cc>
 status: DRAFT
 dateReceived: 2023-12-06
+discussionsTo: https://codeberg.org/fediverse/fep/issues/209
 ---
 # FEP-ef61: Portable Objects
 
