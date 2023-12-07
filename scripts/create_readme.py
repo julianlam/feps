@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from tools import Readme
 
 with open("README.md", "w") as f1:
