@@ -103,6 +103,12 @@ If recipient supports FEP-8b32, and both HTTP signature and integrity proof are 
 
 ## Server independent IDs
 
+**NOTE: this section is scheduled for deletion.**
+
+The idea of server-independent IDs is described in more detail in [FEP-ef61: Portable Objects](https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md).
+
+---
+
 (This section is non-normative.)
 
 Clients may derive object IDs from user's identity, if chosen DID method supports [DID URLs](https://www.w3.org/TR/did-core/#did-url-syntax).
