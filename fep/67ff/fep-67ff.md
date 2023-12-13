@@ -62,6 +62,7 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Emissary](https://github.com/EmissarySocial/emissary/blob/main/FEDERATION.md)
 - [Vervis](https://vervis.peers.community/repos/WvWbo/source/FEDERATION.md)
 - [WordPress](https://github.com/Automattic/wordpress-activitypub/blob/master/FEDERATION.md)
+- [Bovine](https://bovine-herd.readthedocs.io/en/latest/FEDERATION/) in [repo](https://codeberg.org/bovine/bovine/src/branch/main/bovine_herd/docs/docs/FEDERATION.md) and the [symlink](https://codeberg.org/bovine/bovine/src/branch/main/FEDERATION.md)
 
 ## References
 
