@@ -60,8 +60,9 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Hometown](https://github.com/hometown-fork/hometown/blob/hometown-dev/FEDERATION.md)
 - [Mitra](https://codeberg.org/silverpill/mitra/src/branch/main/FEDERATION.md)
 - [Emissary](https://github.com/EmissarySocial/emissary/blob/main/FEDERATION.md)
-- [Vervis](https://vervis.peers.community/repos/WvWbo/source/FEDERATION.md)
+- [Vervis](https://codeberg.org/ForgeFed/Vervis/src/branch/main/FEDERATION.md)
 - [WordPress](https://github.com/Automattic/wordpress-activitypub/blob/master/FEDERATION.md)
+- [Postmarks](https://github.com/ckolderup/postmarks/blob/main/FEDERATION.md)
 - [Bovine](https://bovine-herd.readthedocs.io/en/latest/FEDERATION/) in [repo](https://codeberg.org/bovine/bovine/src/branch/main/bovine_herd/docs/docs/FEDERATION.md) and the [symlink](https://codeberg.org/bovine/bovine/src/branch/main/FEDERATION.md)
 
 ## References
