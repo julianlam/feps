@@ -86,46 +86,48 @@ RewriteEngine on
 
 # catch FEP-specific context requests
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([^/\.]*)/?(.*?)?/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/context.jsonld [R=302,L]
+RewriteRule ^([^/\.]*)/?(.*?)?/?$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1/context.jsonld [R=302,L]
 
 # catch FEP-specific context requests without content negotiation
-RewriteRule ^([^/\.]*)/?(.*?)?.jsonld$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/context.jsonld [R=302,L]
+RewriteRule ^([^/\.]*)/?(.*?)?.jsonld$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1/context.jsonld [R=302,L]
 
 # catch FEP proposal documents
 RewriteRule ^([^/\.]*)/?(.*?)?/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/fep-$1.md [R=302,L]
 
 # a generic catch-all rule
-RewriteRule ^(.*?)\/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1 [R=302,L]
+RewriteRule ^(.*?)\/?$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1 [R=302,L]
 ```
 
 ### Defining terms associated with an FEP
 
-FEPs that wish to define extension terms within the w3id.org/fep namespace MUST provide a context document containing all terms defined by that FEP. The context document MUST include at least an `@id` for each term, with `@type` of `@id` if the term links to another node. The context document MAY include additional metadata. Once the FEP is marked `FINAL`, the context document MAY be cached forever if referenced. FEPs that define extension terms MAY instead define extension terms within a vendor-specific namespace, but generally this SHOULD NOT be done.
+FEPs that wish to define extension terms within the w3id.org/fep namespace MUST provide a context document co-located within their FEP folder with the filename `context.jsonld` and containing all terms defined by that FEP. The context document MUST include at least an `@id` for each term, with `@type` of `@id` if the term links to another node on the graph. The context document MAY include additional metadata. Once the FEP is marked `FINAL`, the context document MAY be cached forever if referenced. FEPs that define extension terms MAY instead define extension terms within a vendor-specific namespace, but generally this SHOULD NOT be done.
 
 #### Example
 
 (This section is non-normative.)
 
-For example, say we wanted to define the following terms within the current FEP-9606:
+For example, say we wanted to define the following terms within the current FEP-888d:
 
+- `SomeType` is a term for some type
 - `exampleA` is a term with some literal value (string, boolean, number)
-- `exampleB` is a term that links to another node
-- `exampleC` is an unordered list of literal values that are specifically non-negative integers
+- `exampleB` is a term that links to another node on the graph (for example, another object)
+- `exampleC` is an ordered list of literal values that are specifically non-negative integers
 
 The context document might look like this, at minimum:
 
 ```json
 {
 	"@context": {
-		"exampleA": "https://w3id.org/fep/9606/exampleA",
+		"SomeType": "https://w3id.org/fep/888d/SomeType",
+		"exampleA": "https://w3id.org/fep/888d/exampleA",
 		"exampleB": {
-			"@id": "https://w3id.org/fep/9606/exampleB",
+			"@id": "https://w3id.org/fep/888d/exampleB",
 			"@type": "@id"
 		},
 		"exampleC": {
-			"@id": "https://w3id.org/fep/9606/exampleC",
+			"@id": "https://w3id.org/fep/888d/exampleC",
 			"@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
-			"@container": "@set"
+			"@container": "@list"
 		}
 	}
 }
@@ -133,9 +135,85 @@ The context document might look like this, at minimum:
 
 Refer to [LD-TERM-DFN] for additional guidance on defining terms within JSON-LD.
 
+#### Defining terms within an FEP document
+
+(This section is non-normative.)
+
+Depending on convenience or preference, the context document might instead look like this, if the terms are defined within the FEP document itself rather than alongside it as assets:
+
+```json
+{
+	"@context": {
+		"SomeType": "https://w3id.org/fep/888d#SomeType",
+		"exampleA": "https://w3id.org/fep/888d#exampleA",
+		"exampleB": {
+			"@id": "https://w3id.org/fep/888d#exampleB",
+			"@type": "@id"
+		},
+		"exampleC": {
+			"@id": "https://w3id.org/fep/888d#exampleC",
+			"@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+			"@container": "@list"
+		}
+	}
+}
+```
+
+In such a case, the FEP document should include an element with an HTML identifier that exactly matches the term name, so that the URI fragment resolves properly. In practice, this means one of the following:
+
+- Using a heading with a name that exactly matches the term name. This should be autolinked correctly by most Markdown processors. Be warned that this may cause problems for FEPs 
+- Using a heading with a custom attribute containing an ID. Some Markdown processors such as Goldmark will handle cases such as `### h3 {#custom-identifier}` and render `<h3 id="custom-identifier">h3</h3>`. Markdown specifications such as CommonMark currently do not support custom attributes, but some Markdown processors such as Goldmark support custom attributes on headers (but not on arbitrary elements). See [CM-ATTRS] for more discussion of this feature.
+- Using an HTML definition list, with `id` attributes exactly matching the term name. HTML within Markdown files is generally rendered as-is, although it may be sanitized, stripped, or disallowed for security purposes. In cases where it is allowed, however, it can be an effective way to express term definitions within an FEP document.
+
+An example of a definition list can be found below:
+
+<dl>
+
+<dt id="SomeType">SomeType</dt>
+<dd>
+<p>Some type.</p>
+<ul>
+<li>URI: <code>https://w3id.org/fep/888d#SomeType</code></li>
+<li>Inherits from: <code>https://www.w3.org/ns/activitystreams#Object</code></li>
+</ul>
+</dd>
+
+<dt id="exampleA">exampleA</dt>
+<dd>
+<p>A term with some literal value (string, boolean, number).</p>
+<ul>
+<li>URI: <code>https://w3id.org/fep/888d#exampleA</code></li>
+<li>Domain: SomeType</li>
+<li>Range: String or Boolean or Number</li>
+</ul>
+</dd>
+
+<dt id="exampleB">exampleB</dt>
+<dd>
+<p>A term that links to another node on the graph (for example, another object)</p>
+<ul>
+<li>URI: <code>https://w3id.org/fep/888d#exampleB</code></li>
+<li>Domain: SomeType</li>
+<li>Range: Object</li>
+</ul>
+</dd>
+
+<dt id="exampleC">exampleC</dt>
+<dd>
+<p>An ordered list of literal values that are specifically non-negative integers</p>
+<ul>
+<li>URI: <code>https://w3id.org/fep/888d#exampleC</code></li>
+<li>Domain: SomeType</li>
+<li>Range: <code>http://www.w3.org/2001/XMLSchema#nonNegativeInteger</code></li>
+</ul>
+</dd>
+
+</dl>
+
 ## References
 
 - [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
+- [CM-ATTRS] mb21, [Consistent attribute syntax](https://talk.commonmark.org/t/consistent-attribute-syntax/272/), 2014
 - [LD-TERM-DFN] Gregg Kellogg, Pierre-Antoine Champin, Dave Longley, [JSON-LD 1.1 - Section 9.15.1 "Expanded term definition"](https://www.w3.org/TR/json-ld/#expanded-term-definition), 2020
 - [RFC-2119] S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels](https://tools.ietf.org/html/rfc2119.html)
 - [1] helge, [FEP-1570: The FEP Ontology Process](https://socialhub.activitypub.rocks/t/fep-1570-the-fep-ontology-process/2972), 2023
