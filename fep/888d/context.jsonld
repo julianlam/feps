@@ -1,0 +1,15 @@
+{
+	"@context": {
+		"SomeType": "https://w3id.org/fep/888d/SomeType",
+		"exampleA": "https://w3id.org/fep/888d/exampleA",
+		"exampleB": {
+			"@id": "https://w3id.org/fep/888d/exampleB",
+			"@type": "@id"
+		},
+		"exampleC": {
+			"@id": "https://w3id.org/fep/888d/exampleC",
+			"@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+			"@container": "@list"
+		}
+	}
+}

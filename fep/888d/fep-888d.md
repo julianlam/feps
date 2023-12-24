@@ -10,7 +10,7 @@ discussionsTo: https://codeberg.org/fediverse/fep/issues/83
 
 ## Summary
 
-In JSON-LD, `@id` is used to identify nodes. Each node obect should contain an `@id`, which MUST be an IRI or a compact IRI (including blank node identifiers). It is considered best practice in the linked-data ecosystem to have such IRIs be HTTPS URIs that resolve to a definition of the term being used, and it is desirable to define such terms in a JSON-LD context file that is referenced by its IRI rather than having the full `@context` object embedded in every single document. ActivityStreams 2.0 and ActivityPub do this with the normative context and namespace provided at `https://www.w3.org/ns/activitystreams`, but this namespace is not generally open to extensions or to experimental terms. This FEP therefore proposes using `https://w3id.org/fep` as a base IRI for the FEP process, allowing sub-namespaces for each FEP, and allowing certain terms to be promoted to a default context once proven broadly useful.
+It is considered best practice in the linked-data ecosystem to have IRIs be HTTPS URIs that resolve to a definition of the term being used, and it is desirable to define such terms in a JSON-LD context file that is referenced by its IRI rather than having the full `@context` object embedded in every single document. ActivityStreams 2.0 and ActivityPub do this with the normative context and namespace provided at `https://www.w3.org/ns/activitystreams`, but this namespace is not generally open to extensions or to experimental terms. This FEP therefore proposes using `https://w3id.org/fep` as a base IRI for the FEP process, allowing sub-namespaces for each FEP, and allowing certain terms to be promoted to a default context once proven broadly useful.
 
 ## Acknowledgements
 
@@ -102,16 +102,16 @@ RewriteRule ^(.*?)\/?$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1
 
 FEPs that wish to define extension terms within the w3id.org/fep namespace MUST provide a context document co-located within their FEP folder with the filename `context.jsonld` and containing all terms defined by that FEP. The context document MUST include at least an `@id` for each term, with `@type` of `@id` if the term links to another node on the graph. The context document MAY include additional metadata. Once the FEP is marked `FINAL`, the context document MAY be cached forever if referenced. FEPs that define extension terms MAY instead define extension terms within a vendor-specific namespace, but generally this SHOULD NOT be done.
 
-#### Example
+#### Example using paths
 
 (This section is non-normative.)
 
 For example, say we wanted to define the following terms within the current FEP-888d:
 
 - `SomeType` is a term for some type
-- `exampleA` is a term with some literal value (string, boolean, number)
-- `exampleB` is a term that links to another node on the graph (for example, another object)
-- `exampleC` is an ordered list of literal values that are specifically non-negative integers
+- `exampleA` is a term for a property with some literal value (string, boolean, number)
+- `exampleB` is a term for a property that links to another node on the graph (for example, another object)
+- `exampleC` is a term for a property that is an ordered list of literal values that are specifically non-negative integers
 
 The context document might look like this, at minimum:
 
@@ -135,11 +135,13 @@ The context document might look like this, at minimum:
 
 Refer to [LD-TERM-DFN] for additional guidance on defining terms within JSON-LD.
 
-#### Defining terms within an FEP document
+A sidecar asset within the FEP's directory may be used to provide additional documentation for the term.
+
+#### Example using fragment identifiers
 
 (This section is non-normative.)
 
-Depending on convenience or preference, the context document might instead look like this, if the terms are defined within the FEP document itself rather than alongside it as assets:
+Depending on convenience or preference, the context document might instead look like this:
 
 ```json
 {
@@ -159,7 +161,9 @@ Depending on convenience or preference, the context document might instead look 
 }
 ```
 
-In such a case, the FEP document should include an element with an HTML identifier that exactly matches the term name, so that the URI fragment resolves properly. In practice, this means one of the following:
+Refer to [LD-TERM-DFN] for additional guidance on defining terms within JSON-LD.
+
+In such a case, the FEP document should include an element with an HTML identifier that exactly matches the term name, so that the IRI fragment resolves properly. In practice, this means one of the following:
 
 - Using a heading with a name that exactly matches the term name. This should be autolinked correctly by most Markdown processors. Be warned that this may cause problems for FEPs 
 - Using a heading with a custom attribute containing an ID. Some Markdown processors such as Goldmark will handle cases such as `### h3 {#custom-identifier}` and render `<h3 id="custom-identifier">h3</h3>`. Markdown specifications such as CommonMark currently do not support custom attributes, but some Markdown processors such as Goldmark support custom attributes on headers (but not on arbitrary elements). See [CM-ATTRS] for more discussion of this feature.
@@ -175,12 +179,17 @@ An example of a definition list can be found below:
 <ul>
 <li>URI: <code>https://w3id.org/fep/888d#SomeType</code></li>
 <li>Inherits from: <code>https://www.w3.org/ns/activitystreams#Object</code></li>
+<li>Properties: 
+<a href="#exampleA"><code>exampleA</code></a> | 
+<a href="#exampleB"><code>examplB</code></a> | 
+<a href="#exampleC"><code>exampleC</code></a>
+</li>
 </ul>
 </dd>
 
 <dt id="exampleA">exampleA</dt>
 <dd>
-<p>A term with some literal value (string, boolean, number).</p>
+<p>A property with some literal value (string, boolean, number)</p>
 <ul>
 <li>URI: <code>https://w3id.org/fep/888d#exampleA</code></li>
 <li>Domain: SomeType</li>
@@ -190,7 +199,7 @@ An example of a definition list can be found below:
 
 <dt id="exampleB">exampleB</dt>
 <dd>
-<p>A term that links to another node on the graph (for example, another object)</p>
+<p>A property that links to another node on the graph (for example, another object)</p>
 <ul>
 <li>URI: <code>https://w3id.org/fep/888d#exampleB</code></li>
 <li>Domain: SomeType</li>
@@ -200,11 +209,11 @@ An example of a definition list can be found below:
 
 <dt id="exampleC">exampleC</dt>
 <dd>
-<p>An ordered list of literal values that are specifically non-negative integers</p>
+<p>A property that is an ordered list of literal values that are specifically non-negative integers</p>
 <ul>
 <li>URI: <code>https://w3id.org/fep/888d#exampleC</code></li>
 <li>Domain: SomeType</li>
-<li>Range: <code>http://www.w3.org/2001/XMLSchema#nonNegativeInteger</code></li>
+<li>Range: List of <code>http://www.w3.org/2001/XMLSchema#nonNegativeInteger</code></li>
 </ul>
 </dd>
 
