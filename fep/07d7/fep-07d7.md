@@ -37,7 +37,7 @@ Web-based protocol handling is a feature of modern web browsers. This allows a s
 
 ## Context
 
-Similar proposals such as [Fedilinks] and [Mastodon Issue 19679][Mastodon19679] have been made, and were even [briefly implemented in Mastodon][MastodonRemove]. There seems to be some concensus that custom protocol handlers have the technical capability to solve the problem of difficult interactions with cross-instance objects. There is also ample prior art for this approach. `mailto:` and `tel:` are common examples from web standards. Zoom uses a custom`zoommtg:` protocol to launch their desktop app, and Apple uses `itms:` to launch iTunes.
+Similar proposals such as [Fedilinks][FedilinksRef] and [Mastodon Issue 19679][Mastodon19679] have been made, and were even [briefly implemented in Mastodon][MastodonRemove]. There seems to be some concensus that custom protocol handlers have the technical capability to solve the problem of difficult interactions with cross-instance objects. There is also ample prior art for this approach. `mailto:` and `tel:` are common examples from web standards. Zoom uses a custom`zoommtg:` protocol to launch their desktop app, and Apple uses `itms:` to launch iTunes.
 
 It seems the main impediment to early attempts was a perception of poor UX and limited adoption. This seems to be mostly a chicken-and-egg problem. That will always be a problem, until it's not. In this case, it seems it would be helpful to let standards drive implementation, as the opposite hasn't ocurred. This proposal also recommends behavior that is compatible with gradual adoption.
 
@@ -56,7 +56,7 @@ Origin server means the server that has authority for the ActivityPub object. Th
 
 Handler is any software that handles the `web+activitypub:` scheme and protocol. Typically either an ActivityPub server where the person has an account, or a client application they have installed on their device.
 
-ActivityPub object means the JSON-LD document representing an ActivityPub Object, as described in the [ActivityPub] and [ActivityStreams] specifications.
+ActivityPub object means the JSON-LD document representing an ActivityPub Object, as described in the [ActivityPub][ActivityPubRef] and [ActivityStreams][ActivityStreamsRef] specifications.
 
 HTML representation means an HTML or other document rendered to display the ActivityPub object for human use.
 
@@ -66,7 +66,9 @@ A client is any software that provides a human-friendly presentation of Activity
 
 When creating hyperlinks to ActivityPub resources, individuals and applications SHOULD include a link using the custom `web+activitypub:` scheme. This scheme can be handled by web-based or native handlers registered with browsers by end-users. Because there's no guarantee that a given browser will have any registered handler for this scheme, these links SHOULD NOT be used in place of a link that refers to the resource by ID or an alternative HTML representation of it. Links using the `web+activitypub:` scheme SHOULD be used as an addition to those more canonical links.
 
-The address provided using the `web+activitypub:` scheme SHOULD be the same as the referenced ActivityPub object's ID. The address MAY instead be for an alternative human-readable address, or for an HTML representation of the object, as normal for the origin server.
+The address provided using the `web+activitypub:` scheme SHOULD be the same as the referenced ActivityPub object's ID. The address MAY instead be for an alternative human-readable address, or for an HTML representation of the object, as normal for the origin server. Applications using or generating these links should be aware that not all clients will be able to dereference those alternative or human readable addresses. The most interoperable choice is to use the object's canonical ActivityPub ID.
+
+The linked address MUST replace the scheme used with `web+activitypub:`. That means the link MUST NOT simply prepend `web+activitypub:` onto a preexisting `https:` or other scheme, as this would violate the generic URI syntax specified by [RFC-3986][RFC-3986]
 
 #### 2.1 Intents
 
@@ -104,7 +106,7 @@ Below are some examples of `web+activitypub:` hyperlinks that reflect some expec
 
 **One-click check in**
 
-A link to enable one-click check in to pick up a shopping order. This example does not include a scheme for the specified URI, so the handler should assume it is HTTPS.
+A link to enable one-click check in to pick up a shopping order.
 
 `<a hfref="web+activitypub:shopping.example/pickup/12345?intent=arrive">Check in to pick up your order</a>`
 
@@ -112,13 +114,13 @@ A link to enable one-click check in to pick up a shopping order. This example do
 
 A link to enable one-click following from another website. The handler must not perform the follow activity unless the user confirms it.
 
-`<a href="web+activitypub:https://uss-enterprise.example/user/picard?intent=follow>Follow me on the fediverse</a>`
+`<a href="web+activitypub:uss-enterprise.example/user/picard?intent=follow>Follow me on the fediverse</a>`
 
 **Link with no intent**
 
 A link to view a blog post published as an ActivityPub Article
 
-`<a href="web+activitypub:https://my-blog.example/article/write-your-first-fep>Read the article on your home instance</a>`
+`<a href="web+activitypub:my-blog.example/article/write-your-first-fep>Read the article on your home instance</a>`
 
 ### 3. Protocol Handlers
 
@@ -128,9 +130,11 @@ ActivityPub applications that can retrieve remote objects and generate an HTML d
 
 When resolving the given URI, the handler MUST ignore any provided username or password component, and it MUST exclude those components from the requests it makes to retrieve the object. If the given URI includes a query string with an intent parameter, the handler MUST exclude the intent parameter from the requests made to retrieve the object.
 
-The handler SHOULD NOT attempt to retrieve objects from a relative URI. There's likely no good reason for a `web+activitypub:` link to target a relative URI, and there is some risk it could be used to facilitate scams or phishing attempts by making it appear some third party has access to data they shouldn't.
+The handler MUST NOT attempt to retrieve objects from a relative URI. There's likely no good reason for a `web+activitypub:` link to target a relative URI, and there is some risk it could be used to facilitate scams or phishing attempts by making it appear some third party has access to data they shouldn't.
 
-If the provided `web+activitypub:` URI was given without a scheme, the handler SHOULD assume the HTTPS scheme.
+The handler MUST perform the same sanitization or other safe handling of untrusted URIs as it normally would. For example, there's likely no good reason for a production system to try to load resources from localhost, or using an ip address, rather than a hostname. Doing so could also facilitate phishing or scams.
+
+When retreiving resources identified by a `web+activitypub:` scheme, the handler SHOULD assume the origin uses HTTPS. The handler MAY attempt to use other schemes, such as `did:`. The handler MAY make this determination using any heuristic or algorithm the developers choose.
 
 Other than the above considerations, the handler MUST attempt to resolve the URI exactly as given.
 
@@ -154,7 +158,7 @@ The handler MUST NOT perform any of these activities in response to an ecapsulat
 * leave
 * move
 * offer
-* remove 
+* remove
 
 #### 3.3 Servers
 
@@ -173,10 +177,10 @@ Because there is no way to know or control which application will ultimately han
 
 ## References
 
-- \[ActivityPub\] Christine Lemmer Webber, Jessica Tallon, [ActivityPub], 2018
-- \[Web-based Protocol Handlers\] Mozilla Developer Network, [Web-based Protocol Handlers]
-- \[HTML Living Standard\] WHATWG, [HTML], 2023
-- \[Fedilinks\] Fedilinks Authors, [Fedilinks]
+- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPubRef], 2018
+- [Web-based Protocol Handlers] Mozilla Developer Network, [Web-based Protocol Handlers][HandlersRef]
+- [HTML Living Standard] WHATWG, [HTML], 2023
+- [Fedilinks] Fedilinks Authors, [Fedilinks][FedilinksRef]
 
 ## Copyright
 
@@ -186,8 +190,8 @@ To the extent possible under law, the authors of this Fediverse Enhancement Prop
 
 
 [RFC-2119]: https://www.rfc-editor.org/rfc/rfc2119
-[ActivityPub]: https://www.w3.org/TR/activitypub/
-[Web-based Protocol Handlers]: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/registerProtocolHandler/Web-based_protocol_handlers
+[ActivityPubRef]: https://www.w3.org/TR/activitypub/
+[HandlersRef]: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/registerProtocolHandler/Web-based_protocol_handlers
 [HTML]: https://html.spec.whatwg.org/multipage/system-state.html#custom-handlers
 [ActivityStreams]: https://www.w3.org/TR/activitystreams-core/
 [ActivityVocabulary]: https://www.w3.org/TR/activitystreams-vocabulary
@@ -195,4 +199,5 @@ To the extent possible under law, the authors of this Fediverse Enhancement Prop
 [Mastodon14187]: https://github.com/mastodon/mastodon/issues/14187
 [Mastodon19679]: https://github.com/mastodon/mastodon/issues/19679
 [Issue1]: https://codeberg.org/fediverse/fediverse-ideas/issues/1
-[Fedilinks]: https://fedilinks.org/spec/en/6-The-web-ap-URI
+[FedilinksRef]: https://fedilinks.org/spec/en/6-The-web-ap-URI
+[RFC-3986]: https://www.rfc-editor.org/rfc/rfc3986
