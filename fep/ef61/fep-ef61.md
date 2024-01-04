@@ -21,6 +21,7 @@ The proposed solution should satisfy the following constraints:
 - Users should have a choice between full control over their identity and data, and delegation of control to a trusted party.
 - Implementing the solution in existing software should be as simple as possible. Changes to ActivityPub data model should be kept to a minimum.
 - The solution should be compatible with existing and emerging decentralized identity and storage systems.
+- The solution should be transport-agnostic.
 
 ## Requirements
 
@@ -36,23 +37,29 @@ ActivityPub objects can be made portable by using [DID URLs](https://www.w3.org/
 
 ### Dereferencing DID URLs
 
-To dereference `did:apkey` URL, implementations MUST use `/.well-known/apkey` endpoint.
+To dereference `did:apkey` URL, the client MUST make HTTP GET request to a resolver endpoint located at `/.well-known/apkey` path. The client MUST specify an `Accept` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` media type.
 
-Example of a request to `apkey` endpoint:
+Example of a request to a resolver:
 
 ```
-GET https://social.example/.well-known/apkey?id=did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object
+GET https://social.example/.well-known/apkey/did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object
 ```
 
 ActivityPub objects identified by `did:apkey` URLs can be stored on multiple servers simultaneously.
 
 If object identified by `did:apkey` URL is stored on a server, it MUST return a response with status `200 OK` containing the requested object. The response MUST have a `Link` header with `rel` parameter set to `canonical` and containing an HTTP(S) URL corresponding to a requested DID URL.
 
+Example:
+
+```
+Link: <https://social.example/objects/did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object>; rel="canonical"
+```
+
 If object identified by `did:apkey` URL is not stored on a server, it MUST return `404 Not Found`.
 
 ## Portable actors
 
-An actor object identified by `did:apkey` URL MUST contain the `hosts` property containing an up-to-date list of servers where actor object can be retrieved and it MUST contain [FEP-8b32](https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md) integrity proof.
+An actor object identified by `did:apkey` URL MUST contain the `aliases` property containing an up-to-date list of HTTP(S) URLs where actor object can be retrieved and it MUST contain [FEP-8b32](https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md) integrity proof.
 
 Example:
 
@@ -63,9 +70,9 @@ Example:
   "id": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor",
   "inbox": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox",
   "outbox": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/outbox",
-  "hosts": [
-    "server1.example",
-    "server2.example"
+  "aliases": [
+    "https://server1.example/actor",
+    "https://server2.example/actor"
   ],
   "proof": {
     "type": "DataIntegrityProof",
@@ -80,19 +87,26 @@ Example:
 
 ### Actor IDs
 
-When constructing ActivityPub objects, implementations SHOULD provide a list of hosts where actor ID can be dereferenced using the `/.well-known/apkey` endpoint.
+When constructing ActivityPub objects, implementations SHOULD provide a list of HTTP(S) URLs where actor object can be retrieved.
 
-The list of hosts MUST be specified using the `hosts` query parameter:
+The list of URLs MUST be specified using the `aliases` query parameter, URL-endcoded and separated by commas.
+
+Example:
 
 ```
-did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?hosts=server1.example,server2.example
+did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?aliases=https%3A%2F%2Fserver1.example%2Factor,https%3A%2F%2Fserver2.example%2Factor
 ```
 
-Implementations MUST discard query parameters when comparing `did:apkey` identifiers and treat identifiers with different `hosts` parameter values as equal.
+This DID URL has two aliases:
+
+- `https://server1.example/actor`
+- `https://server2.example/actor`
+
+Implementations MUST discard query parameters when comparing `did:apkey` identifiers and treat identifiers with different query parameter values as equal.
 
 ### Inboxes and outboxes
 
-Implementations obtain local address of inbox and outbox from a `Link` HTTP header.
+Implementations obtain local address of inbox and outbox from a `Link` HTTP header after dereferencing corresponding DID URLs.
 
 ActivityPub clients MUST follow [FEP-ae97](https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md) to publish activities. A client MAY deliver signed activities to multiple outboxes, located on different servers. A server SHOULD forward signed activities to outboxes located on other servers where actor's data is stored.
 
@@ -109,7 +123,7 @@ Example:
   "@context": "https://www.w3.org/ns/activitystreams",
   "type": "Note",
   "id": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/objects/dc505858-08ec-4a80-81dd-e6670fd8c55f",
-  "attributedTo": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?hosts=server1.example,server2.example",
+  "attributedTo": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?aliases=https%3A%2F%2Fserver1.example%2Factor,https%3A%2F%2Fserver2.example%2Factor",
   "inReplyTo": "did:apkey:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/objects/f66a006b-fe66-4ca6-9a4c-b292e33712ec",
   "content": "Hello world!",
   "to": [
