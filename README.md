@@ -57,6 +57,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-03c1: Actors without acct-URI](./fep/03c1/fep-03c1.md) | `DRAFT` | [#205](https://codeberg.org/fediverse/fep/issues/205) | 2023-11-10 | - |
 | [FEP-ef61: Portable Objects](./fep/ef61/fep-ef61.md) | `DRAFT` | [#209](https://codeberg.org/fediverse/fep/issues/209) | 2023-12-06 | - |
 | [FEP-7502: Limiting visibility to authenticated actors](./fep/7502/fep-7502.md) | `DRAFT` | [#218](https://codeberg.org/fediverse/fep/issues/218) | 2023-12-24 | - |
+| [FEP-2c59: Discovery of a Webfinger address from an ActivityPub actor](./fep/2c59/fep-2c59.md) | `DRAFT` | [#226](https://codeberg.org/fediverse/fep/issues/226) | 2024-01-04 | - |
 
 ## Submitting a FEP
 
