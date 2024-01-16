@@ -64,11 +64,15 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [WordPress](https://github.com/Automattic/wordpress-activitypub/blob/master/FEDERATION.md)
 - [Postmarks](https://github.com/ckolderup/postmarks/blob/main/FEDERATION.md)
 - [Bovine](https://bovine-herd.readthedocs.io/en/latest/FEDERATION/) in [repo](https://codeberg.org/bovine/bovine/src/branch/main/bovine_herd/docs/docs/FEDERATION.md) and the [symlink](https://codeberg.org/bovine/bovine/src/branch/main/FEDERATION.md)
+- [BookWyrm](https://github.com/bookwyrm-social/bookwyrm/blob/main/FEDERATION.md)
 
 ## References
 
-- [Documenting federation behavior in a semi-standard way?], Darius Kazemi, [Documenting federation behavior in a semi-standard way?](https://socialhub.activitypub.rocks/t/documenting-federation-behavior-in-a-semi-standard-way/453), 2020
-- [RFC-2119] S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels](https://tools.ietf.org/html/rfc2119.html), 1997
+- Darius Kazemi, [Documenting federation behavior in a semi-standard way?][Documenting federation behavior in a semi-standard way?], 2020
+- S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
+
+[Documenting federation behavior in a semi-standard way?]: https://socialhub.activitypub.rocks/t/documenting-federation-behavior-in-a-semi-standard-way/453
+[RFC-2119]: https://tools.ietf.org/html/rfc2119.html
 
 ## Copyright
 
