@@ -10,7 +10,7 @@ discussionsTo: https://codeberg.org/fediverse/fep/issues/29
 
 ## Summary
 
-This proposal describes how [ActivityPub](https://www.w3.org/TR/activitypub/) servers and clients could create self-authenticating activities and objects.
+This proposal describes how [ActivityPub][ActivityPub] servers and clients could create self-authenticating activities and objects.
 
 HTTP signatures are often used for authentication during server-to-server interactions. However, this ties authentication to activity delivery, and limits the flexibility of the protocol.
 
@@ -22,15 +22,15 @@ Mastodon supports Linked Data signatures [since 2017](https://github.com/mastodo
 
 ## Requirements
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119](https://tools.ietf.org/html/rfc2119.html).
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119][RFC-2119].
 
 ## Integrity proofs
 
-The proposed authentication mechanism is based on [Data Integrity](https://w3c.github.io/vc-data-integrity/) specification.
+The proposed authentication mechanism is based on [Data Integrity][Data Integrity] specification.
 
 ### Proof generation
 
-The proof MUST be created according to the *Data Integrity* specification, section [4.1 Add Proof](https://w3c.github.io/vc-data-integrity/#add-proof).
+The proof MUST be created according to the *Data Integrity* specification, section [4.3 Add Proof](https://w3c.github.io/vc-data-integrity/#add-proof).
 
 The process of proof generation consists of the following steps:
 
@@ -82,11 +82,11 @@ Example of activity with integrity proof:
 }
 ```
 
-The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [2.1 Proofs](https://w3c.github.io/vc-data-integrity/#proofs). The proof type SHOULD be `DataIntegrityProof`, as specified in section [1.3.1 DataIntegrityProof](https://w3c.github.io/vc-data-integrity/#dataintegrityproof). The value of `verificationMethod` attribute SHOULD be an URL of actor's public key or a [DID](https://www.w3.org/TR/did-core/) associated with an actor. The value of `proofPurpose` attribute MUST be `assertionMethod`.
+The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [2.1 Proofs](https://w3c.github.io/vc-data-integrity/#proofs). The proof type SHOULD be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof](https://w3c.github.io/vc-data-integrity/#dataintegrityproof). The value of `verificationMethod` attribute SHOULD be an URL of actor's public key or a [DID][DIDs] associated with an actor. The value of `proofPurpose` attribute MUST be `assertionMethod`.
 
 ### Proof verification
 
-The recipient of activity SHOULD perform proof verification if it contains integrity proofs. Verification process MUST follow the *Data Integrity* specification, section [4.3 Verify Proof](https://w3c.github.io/vc-data-integrity/#verify-proof). It starts with the removal of a `proof` value from the JSON object. Then the object is canonicalized, hashed and signature verification is performed according to the parameters specified in the proof.
+The recipient of activity SHOULD perform proof verification if it contains integrity proofs. Verification process MUST follow the *Data Integrity* specification, section [4.5 Verify Proof](https://w3c.github.io/vc-data-integrity/#verify-proof). It starts with the removal of a `proof` value from the JSON object. Then the object is canonicalized, hashed and signature verification is performed according to the parameters specified in the proof.
 
 If both HTTP signature and integrity proof are used, the integrity proof MUST be given precedence over HTTP signature. The HTTP signature MAY be dismissed.
 
@@ -94,17 +94,23 @@ If both HTTP signature and integrity proof are used, the integrity proof MUST be
 
 Implementers SHOULD pursue broad interoperability when choosing algorithms for integrity proofs.
 
-[eddsa-jcs-2022](https://w3c.github.io/vc-di-eddsa/#eddsa-jcs-2022) cryptosuite is RECOMMENDED:
+[eddsa-jcs-2022][eddsa-jcs-2022] cryptosuite is RECOMMENDED:
 
-- Canonicalization: [JCS](https://www.rfc-editor.org/rfc/rfc8785)
+- Canonicalization: [JCS][JCS]
 - Hashing: SHA-256
 - Signatures: EdDSA
+
+**WARNING: eddsa-jcs-2022 cryptosuite specification is not stable and may change before it becomes a W3C Recommendation. In particular, the processing of nested objects is not [well defined](https://github.com/w3c/vc-data-integrity/issues/231).**
 
 Support for **RSASSA-PKCS1-v1_5** signature algorithm is OPTIONAL but could be desirable for interoperability with legacy systems.
 
 ### Backwards compatibility
 
-Integrity proofs and Linked Data signatures can be used together, as they rely on different properties (`proof` and `signature`, respectively).
+Integrity proofs and linked data signatures can be used together, as they rely on different properties (`proof` and `signature`, respectively).
+
+If compatiblity with legacy systems is desired, the integrity proof MUST be created and inserted before the generation of the linked data signature.
+
+If both `proof` and `signature` are present in a received object, the linked data signature MUST be removed before the verification of the integrity proof.
 
 ## Test vectors
 
@@ -119,12 +125,19 @@ See [fep-8b32.feature](./fep-8b32.feature)
 
 ## References
 
-- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
-- [RFC-2119] S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels](https://tools.ietf.org/html/rfc2119.html), 1997
-- [Data Integrity] Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0](https://w3c.github.io/vc-data-integrity/), 2023
-- [DID] Manu Sporny, Dave Longley, Markus Sabadell, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0](https://www.w3.org/TR/did-core/), 2022
-- [eddsa-jcs-2022] Dave Longley, Manu Sporny, [EdDSA Cryptosuite v2022](https://w3c.github.io/vc-di-eddsa/), 2023
-- [JCS] A. Rundgren, B. Jordan, S. Erdtman, [JSON Canonicalization Scheme (JCS)](https://www.rfc-editor.org/rfc/rfc8785), 2020
+- Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
+- S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
+- Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][Data Integrity], 2023
+- Manu Sporny, Dave Longley, Markus Sabadell, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DIDs], 2022
+- Dave Longley, Manu Sporny, [Data Integrity EdDSA Cryptosuites v1.0][eddsa-jcs-2022], 2023
+- A. Rundgren, B. Jordan, S. Erdtman, [JSON Canonicalization Scheme (JCS)][JCS], 2020
+
+[ActivityPub]: https://www.w3.org/TR/activitypub/
+[RFC-2119]: https://tools.ietf.org/html/rfc2119.html
+[Data Integrity]: https://w3c.github.io/vc-data-integrity/
+[DIDs]: https://www.w3.org/TR/did-core/
+[eddsa-jcs-2022]: https://w3c.github.io/vc-di-eddsa/#eddsa-jcs-2022
+[JCS]: https://www.rfc-editor.org/rfc/rfc8785
 
 ## Copyright
 
