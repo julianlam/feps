@@ -39,7 +39,7 @@ Authors should use inclusive language and examples and refrain from using oppres
 
 ### Proposal Title and Identifier
 
-Every Fediverse Enhancement Proposals must have a descriptive title.
+Every Fediverse Enhancement Proposal must have a descriptive title.
 
 An identifier is computed from the proposal title as the first 4 digits of the sha256 hash (in hex). The identifier can be computed from the title with standard Unix tools:
 
