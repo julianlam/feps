@@ -225,7 +225,7 @@ An example of a definition list can be found below:
 - [CM-ATTRS] mb21, [Consistent attribute syntax](https://talk.commonmark.org/t/consistent-attribute-syntax/272/), 2014
 - [LD-TERM-DFN] Gregg Kellogg, Pierre-Antoine Champin, Dave Longley, [JSON-LD 1.1 - Section 9.15.1 "Expanded term definition"](https://www.w3.org/TR/json-ld/#expanded-term-definition), 2020
 - [RFC-2119] S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels](https://tools.ietf.org/html/rfc2119.html)
-- [1] helge, [FEP-1570: The FEP Ontology Process](https://socialhub.activitypub.rocks/t/fep-1570-the-fep-ontology-process/2972), 2023
+- [1] helge, [FEP-2e40: The FEP Vocabulary Extension Process](https://socialhub.activitypub.rocks/t/fep-2e40-the-fep-vocabulary-extension-process/2972), 2023
 
 ## Copyright
 
