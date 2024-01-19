@@ -10,7 +10,7 @@ discussionsTo: https://codeberg.org/fediverse/fep/issues/34
 
 ## Summary
 
-This proposal describes a mechanism of creating verifiable links between [Decentralized Identifiers](https://www.w3.org/TR/did-core/) and [ActivityPub](https://www.w3.org/TR/activitypub/) actor profiles.
+This proposal describes a mechanism of creating verifiable links between [Decentralized Identifiers][DIDs] and [ActivityPub][ActivityPub] actor profiles.
 
 Potential applications include: identity verification, end-to-end encryption and account migrations.
 
@@ -21,14 +21,14 @@ Potential applications include: identity verification, end-to-end encryption and
 
 ## Identity proofs
 
-Identity proof is a JSON document that represents a verifiable bi-directional link between a [Decentralized Identifier](https://www.w3.org/TR/did-core/) and an ActivityPub actor.
+Identity proof is a JSON document that represents a verifiable bi-directional link between a [Decentralized Identifier][DIDs] and an ActivityPub actor.
 
 It MUST contain the following properties:
 
 - `type` (REQUIRED): the `type` property MUST contain the string `VerifiableIdentityStatement`.
 - `subject` (REQUIRED): the decentralized identifier (DID) that represents a cryptographic key belonging to an actor.
 - `alsoKnownAs` (REQUIRED): the value of this property MUST match the actor ID.
-- `proof` (REQUIRED): the data integrity proof, as defined by [Data Integrity](https://w3c.github.io/vc-data-integrity/) specification.
+- `proof` (REQUIRED): the data integrity proof, as defined by [Data Integrity][DataIntegrity] specification.
 
 The document MAY contain additional properties.
 
@@ -36,11 +36,11 @@ Identity proofs SHOULD be attached to an actor object, under the `attachment` pr
 
 ### Proof generation
 
-The identity proof document MUST contain a data integrity proof, which includes a cryptographic proof and parameters required to verify it. It MUST be created according to the *Data Integrity* specification, section [4.1 Add Proof](https://w3c.github.io/vc-data-integrity/#add-proof). The value of `verificationMethod` property of the data integrity proof MUST match the value of `subject` property of the identity proof document.
+The identity proof document MUST contain a data integrity proof, which includes a cryptographic proof and parameters required to verify it. It MUST be created according to the *Data Integrity* specification, section [4.3 Add Proof](https://w3c.github.io/vc-data-integrity/#add-proof). The value of `verificationMethod` property of the data integrity proof MUST match the value of `subject` property of the identity proof document.
 
 The resulting data integrity proof MUST be added to identity proof document under the `proof` key.
 
-Example of an actor object linked to `did:key` identifier:
+Example of an actor object linked to a `did:key` identifier:
 
 ```json
 {
@@ -48,11 +48,7 @@ Example of an actor object linked to `did:key` identifier:
         "https://www.w3.org/ns/activitystreams",
         "https://www.w3.org/ns/did/v1",
         "https://w3id.org/security/data-integrity/v1",
-        {
-            "fep": "https://w3id.org/fep#",
-            "VerifiableIdentityStatement": "fep:VerifiableIdentityStatement",
-            "subject": "fep:subject"
-        }
+        "https://w3id.org/fep/c390"
     ],
     "type": "Person",
     "id": "https://server.example/users/alice",
@@ -69,18 +65,20 @@ Example of an actor object linked to `did:key` identifier:
                 "created": "2023-02-24T23:36:38Z",
                 "verificationMethod": "did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
                 "proofPurpose": "assertionMethod",
-                "proofValue": "z26W7TfJYD9DrGqnem245zNbeCbTwjb8avpduzi1JPhFrwML99CpP6gGXSKSXAcQdpGFBXF4kx7VwtXKhu7VDZJ54"
+                "proofValue": "..."
             }
         }
     ]
 }
 ```
 
+**WARNING: The example above uses eddsa-jcs-2022 cryptosuite, which doesn't have stable specification.**
+
 ### Proof verification
 
 The consuming implementations MUST check the authenticity of identity proof document by verifying its data integrity proof. If the proof can not be verified, or if the value of `verificationMethod` property of the data integrity proof doesn't match the value of `subject` property of the identity proof, or if the value of `alsoKnownAs` property of the identity proof doesn't match the actor ID, the identity proof MUST be discarded.
 
-Verification process MUST follow the *Data Integrity* specification, section [4.3 Verify Proof](https://w3c.github.io/vc-data-integrity/#verify-proof).
+Verification process MUST follow the *Data Integrity* specification, section [4.5 Verify Proof](https://w3c.github.io/vc-data-integrity/#verify-proof).
 
 ### Linking identities
 
@@ -94,17 +92,21 @@ Servers MUST present identity proofs to clients in their original form. Clients 
 
 ## Test vectors
 
-See [fep-c390.feature](./fep-c390.feature)
+TBD
 
 ## Implementations
 
-- [Mitra](https://codeberg.org/silverpill/mitra/src/commit/71db89f0ac323c76b7e08efffacf5d2454ec9afc/FEDERATION.md#identity-proofs)
+- [Mitra](https://codeberg.org/silverpill/mitra/src/commit/351de5f2dd9f42995dca3ba20f1c0b017f463d07/FEDERATION.md#identity-proofs)
 
 ## References
 
-- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
-- [Decentralized Identifiers] Manu Sporny, Dave Longley, Markus Sabadell, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0](https://www.w3.org/TR/did-core/), 2022
-- [Data Integrity] Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0](https://w3c.github.io/vc-data-integrity/), 2022
+- Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
+- Manu Sporny, Dave Longley, Markus Sabadell, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DIDs], 2022
+- Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][DataIntegrity], 2022
+
+[ActivityPub]: https://www.w3.org/TR/activitypub/
+[DIDs]: https://www.w3.org/TR/did-core/
+[DataIntegrity]: https://w3c.github.io/vc-data-integrity/
 
 ## Copyright
 

@@ -1,0 +1,3 @@
+VerifiableIdentityStatement <https://w3id.org/fep/c390/VerifiableIdentityStatement>
+
+Represents a verifiable link between two identifiers referring to the same subject (person, group, organization, etc).

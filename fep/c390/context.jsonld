@@ -1,14 +1,5 @@
 {
   "@context": {
-    "fep": "https://w3id.org/fep#",
-    "VerifiableIdentityStatement": {
-      "@id": "fep:VerifiableIdentityStatement",
-      "@context": {
-        "subject": {
-          "@id": "fep:subject",
-          "@type": "xsd:anyURI"
-        }
-      }
-    }
+    "VerifiableIdentityStatement": "https://w3id.org/fep/c390/VerifiableIdentityStatement"
   }
 }
