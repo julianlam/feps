@@ -44,7 +44,7 @@ class Readme:
         result = []
 
         for fep in fep_files:
-            link = f"[FEP-{fep.fep}: {fep.title}](./src/branch/main/{fep.filename})"
+            link = f"[FEP-{fep.fep}: {fep.title}](./{fep.filename})"
             parsed = fep.parsed_frontmatter
 
             if "discussionsTo" in parsed:
