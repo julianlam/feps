@@ -20,7 +20,7 @@ a pair given by an URI and a domain. This is done through the following steps:
 
 1. Fetch `GET https://domain/.well-known/webfinger?resource={URI}`.
 2. Determine the link property with `"type":"application/activity+json"`.
-3. Derefence this object.
+3. Dereference this object.
 
 We will denote this object by `ActivityStreams(URI, domain)`. There are now two cases to resolve an URI:
 
