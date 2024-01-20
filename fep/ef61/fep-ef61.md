@@ -9,7 +9,7 @@ discussionsTo: https://codeberg.org/fediverse/fep/issues/209
 
 ## Summary
 
-Portable [ActivityPub](https://www.w3.org/TR/activitypub/) objects with server-independent IDs.
+Portable [ActivityPub][ActivityPub] objects with server-independent IDs.
 
 ## Motivation
 
@@ -25,51 +25,66 @@ The proposed solution should satisfy the following constraints:
 
 ## Requirements
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119](https://tools.ietf.org/html/rfc2119.html).
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119][RFC-2119].
 
 ## DID URLs
 
-ActivityPub objects can be made portable by using [DID URLs](https://www.w3.org/TR/did-core/#did-url-syntax) for IDs instead of HTTP(S) URLs.
+ActivityPub objects can be made portable by using [DID URLs][DID URLs] for IDs instead of HTTP(S) URLs.
 
-## did:apkey
+## did:ap
 
-`did:apkey` method works in the same way as [did:key](https://w3c-ccg.github.io/did-method-key/) method, but supports [DID URL syntax](https://www.w3.org/TR/did-core/#did-url-syntax).
+`did:ap` is a [DID][DID] method that can be used to add DID URL functionality to other types of DIDs.
+
+### did:ap:key
+
+`did:ap:key` method works in the same way as [did:key][did:key] method, but supports [DID URL syntax][DID URLs].
 
 ### Dereferencing DID URLs
 
-To dereference `did:apkey` URL, the client MUST make HTTP GET request to a resolver endpoint located at `/.well-known/apkey` path. The client MUST specify an `Accept` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` media type.
+To dereference `did:ap:key` URL, the client MUST make HTTP GET request to a resolver endpoint located at `/.well-known/apresolver` path. The client MUST specify an `Accept` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` media type.
 
 Example of a request to a resolver:
 
 ```
-GET https://social.example/.well-known/apkey/did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object
+GET https://social.example/.well-known/apresolver/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object
 ```
 
-ActivityPub objects identified by `did:apkey` URLs can be stored on multiple servers simultaneously.
+ActivityPub objects identified by `did:ap:key` URLs can be stored on multiple servers simultaneously.
 
-If object identified by `did:apkey` URL is stored on a server, it MUST return a response with status `200 OK` containing the requested object. The response MUST have a `Link` header with `rel` parameter set to `canonical` and containing an HTTP(S) URL corresponding to a requested DID URL.
+If object identified by `did:ap:key` URL is stored on the server, it MUST return a response with status `200 OK` containing the requested object. The response MUST have a `Link` header with `rel` parameter set to `canonical` and containing an HTTP(S) URL corresponding to a requested DID URL.
 
 Example:
 
 ```
-Link: <https://social.example/objects/did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object>; rel="canonical"
+Link: <https://social.example/objects/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object>; rel="canonical"
 ```
 
-If object identified by `did:apkey` URL is not stored on a server, it MUST return `404 Not Found`.
+If object identified by `did:ap:key` URL is not stored on a server, it MUST return `404 Not Found`.
+
+If object is not public, `/.well-known/apresolver` MUST return `404 Not Found` unless the request has a HTTP signature and the signer is allowed to view the object.
+
+After retrieving an object, the client MUST verify its [FEP-8b32][FEP-8b32] integrity proof.
 
 ## Portable actors
 
-An actor object identified by `did:apkey` URL MUST contain the `aliases` property containing an up-to-date list of HTTP(S) URLs where actor object can be retrieved and it MUST contain [FEP-8b32](https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md) integrity proof.
+An actor object identified by `did:ap:key` URL MUST contain the `aliases` property containing an up-to-date list of HTTP(S) URLs where actor object can be retrieved and it MUST contain [FEP-8b32][FEP-8b32] integrity proof.
 
 Example:
 
 ```json
 {
-  "@context": "https://www.w3.org/ns/activitystreams",
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/security/data-integrity/v1",
+    {
+      "fep": "https://w3id.org/fep/c390#",
+      "aliases": "fep:aliases"
+    }
+  ],
   "type": "Person",
-  "id": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor",
-  "inbox": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox",
-  "outbox": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/outbox",
+  "id": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor",
+  "inbox": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox",
+  "outbox": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/outbox",
   "aliases": [
     "https://server1.example/actor",
     "https://server2.example/actor"
@@ -78,7 +93,7 @@ Example:
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
     "created": "2023-02-24T23:36:38Z",
-    "verificationMethod": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    "verificationMethod": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     "proofPurpose": "assertionMethod",
     "proofValue": "..."
   }
@@ -94,7 +109,7 @@ The list of URLs MUST be specified using the `aliases` query parameter, URL-endc
 Example:
 
 ```
-did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?aliases=https%3A%2F%2Fserver1.example%2Factor,https%3A%2F%2Fserver2.example%2Factor
+did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?aliases=https%3A%2F%2Fserver1.example%2Factor,https%3A%2F%2Fserver2.example%2Factor
 ```
 
 This DID URL has two aliases:
@@ -102,55 +117,71 @@ This DID URL has two aliases:
 - `https://server1.example/actor`
 - `https://server2.example/actor`
 
-Implementations MUST discard query parameters when comparing `did:apkey` identifiers and treat identifiers with different query parameter values as equal.
+Implementations MUST discard query parameters when comparing `did:ap:key` identifiers and treat identifiers with different query parameter values as equal.
 
 ### Inboxes and outboxes
 
-Implementations obtain local address of inbox and outbox from a `Link` HTTP header after dereferencing corresponding DID URLs.
+Implementations obtain local addresses of inbox and outbox from a `Link` HTTP header after dereferencing corresponding DID URLs.
 
-ActivityPub clients MUST follow [FEP-ae97](https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md) to publish activities. A client MAY deliver signed activities to multiple outboxes, located on different servers. A server SHOULD forward signed activities to outboxes located on other servers where actor's data is stored.
+ActivityPub clients MUST follow [FEP-ae97][FEP-ae97] to publish activities. A client MAY deliver signed activities to multiple outboxes, located on different servers. A server SHOULD forward signed activities to outboxes located on other servers where actor's data is stored.
 
 Upon receiving an activity in actor's inbox, server SHOULD forward it to inboxes located on other servers where actor's data is stored.
 
 ## Portable objects
 
-Objects identified by `did:apkey` URLs MUST contain [FEP-8b32](https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md) integrity proof.
+Objects identified by `did:ap:key` URLs MUST contain [FEP-8b32][FEP-8b32] integrity proof.
 
 Example:
 
 ```json
 {
-  "@context": "https://www.w3.org/ns/activitystreams",
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://www.w3.org/ns/credentials/v2"
+  ],
   "type": "Note",
-  "id": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/objects/dc505858-08ec-4a80-81dd-e6670fd8c55f",
-  "attributedTo": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?aliases=https%3A%2F%2Fserver1.example%2Factor,https%3A%2F%2Fserver2.example%2Factor",
-  "inReplyTo": "did:apkey:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/objects/f66a006b-fe66-4ca6-9a4c-b292e33712ec",
-  "content": "Hello world!",
+  "id": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/objects/dc505858-08ec-4a80-81dd-e6670fd8c55f",
+  "attributedTo": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?aliases=https%3A%2F%2Fserver1.example%2Factor,https%3A%2F%2Fserver2.example%2Factor",
+  "inReplyTo": "did:ap:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/objects/f66a006b-fe66-4ca6-9a4c-b292e33712ec",
+  "content": "Hello!",
+  "attachment": [
+    {
+      "type": "Image",
+      "href": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/media/image123.png",
+      "mediaType": "image/png",
+      "digestMultibase": "zQmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n"
+    }
+  ],
   "to": [
-    "did:apkey:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/actor"
+    "did:ap:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/actor"
   ],
   "proof": {
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
     "created": "2023-02-24T23:36:38Z",
-    "verificationMethod": "did:apkey:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    "verificationMethod": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     "proofPurpose": "assertionMethod",
     "proofValue": "..."
   }
 }
 ```
 
-### Access control
-
-If object is not public, `/.well-known/apkey` MUST return `404 Not Found` unless the request has a HTTP signature and the signer is allowed to view the object.
-
 ## References
 
-- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
-- [did:key] Dave Longley, Dmitri Zagidulin, Manu Sporny, [The did:key Method v0.7](https://w3c-ccg.github.io/did-method-key/), 2022
-- [DID URLs] Manu Sporny, Dave Longley, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0](https://www.w3.org/TR/did-core/), 2022
-- [FEP-8b32] silverpill, [FEP-8b32: Object Integrity Proofs](https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md), 2022
-- [FEP-ae97] silverpill, [FEP-ae97: Client-side activity signing](https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md), 2023
+- Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
+- S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
+- Dave Longley, Dmitri Zagidulin, Manu Sporny, [The did:key Method v0.7][did:key], 2022
+- Manu Sporny, Dave Longley, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DID], 2022
+- silverpill, [FEP-8b32: Object Integrity Proofs][FEP-8b32], 2022
+- silverpill, [FEP-ae97: Client-side activity signing][FEP-ae97], 2023
+
+[ActivityPub]: https://www.w3.org/TR/activitypub/
+[RFC-2119]: https://tools.ietf.org/html/rfc2119.html
+[did:key]: https://w3c-ccg.github.io/did-method-key/
+[DID]: https://www.w3.org/TR/did-core/
+[DID URLs]: https://www.w3.org/TR/did-core/#did-url-syntax
+[FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
+[FEP-ae97]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md
 
 ## Copyright
 
