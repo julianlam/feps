@@ -3,6 +3,7 @@ slug: "ceee"
 authors: Steve Bate <svc-fep@stevebate.net>
 status: DRAFT
 dateReceived: 2024-01-20
+discussionsTo: https://codeberg.org/fediverse/fep/issues/243
 ---
 # FEP-ceee: Instance-Level Actor Discovery using WebFinger
 
