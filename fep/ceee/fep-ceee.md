@@ -192,9 +192,8 @@ The `subject` is the Mastodon-specific account URI for the instance-level actor 
 * [WebFinger] has been standardized by the Internet Engineering Task Force (IETC). [NodeInfo] is defined informally.
 * [WebFinger] is already used to resolve identifiers. [NodeInfo] is primarily used for gathering and aggregating server metadata.
 * [FEP-2677] adds a new non-standard `rel` relation to the [NodeInfo] index document. This may have surprising effects on some consuming implementations. This proposal is using [WebFinger] in standard ways.
-* `Service` ([Primer][ActivityPubService]) is the type suggested by the W3C ActivityStreams Primers for this kind of resource rather than `Application` ([Primer][ActivityPubApp]).
+* Given an [ActivityVocabulary] actor type is being used for the WebFinger `rel` value, a `Service` ([Primer][ActivityPubService]) is the type suggested by the W3C ActivityStreams Primers for this kind of resource rather than `Application` ([Primer][ActivityPubApp]). (Note this is distinct from the type specified in the instance-level actor resource that's linked from WebFinger.)
 * [FEP-2677] only defines a singleton instance-level actor. This proposal allows that use case but has more flexibility for advanced implementations.
-
 [FEP-2c59] discusses how to discover [WebFinger] resource URIs from an [ActivityPub] actor resource. This is not related to instance-level actor discovery.
 
 [FEP-4adb] discusses dereferencing identifiers with WebFinger. It's similar to this proposal but not specifically related to discovering instance-level actors.
@@ -202,6 +201,7 @@ The `subject` is the Mastodon-specific account URI for the instance-level actor 
 ## References
 
 - Christine Lemmer Webber, Jessica Tallon, [ActivityPub], 2018
+- James M Snell, Evan Prodromou, [ActivityStreams Vocabulary][ActivityVocabulary], 2017
 - W3C ActivityStreams Primer - [Application type][ActivityPubApp]
 - W3C ActivityStreams Primer - [Service type][ActivityPubService]
 - Eugen Rochko, [Mastodon], 2016
@@ -217,6 +217,7 @@ CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
 To the extent possible under law, the authors of this Fediverse Enhancement Proposal have waived all copyright and related or neighboring rights to this work.
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/ "The ActivityPub protocol is a decentralized social networking protocol based upon the ActivityStreams 2.0 data format. It provides a client to server API for creating, updating and deleting content, as well as a federated server to server API for delivering notifications and content."
+[ActivityVocabulary]: https://www.w3.org/TR/activitystreams-vocabulary "This specification describes the Activity vocabulary. It is intended to be used in the context of the ActivityStreams 2.0 format and provides a foundational vocabulary for activity structures, and specific activity types."
 [ActivityPubApp]: https://www.w3.org/wiki/Activity_Streams/Primer/Application_type "W3c AS2 Primer for the Application type"
 [ActivityPubService]: https://www.w3.org/wiki/Activity_Streams/Primer/Service_type "W3c AS2 Primer for the Service type"
 [Mastodon]: https://joinmastodon.org/ "Self-hosted, globally interconnected microblogging software"
