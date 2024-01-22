@@ -9,7 +9,7 @@ discussionsTo: https://codeberg.org/fediverse/fep/issues/100
 
 ## Summary
 
-In this FEP, we will formalize the process of derefencing an URI using webfinger in order for usage in ActivityPub. The main goal is to enable the usage of URIs of the form `acct:user@domain` or `did:example:12345` as ids for objects used in ActivityPub. While this FEP only discusses this in the context of actors, it should be applicable for general objects. In order for a smooth introduction, it is recommended to start deployment with actor objects.
+In this FEP, we will formalize the process of dereferencing an URI using webfinger in order for usage in ActivityPub. The main goal is to enable the usage of URIs of the form `acct:user@domain` or `did:example:12345` as ids for objects used in ActivityPub. While this FEP only discusses this in the context of actors, it should be applicable for general objects. In order for a smooth introduction, it is recommended to start deployment with actor objects.
 
 This FEP first presents the algorithm and examples, then discusses the usage in the context of the Fediverse. This means the first two sections are for people wanting to implement this FEP, the following sections are for people wanting to decide if this FEP is a good idea.
 
@@ -27,7 +27,7 @@ We will denote this object by `ActivityStreams(URI, domain)`. There are now two 
 1. The URI determines the domain denoted by `domain(URI)`
 2. The URI doesn't determine the domain
 
-In case 1, it is clear that we associate `ActivityStreams(URI, domain(URI))` to the URI. In case 2, we will use the domain associated with the `@id` of the document the document the URI appeared in. If the document was received through a POST request and doesn't contain an `id`, or the `id` is an URI, the domain the POST request originated from should be used. In this case a verification that the URI can be associated with the object MUST be performed. This can for example be achieved throuh [FEP-c390](https://codeberg.org/fediverse/fep/src/branch/main/feps/fep-c390.md).
+In case 1, it is clear that we associate `ActivityStreams(URI, domain(URI))` to the URI. In case 2, we will use the domain associated with the `@id` of the document the document the URI appeared in. If the document was received through a POST request and doesn't contain an `id`, or the `id` is an URI, the domain the POST request originated from should be used. In this case a verification that the URI can be associated with the object MUST be performed. This can for example be achieved through [FEP-c390](https://codeberg.org/fediverse/fep/src/branch/main/feps/fep-c390.md).
 
 ## Examples
 
@@ -104,7 +104,7 @@ Next comes the following line in [ActivityPub]
 
 > Publicly dereferencable URIs, such as HTTPS URIs, with their authority belonging to that of their originating server. (Publicly facing content SHOULD use HTTPS URIs).
 
-The essential point of this FEP is to extend the range of _publicly deferencable URIs_ to contain basically any URI by using [Webfinger].
+The essential point of this FEP is to extend the range of _publicly dereferencable URIs_ to contain basically any URI by using [Webfinger].
 
 The current usage of Webfinger in the Fediverse is asymmetric. As discussed in [MastoGuide](https://guide.toot.as/guide/use-your-own-domain/), one can associate many URIs of the form `acct:user@domain.tld` with the same Actor, by just making webfinger return an appropriate response. However, only one acct-URI can be associated with an Actor. This is done by:
 
@@ -131,7 +131,7 @@ We will follow [this suggestion](https://socialhub.activitypub.rocks/t/alsoknown
 }
 ```
 
-By the algorithm discussed in background, we can associate the URI `acct:alyssa@social.example` with this. Suppose now that Alyssa owns the domain `alyssa.cool`, and set up Webfigner to answer to
+By the algorithm discussed in background, we can associate the URI `acct:alyssa@social.example` with this. Suppose now that Alyssa owns the domain `alyssa.cool`, and set up WebFinger to answer to
 
 ```http
 GET https://alyssa.cool/.well-known/webfinger?resource=me@alyssa.cool
