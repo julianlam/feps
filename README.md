@@ -30,7 +30,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-c118: Content licensing support](./fep/c118/fep-c118.md) | `DRAFT` | [#57](https://codeberg.org/fediverse/fep/issues/57) | 2023-01-16 | - |
 | [FEP-2e40: The FEP Vocabulary Extension Process](./fep/2e40/fep-2e40.md) | `WITHDRAWN` | [#62](https://codeberg.org/fediverse/fep/issues/62) | 2023-02-13 | 2023-09-04 |
 | [FEP-7888: Demystifying the context property](./fep/7888/fep-7888.md) | `DRAFT` | [#68](https://codeberg.org/fediverse/fep/issues/68) | 2023-03-14 | - |
-| [FEP-d767: Extend ActivityPub with Valueflows](./fep/d767/fep-d767.md) | `DRAFT` | [#76](https://codeberg.org/fediverse/fep/issues/76) | 2023-04-02 | - |
+| [FEP-d767: Extend ActivityPub with Valueflows](./fep/d767/fep-d767.md) | `WITHDRAWN` | [#76](https://codeberg.org/fediverse/fep/issues/76) | 2023-04-02 | 2024-02-03 |
 | [FEP-5bf0: Collection sorting and filtering](./fep/5bf0/fep-5bf0.md) | `DRAFT` | [#80](https://codeberg.org/fediverse/fep/issues/80) | 2023-04-10 | - |
 | [FEP-888d: Using https://w3id.org/fep as a base for FEP-specific namespaces](./fep/888d/fep-888d.md) | `DRAFT` | [#83](https://codeberg.org/fediverse/fep/issues/83) | 2023-04-10 | - |
 | [FEP-612d: Identifying ActivityPub Objects through DNS](./fep/612d/fep-612d.md) | `DRAFT` | [#89](https://codeberg.org/fediverse/fep/issues/89) | 2023-04-18 | - |
