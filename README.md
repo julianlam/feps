@@ -61,6 +61,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-d556: Server-Level Actor Discovery Using WebFinger](./fep/d556/fep-d556.md) | `DRAFT` | [#243](https://codeberg.org/fediverse/fep/issues/243) | 2024-01-20 | - |
 | [FEP-3264: Federated Work Coordination](./fep/3264/fep-3264.md) | `DRAFT` | [#255](https://codeberg.org/fediverse/fep/issues/255) | 2024-01-31 | - |
 | [FEP-c5a1: To-do's](./fep/c5a1/fep-c5a1.md) | `DRAFT` | [#256](https://codeberg.org/fediverse/fep/issues/256) | 2024-01-31 | - |
+| [FEP-61cf: The OpenWebAuth Protocol](./fep/61cf/fep-61cf.md) | `DRAFT` | [#263](https://codeberg.org/fediverse/fep/issues/263) | 2024-02-06 | - |
 
 ## Submitting a FEP
 

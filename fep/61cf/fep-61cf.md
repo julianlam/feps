@@ -2,7 +2,8 @@
 slug: "61cf"
 authors: FenTiger <@FenTiger@zotum.net>
 status: DRAFT
-dateReceived: 1970-01-01
+dateReceived: 2024-02-06
+discussionsTo: https://codeberg.org/fediverse/fep/issues/263
 ---
 # FEP-61cf: The OpenWebAuth Protocol
 
