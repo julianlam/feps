@@ -48,12 +48,12 @@ Feel free to PR in links to blog posts or other tutorials that explain a given i
 |Use cases:|1A|1B|1C|1D|2|3|4|5|6|7A|7B|
 |---|---|---|---|---|---|---|---|---|---|---|---|
 |[FEP-8b32 "Object Integrity Proofs"](https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md)|||||||R|||||
-|[FEP-7628 "Move Actor"](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md) (push mode)|R1|||||||||||
-|[FEP-7628 "Move Actor"](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md) (pull mode)|R2||||||R|||||
-|[FEP-c390 "Identity Proofs"](https://codeberg.org/fediverse/fep/src/branch/main/fep/c390/fep-c390.md)|||||R||R|||||
-|[FEP-ae97 "Client-Side Activity Signing"](https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md)|||||H?R?||R|||||
-|[FEP-ef61 "Portable Objects"](https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md)|||||||R|||||
-|[FEP-521a "Actor's Public KeyS"](https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md)|||||||H?|H?|H?|||
+|[FEP-7628 "Move Actor"](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md) (push mode)|R1|||R1|R|||||||
+|[FEP-7628 "Move Actor"](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md) (pull mode)|R2|||||R||||||
+|[FEP-c390 "Identity Proofs"](https://codeberg.org/fediverse/fep/src/branch/main/fep/c390/fep-c390.md)|||||H|H|R|||||
+|[FEP-ae97 "Client-Side Activity Signing"](https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md)|||||||R|||||
+|[FEP-ef61 "Portable Objects"](https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md)||||R2|||R|H|H|||
+|[FEP-521a "Actor's Public Keys"](https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md)|||||||H?|||||
 |FEP-TBD [Per-user? Per-server? both?] "Moderation Records"||||||||R|H|||
 |FEP-TBD "Forwarding and Redirecting Migrated Actors"||H|R|R?|H|H|R|||||
 |FEP-TBD "Activity Archives/Export Format"||||||||||R|R|
