@@ -63,6 +63,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-c5a1: To-do's](./fep/c5a1/fep-c5a1.md) | `DRAFT` | [#256](https://codeberg.org/fediverse/fep/issues/256) | 2024-01-31 | - |
 | [FEP-61cf: The OpenWebAuth Protocol](./fep/61cf/fep-61cf.md) | `DRAFT` | [#263](https://codeberg.org/fediverse/fep/issues/263) | 2024-02-06 | - |
 | [FEP-73cd: Migration User Stories](./fep/73cd/fep-73cd.md) | `DRAFT` | [#265](https://codeberg.org/fediverse/fep/issues/265) | 2024-02-07 | - |
+| [FEP-96ff: Explicit signalling of ActivityPub Semantics](./fep/96ff/fep-96ff.md) | `DRAFT` | [#272](https://codeberg.org/fediverse/fep/issues/272) | 2024-02-17 | - |
 
 ## Submitting a FEP
 
