@@ -14,9 +14,11 @@ dateReceived: 1970-01-01
 
 ## References
 
-- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
-- [ABC] Alyssa P. Hacker, [An example proposal](http://abc.example/abc.html), 2020
+- Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
+- Alyssa P. Hacker, [An example proposal][ABC], 2020
 
+[ActivityPub]: https://www.w3.org/TR/activitypub/
+[ABC]: http://abc.example/abc.html
 
 ## Copyright
 
