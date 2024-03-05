@@ -10,17 +10,17 @@ discussionsTo: https://codeberg.org/fediverse/fep/issues/14
 
 ## Summary
 
-This document proposes a way to represent text-based links to [ActivityPub] objects which are similar to mentions. One example of such link is inline quote within the value of the `content` property, but this proposal is not limited to any particular use case.
+This document proposes a way to represent text-based links to [ActivityPub][ActivityPub] objects which are similar to mentions. One example of such link is inline quote within the value of the `content` property, but this proposal is not limited to any particular use case.
 
 ## Requirements
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119].
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119][RFC-2119].
 
 ## Object links
 
 It is expected that software will allow users to define object links using some kind of microsyntax, similar to `@mention` and `#hashtag` microsyntaxes. The exact way of defining object links may vary depending on the use case and is out of scope of this document.
 
-If an object's `name`, `summary`, or `content` has qualified links to other objects, that object SHOULD have the `tag` property, where each object link is represented as a `Link` object, as suggested by [Activity Vocabulary]. The properties of this `Link` object are:
+If an object's `name`, `summary`, or `content` has qualified links to other objects, that object SHOULD have the `tag` property, where each object link is represented as a `Link` object, as suggested by [Activity Vocabulary][ActivityVocabulary]. The properties of this `Link` object are:
 
 - `type` (REQUIRED): the type MUST be `Link` or a subtype.
 - `mediaType` (REQUIRED): the media type MUST be `application/ld+json; profile="https://www.w3.org/ns/activitystreams"`. This specification only deals with ActivityPub objects but in practice the media type can be different and servers MAY accept object links which do not comply with the requirement. For example, a media type of `application/activity+json` SHOULD be treated as equivalent.
@@ -79,12 +79,16 @@ Note that the `content` includes the `RE: <url>` microsyntax but consuming imple
 
 ## References
 
-- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
-- [RFC-2119] S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels](https://tools.ietf.org/html/rfc2119.html), 1997
-- [Activity Vocabulary], James M Snell, Evan Prodromou, [Activity Vocabulary](https://www.w3.org/TR/activitystreams-vocabulary/), 2017
+- Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
+- S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
+- James M Snell, Evan Prodromou, [Activity Vocabulary][ActivityVocabulary], 2017
+
+[ActivityPub]: https://www.w3.org/TR/activitypub/
+[RFC-2119]: https://tools.ietf.org/html/rfc2119.html
+[ActivityVocabulary]: https://www.w3.org/TR/activitystreams-vocabulary/
 
 ## Copyright
 
-CC0 1.0 Universal (CC0 1.0) Public Domain Dedication 
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
 
 To the extent possible under law, the authors of this Fediverse Enhancement Proposal have waived all copyright and related or neighboring rights to this work.
