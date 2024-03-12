@@ -105,7 +105,7 @@ Fediverse Enhancement Proposals must be placed in the public domain by the autho
 3. If a FEP editor approves a submission it receives the status `DRAFT` and is added to the repository. Editor also creates a tracking issue for the proposal.
 4. While a proposal has the status `DRAFT`:
    - Authors are responsible for initiating community discussion and collecting feedback.
-   - Authors may submit updates to the proposal which will be checked in to the repository by an editor.
+   - Authors may submit updates to the proposal which will be checked in to the repository by an editor. Others may also submit updates, but in this case a change must be approved by at least one author.
    - Authors may withdraw the submission upon which an editor will set the status of the submission to `WITHDRAWN`.
 5. After at least 60 days the authors may request the proposal to be finalized. This is done by requesting final comments on the proposal.
    - If there are no community objections within 14 days and the authors can show that they have initiated sufficient awareness and discussion of the proposal, an editor will set the status of the submission to `FINAL`.
