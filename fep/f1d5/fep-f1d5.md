@@ -1,6 +1,6 @@
 ---
 slug: "f1d5"
-authors: CJ <cjslep@gmail.com>, silverpill <silverpill@firemail.cc>
+authors: CJ <cjslep@gmail.com>, silverpill <@silverpill@mitra.social>
 status: FINAL
 dateReceived: 2020-12-13
 dateFinalized: 2023-06-02
@@ -17,19 +17,19 @@ servers and software to use on the Fediverse.
 
 ## History
 
-NodeInfo was developed prior to the ActivityPub protocol targeted for use by
-diaspora, friendica, and redmatrix software [ActivityPub]. Some of the original
+NodeInfo was developed prior to the [ActivityPub] protocol targeted for use by
+diaspora, friendica, and redmatrix software. Some of the original
 protocols it encapsulated include diaspora, pumpio, and gnusocial.
 
 The NodeInfo specification is incredibly strict in its schema, often requiring
 regex-validation and a closed set of enumerated possible values. As an objection
 to this, the NodeInfo2 fork was created as a form of criticism by removing some
 validation of fields and with some logical restructuring of the metadata.
-Building off of NodeInfo and NodeInfo2, ServiceInfo was briefly
-explored [ServiceInfo].
+Building off of NodeInfo and NodeInfo2, [ServiceInfo][ServiceInfo] was briefly
+explored.
 
 This FEP does **not** attempt to document the specific protocol details. For
-that, see the [NodeInfoRepository] and [NodeInfo2Repository]. It attempts to
+that, see the [NodeInfo][NodeInfoRepository] and [NodeInfo2][NodeInfo2Repository]. It attempts to
 clarify the history and identify shortcomings with the current approaches, to
 bring context to developers of Fediverse Software.
 
@@ -39,7 +39,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this specification are to
 be interpreted as described in [RFC-2119].
 
-Fediverse software SHOULD implement NodeInfo [NodeInfoRepository].
+Fediverse software SHOULD implement [NodeInfo][NodeInfoRepository].
 
 ## Caveats
 
@@ -118,11 +118,17 @@ This list is not comprehensive:
 
 ## References
 
-- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
-- [NodeInfoRepository] Jonne Haß, [jhass/nodeinfo](https://github.com/jhass/nodeinfo), 2014
-- [NodeInfo2Repository] Jason Robinson, [jaywink/nodeinfo2](https://github.com/jaywink/nodeinfo2), 2016
-- [ServiceInfo] Jason Robinson, [ServiceInfo - specification for service metadata](https://web.archive.org/web/20220201002230/https://talk.feneas.org/t/serviceinfo-specification-for-service-metadata/99), 2019
-- [RFC-2119] S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels](https://tools.ietf.org/html/rfc2119.html), 1997
+- Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
+- Jonne Haß, [jhass/nodeinfo][NodeInfoRepository], 2014
+- Jason Robinson, [jaywink/nodeinfo2][NodeInfo2Repository], 2016
+- Jason Robinson, [ServiceInfo - specification for service metadata][ServiceInfo], 2019
+- S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
+
+[ActivityPub]: https://www.w3.org/TR/activitypub/
+[NodeInfoRepository]: https://github.com/jhass/nodeinfo
+[NodeInfo2Repository]: https://github.com/jaywink/nodeinfo2
+[ServiceInfo]: https://web.archive.org/web/20220201002230/https://talk.feneas.org/t/serviceinfo-specification-for-service-metadata/99
+[RFC-2119]: https://tools.ietf.org/html/rfc2119.html
 
 ## Copyright
 
