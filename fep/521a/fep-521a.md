@@ -1,6 +1,6 @@
 ---
 slug: "521a"
-authors: silverpill <silverpill@firemail.cc>
+authors: silverpill <@silverpill@mitra.social>
 status: DRAFT
 dateReceived: 2023-07-08
 discussionsTo: https://codeberg.org/fediverse/fep/issues/130
@@ -9,26 +9,26 @@ discussionsTo: https://codeberg.org/fediverse/fep/issues/130
 
 ## Summary
 
-This proposal describes how to represent public keys associated with [ActivityPub](https://www.w3.org/TR/activitypub/) actors.
+This proposal describes how to represent public keys associated with [ActivityPub] actors.
 
 ## Rationale
 
 Historically, Fediverse services used [publicKey](https://w3c-ccg.github.io/security-vocab/#publicKey) property to represent actor's public key. Implementations usually allow only one key per actor, therefore a new approach is needed to support use cases where additional keys are required.
 
-Furthermore, `publicKey` property was removed from the latest version of [Security Vocabulary](https://w3c.github.io/vc-data-integrity/vocab/security/vocabulary.html).
+Furthermore, `publicKey` property was removed from the latest version of [Security Vocabulary][SecurityVocabulary].
 
 ## Requirements
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119](https://tools.ietf.org/html/rfc2119.html).
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119].
 
 ## Multikey
 
-Actor's public key MUST be represented as an object with `Multikey` type, as defined in section **2.3.1.2 Multikey** of [Data Integrity](https://www.w3.org/TR/vc-data-integrity/#multikey) specification. This object MUST have the following properties:
+Actor's public key MUST be represented as an object with `Multikey` type, as defined in section *2.3.1.2 Multikey* of [Data Integrity](https://www.w3.org/TR/vc-data-integrity/#multikey) specification. This object MUST have the following properties:
 
 - `id`: the unique global identifier of the public key.
 - `type`: the value of this property MUST contain the string `Multikey`.
 - `controller`: the value of this property MUST match actor ID.
-- `publicKeyMultibase`: a [Multibase](https://www.w3.org/TR/vc-data-integrity/#multibase-0) encoded value of a [Multicodec](https://github.com/multiformats/multicodec/) prefix and the key. Implementations MUST use the `base-58-btc` alphabet.
+- `publicKeyMultibase`: a [Multibase](https://www.w3.org/TR/vc-data-integrity/#multibase-0) encoded value of a [Multicodec] prefix and the key. Implementations MUST use the `base-58-btc` alphabet.
 
 The `Multikey` object MAY contain the `expires` property indicating the expiration date of the key. Implementations MUST NOT not accept a signature created with a key that has been expired.
 
@@ -43,13 +43,15 @@ Resolution of a URI containing a fragment identifier is performed in two steps:
 
 ### Key types
 
-Implementers can use cryptographic keys of any type for which [Multicodec](https://github.com/multiformats/multicodec/) prefix is registered.
+Implementers can use cryptographic keys of any type for which [Multicodec] prefix is registered.
+
+## Controller document
+
+Actor object MUST be used as a controller document, as described in section *2.3 Controller Documents* of [Data Integrity](https://w3c.github.io/vc-data-integrity/#controller-documents) specification.
 
 ### Key purposes
 
 If the key is intended to be used for signing ActivityPub objects, it MUST be added to the [`assertionMethod`](https://www.w3.org/TR/vc-data-integrity/#assertion) array of the actor object.
-
-If the key is intended to be used for authentication, it MUST be added to the [`authentication`](https://www.w3.org/TR/vc-data-integrity/#authentication) array of the actor object.
 
 Other use cases are currently out of scope of this proposal.
 
@@ -91,14 +93,21 @@ See [fep-521a.feature](./fep-521a.feature)
 
 - Mitra
 - streams
+- Hubzilla
 
 ## References
 
-- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
-- [Security Vocabulary] Ivan Herman, Manu Sporny, Dave Longley [Security Vocabulary](https://w3c.github.io/vc-data-integrity/vocab/security/vocabulary.html), 2023
-- [RFC-2119] S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels](https://tools.ietf.org/html/rfc2119.html), 1997
-- [Data Integrity] Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0](https://www.w3.org/TR/vc-data-integrity/), 2023
-- [Multicodec] Protocol Labs, [Multicodec](https://github.com/multiformats/multicodec/)
+- Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
+- Ivan Herman, Manu Sporny, Dave Longley, [Security Vocabulary][SecurityVocabulary], 2023
+- S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
+- Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][DataIntegrity], 2023
+- Protocol Labs, [Multicodec][Multicodec]
+
+[ActivityPub]: https://www.w3.org/TR/activitypub/
+[SecurityVocabulary]: https://w3c.github.io/vc-data-integrity/vocab/security/vocabulary.html
+[RFC-2119]: https://tools.ietf.org/html/rfc2119.html
+[DataIntegrity]: https://www.w3.org/TR/vc-data-integrity/
+[Multicodec]: https://github.com/multiformats/multicodec/
 
 ## Copyright
 
