@@ -1,6 +1,6 @@
 ---
 slug: "e232"
-authors: silverpill <silverpill@firemail.cc>
+authors: silverpill <@silverpill@mitra.social>
 status: FINAL
 dateReceived: 2022-08-01
 dateFinalized: 2023-12-03
@@ -76,6 +76,7 @@ Note that the `content` includes the `RE: <url>` microsyntax but consuming imple
 - FoundKey
 - Mitra
 - Pleroma ([via MRF](https://git.pleroma.social/pleroma/pleroma/-/blob/v2.6.0/lib/pleroma/web/activity_pub/mrf/quote_to_link_tag_policy.ex))
+- Threads ([announcement](https://engineering.fb.com/2024/03/21/networking-traffic/threads-has-entered-the-fediverse/))
 
 ## References
 
