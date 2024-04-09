@@ -76,6 +76,12 @@ If both `proof` and `signature` are present in a received object, the linked dat
 
 The controller of the verification method MUST match the actor of activity, or be associated with that actor.
 
+#### Nested objects
+
+Nested objects containing integrity proofs that use [JCS] canonicalization algorithm might not be compatible with JSON-LD processors. To avoid verification errors, implementers MAY re-define properties such as `object` as having `@json` type when signing objects containing other signed objects.
+
+**WARNING: eddsa-jcs-2022 cryptosuite specification is not stable and recommendations for nested objects may change before it becomes a W3C Recommendation.**
+
 ## Examples
 
 ### Signed object
@@ -114,6 +120,52 @@ The controller of the verification method MUST match the actor of activity, or b
     "type": "Note",
     "attributedTo": "https://server.example/users/alice",
     "content": "Hello world"
+  },
+  "proof": {
+    "type": "DataIntegrityProof",
+    "cryptosuite": "eddsa-jcs-2022",
+    "verificationMethod": "https://server.example/users/alice#ed25519-key",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "...",
+    "created": "2023-02-24T23:36:38Z"
+  }
+}
+```
+
+### Signed activity with embedded signed object
+
+**WARNING: recommendations for nested objects may change in the future, see [Nested objects](#nested-objects) section.**
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/security/data-integrity/v1",
+    {
+      "object": {
+        "@id": "as:object",
+        "@type": "@json"
+      }
+    }
+  ],
+  "type": "Create",
+  "actor": "https://server.example/users/alice",
+  "object": {
+    "@context": [
+      "https://www.w3.org/ns/activitystreams",
+      "https://w3id.org/security/data-integrity/v1"
+    ],
+    "type": "Note",
+    "attributedTo": "https://server.example/users/alice",
+    "content": "Hello world",
+    "proof": {
+      "type": "DataIntegrityProof",
+      "cryptosuite": "eddsa-jcs-2022",
+      "verificationMethod": "https://server.example/users/alice#ed25519-key",
+      "proofPurpose": "assertionMethod",
+      "proofValue": "...",
+      "created": "2023-02-24T23:36:38Z"
+    }
   },
   "proof": {
     "type": "DataIntegrityProof",
