@@ -31,9 +31,9 @@ python scripts/new_proposal.py TITLE OF YOUR PROPOSAL
 
 that should create a prefilled template for you.
 
-## Editors
+## Facilitators
 
-The list of FEP's is facilitated by Editors who are listed in the [EDITORS.md](EDITORS.md) file. Editors are neutral custodians of the FEP process, who merge PR's, create tracking issues, and start discussion threads for each FEP in the [SocialHub](https://socialhub.activitypub.rocks) developer community forum.
+The list of FEP's is maintained by the facilitators who are listed in the [FACILITATORS.md](FACILITATORS.md) file. Facilitators are neutral custodians of the FEP process, who merge PR's, create tracking issues, and start discussion threads for each FEP in the [SocialHub](https://socialhub.activitypub.rocks) developer community forum.
 
 ## Contributing
 

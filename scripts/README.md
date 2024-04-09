@@ -1,4 +1,4 @@
-# tools for fep editors
+# tools for fep facilitators
 
 Please follow the steps in configuration before following "Merge a FEP".
 

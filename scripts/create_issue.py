@@ -33,7 +33,7 @@ Please post links to relevant discussions as comment to this issue.
 
 `dateReceived`: {date1}
 
-If no further actions are taken, the proposal may be set by editors to `WITHDRAWN` on {date2} (in 1 year).
+If no further actions are taken, the proposal may be set by the facilitators to `WITHDRAWN` on {date2} (in 1 year).
 """
 
 with open("scripts/config.json") as f:
