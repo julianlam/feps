@@ -129,7 +129,7 @@ The [onepage.pub] server implements the `blocked` collection.
 ## References
 
 - [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
-- [onepage.pub] Evan Prodromou, [onepage.pub](https:/github.com/evanp/onepage.pub/), 2023
+- [onepage.pub] Evan Prodromou, [onepage.pub](https://github.com/evanp/onepage.pub/), 2023
 - [activitypub-express](https://github.com/immers-space/activitypub-express)
 
 ## Copyright
