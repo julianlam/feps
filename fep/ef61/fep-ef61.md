@@ -17,7 +17,7 @@ Usage of HTTP(S) URLs as identifiers has a major drawback: when the server disap
 
 The proposed solution should satisfy the following constraints:
 
-- User's identity and data should not be tied to a particular server.
+- User's identity and data should not be tied to a single server.
 - Users should have a choice between full control over their identity and data, and delegation of control to a trusted party.
 - Implementing the solution in existing software should be as simple as possible. Changes to ActivityPub data model should be kept to a minimum.
 - The solution should be compatible with existing and emerging decentralized identity and storage systems.
@@ -57,23 +57,17 @@ DIDs starting with `did:ap:key` work in the same way as [did:key][did:key] ident
 
 ### Dereferencing DID URLs
 
-To dereference `did:ap:key` URL, the client MUST make HTTP GET request to a resolver endpoint located at `/.well-known/apresolver` path. The client MUST specify an `Accept` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` media type.
+To dereference `did:ap:key` URL, the client MUST make HTTP GET request to a gateway endpoint located at `/.well-known/apgateway` path. The client MUST specify an `Accept` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` media type.
 
-Example of a request to a resolver:
+Example of a request to a gateway:
 
 ```
-GET https://social.example/.well-known/apresolver/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object
+GET https://social.example/.well-known/apgateway/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object
 ```
 
 ActivityPub objects identified by `did:ap:key` URLs can be stored on multiple servers simultaneously.
 
-If object identified by `did:ap:key` URL is stored on the server, it MUST return a response with status `200 OK` containing the requested object. The response MUST have a `Link` header with `rel` parameter set to `alternate` and containing an HTTP(S) URL corresponding to a requested DID URL.
-
-Example:
-
-```
-Link: <https://social.example/objects/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object>; rel="alternate"
-```
+If object identified by `did:ap:key` URL is stored on the server, it MUST return a response with status `200 OK` containing the requested object.
 
 If object identified by `did:ap:key` URL is not stored on the server, it MUST return `404 Not Found`.
 
@@ -84,6 +78,8 @@ After retrieving an object, the client MUST verify its [FEP-8b32][FEP-8b32] inte
 ## Portable actors
 
 An actor object identified by `did:ap:key` URL MUST contain the `aliases` property containing an up-to-date list of HTTP(S) URLs where actor object can be retrieved and it MUST contain [FEP-8b32][FEP-8b32] integrity proof.
+
+One identity (represented by [DID]) can control multiple actors (which are differentiated by DID path).
 
 Example:
 
@@ -106,8 +102,8 @@ Example:
   "inbox": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox",
   "outbox": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/outbox",
   "aliases": [
-    "https://server1.example/actor",
-    "https://server2.example/actor"
+    "https://server1.example/.well-known/apgateway/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor",
+    "https://server2.example/.well-known/apgateway/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor"
   ],
   "proof": {
     "type": "DataIntegrityProof",
@@ -120,11 +116,11 @@ Example:
 }
 ```
 
-### Actor IDs
+### Location hints
 
 When ActivityPub objects that contain references to actors are being constructed, implementations SHOULD provide a list of HTTP(S) URLs where actor objects can be retrieved.
 
-The list of URLs MUST be specified using the `aliases` query parameter, URL-endcoded and separated by commas.
+The list of URLs MAY be specified using the `aliases` query parameter, URL-endcoded and separated by commas.
 
 Example:
 
@@ -141,7 +137,15 @@ Implementations MUST discard query parameters when comparing `did:ap:key` identi
 
 ### Inboxes and outboxes
 
-Implementations obtain local addresses of inbox and outbox from a `Link` HTTP header after dereferencing corresponding DID URLs.
+Servers and clients MUST use gateways to deliver activities to inboxes or outboxes. Servers specified in the `aliases` property of an actor object MUST accept POST requests to respective gateway URLs.
+
+Example:
+
+```
+POST https://social.example/.well-known/apgateway/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox
+```
+
+If a server does not accept deliveries on behalf of an actor, it MUST return `405 Method Not Allowed`.
 
 ActivityPub clients MAY follow [FEP-ae97][FEP-ae97] to publish activities. In this case, the client MAY deliver signed activity to multiple outboxes, located on different servers.
 
@@ -196,9 +200,11 @@ Example:
 
 ## Compatibility
 
-DID URLs are not compatible with existing [ActivityPub][ActivityPub] implementations.
+DID URLs might not be compatible with existing [ActivityPub][ActivityPub] implementations.
 
-Publishers MAY use HTTP(S) URL of a resolver query instead of an actual DID URL. Implementations that support DID URLs MUST remove the part of the URL preceding `did:ap` and resolve the remaining DID.
+Publishers MAY use HTTP(S) URL of a gateway with appended DID URL instead of an actual DID URL. Implementations that support DID URLs MUST remove the part of the URL preceding `did:ap` and use the remaining DID URL.
+
+Publishers MUST NOT add `aliases` query parameter to object IDs if gateway URLs are used.
 
 ## Discussion
 
@@ -216,7 +222,7 @@ This proposal makes use of the `aliases` property, but the following alternative
 
 ### Compatibility
 
-The following alternatives to resolver URLs are being considered:
+The following alternatives to gateway URLs are being considered:
 
 1. Use regular HTTP URLs but include a link to a DID URL in the `url` (with `canonical` relation type, as proposed in [FEP-fffd][FEP-fffd]). For pointers to other objects such as `inReplyTo` property, an embedded object with `url` property can be used instead of a plain URL.
 2. Alter object ID depending on the capabilities of the peer which can be reported by [NodeInfo][NodeInfo] or some other mechanism.
