@@ -31,18 +31,13 @@ The OpenWebAuth login flow can begin in one of two ways:
 
 Either way, the protocol begins with the user's browser making a request to the target instance.
 
-1. The target instance constructs a URL of the form
+1. The target instance identifies the home instance's "redirection endpoint".
 
-   `https://home-instance.example/magic?owa=1&bdest=<destination URL>`
+Some existing implementations hard-code this to `/magic`. New implementations should perform a webfinger lookup on the provided user ID looking for a link with `rel` set to `http://purl.org/openwebauth/v1#redirect`. If found, this link's `href` should be used as the redirection endpoint.
 
-The parts of this URL are:
-
-  - Scheme: Must be HTTPS
-  - Hostname: The same as the hostname portion of the user's ID
-  - Path: Must be `/magic`
-  - Query parameters:
-      - `owa`: must be set to 1
-      - `bdest`: The URL that the user is trying to visit. This is encoded as UTF-8 and then converted to a hexadecimal string.
+The target instance constructs a URL from the redirection endpoint with the following query parameters:
+- `owa`: must be set to 1
+- `bdest`: The URL that the user is trying to visit. This is encoded as UTF-8 and then converted to a hexadecimal string.
 
 The user's browser is redirected to this URL.
 
@@ -50,7 +45,7 @@ The user's browser is redirected to this URL.
 
 If so, it decodes the `bdest` destination URL. It performs a webfinger lookup on the root URL of the destination site and looks for a link with `rel` set to `http://purl.org/openwebauth/v1`. This identifies the target instance's "token endpoint".
 
-The home instance constructs and issues a signed HTTPS request to this endpoint. This request must have an `Authorization` header starting with the word `Signature` followed by the encoded HTTP signature. The `keyId` property of the signature points to the public key in the user's ActivityPub actor record. The request also contains an additional signed header, `X-Open-Web-Auth`, containing a random string. Target instances do not use this header; it is provided to add additional entropy to the signature calculation.
+The home instance constructs and issues a signed HTTPS request to this endpoint. The request also contains an additional signed header, `X-Open-Web-Auth`, containing a random string. Target instances do not use this header; it is provided to add additional entropy to the signature calculation.
 
 3. The target instance's token endpoint extracts the `keyId`, fetches the actor record, extracts the public key and verifies the signature.
 
@@ -76,6 +71,10 @@ If successful, it takes the original `bdest` destination URL, adds the query par
 If found, this token identifies the remote user, and the target instance logs them in, overriding any existing login they may have. The token is also deleted from local storage so that it cannot be redeemed more than once.
 
 ## Additional notes
+
+### HTTP Signatures
+
+An OpenWebAuth signed request must have an `Authorization` header starting with the word `Signature` followed by the encoded HTTP signature. See [ActPubSig] for more details on signing Fediverse requests.
 
 ### Target instance's login check
 
@@ -106,6 +105,12 @@ The purpose of OpenWebAuth is to provide a strong guarantee of a user's identity
 This consideration may involve policies such as displaying a consent screen to the user or otherwise allowing them to choose which target instances they are willing to authenticate themselves to. The user's browser is redirected to their home instance at step 2, giving it an opportunity to implement policies such as these.
 
 Unused `owt=` login tokens are deleted after a couple of minutes. This protects against a potential DoS attack which could fill up the target instance's storage with unused tokens.
+
+## References
+
+- Ryan Barrett, nightpool, [ActivityPub and HTTP Signatures][ActPubSig], 2024
+
+[ActPubSig]: https://swicg.github.io/activitypub-http-signature/
 
 ## Copyright
 
