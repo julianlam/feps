@@ -30,9 +30,9 @@ Proposals may be entertaining and humorous (unlike this proposal).
 
 ## Language, Document Structure and Format
 
-All Fediverse Enhancement Proposals must be written in English, be properly formatted as CommonMark [CommonMark] and be reasonably grammatical.
+All Fediverse Enhancement Proposals must be written in English, be properly formatted as [CommonMark][CommonMark] and be reasonably grammatical.
 
-Authors should use inclusive language and examples and refrain from using oppressive terminology [Internet-Draft-terminology].
+Authors should use inclusive language and examples and refrain from using [oppressive terminology][Internet-Draft-terminology].
 
 ### Proposal Title and Identifier
 
@@ -133,15 +133,21 @@ Minor changes (i.e. a correction of a typo or of a broken link) can be accepted 
 
 ## History
 
-The process and format described in this proposal is influenced by other community driven documentation efforts such as the BitTorrent Enhancement Proposal Process [BEP-1], Scheme Request for Implementation [SRFI] and the IETF RFC Series [RFC-8729].
+The process and format described in this proposal is influenced by other community driven documentation efforts such as the [BitTorrent Enhancement Proposal Process][BEP-1], [Scheme Request for Implementation][SRFI] and the [IETF RFC Series][RFC-8729].
 
 ## References
 
-- [SRFI] Dave Mason, [Scheme Request For Implementation - Process](https://srfi.schemers.org/srfi-process.html)
-- [BEP-1] David Harrison, [The BitTorrent Enhancement Proposal Process](http://bittorrent.org/beps/bep_0001.html), 2008
-- [RFC-8729] Housley, R., Ed., and L. Daigle, Ed., [The RFC Series and RFC Editor](https://www.rfc-editor.org/info/rfc8729), 2020
-- [CommonMark] John MacFarlane, [CommonMark Spec](https://spec.commonmark.org/0.29/) Version 0.29, 2019
-- [Internet-Draft-terminology] Mallory Knodel, [Terminology, Power and Oppressive Language](https://tools.ietf.org/html/draft-knodel-terminology)
+- Dave Mason, [Scheme Request For Implementation - Process][SRFI]
+- David Harrison, [The BitTorrent Enhancement Proposal Process][BEP-1], 2008
+- Housley, R., Ed., and L. Daigle, Ed., [The RFC Series and RFC Editor][RFC-8729], 2020
+- John MacFarlane, [CommonMark Spec Version 0.29][CommonMark], 2019
+- Mallory Knodel, [Terminology, Power and Oppressive Language][Internet-Draft-terminology]
+
+[SRFI]: https://srfi.schemers.org/srfi-process.html
+[BEP-1]: http://bittorrent.org/beps/bep_0001.html
+[RFC-8729]: https://www.rfc-editor.org/info/rfc8729
+[CommonMark]: https://spec.commonmark.org/0.29/
+[Internet-Draft-terminology]: https://tools.ietf.org/html/draft-knodel-terminology
 
 ## Copyright
 
