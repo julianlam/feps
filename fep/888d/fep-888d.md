@@ -181,7 +181,7 @@ An example of a definition list can be found below:
 <li>Inherits from: <code>https://www.w3.org/ns/activitystreams#Object</code></li>
 <li>Properties: 
 <a href="#exampleA"><code>exampleA</code></a> | 
-<a href="#exampleB"><code>examplB</code></a> | 
+<a href="#exampleB"><code>exampleB</code></a> | 
 <a href="#exampleC"><code>exampleC</code></a>
 </li>
 </ul>
