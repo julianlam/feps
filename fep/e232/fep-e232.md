@@ -77,6 +77,7 @@ Note that the `content` includes the `RE: <url>` microsyntax but consuming imple
 - Mitra
 - Pleroma ([via MRF](https://git.pleroma.social/pleroma/pleroma/-/blob/v2.6.0/lib/pleroma/web/activity_pub/mrf/quote_to_link_tag_policy.ex))
 - Threads ([announcement](https://engineering.fb.com/2024/03/21/networking-traffic/threads-has-entered-the-fediverse/))
+- [Friendica](https://github.com/friendica/friendica/pull/14032)
 
 ## References
 
