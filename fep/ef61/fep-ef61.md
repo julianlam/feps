@@ -33,53 +33,57 @@ The proposed solution should satisfy the following constraints:
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119][RFC-2119].
 
-## DID URLs
+## Identifiers
 
-[ActivityPub][ActivityPub] objects can be made portable by using [DID URLs][DID URLs] for IDs instead of HTTP(S) URLs.
+An [ActivityPub][ActivityPub] object can be made portable by using an identifier that is not tied to a single server. This proposal describes a new identifier type that has this property and is compatible with the [ActivityPub] specification.
 
-## did:ap
+### ap:// URLs
 
-`did:ap` is a [DID][DID] method that can be used to add DID URL functionality to other types of DIDs.
+`ap://` URL is constructed according to the [URI][RFC-3986] specification, but with a [Decentralized Identifier][DID] in place of the authority:
 
-In such DID, the method name is `ap`, and the method-specific identifier is a DID with some other method.
-
-Example:
-
+```text
+ap://did:example:123456/path/to/object?name=value#key-id
+\_/  \________________/ \____________/ \________/ \____/
+ |           |                |            |        |
+scheme   authority           path        query   fragment
 ```
-did:ap:example:xyz
-```
 
-To resolve a `did:ap` DID, implementations MUST remove the `:ap` segment and resolve the remaining DID. Any DID URL capabilities of a wrapped DID method MUST be ignored by the resolver.
+- The URI scheme MUST be `ap`.
+- The authority component MUST be a valid [DID].
+- The path is REQUIRED.
+- The query and the fragment are OPTIONAL.
 
-### did:ap:key
+### DID methods
 
-DIDs starting with `did:ap:key` work in the same way as [did:key][did:key] identifiers, but support [DID URL syntax][DID URLs].
+Implementers MUST support the [did:key] method and MAY support the [did:web] method.
 
-### Dereferencing DID URLs
+Other DID methods SHOULD NOT be used. Any [DID URL][DID-URL] capabilities of a DID method MUST be ignored when working with `ap://` URLs.
 
-To dereference `did:ap:key` URL, the client MUST make HTTP GET request to a gateway endpoint located at `/.well-known/apgateway` path. The client MUST specify an `Accept` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` media type.
+### Dereferencing ap:// URLs
+
+To dereference an `ap://` URL, the client MUST make HTTP GET request to a gateway endpoint located at [well-known] location `/.well-known/apgateway`. The `ap://` prefix MUST be removed from the URL and the rest of it appened to a gateway URL. The client MUST specify an `Accept` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` media type.
 
 Example of a request to a gateway:
 
 ```
-GET https://social.example/.well-known/apgateway/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object
+GET https://social.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object
 ```
 
-ActivityPub objects identified by `did:ap:key` URLs can be stored on multiple servers simultaneously.
+ActivityPub objects identified by `ap://` URLs can be stored on multiple servers simultaneously.
 
-If object identified by `did:ap:key` URL is stored on the server, it MUST return a response with status `200 OK` containing the requested object.
+If object identified by `ap://` URL is stored on the server, it MUST return a response with status `200 OK` containing the requested object.
 
-If object identified by `did:ap:key` URL is not stored on the server, it MUST return `404 Not Found`.
+If object identified by `ap://` URL is not stored on the server, it MUST return `404 Not Found`.
 
 If object is not public, the server MUST return `404 Not Found` unless the request has a HTTP signature and the signer is allowed to view the object.
 
-After retrieving an object, the client MUST verify its [FEP-8b32][FEP-8b32] integrity proof. The value of `verificationMethod` property of the proof MUST match the DID component of the DID URL.
+After retrieving an object, the client MUST verify its [FEP-8b32][FEP-8b32] integrity proof. The value of `verificationMethod` property of the proof MUST match the authority component of the `ap://` URL.
 
 ## Portable actors
 
-An actor object identified by `did:ap:key` URL MUST contain the `aliases` property containing an up-to-date list of HTTP(S) URLs where actor object can be retrieved and it MUST contain [FEP-8b32][FEP-8b32] integrity proof.
+An actor object identified by `ap://` URL MUST contain the `aliases` property containing an up-to-date list of HTTP(S) URLs where that actor object can be retrieved and it MUST contain a [FEP-8b32][FEP-8b32] integrity proof.
 
-One identity (represented by [DID]) can control multiple actors (which are differentiated by DID path).
+One identity (represented by [DID]) can control multiple actors (which are differentiated by the path component of an `ap://` URL).
 
 Example:
 
@@ -98,18 +102,18 @@ Example:
     }
   ],
   "type": "Person",
-  "id": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor",
-  "inbox": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox",
-  "outbox": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/outbox",
+  "id": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor",
+  "inbox": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox",
+  "outbox": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/outbox",
   "aliases": [
-    "https://server1.example/.well-known/apgateway/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor",
-    "https://server2.example/.well-known/apgateway/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor"
+    "https://server1.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor",
+    "https://server2.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor"
   ],
   "proof": {
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
     "created": "2023-02-24T23:36:38Z",
-    "verificationMethod": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    "verificationMethod": "did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     "proofPurpose": "assertionMethod",
     "proofValue": "..."
   }
@@ -125,15 +129,15 @@ The list of URLs MAY be specified using the `aliases` query parameter, URL-endco
 Example:
 
 ```
-did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?aliases=https%3A%2F%2Fserver1.example%2Factor,https%3A%2F%2Fserver2.example%2Factor
+ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?aliases=https%3A%2F%2Fserver1.example%2Factor,https%3A%2F%2Fserver2.example%2Factor
 ```
 
-This DID URL has two aliases:
+This actor ID has two aliases:
 
 - `https://server1.example/actor`
 - `https://server2.example/actor`
 
-Implementations MUST discard query parameters when comparing `did:ap:key` identifiers and treat identifiers with different query parameter values as equal.
+Implementations MUST discard query parameters when comparing `ap://` identifiers and treat identifiers with different query parameter values as equal.
 
 ### Inboxes and outboxes
 
@@ -142,7 +146,7 @@ Servers and clients MUST use gateways to deliver activities to inboxes or outbox
 Example:
 
 ```
-POST https://social.example/.well-known/apgateway/did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox
+POST https://social.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox
 ```
 
 If a server does not accept deliveries on behalf of an actor, it MUST return `405 Method Not Allowed`.
@@ -155,7 +159,7 @@ Upon receiving an activity in actor's inbox, server SHOULD forward it to inboxes
 
 ## Portable objects
 
-Objects identified by `did:ap:key` URLs MUST contain [FEP-8b32][FEP-8b32] integrity proof.
+Objects identified by `ap://` URLs MUST contain [FEP-8b32][FEP-8b32] integrity proof.
 
 Example:
 
@@ -172,26 +176,26 @@ Example:
     }
   ],
   "type": "Note",
-  "id": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/objects/dc505858-08ec-4a80-81dd-e6670fd8c55f",
-  "attributedTo": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?aliases=https%3A%2F%2Fserver1.example%2Factor,https%3A%2F%2Fserver2.example%2Factor",
-  "inReplyTo": "did:ap:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/objects/f66a006b-fe66-4ca6-9a4c-b292e33712ec",
+  "id": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/objects/dc505858-08ec-4a80-81dd-e6670fd8c55f",
+  "attributedTo": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?aliases=https%3A%2F%2Fserver1.example%2Factor,https%3A%2F%2Fserver2.example%2Factor",
+  "inReplyTo": "ap://did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/objects/f66a006b-fe66-4ca6-9a4c-b292e33712ec",
   "content": "Hello!",
   "attachment": [
     {
       "type": "Image",
-      "href": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/media/image123.png",
+      "href": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/media/image123.png",
       "mediaType": "image/png",
       "digestMultibase": "zQmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n"
     }
   ],
   "to": [
-    "did:ap:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/actor"
+    "ap://did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/actor"
   ],
   "proof": {
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
     "created": "2023-02-24T23:36:38Z",
-    "verificationMethod": "did:ap:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    "verificationMethod": "did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     "proofPurpose": "assertionMethod",
     "proofValue": "..."
   }
@@ -200,17 +204,17 @@ Example:
 
 ## Compatibility
 
-DID URLs might not be compatible with existing [ActivityPub][ActivityPub] implementations.
+`ap://` URLs might not be compatible with existing [ActivityPub][ActivityPub] implementations.
 
-Publishers MAY use HTTP(S) URL of a gateway with appended DID URL instead of an actual DID URL. Implementations that support DID URLs MUST remove the part of the URL preceding `did:ap` and use the remaining DID URL.
+Publishers MAY use the gateway-based HTTP(S) URL of an object instead of its actual `ap://` identifier. Consuming implementations that support `ap://` URLs MUST remove the part of the URL preceding `did:` and re-construct the canonical `ap://` identifier.
 
 Publishers MUST NOT add `aliases` query parameter to object IDs if gateway URLs are used.
 
 ## Discussion
 
-### URL scheme
+### did:ap URLs
 
-An alternative to the `ap` DID method could be a URL scheme with the same name. Example: `ap://did:example:xyz/objects/123`.
+An alternative to the `ap://` URL scheme could be a new DID method providing [DID URL syntax][DID-URL]. Example: `did:ap:example:123456/path/to/object`.
 
 ### Discovering locations
 
@@ -219,30 +223,41 @@ This proposal makes use of the `aliases` property, but the following alternative
 - [`sameAs`](https://schema.org/sameAs)
 - `alsoKnownAs` (used for account migrations, so the usage of this property may cause issues)
 - `url` (with `alternate` [relation type](https://html.spec.whatwg.org/multipage/links.html#linkTypes))
+- `gateways` (containing only HTTP origins)
 
 ### Compatibility
 
 The following alternatives to gateway URLs are being considered:
 
-1. Use regular HTTP URLs but include a link to a DID URL in the `url` (with `canonical` relation type, as proposed in [FEP-fffd][FEP-fffd]). For pointers to other objects such as `inReplyTo` property, an embedded object with `url` property can be used instead of a plain URL.
-2. Alter object ID depending on the capabilities of the peer which can be reported by [NodeInfo][NodeInfo] or some other mechanism.
+1. Use regular HTTP(S) URLs but specify the canonical `ap://` URL using the `url` property (with `canonical` relation type, as proposed in [FEP-fffd][FEP-fffd]). For pointers to other objects such as `inReplyTo` property, an embedded object with `url` property can be used instead of a plain URL.
+2. Alter object ID depending on the capabilities of the peer (which can be reported by [NodeInfo][NodeInfo] or some other mechanism).
+
+## Implementations
+
+TBD
 
 ## References
 
 - Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
-- Dave Longley, Dmitri Zagidulin, Manu Sporny, [The did:key Method v0.7][did:key], 2022
+- T. Berners-Lee, R. Fielding, L. Masinter, [Uniform Resource Identifier (URI): Generic Syntax][RFC-3986], 2005
 - Manu Sporny, Dave Longley, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DID], 2022
+- Dave Longley, Dmitri Zagidulin, Manu Sporny, [The did:key Method v0.7][did:key], 2022
+- Christian Gribneau, Michael Prorock, Orie Steele, Oliver Terbu, Mike Xu, Dmitri Zagidulin, [did:web Method Specification][did:web], 2023
+- M. Nottingham, [Well-Known Uniform Resource Identifiers (URIs)][well-known], 2019
 - silverpill, [FEP-8b32: Object Integrity Proofs][FEP-8b32], 2022
 - silverpill, [FEP-ae97: Client-side activity signing][FEP-ae97], 2023
 - Adam R. Nelson, [FEP-fffd: Proxy Objects][FEP-fffd], 2023
 - Jonne Haß, [NodeInfo][NodeInfo], 2014
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
-[RFC-2119]: https://tools.ietf.org/html/rfc2119.html
-[did:key]: https://w3c-ccg.github.io/did-method-key/
+[RFC-2119]: https://datatracker.ietf.org/doc/html/rfc2119.html
+[RFC-3986]: https://datatracker.ietf.org/doc/html/rfc3986.html
 [DID]: https://www.w3.org/TR/did-core/
-[DID URLs]: https://www.w3.org/TR/did-core/#did-url-syntax
+[did:key]: https://w3c-ccg.github.io/did-method-key/
+[did:web]: https://w3c-ccg.github.io/did-method-web/
+[DID-URL]: https://www.w3.org/TR/did-core/#did-url-syntax
+[well-known]: https://datatracker.ietf.org/doc/html/rfc8615
 [FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
 [FEP-ae97]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md
 [FEP-fffd]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fffd/fep-fffd.md
