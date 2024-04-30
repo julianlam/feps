@@ -1,0 +1,25 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+
+<https://w3id.org/fep/0391/contextProof>
+	a owl:ObjectProperty;
+	rdfs:label "contextProof"@en;
+	rdfs:comment "Provides proof that some object was added to some context collection"@en;
+	rdfs:domain [
+		a owl:Restriction;
+		owl:onProperty as:context;
+		owl:minCardinality 1;  # context should have at least 1 value.
+	]
+	, [
+		a owl:Restriction;
+		owl:onProperty as:context;
+		owl:someValuesFrom [  # for at least some value of context,
+			a owl:Restriction;
+			owl:onProperty as:attributedTo;
+			owl:minCardinality 1  # there should be at least 1 attributedTo actor.
+		]
+	];
+	rdfs:range as:Add
+	.

@@ -1,0 +1,43 @@
+{
+	"@context": {
+	  "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+	  "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+	  "owl": "http://www.w3.org/2002/07/owl#",
+	  "as": "https://www.w3.org/ns/activitystreams#"
+	},
+	"@id": "https://w3id.org/fep/0391/contextProof",
+	"@type": "owl:ObjectProperty",
+	"rdfs:label": {
+	  "@value": "contextProof",
+	  "@language": "en"
+	},
+	"rdfs:comment": {
+	  "@value": "Provides proof that some object was added to some context collection",
+	  "@language": "en"
+	},
+	"rdfs:domain": [
+	  {
+		 "@type": "owl:Restriction",
+		 "owl:onProperty": {
+			"@id": "as:context"
+		 },
+		 "owl:minCardinality": 1
+	  },
+	  {
+		 "@type": "owl:Restriction",
+		 "owl:onProperty": {
+			"@id": "as:context"
+		 },
+		 "owl:someValuesFrom": {
+			"@type": "owl:Restriction",
+			"owl:onProperty": {
+			  "@id": "as:attributedTo"
+			},
+			"owl:minCardinality": 1
+		 }
+	  }
+	],
+	"rdfs:range": {
+	  "@id": "as:Add"
+	}
+ }

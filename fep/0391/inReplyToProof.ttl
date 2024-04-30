@@ -1,0 +1,25 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+
+<https://w3id.org/fep/0391/inReplyToProof>
+	a owl:ObjectProperty;
+	rdfs:label "inReplyToProof"@en;
+	rdfs:comment "Provides proof that some object was added to the replies collection of some inReplyTo object"@en;
+	rdfs:domain [
+		a owl:Restriction;
+		owl:onProperty as:inReplyTo;
+		owl:minCardinality 1;  # inReplyTo should have at least 1 value.
+	]
+	, [
+		a owl:Restriction;
+		owl:onProperty as:inReplyTo;
+		owl:someValuesFrom [  # for at least some value of inReplyTo,
+			a owl:Restriction;
+			owl:onProperty as:replies;
+			owl:minCardinality 1  # there should be a replies collection.
+		]
+	];
+	rdfs:range as:Add
+	.
