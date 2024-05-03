@@ -70,6 +70,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-3b86: Activity Intents](./fep/3b86/fep-3b86.md) | `DRAFT` | [#302](https://codeberg.org/fediverse/fep/issues/302) | 2024-04-19 | - |
 | [FEP-7458: Using the replies collection](./fep/7458/fep-7458.md) | `DRAFT` | [#307](https://codeberg.org/fediverse/fep/issues/307) | 2024-04-26 | - |
 | [FEP-0391: Special collection proofs](./fep/0391/fep-0391.md) | `DRAFT` | [#310](https://codeberg.org/fediverse/fep/issues/310) | 2024-04-29 | - |
+| [FEP-db0e: Authentication mechanism for non-public groups](./fep/db0e/fep-db0e.md) | `DRAFT` | [#313](https://codeberg.org/fediverse/fep/issues/313) | 2024-05-03 | - |
 
 ## Submitting a FEP
 
