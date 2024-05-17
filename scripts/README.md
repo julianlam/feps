@@ -19,7 +19,7 @@ python scripts/create_readme.py
 ```
 
 to update the table in `README.md`. You are now ready to commit the
-changes to the FEP (added `discussionsTo` to frontmatter) and README.md,
+changes to the FEP (added `trackingIssue` to frontmatter) and README.md,
 added the new FEP.
 
 Run

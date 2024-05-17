@@ -4,6 +4,7 @@ authors: pukkamustard <pukkamustard@posteo.net>
 status: FINAL
 dateReceived: 2020-10-16
 dateFinalized: 2021-01-18
+trackingIssue: https://codeberg.org/fediverse/fep/issues/201
 discussionsTo: https://codeberg.org/fediverse/fep/issues/201
 ---
 # FEP-a4ed: The Fediverse Enhancement Proposal Process
@@ -58,7 +59,8 @@ Following metadata key-value pairs may be placed at the top of a proposal:
 - `dateReceived`: Date of when the proposal was added to the repository (when status is set to `DRAFT`).
 - `dateWithdrawn`: Date of when the proposal status was set to `WITHDRAWN` (only for proposals with status `WITHDRAWN`).
 - `dateFinalized`: Date of when the proposal status was set to `FINAL` (only for proposals with status `FINAL`).
-- `discussionsTo`: Link to the tracking issue for the proposal.
+- `trackingIssue`: Link to the tracking issue for the proposal.
+- `discussionsTo`: Link to the discussion.
 - `relatedFeps`: A comma separated list of related FEPs (e.g. `FEP-a4ed, FEP-141a, FEP-686f`).
 - `replaces`: A comma separated list of FEPs that are replaced by the proposal.
 - `replacedBy`: Identifier of a FEP that replaces the proposal.
@@ -98,7 +100,7 @@ Fediverse Enhancement Proposals must be placed in the public domain by the autho
 
 1. A Fediverse Enhancement Proposal can be submitted by individuals or groups of individuals (authors). See the `SUBMISSION.md` file for a list of accepted submission methods.
 2. Within seven days one of the facilitators will read and respond to the proposal. The facilitator checks if the proposal conforms to the required structure and fits the scope and objective of the FEPs. The facilitator may request the authors to clarify, justify, or withdraw the proposal. Such a request must not reflect the personal bias of a facilitator. Rather, it will be made strictly to maintain a high quality of submissions. The facilitators reserve the right to reject a submission when a proposal amounts to blatant misuse of the process. The authors may seek feedback from the wider community if the submitted proposal is rejected or clarifications are requested.
-3. If a FEP Facilitator approves a submission it receives the status `DRAFT` and is added to the repository. The facilitator also creates a tracking issue for the proposal.
+3. If a FEP facilitator approves a submission it receives the status `DRAFT` and is added to the repository. The facilitator also creates a tracking issue for the proposal and adds `trackingIssue` attribute to the proposal metadata.
 4. While a proposal has the status `DRAFT`:
    - Authors are responsible for initiating community discussion and collecting feedback.
    - Authors may submit updates to the proposal which will be checked in to the repository by a facilitator. Others may also submit updates, but in this case a change must be approved by at least one author.
