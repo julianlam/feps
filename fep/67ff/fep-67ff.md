@@ -67,6 +67,7 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [BookWyrm](https://github.com/bookwyrm-social/bookwyrm/blob/main/FEDERATION.md)
 - [Hatsu](https://github.com/importantimport/hatsu/blob/main/FEDERATION.md)
 - [tootik](https://github.com/dimkr/tootik/blob/main/FEDERATION.md)
+- [Bridgy Fed](https://github.com/snarfed/bridgy-fed/blob/main/FEDERATION.md)
 
 ## References
 
