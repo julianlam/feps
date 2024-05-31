@@ -3,6 +3,7 @@ slug: "cd47"
 authors: Bumblefudge <bumblefudge@learningproof.xyz>
 status: DRAFT
 dateReceived: 2024-05-31
+trackingIssue: https://codeberg.org/fediverse/fep/issues/319
 discussionsTo: https://socialhub.activitypub.rocks/t/standards-portability-tf-would-id-s-that-arent-server-rooted-urls-simplify-some-of-the-harder-portability-problems/4281
 ---
 # FEP-cd47: Federation-friendly Addressing and Deduplication Use-Cases
