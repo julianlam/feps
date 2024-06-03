@@ -38,7 +38,8 @@ class Readme:
         fep_files = [FepFile(fep) for fep in get_fep_ids()]
         fep_files = reversed(fep_files)
         fep_files = sorted(
-            fep_files, key=lambda x: x.parsed_frontmatter["dateReceived"]
+            fep_files,
+            key=lambda x: (x.parsed_frontmatter["dateReceived"], x.parsed_frontmatter["slug"]),
         )
 
         result = []
@@ -47,12 +48,7 @@ class Readme:
             link = f"[FEP-{fep.fep}: {fep.title}](./{fep.filename})"
             parsed = fep.parsed_frontmatter
 
-            if "discussionsTo" in parsed:
-                url = parsed["discussionsTo"]
-                urls = url.split(", ")
-                discussions = " ".join(build_url_link(url) for url in urls)
-            else:
-                discussions = ""
+            tracking_issue = build_url_link(parsed["trackingIssue"])
 
             if "dateFinalized" in parsed:
                 date_final = parsed["dateFinalized"]
@@ -61,6 +57,6 @@ class Readme:
             else:
                 date_final = "-"
             result.append(
-                f"""| {link} | `{parsed["status"]}` | {discussions} | {parsed["dateReceived"]} | {date_final} |\n"""
+                f"""| {link} | `{parsed["status"]}` | {tracking_issue} | {parsed["dateReceived"]} | {date_final} |\n"""
             )
         return result

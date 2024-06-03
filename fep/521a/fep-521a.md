@@ -3,6 +3,7 @@ slug: "521a"
 authors: silverpill <@silverpill@mitra.social>
 status: DRAFT
 dateReceived: 2023-07-08
+trackingIssue: https://codeberg.org/fediverse/fep/issues/130
 discussionsTo: https://codeberg.org/fediverse/fep/issues/130
 ---
 # FEP-521a: Representing actor's public keys

@@ -4,6 +4,7 @@ authors: silverpill <silverpill@firemail.cc>
 status: DRAFT
 dateReceived: 2022-11-23
 relatedFeps: FEP-8b32
+trackingIssue: https://codeberg.org/fediverse/fep/issues/34
 discussionsTo: https://codeberg.org/fediverse/fep/issues/34
 ---
 # FEP-c390: Identity Proofs

@@ -3,6 +3,7 @@ slug: "e229"
 authors: a <a@trwnh.com>
 status: DRAFT
 dateReceived: 2024-04-02
+trackingIssue: https://codeberg.org/fediverse/fep/issues/293
 discussionsTo: https://codeberg.org/fediverse/fep/issues/293
 ---
 # FEP-e229: Best practices for extensibility

@@ -4,6 +4,7 @@ authors: silverpill <@silverpill@mitra.social>
 status: FINAL
 dateReceived: 2022-08-01
 dateFinalized: 2023-12-03
+trackingIssue: https://codeberg.org/fediverse/fep/issues/14
 discussionsTo: https://codeberg.org/fediverse/fep/issues/14
 ---
 # FEP-e232: Object Links

@@ -3,6 +3,7 @@ slug: "9fde"
 authors: Nik Clayton <nik@ngo.org.uk>
 dateReceived: 2024-03-14
 status: DRAFT
+trackingIssue: https://codeberg.org/fediverse/fep/issues/282
 discussionsTo: https://codeberg.org/fediverse/fep/issues/282
 ---
 # FEP-9fde: Mechanism for servers to expose supported operations

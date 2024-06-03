@@ -4,6 +4,7 @@ authors: Ben Pate \<@benpate@mastodon.social\>
 status: DRAFT
 dateReceived: 2024-04-19
 relatedFeps: FEP-4adb, FEP-888d
+trackingIssue: https://codeberg.org/fediverse/fep/issues/302
 discussionsTo: https://codeberg.org/fediverse/fep/issues/302
 ---
 

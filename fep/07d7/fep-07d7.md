@@ -3,6 +3,7 @@ slug: "07d7"
 authors: Jennifer Moore <contact@jenniferplusplus.com>
 status: DRAFT
 dateReceived: 2023-09-22
+trackingIssue: https://codeberg.org/fediverse/fep/issues/171
 discussionsTo: https://codeberg.org/fediverse/fep/issues/171
 ---
 # FEP-07d7: A Custom URL Scheme and Web-Based Protocol Handlers for Linking to ActivityPub Resources

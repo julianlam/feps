@@ -3,6 +3,7 @@ slug: "d8c2"
 authors: Evan Prodromou <evan@prodromou.name>
 status: DRAFT
 dateReceived: 2023-09-17
+trackingIssue: https://codeberg.org/fediverse/fep/issues/165
 discussionsTo: https://codeberg.org/fediverse/fep/issues/165
 ---
 # FEP-d8c2: OAuth 2.0 Profile for the ActivityPub API

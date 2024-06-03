@@ -3,6 +3,7 @@ slug: "cb76"
 authors: a <a@trwnh.com>
 status: DRAFT
 dateReceived: 2022-11-29
+trackingIssue: https://codeberg.org/fediverse/fep/issues/41
 discussionsTo: https://codeberg.org/fediverse/fep/issues/41
 ---
 # FEP-cb76: Content Addressed Vocabulary

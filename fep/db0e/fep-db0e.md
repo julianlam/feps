@@ -4,6 +4,7 @@ authors: Gregory Klyushnikov <activitypub@grishka.me>
 status: DRAFT
 dateReceived: 2024-05-03
 relatedFeps: FEP-400e
+trackingIssue: https://codeberg.org/fediverse/fep/issues/313
 discussionsTo: https://codeberg.org/fediverse/fep/issues/313
 ---
 # FEP-db0e: Authentication mechanism for non-public groups

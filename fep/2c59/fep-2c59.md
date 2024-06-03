@@ -3,6 +3,7 @@ slug: "2c59"
 authors: Evan Prodromou <evan@prodromou.name>
 status: DRAFT
 dateReceived: 2024-01-04
+trackingIssue: https://codeberg.org/fediverse/fep/issues/226
 discussionsTo: https://codeberg.org/fediverse/fep/issues/226
 ---
 # FEP-2c59: Discovery of a Webfinger address from an ActivityPub actor

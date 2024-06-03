@@ -3,6 +3,7 @@ slug: "fffd"
 authors: Adam R. Nelson <adam@nels.onl>
 status: DRAFT
 dateReceived: 2023-04-29
+trackingIssue: https://codeberg.org/fediverse/fep/issues/95
 discussionsTo: https://codeberg.org/fediverse/fep/issues/95
 ---
 

@@ -4,6 +4,7 @@ authors: silverpill <@silverpill@mitra.social>
 status: DRAFT
 dateReceived: 2022-11-12
 relatedFeps: FEP-521a
+trackingIssue: https://codeberg.org/fediverse/fep/issues/29
 discussionsTo: https://codeberg.org/fediverse/fep/issues/29
 ---
 # FEP-8b32: Object Integrity Proofs

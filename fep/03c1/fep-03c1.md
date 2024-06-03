@@ -3,6 +3,7 @@ slug: "03c1"
 authors: helge <@helge@mymath.rocks>
 status: DRAFT
 dateReceived: 2023-11-10
+trackingIssue: https://codeberg.org/fediverse/fep/issues/205
 discussionsTo: https://codeberg.org/fediverse/fep/issues/205
 ---
 # FEP-03c1: Actors without acct-URI

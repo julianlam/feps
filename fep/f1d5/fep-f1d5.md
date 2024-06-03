@@ -4,6 +4,7 @@ authors: CJ <cjslep@gmail.com>, silverpill <@silverpill@mitra.social>
 status: FINAL
 dateReceived: 2020-12-13
 dateFinalized: 2023-06-02
+trackingIssue: https://codeberg.org/fediverse/fep/issues/50
 discussionsTo: https://codeberg.org/fediverse/fep/issues/50
 ---
 # FEP-f1d5: NodeInfo in Fediverse Software

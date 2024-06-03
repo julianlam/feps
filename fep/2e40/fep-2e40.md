@@ -4,6 +4,7 @@ authors: Helge Krueger <helge.krueger@gmail.com>
 status: WITHDRAWN
 dateReceived:  2023-02-13
 dateWithdrawn: 2023-09-04
+trackingIssue: https://codeberg.org/fediverse/fep/issues/62
 discussionsTo: https://codeberg.org/fediverse/fep/issues/62
 ---
 # FEP-2e40: The FEP Vocabulary Extension Process

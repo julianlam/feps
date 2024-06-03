@@ -3,6 +3,7 @@ slug: "96ff"
 authors: Erin Shepherd <fep@erinshepherd.net>
 status: DRAFT
 dateReceived: 2024-02-17
+trackingIssue: https://codeberg.org/fediverse/fep/issues/272
 discussionsTo: https://codeberg.org/fediverse/fep/issues/272
 ---
 # FEP-96ff: Explicit signalling of ActivityPub Semantics
