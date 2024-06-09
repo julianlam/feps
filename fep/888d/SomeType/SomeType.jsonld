@@ -1,0 +1,21 @@
+{
+	"@context": {
+	"rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+	"rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+	"owl": "http://www.w3.org/2002/07/owl#",
+	"as": "https://www.w3.org/ns/activitystreams#"
+	},
+	"@id": "https://w3id.org/fep/888d/SomeType",
+	"@type": "owl:Class",
+	"rdfs:label": {
+		"@value": "SomeType",
+		"@language": "en"
+	},
+	"rdfs:comment": {
+		"@value": "Some type.",
+		"@language": "en"
+	},
+	"rdfs:subClassOf": {
+		"@id": "as:Object"
+	}
+}

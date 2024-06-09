@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+  <owl:Class rdf:about="https://w3id.org/fep/888d/SomeType">
+    <rdfs:label xml:lang="en">SomeType</rdfs:label>
+    <rdfs:comment xml:lang="en">Some type.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://www.w3.org/ns/activitystreams#Object"/>
+  </owl:Class>
+
+</rdf:RDF>

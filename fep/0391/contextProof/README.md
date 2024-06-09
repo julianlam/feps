@@ -1,12 +1,15 @@
-contextProof <https://w3id.org/fep/0391/contextProof>
+# contextProof <https://w3id.org/fep/0391/contextProof>
 
 Provides proof that some object was added to some `context` collection
 
-Domain: Object with context set to a Collection that has attributedTo set
-Range: Add
+Domain
+: Object with context set to a Collection that has attributedTo set
+Range
+: Add
 
-Example:
+## Example
 
+```json
 {
 	"@context": ["https://www.w3.org/ns/activitystreams", "https://w3id.org/fep/0391"],
 	"id": "https://example.com/create-some-object",
@@ -33,3 +36,4 @@ Example:
 		"attributedTo": "https://example.com/create-some-object"
 	}
 }
+```

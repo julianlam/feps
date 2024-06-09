@@ -1,0 +1,28 @@
+{
+	"@context": {
+		"rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+		"rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+		"owl": "http://www.w3.org/2002/07/owl#",
+		"xsd": "http://www.w3.org/2001/XMLSchema#",
+		"as": "https://www.w3.org/ns/activitystreams#"
+	},
+	"@id": "https://w3id.org/fep/888d/exampleC",
+	"@type": "owl:DatatypeProperty",
+	"rdfs:label": {
+		"@value": "exampleC",
+		"@language": "en"
+	},
+	"rdfs:comment": {
+		"@value": "A property that is an ordered list of literal values that are specifically non-negative integers",
+		"@language": "en"
+	},
+	"rdfs:domain": {
+		"@id": "https://w3id.org/fep/888d/SomeType"
+	},
+	"rdfs:range": {
+		"@type": "owl:Restriction",
+		"owl:allValuesFrom": {
+			"@id": "xsd:nonNegativeInteger"
+		}
+	}
+}

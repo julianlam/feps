@@ -1,0 +1,38 @@
+{
+	"@context": {
+		"rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+		"rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+		"owl": "http://www.w3.org/2002/07/owl#",
+		"xsd": "http://www.w3.org/2001/XMLSchema#",
+		"as": "https://www.w3.org/ns/activitystreams#"
+	},
+	"@id": "https://w3id.org/fep/888d/exampleA",
+	"@type": "owl:DatatypeProperty",
+	"rdfs:label": {
+		"@value": "exampleA",
+		"@language": "en"
+	},
+	"rdfs:comment": {
+		"@value": "A property with some literal value (string, boolean, integer)",
+		"@language": "en"
+	},
+	"rdfs:domain": {
+		"@id": "https://w3id.org/fep/888d/SomeType"
+	},
+	"rdfs:range": {
+		"@type": "owl:Class",
+		"owl:unionOf": {
+			"@list": [
+				{
+					"@id": "xsd:string"
+				},
+				{
+					"@id": "xsd:boolean"
+				},
+				{
+					"@id": "xsd:integer"
+				}
+			]
+		}
+	}
+}

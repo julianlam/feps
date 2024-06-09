@@ -11,7 +11,7 @@ discussionsTo: https://codeberg.org/fediverse/fep/issues/83
 
 ## Summary
 
-It is considered best practice in the linked-data ecosystem to have IRIs be HTTPS URIs that resolve to a definition of the term being used, and it is desirable to define such terms in a JSON-LD context file that is referenced by its IRI rather than having the full `@context` object embedded in every single document. ActivityStreams 2.0 and ActivityPub do this with the normative context and namespace provided at `https://www.w3.org/ns/activitystreams`, but this namespace is not generally open to extensions or to experimental terms. This FEP therefore proposes using `https://w3id.org/fep` as a base IRI for the FEP process, allowing sub-namespaces for each FEP, and allowing certain terms to be promoted to a default context once proven broadly useful.
+It is considered best practice in the linked-data ecosystem to have IRIs be HTTPS URIs that resolve to a definition of the term being used, and it is desirable to define such terms in a JSON-LD context file that is referenced by its IRI rather than having the full `@context` object embedded in every single document. ActivityStreams 2.0 and ActivityPub do this with the normative context and namespace provided at `https://www.w3.org/ns/activitystreams`, but this namespace is not generally open to extensions or to experimental terms. This FEP therefore proposes using `https://w3id.org/fep` as a base IRI for the FEP process, allowing sub-namespaces for each FEP.
 
 ## Acknowledgements
 
@@ -55,7 +55,6 @@ Broad design goals for the redirect mapping include:
 
 - Content negotiation for JSON-LD consumers. IRIs SHOULD return machine-friendly context documents or term definitions when requested via the `Accept: application/ld+json` HTTP header, and SHOULD otherwise return human-friendly proposal documents or term definitions by default.
 - Sub-namespaces for each FEP. Identifiers for each term SHOULD be allocated within the namespace of the FEP that defines them.
-- A top-level context document that contains terms promoted to "common usage" SHOULD be available at the base IRI.
 
 At minimum, the following redirects SHOULD resolve as follows:
 
@@ -65,11 +64,13 @@ At minimum, the following redirects SHOULD resolve as follows:
   - `Accept: application/ld+json` => a specific FEP's context document
   - `Accept: *` => a specific FEP's proposal document
 
-Additionally, the following redirects MAY resolve:
+Additionally, the following MAY resolve:
 
 - `https://w3id.org/fep/(:id)/(:term)`
-  - `Accept: application/ld+json` => a specific FEP's context document
-  - `Accept: *` => a specific FEP's specific term definition
+  - `Accept: application/ld+json` => a specific FEP's specific term definition in JSON-LD ontology/schema
+  - `Accept: application/rdf+xml` => a specific FEP's specific term definition in RDF/XML ontology/schema
+  - `Accept: text/turtle` => a specific FEP's specific term definition in Turtle ontology/schema
+  - `Accept: *` => a specific FEP's specific term's folder
 
 ### Mapping w3id.org/fep to fediverse/fep on Codeberg
 
@@ -82,12 +83,31 @@ At the time of writing this FEP, the Codeberg repository at `https://codeberg.or
 ```perl
 RewriteEngine on
 
-# catch FEP-specific context requests
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([A-Za-z0-9]+)\/?(.*?)?$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1/context.jsonld [R=302,L]
+# catch FEP-specific term definitions
 
-# catch FEP-specific context requests without content negotiation
-RewriteRule ^([A-Za-z0-9]+).jsonld$ https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1/context.jsonld [R=302,L]
+## JSON-LD ontology/schema
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)$ https://raw.codeberg.page/fediverse/fep/fep/$1/$2/$2.jsonld [R=302,L]
+
+## RDF/XML ontology/schema
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)$ https://raw.codeberg.page/fediverse/fep/fep/$1/$2/$2.rdf [R=302,L]
+
+## Turtle ontology/schema
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)$ https://raw.codeberg.page/fediverse/fep/fep/$1/$2/$2.ttl [R=302,L]
+
+## By default, just take you to the term's folder
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/$2 [R=302,L]
+
+# catch FEP-specific context requests
+
+## By content negotiation
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([A-Za-z0-9]+)\/?$ https://raw.codeberg.page/fediverse/fep/fep/$1/context.jsonld [R=302,L]
+
+## By URL hacking
+RewriteRule ^([A-Za-z0-9]+).jsonld$ https://raw.codeberg.page/fediverse/fep/fep/$1/context.jsonld [R=302,L]
 
 # catch FEP proposal documents
 RewriteRule ^([A-Za-z0-9]+)\/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/fep-$1.md [R=302,L]
@@ -136,7 +156,7 @@ The context document might look like this, at minimum:
 
 Refer to [LD-TERM-DFN] for additional guidance on defining terms within JSON-LD.
 
-A sidecar asset within the FEP's directory may be used to provide additional documentation for the term.
+A folder within the FEP's directory should be used to provide additional documentation for the term, such as ontology or schema definitions via JSON-LD, RDF/XML, and/or Turtle.
 
 #### Example using fragment identifiers
 
@@ -166,7 +186,7 @@ Refer to [LD-TERM-DFN] for additional guidance on defining terms within JSON-LD.
 
 In such a case, the FEP document should include an element with an HTML identifier that exactly matches the term name, so that the IRI fragment resolves properly. In practice, this means one of the following:
 
-- Using a heading with a name that exactly matches the term name. This should be autolinked correctly by most Markdown processors. Be warned that this may cause problems for FEPs 
+- Using a heading with a name that exactly matches the term name. This should be autolinked correctly by most Markdown processors. Be warned that this may cause problems for FEPs that define terms conflicting with common header names, such as `summary`, `acknowledgements`, `requirements`, `references`, `copyright`, and so on, including any headers that the FEP author includes for purposes other than explicitly defining the term.
 - Using a heading with a custom attribute containing an ID. Some Markdown processors such as Goldmark will handle cases such as `### h3 {#custom-identifier}` and render `<h3 id="custom-identifier">h3</h3>`. Markdown specifications such as CommonMark currently do not support custom attributes, but some Markdown processors such as Goldmark support custom attributes on headers (but not on arbitrary elements). See [CM-ATTRS] for more discussion of this feature.
 - Using an HTML definition list, with `id` attributes exactly matching the term name. HTML within Markdown files is generally rendered as-is, although it may be sanitized, stripped, or disallowed for security purposes. In cases where it is allowed, however, it can be an effective way to express term definitions within an FEP document.
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+  <owl:DatatypeProperty rdf:about="https://w3id.org/fep/888d/exampleB">
+    <rdfs:label xml:lang="en">exampleB</rdfs:label>
+    <rdfs:comment xml:lang="en">A property that links to another node on the graph (for example, another object)</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/fep/888d/SomeType"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+  </owl:DatatypeProperty>
+
+</rdf:RDF>
