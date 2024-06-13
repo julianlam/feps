@@ -3,6 +3,8 @@ slug: "5e53"
 authors: Don Marti <dmarti@zgp.org>
 status: DRAFT
 dateReceived: 2024-06-09
+trackingIssue: https://codeberg.org/fediverse/fep/issues/327
+discussionsTo: https://codeberg.org/fediverse/fep/issues/327
 ---
 # FEP-5e53: Opt-out Preference Signals
 
