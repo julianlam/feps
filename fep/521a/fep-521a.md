@@ -24,7 +24,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Multikey
 
-Actor's public key MUST be represented as an object with `Multikey` type, as defined in section *2.3.1.2 Multikey* of [Data Integrity](https://www.w3.org/TR/vc-data-integrity/#multikey) specification. This object MUST have the following properties:
+Each public key MUST be represented as an object with `Multikey` type, as defined in section *2.3.1.2 Multikey* of [Data Integrity](https://www.w3.org/TR/vc-data-integrity/#multikey) specification. This object MUST have the following properties:
 
 - `id`: the unique global identifier of the public key.
 - `type`: the value of this property MUST contain the string `Multikey`.
@@ -48,13 +48,13 @@ Implementers can use cryptographic keys of any type for which [Multicodec] prefi
 
 ## Controller document
 
-Actor object MUST be used as a controller document, as described in section *2.3 Controller Documents* of [Data Integrity](https://w3c.github.io/vc-data-integrity/#controller-documents) specification.
-
-### Key purposes
+`Multikey` objects MUST be added to the actor object, which is considered a controller document, as described in section *2.3 Controller Documents* of [Data Integrity](https://w3c.github.io/vc-data-integrity/#controller-documents) specification.
 
 If the key is intended to be used for signing ActivityPub objects, it MUST be added to the [`assertionMethod`](https://www.w3.org/TR/vc-data-integrity/#assertion) array of the actor object.
 
 Other use cases are currently out of scope of this proposal.
+
+Implementations are discouraged from adding any objects to the `assertionMethod` array that does not conform to this specification. Implementations encountering non-conformant entries in the `assertionMethod` array SHOULD ignore them.
 
 ### Example
 
@@ -95,6 +95,7 @@ See [fep-521a.feature](./fep-521a.feature)
 - Mitra
 - streams
 - Hubzilla
+- Fedify
 
 ## References
 
