@@ -1,13 +1,19 @@
-relationshipProof <https://w3id.org/fep/0391/relationshipProof>
+# relationshipProof <https://w3id.org/fep/0391/relationshipProof>
 
 Provides proof that the current relationship is reciprocally claimed.
 
-Domain: Relationship
-Range: Relationship | Add | Follow? | Accept Follow?
-Status: Experimental
+Domain
+: Relationship
+
+Range
+: Relationship | Add | Follow? | Accept Follow?
+
+Status
+: Experimental
 
 Example 1:
 
+```json
 {
 	"@context": ["https://www.w3.org/ns/activitystreams", "https://w3id.org/fep/0391"],
 	"id": "https://example.com/some-relationship",
@@ -57,9 +63,11 @@ Example 1:
 		}
 	]
 }
+```
 
 Example 2:
 
+```json
 {
 	"@context": ["https://www.w3.org/ns/activitystreams", "https://w3id.org/fep/0391"],
 	"id": "https://example.com/some-relationship",
@@ -105,3 +113,4 @@ Example 2:
 		}
 	]
 }
+```

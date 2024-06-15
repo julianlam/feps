@@ -4,6 +4,7 @@ A property that links to another node on the graph (for example, another object)
 
 Domain
 : SomeType <https://w3id.org/fep/888d/SomeType>
+
 Range
 : @id
 

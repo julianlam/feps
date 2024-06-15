@@ -4,6 +4,7 @@ Provides proof that some object was added to some `context` collection
 
 Domain
 : Object with context set to a Collection that has attributedTo set
+
 Range
 : Add
 

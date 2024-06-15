@@ -4,6 +4,7 @@ A property that is an ordered list of literal values that are specifically non-n
 
 Domain
 : SomeType <https://w3id.org/fep/888d/SomeType>
+
 Range
 : List of nonNegativeInteger <http://www.w3.org/2001/XMLSchema#nonNegativeInteger>
 

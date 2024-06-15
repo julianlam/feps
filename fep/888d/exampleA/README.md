@@ -4,6 +4,7 @@ A property with some literal value (string, boolean, number)
 
 Domain
 : SomeType <https://w3id.org/fep/888d/SomeType>
+
 Range
 : String or Boolean or Number
 

@@ -4,6 +4,7 @@ Provides proof that some object was added to the replies collection of some inRe
 
 Domain
 : Object with inReplyTo set to an Object that has a replies collection
+
 Range
 : Add
 
