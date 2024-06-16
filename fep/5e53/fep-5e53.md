@@ -48,7 +48,7 @@ over an HTTP connection with the corresponding header.
 
  * `secGPC`: process as if the object has been received with the `Sec-GPC` HTTP request header.
 
- * `xRobotsTagi`: process as if the object had been received with an `X-Robots-Tag` HTTP response header
+ * `xRobotsTag`: process as if the object had been received with an `X-Robots-Tag` HTTP response header
     with a value equal to this property.
 
 
