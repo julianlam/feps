@@ -4,7 +4,7 @@ authors: Don Marti <dmarti@zgp.org>
 status: DRAFT
 dateReceived: 2024-06-09
 trackingIssue: https://codeberg.org/fediverse/fep/issues/327
-discussionsTo: https://codeberg.org/fediverse/fep/issues/327
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-5e53-opt-out-preference-signals/4323
 ---
 # FEP-5e53: Opt-out Preference Signals
 
