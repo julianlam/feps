@@ -9,15 +9,23 @@ Feature: FEP-8b32: Object Integrity Proofs
                     "https://www.w3.org/ns/activitystreams",
                     "https://w3id.org/security/data-integrity/v1"
                 ],
+                "id": "https://server.example/activities/1",
                 "type": "Create",
                 "actor": "https://server.example/users/alice",
                 "object": {
+                    "id": "https://server.example/objects/1",
                     "type": "Note",
-                    "content": "Hello world"
+                    "attributedTo": "https://server.example/users/alice",
+                    "content": "Hello world",
+                    "location": {
+                        "type": "Place",
+                        "longitude": -71.184902,
+                        "latitude": 25.273962
+                    }
                 }
             }
             """
-        And Ed25519 Private Key "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
+        And Ed25519 secret key "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
         And current time "2023-02-24T23:36:38Z"
         When Signing the document for key "https://server.example/users/alice#ed25519-key"
         Then The signed document is
@@ -27,18 +35,30 @@ Feature: FEP-8b32: Object Integrity Proofs
                     "https://www.w3.org/ns/activitystreams",
                     "https://w3id.org/security/data-integrity/v1"
                 ],
+                "id": "https://server.example/activities/1",
                 "type": "Create",
                 "actor": "https://server.example/users/alice",
                 "object": {
+                    "id": "https://server.example/objects/1",
                     "type": "Note",
-                    "content": "Hello world"
+                    "attributedTo": "https://server.example/users/alice",
+                    "content": "Hello world",
+                    "location": {
+                        "type": "Place",
+                        "longitude": -71.184902,
+                        "latitude": 25.273962
+                    }
                 },
                 "proof": {
+                    "@context": [
+                        "https://www.w3.org/ns/activitystreams",
+                        "https://w3id.org/security/data-integrity/v1"
+                    ],
                     "type": "DataIntegrityProof",
                     "cryptosuite": "eddsa-jcs-2022",
                     "verificationMethod": "https://server.example/users/alice#ed25519-key",
                     "proofPurpose": "assertionMethod",
-                    "proofValue": "z3sXaxjKs4M3BRicwWA9peyNPJvJqxtGsDmpt1jjoHCjgeUf71TRFz56osPSfDErszyLp5Ks1EhYSgpDaNM977Rg2",
+                    "proofValue": "zLaewdp4H9kqtwyrLatK4cjY5oRHwVcw4gibPSUDYDMhi4M49v8pcYk3ZB6D69dNpAPbUmY8ocuJ3m9KhKJEEg7z",
                     "created": "2023-02-24T23:36:38Z"
                 }
             }
@@ -53,18 +73,30 @@ Feature: FEP-8b32: Object Integrity Proofs
                     "https://www.w3.org/ns/activitystreams",
                     "https://w3id.org/security/data-integrity/v1"
                 ],
+                "id": "https://server.example/activities/1",
                 "type": "Create",
                 "actor": "https://server.example/users/alice",
                 "object": {
+                    "id": "https://server.example/objects/1",
                     "type": "Note",
-                    "content": "Hello world"
+                    "attributedTo": "https://server.example/users/alice",
+                    "content": "Hello world",
+                    "location": {
+                        "type": "Place",
+                        "longitude": -71.184902,
+                        "latitude": 25.273962
+                    }
                 },
                 "proof": {
+                    "@context": [
+                        "https://www.w3.org/ns/activitystreams",
+                        "https://w3id.org/security/data-integrity/v1"
+                    ],
                     "type": "DataIntegrityProof",
                     "cryptosuite": "eddsa-jcs-2022",
                     "verificationMethod": "https://server.example/users/alice#ed25519-key",
                     "proofPurpose": "assertionMethod",
-                    "proofValue": "z3sXaxjKs4M3BRicwWA9peyNPJvJqxtGsDmpt1jjoHCjgeUf71TRFz56osPSfDErszyLp5Ks1EhYSgpDaNM977Rg2",
+                    "proofValue": "zLaewdp4H9kqtwyrLatK4cjY5oRHwVcw4gibPSUDYDMhi4M49v8pcYk3ZB6D69dNpAPbUmY8ocuJ3m9KhKJEEg7z",
                     "created": "2023-02-24T23:36:38Z"
                 }
             }

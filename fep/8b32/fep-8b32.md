@@ -3,9 +3,8 @@ slug: "8b32"
 authors: silverpill <@silverpill@mitra.social>
 status: DRAFT
 dateReceived: 2022-11-12
-relatedFeps: FEP-521a
 trackingIssue: https://codeberg.org/fediverse/fep/issues/29
-discussionsTo: https://codeberg.org/fediverse/fep/issues/29
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-8b32-object-integrity-proofs/2725
 ---
 # FEP-8b32: Object Integrity Proofs
 
@@ -43,7 +42,7 @@ The resulting proof is added to the original JSON object under the key `proof`. 
 
 The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [2.1 Proofs](https://w3c.github.io/vc-data-integrity/#proofs). The proof type SHOULD be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof](https://w3c.github.io/vc-data-integrity/#dataintegrityproof). The value of `proofPurpose` attribute MUST be `assertionMethod`.
 
-The value of the `verificationMethod` attribute of the proof can be an URL of a public key or a [DID][DIDs]. The [controller document](https://w3c.github.io/vc-data-integrity/#controller-documents) where verification method is expressed MUST be an actor object or another document that can be provably associated with an [ActivityPub] actor (e.g. a [DID][DIDs] document).
+The value of the `verificationMethod` attribute of the proof can be an URL of a public key or a [DID][DIDs]. The [controller document](https://w3c.github.io/vc-data-integrity/#controller-documents) where verification method is expressed MUST be an actor object or another document that can be provably associated with an [ActivityPub] actor (e.g. a [DID][DIDs] document). If controller document is an actor object, implementers SHOULD use the `assertionMethod` property as described in [FEP-521a].
 
 ### Proof verification
 
@@ -61,7 +60,8 @@ Implementers are expected to pursue broad interoperability when choosing algorit
 - Hashing: SHA-256
 - Signatures: EdDSA
 
-**WARNING: eddsa-jcs-2022 cryptosuite specification is not stable and may change before it becomes a W3C Recommendation. In particular, the processing of nested objects is not [well defined](https://github.com/w3c/vc-data-integrity/issues/231).**
+>[!WARNING]
+>`eddsa-jcs-2022` cryptosuite specification is not stable and may change before it becomes a W3C Recommendation. In particular, the processing of nested objects is not [well defined](https://github.com/w3c/vc-di-eddsa/issues/81).
 
 ### Backward compatibility
 
@@ -81,7 +81,8 @@ The controller of the verification method MUST match the actor of activity, or b
 
 Nested objects containing integrity proofs that use [JCS] canonicalization algorithm might not be compatible with JSON-LD processors. To avoid verification errors, implementers MAY re-define properties such as `object` as having `@json` type when signing objects containing other signed objects.
 
-**WARNING: eddsa-jcs-2022 cryptosuite specification is not stable and recommendations for nested objects may change before it becomes a W3C Recommendation.**
+>[!WARNING]
+>`eddsa-jcs-2022` cryptosuite specification is not stable and recommendations for nested objects may change before it becomes a W3C Recommendation.
 
 ## Examples
 
@@ -93,10 +94,15 @@ Nested objects containing integrity proofs that use [JCS] canonicalization algor
     "https://www.w3.org/ns/activitystreams",
     "https://w3id.org/security/data-integrity/v1"
   ],
+  "id": "https://server.example/objects/1",
   "type": "Note",
   "attributedTo": "https://server.example/users/alice",
   "content": "Hello world",
   "proof": {
+    "@context": [
+      "https://www.w3.org/ns/activitystreams",
+      "https://w3id.org/security/data-integrity/v1"
+    ],
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
     "verificationMethod": "https://server.example/users/alice#ed25519-key",
@@ -115,14 +121,20 @@ Nested objects containing integrity proofs that use [JCS] canonicalization algor
     "https://www.w3.org/ns/activitystreams",
     "https://w3id.org/security/data-integrity/v1"
   ],
+  "id": "https://server.example/activities/1",
   "type": "Create",
   "actor": "https://server.example/users/alice",
   "object": {
+    "id": "https://server.example/objects/1",
     "type": "Note",
     "attributedTo": "https://server.example/users/alice",
     "content": "Hello world"
   },
   "proof": {
+    "@context": [
+      "https://www.w3.org/ns/activitystreams",
+      "https://w3id.org/security/data-integrity/v1"
+    ],
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
     "verificationMethod": "https://server.example/users/alice#ed25519-key",
@@ -135,7 +147,8 @@ Nested objects containing integrity proofs that use [JCS] canonicalization algor
 
 ### Signed activity with embedded signed object
 
-**WARNING: recommendations for nested objects may change in the future, see [Nested objects](#nested-objects) section.**
+>[!WARNING]
+>Recommendations for nested objects may change in the future, see [Nested objects](#nested-objects) section.
 
 ```json
 {
@@ -149,6 +162,7 @@ Nested objects containing integrity proofs that use [JCS] canonicalization algor
       }
     }
   ],
+  "id": "https://server.example/activities/1",
   "type": "Create",
   "actor": "https://server.example/users/alice",
   "object": {
@@ -156,10 +170,15 @@ Nested objects containing integrity proofs that use [JCS] canonicalization algor
       "https://www.w3.org/ns/activitystreams",
       "https://w3id.org/security/data-integrity/v1"
     ],
+    "id": "https://server.example/objects/1",
     "type": "Note",
     "attributedTo": "https://server.example/users/alice",
     "content": "Hello world",
     "proof": {
+      "@context": [
+        "https://www.w3.org/ns/activitystreams",
+        "https://w3id.org/security/data-integrity/v1"
+      ],
       "type": "DataIntegrityProof",
       "cryptosuite": "eddsa-jcs-2022",
       "verificationMethod": "https://server.example/users/alice#ed25519-key",
@@ -169,6 +188,10 @@ Nested objects containing integrity proofs that use [JCS] canonicalization algor
     }
   },
   "proof": {
+    "@context": [
+      "https://www.w3.org/ns/activitystreams",
+      "https://w3id.org/security/data-integrity/v1"
+    ],
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
     "verificationMethod": "https://server.example/users/alice#ed25519-key",
@@ -185,12 +208,20 @@ See [fep-8b32.feature](./fep-8b32.feature)
 
 ## Implementations
 
-- [Mitra](https://codeberg.org/silverpill/mitra/src/commit/71db89f0ac323c76b7e08efffacf5d2454ec9afc/FEDERATION.md#object-integrity-proofs)
+- [Mitra](https://codeberg.org/silverpill/mitra/src/commit/f096ed54e350f4a0121289bcc0d1d5f83b5bbf8b/FEDERATION.md#object-integrity-proofs)
 - Vervis
   ([generation](https://codeberg.org/ForgeFed/Vervis/commit/e8e587af26944d3ea8d91f5c47cc3058cf261387),
   [verification](https://codeberg.org/ForgeFed/Vervis/commit/621275e25762a1c1e5860d07a6ff87b147deed4f))
 - Streams
 - [Hubzilla](https://hub.somaton.com/channel/mario?mid=4214a375-3a18-4acb-b546-75c6c4818e2f)
+- [Fedify](https://todon.eu/users/hongminhee/statuses/112638238338153870)
+
+## Use cases
+
+- [Forwarding from inbox](https://www.w3.org/TR/activitypub/#inbox-forwarding)
+- [Conversation Containers](https://fediversity.site/help/develop/en/Containers)
+- [FEP-ef61: Portable Objects](https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md)
+- [FEP-ae97: Client-side activity signing](https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md)
 
 ## References
 
@@ -198,6 +229,7 @@ See [fep-8b32.feature](./fep-8b32.feature)
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
 - Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][Data Integrity], 2023
 - Manu Sporny, Dave Longley, Markus Sabadell, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DIDs], 2022
+- silverpill, [FEP-521a: Representing actor's public keys][FEP-521a], 2023
 - Dave Longley, Manu Sporny, [Data Integrity EdDSA Cryptosuites v1.0][eddsa-jcs-2022], 2023
 - A. Rundgren, B. Jordan, S. Erdtman, [JSON Canonicalization Scheme (JCS)][JCS], 2020
 
@@ -205,6 +237,7 @@ See [fep-8b32.feature](./fep-8b32.feature)
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
 [Data Integrity]: https://w3c.github.io/vc-data-integrity/
 [DIDs]: https://www.w3.org/TR/did-core/
+[FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
 [eddsa-jcs-2022]: https://w3c.github.io/vc-di-eddsa/#eddsa-jcs-2022
 [JCS]: https://www.rfc-editor.org/rfc/rfc8785
 
