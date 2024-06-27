@@ -30,7 +30,7 @@ refers to existing OOPSs that have already been documented, and does not propose
 ## Declaring an OOPS
 
 In order to apply an OOPS to an object, an author MAY set the JSON-LD properties `xRobotsTag` and/or
-`secGPC`.  For example,
+`SPC`.  For example,
 
 
 ```
@@ -39,14 +39,14 @@ In order to apply an OOPS to an object, an author MAY set the JSON-LD properties
   "type": "Note",
   "content": "Don't surveil me bro",
   "xRobotsTag": "noai",
-  "secGPC": 1
+  "SPC": 1
 }
 ```
 
 A recipient SHOULD process the content and metadata of the object as if the recipient had received it
 over an HTTP connection with the corresponding header.
 
- * `secGPC`: process as if the object has been received with the `Sec-GPC` HTTP request header.
+ * `SPC`: process as if the object has been received in an HTTP connection with the `Sec-GPC` HTTP request header.
 
  * `xRobotsTag`: process as if the object had been received with an `X-Robots-Tag` HTTP response header
     with a value equal to this property.
@@ -54,15 +54,23 @@ over an HTTP connection with the corresponding header.
 
 ## Deployment considerations
 
-The [GPC] standard allows for individuals in an increasing number of
-jurisdictions to pass a legally binding signal indicating a commonly
-held privacy norm.  However, GPC as an HTTP header only works from
-client to server, so can only function in centralized systems. A
+The existing Global Privacy Control ([GPC]) standard allows for individuals in an increasing number of
+jurisdictions to pass a legally binding opt-out preference signal indicating a commonly
+held privacy norm.  However, GPC is implemented as an HTTP request
+header, which makes it only works from
+client to server. This limits the ability of users to pass a privacy opt-out
+in a federated communications medium. A
 federated system where a user's information may be passed from
 one server to another is currently at a disadvantage in serving
-GPC users, because the GPC does not travel with the information
-to which it applies.  Adding GPC to ActivityPub would bring parity
-with centralized social sites.
+users who wish to opt out, because the opt-out preference signal does not travel with the information
+to which it applies.  SPC is intended to have the same effects as GPC, but for
+cases where the user does not have a direct HTTP connection to the recipient of some personal 
+information. Adding the SPC opt-out to ActivityPub would bring parity with centralized social sites.
+
+Fediverse instances should make SPC configurable by users, and reflect a user's
+actual intent to opt out.  Fediverse instances should detect when a user has turned on
+GPC or some other privacy opt-out or setting, and offer to apply SPC to that user's 
+objects.
 
 Content sharing platforms that operate in a centralized manner
 are now frequently promoting their support for signaling opt-outs
@@ -74,7 +82,10 @@ likely need to also offer an opt out signaling feature.
 
 ## Security considerations
 
-This proposal depends on compliant processing of the OOPSs by all actors.
+This proposal depends on compliant processing of OOPSs by all actors.
+
+Some jurisdictions require privacy OOPSs to be registered in order to have legal effect. In the event this
+FEP is accepted, the author intends to pursue registration.
 
 
 ## Implementations
