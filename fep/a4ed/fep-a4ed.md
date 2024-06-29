@@ -23,7 +23,7 @@ A proposal should always have the intention of improving the interoperability an
 
 The Fediverse includes applications, services and communities using the ActivityPub protocol and other protocols that foster decentralized and diverse social media and culture.
 
-Proposals may include descriptions of technical protocols and mechanism, documentation of experimental work or current best practices.
+Proposals may include descriptions of technical protocols and mechanisms, documentation of experimental work or current best practices.
 
 Proposals are not limited to technical topics and may focus on social and cultural aspects.
 
