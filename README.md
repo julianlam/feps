@@ -74,6 +74,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-cd47: Federation-friendly Addressing and Deduplication Use-Cases](./fep/cd47/fep-cd47.md) | `DRAFT` | [#319](https://codeberg.org/fediverse/fep/issues/319) | 2024-05-31 | - |
 | [FEP-c7d3: Ownership](./fep/c7d3/fep-c7d3.md) | `DRAFT` | [#323](https://codeberg.org/fediverse/fep/issues/323) | 2024-06-04 | - |
 | [FEP-5e53: Opt-out Preference Signals](./fep/5e53/fep-5e53.md) | `DRAFT` | [#327](https://codeberg.org/fediverse/fep/issues/327) | 2024-06-09 | - |
+| [FEP-e3e9: Actor-Relative URLs](./fep/e3e9/fep-e3e9.md) | `DRAFT` | [#346](https://codeberg.org/fediverse/fep/issues/346) | 2024-06-29 | - |
 
 ## Submitting a FEP
 
