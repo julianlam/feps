@@ -88,7 +88,7 @@ This proposal describes how to represent actor's public keys. The corresponding 
 
 ## Test vectors
 
-See [fep-521a.feature](./fep-521a.feature)
+See [fep-521a.feature](./fep-521a.feature) for manual testing
 
 ## Implementations
 
