@@ -2,6 +2,9 @@
 slug: "d9ad"
 authors: bengo <ben@bengo.co>
 status: DRAFT
+dateReceived: 2024-07-02
+trackingIssue: https://codeberg.org/fediverse/fep/issues/350
+discussionsTo: https://codeberg.org/fediverse/fep/issues/350
 ---
 
 # FEP-d9ad: Create Conformance Tests for Fediverse Enhancement Proposals
