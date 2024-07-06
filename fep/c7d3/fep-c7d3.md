@@ -30,14 +30,20 @@ Every activity MUST have an `actor` property, which describes the actor that per
 
 Every object (that is, not an actor and not an activity) MUST have an `attributedTo` property, which describes the actor to which the object is attributed. This actor is considered the owner of the object.
 
+Collections MAY have an `attributedTo` property. If this property is present, the actor indicated by it is considered the owner of the collection.
+
 >[!NOTE]
 > In subsequent sections, "objects" and "activities" will be referred to as simply "objects".
+
+## Origin
+
+Object identifiers are grouped together into protection domains called "origins". This concept is similar to the "web origin" concept described in [RFC-6454], and origins of object IDs are computed by the same algorithm.
 
 ## Authentication
 
 The object is considered authentic if any of the following conditions are met:
 
-- It was fetched from the server that corresponds to the "origin" part of its owner's ID.
+- It was fetched from the location that has the same origin as its owner's ID.
 - It was delivered to inbox and the request contained a valid [HTTP signature][HttpSig] created by the owner.
 - It contains a valid [FEP-8b32] integrity proof created by its owner.
 
@@ -50,6 +56,10 @@ If the object was delivered to inbox and its authentication fails, the recipient
 ### Emdedded objects
 
 If the object is embedded within another object, it MAY be considered authentic if its owner matches the owner of the containing object. If the embedded and the containing objects have different owners, the authenticity of the embedded object MUST be verified independently either by fetching it from the server of origin, or by verifying its [FEP-8b32] integrity proof.
+
+### Unattributed collections
+
+Collections without an `attributedTo` property are owned by the server. Unattributed collection is considered authentic if fetched from the location that matches its ID.
 
 ## Authorization
 
@@ -69,12 +79,14 @@ According to [Activity Vocabulary][ActivityVocabulary], `actor` and `attributedT
 - Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
 - James M Snell, Evan Prodromou, [Activity Vocabulary][ActivityVocabulary], 2017
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
+- A. Barth, [The Web Origin Concept][RFC-6454], 2011
 - silverpill, [FEP-8b32: Object Integrity Proofs][FEP-8b32], 2022
 - Ryan Barrett, nightpool, [ActivityPub and HTTP Signatures][HttpSig], 2024
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [ActivityVocabulary]: https://www.w3.org/TR/activitystreams-vocabulary/
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
+[RFC-6454]: https://www.rfc-editor.org/rfc/rfc6454.html
 [FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
 [HttpSig]: https://swicg.github.io/activitypub-http-signature/
 
