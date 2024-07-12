@@ -4,6 +4,7 @@ authors: Dmitri Zagidulin <@dmitri@social.coop>
 status: DRAFT
 dateReceived: 2024-07-11
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-6fcd-account-export-container-format/4355
+trackingIssue: https://codeberg.org/fediverse/fep/issues/357
 ---
 # FEP-6fcd: Account Export Container Format
 
