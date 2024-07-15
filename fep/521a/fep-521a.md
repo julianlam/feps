@@ -4,7 +4,7 @@ authors: silverpill <@silverpill@mitra.social>
 status: DRAFT
 dateReceived: 2023-07-08
 trackingIssue: https://codeberg.org/fediverse/fep/issues/130
-discussionsTo: https://codeberg.org/fediverse/fep/issues/130
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-521a-representing-actors-public-keys/3380
 ---
 # FEP-521a: Representing actor's public keys
 
@@ -24,12 +24,12 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Multikey
 
-Each public key MUST be represented as an object with `Multikey` type, as defined in section *2.3.1.2 Multikey* of [Data Integrity](https://www.w3.org/TR/vc-data-integrity/#multikey) specification. This object MUST have the following properties:
+Each public key MUST be represented as an object with `Multikey` type, as defined in section *2.2.2 Multikey* of [Controller Documents](https://www.w3.org/TR/controller-document/#multikey) specification. This object MUST have the following properties:
 
 - `id`: the unique global identifier of the public key.
 - `type`: the value of this property MUST contain the string `Multikey`.
 - `controller`: the value of this property MUST match actor ID.
-- `publicKeyMultibase`: a [Multibase](https://www.w3.org/TR/vc-data-integrity/#multibase-0) encoded value of a [Multicodec] prefix and the key. Implementations MUST use the `base-58-btc` alphabet.
+- `publicKeyMultibase`: a [Multibase](https://www.w3.org/TR/controller-document/#multibase-0) encoded value of a [Multicodec] prefix and the key. Implementations MUST use the `base-58-btc` alphabet.
 
 The `Multikey` object MAY contain the `expires` property indicating the expiration date of the key. Implementations MUST NOT not accept a signature created with a key that has been expired.
 
@@ -48,9 +48,9 @@ Implementers can use cryptographic keys of any type for which [Multicodec] prefi
 
 ## Controller document
 
-`Multikey` objects MUST be added to the actor object, which is considered a controller document, as described in section *2.3 Controller Documents* of [Data Integrity](https://w3c.github.io/vc-data-integrity/#controller-documents) specification.
+`Multikey` objects MUST be added to the actor object, which is considered a controller document, as described in [Controller Documents][ControllerDocuments] specification.
 
-If the key is intended to be used for signing ActivityPub objects, it MUST be added to the [`assertionMethod`](https://www.w3.org/TR/vc-data-integrity/#assertion) array of the actor object.
+If the key is intended to be used for signing ActivityPub objects, it MUST be added to the [`assertionMethod`](https://www.w3.org/TR/controller-document/#assertion) array of the actor object.
 
 Other use cases are currently out of scope of this proposal.
 
@@ -88,7 +88,7 @@ This proposal describes how to represent actor's public keys. The corresponding 
 
 ## Test vectors
 
-See [fep-521a.feature](./fep-521a.feature) for manual testing
+See [fep-521a.feature](./fep-521a.feature)
 
 ## Implementations
 
@@ -102,13 +102,13 @@ See [fep-521a.feature](./fep-521a.feature) for manual testing
 - Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
 - Ivan Herman, Manu Sporny, Dave Longley, [Security Vocabulary][SecurityVocabulary], 2023
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
-- Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][DataIntegrity], 2023
+- Dave Longley, Manu Sporny, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Controller Documents 1.0][ControllerDocuments], 2024
 - Protocol Labs, [Multicodec][Multicodec]
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [SecurityVocabulary]: https://w3c.github.io/vc-data-integrity/vocab/security/vocabulary.html
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
-[DataIntegrity]: https://www.w3.org/TR/vc-data-integrity/
+[ControllerDocuments]: https://www.w3.org/TR/controller-document/
 [Multicodec]: https://github.com/multiformats/multicodec/
 
 ## Copyright
