@@ -3,10 +3,10 @@ slug: "a5c5"
 authors: AvidSeeker <avidseeker7@protonmail.com>
 status: DRAFT
 dateReceived: 2024-07-15
-trackingIssue: 'https://codeberg.org/fediverse/fep/issues/364'
-discussionsTo: 'https://socialhub.activitypub.rocks/t/4362'
+discussionsTo: https://socialhub.activitypub.rocks/t/4362
 title: Web Syndication Methods
 date: 2024-07-15
+trackingIssue: https://codeberg.org/fediverse/fep/issues/368
 ---
 
 # FEP-a5c5: Web Syndication Methods

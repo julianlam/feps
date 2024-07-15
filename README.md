@@ -80,6 +80,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-9091: Export Actor Service Endpoint](./fep/9091/fep-9091.md) | `DRAFT` | [#358](https://codeberg.org/fediverse/fep/issues/358) | 2024-07-08 | - |
 | [FEP-6fcd: Account Export Container Format](./fep/6fcd/fep-6fcd.md) | `DRAFT` | [#357](https://codeberg.org/fediverse/fep/issues/357) | 2024-07-11 | - |
 | [FEP-c551: Use ECMAScript Modules to Create Conformance Tests for Fediverse Enhancement Proposals](./fep/c551/fep-c551.md) | `DRAFT` | [#366](https://codeberg.org/fediverse/fep/issues/366) | 2024-07-11 | - |
+| [FEP-a5c5: Web Syndication Methods](./fep/a5c5/fep-a5c5.md) | `DRAFT` | [#368](https://codeberg.org/fediverse/fep/issues/368) | 2024-07-15 | - |
 | [FEP-c4ad: Viewership History](./fep/c4ad/fep-c4ad.md) | `DRAFT` | [#367](https://codeberg.org/fediverse/fep/issues/367) | 2024-07-15 | - |
 
 ## Submitting a FEP
