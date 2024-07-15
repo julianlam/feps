@@ -3,8 +3,8 @@ slug: "c551"
 authors: bengo <ben@bengo.co>
 status: DRAFT
 dateReceived: 2024-07-11
-trackingIssue:
-discussionsTo:
+trackingIssue: https://codeberg.org/fediverse/fep/issues/366
+discussionsTo: https://codeberg.org/fediverse/fep/issues/366
 ---
 
 # FEP-c551: Use ECMAScript Modules to Create Conformance Tests for Fediverse Enhancement Proposals
