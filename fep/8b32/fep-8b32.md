@@ -30,7 +30,7 @@ The proposed authentication mechanism is based on [Data Integrity][Data Integrit
 
 ### Proof generation
 
-The proof MUST be created according to the *Data Integrity* specification, section [4.3 Add Proof](https://w3c.github.io/vc-data-integrity/#add-proof).
+The proof MUST be created according to the *Data Integrity* specification, section [4.1 Add Proof](https://w3c.github.io/vc-data-integrity/#add-proof).
 
 The process of proof generation consists of the following steps:
 
@@ -40,13 +40,13 @@ The process of proof generation consists of the following steps:
 
 The resulting proof is added to the original JSON object under the key `proof`. Objects MAY contain multiple proofs.
 
-The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [2.1 Proofs](https://w3c.github.io/vc-data-integrity/#proofs). The proof type SHOULD be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof](https://w3c.github.io/vc-data-integrity/#dataintegrityproof). The value of `proofPurpose` attribute MUST be `assertionMethod`.
+The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [1.2.1 Proofs](https://w3c.github.io/vc-data-integrity/#proofs). The proof type SHOULD be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof](https://w3c.github.io/vc-data-integrity/#dataintegrityproof). The value of `proofPurpose` attribute MUST be `assertionMethod`.
 
-The value of the `verificationMethod` attribute of the proof can be an URL of a public key or a [DID][DIDs]. The [controller document](https://w3c.github.io/vc-data-integrity/#controller-documents) where verification method is expressed MUST be an actor object or another document that can be provably associated with an [ActivityPub] actor (e.g. a [DID][DIDs] document). If controller document is an actor object, implementers SHOULD use the `assertionMethod` property as described in [FEP-521a].
+The value of the `verificationMethod` attribute of the proof can be an URL of a public key or a [DID][DIDs]. The [controller document][ControllerDocument] where verification method is expressed MUST be an actor object or another document that can be provably associated with an [ActivityPub] actor (e.g. a [DID][DIDs] document). The verification method MUST be associated with the `assertionMethod` property of the controller document. If controller document is an actor object, implementers SHOULD use `assertionMethod` property as described in [FEP-521a].
 
 ### Proof verification
 
-Recipients of an object SHOULD perform proof verification if it contains integrity proofs. Verification process MUST follow the *Data Integrity* specification, section [4.5 Verify Proof](https://w3c.github.io/vc-data-integrity/#verify-proof). It starts with the removal of the `proof` value from the JSON object. Then verification method is retrieved from the controller document as described in section [4.7 Retrieve Verification Method](https://w3c.github.io/vc-data-integrity/#retrieve-verification-method). Then the object is canonicalized, hashed and signature verification is performed according to the parameters specified in the proof.
+Recipients of an object SHOULD perform proof verification if it contains integrity proofs. Verification process MUST follow the *Data Integrity* specification, section [4.3 Verify Proof](https://w3c.github.io/vc-data-integrity/#verify-proof). It starts with the removal of the `proof` value from the JSON object. Then verification method is retrieved from the controller document as described in *Controller Documents* specification, section [3.3 Retrieve Verification Method](https://www.w3.org/TR/controller-document/#retrieve-verification-method). Then the object is canonicalized, hashed and signature verification is performed according to the parameters specified in the proof.
 
 If both HTTP signature and integrity proof are used, the integrity proof MUST be given precedence over HTTP signature. The HTTP signature MAY be dismissed.
 
@@ -227,16 +227,18 @@ See [fep-8b32.feature](./fep-8b32.feature)
 
 - Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
-- Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][Data Integrity], 2023
-- Manu Sporny, Dave Longley, Markus Sabadell, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DIDs], 2022
+- Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][Data Integrity], 2024
+- Manu Sporny, Dave Longley, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DIDs], 2022
+- Dave Longley, Manu Sporny, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Controller Documents 1.0][ControllerDocument], 2024
 - silverpill, [FEP-521a: Representing actor's public keys][FEP-521a], 2023
-- Dave Longley, Manu Sporny, [Data Integrity EdDSA Cryptosuites v1.0][eddsa-jcs-2022], 2023
+- Dave Longley, Manu Sporny, [Data Integrity EdDSA Cryptosuites v1.0][eddsa-jcs-2022], 2024
 - A. Rundgren, B. Jordan, S. Erdtman, [JSON Canonicalization Scheme (JCS)][JCS], 2020
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
 [Data Integrity]: https://w3c.github.io/vc-data-integrity/
 [DIDs]: https://www.w3.org/TR/did-core/
+[ControllerDocument]: https://www.w3.org/TR/controller-document/
 [FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
 [eddsa-jcs-2022]: https://w3c.github.io/vc-di-eddsa/#eddsa-jcs-2022
 [JCS]: https://www.rfc-editor.org/rfc/rfc8785
