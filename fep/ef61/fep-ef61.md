@@ -4,7 +4,7 @@ authors: silverpill <@silverpill@mitra.social>
 status: DRAFT
 dateReceived: 2023-12-06
 trackingIssue: https://codeberg.org/fediverse/fep/issues/209
-discussionsTo: https://codeberg.org/fediverse/fep/issues/209
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-ef61-portable-objects/3738
 ---
 # FEP-ef61: Portable Objects
 
@@ -26,7 +26,7 @@ The proposed solution should satisfy the following constraints:
 
 ## History
 
-[Streams](https://codeberg.org/streams/streams) implements [Nomadic Identity](https://codeberg.org/streams/streams/src/commit/5a20e0102b73a2c05e72bead13ddd712e4c2f885/FEDERATION.md#nomadic-identity) mechanism, that makes identity independent from a server. Nomadic accounts are currently not supported by ActivityPub but are available via the [Nomad protocol](https://codeberg.org/streams/streams/src/commit/11f5174fdd3dfcd8714974f93d8b8fc50378a193/spec/Nomad/Home.md).
+[Streams](https://codeberg.org/streams/streams) implemented [Nomadic Identity](https://codeberg.org/streams/streams/src/commit/5a20e0102b73a2c05e72bead13ddd712e4c2f885/FEDERATION.md#nomadic-identity) mechanism, that makes identity independent from a server. Nomadic accounts were not supported by ActivityPub but were available via the [Nomad protocol](https://codeberg.org/streams/streams/src/commit/11f5174fdd3dfcd8714974f93d8b8fc50378a193/spec/Nomad/Home.md).
 
 [Decentralized Identifiers (DIDs) v1.0][DID] specification suggests that DIDs might be assigned to web resources in section [B.8 Assigning DIDs to existing web resources](https://www.w3.org/TR/did-core/#assigning-dids-to-existing-web-resources).
 
@@ -56,9 +56,11 @@ scheme   authority           path        query   fragment
 
 ### DID methods
 
-Implementers MUST support the [did:key] method and MAY support the [did:web] method.
+Implementers MUST support the [did:key] method and MAY support the [did:web] method. Other DID methods SHOULD NOT be used.
 
-Other DID methods SHOULD NOT be used. Any [DID URL][DID-URL] capabilities of a DID method MUST be ignored when working with `ap://` URLs.
+DID documents SHOULD contain Ed25519 public keys represented as verification methods with `Multikey` type (as defined in the [Controller Documents](https://www.w3.org/TR/controller-document/#multikey) specification).
+
+Any [DID URL][DID-URL] capabilities of a DID method MUST be ignored when working with `ap://` URLs.
 
 ### Dereferencing ap:// URLs
 
@@ -82,7 +84,7 @@ After retrieving an object, the client MUST verify its [FEP-8b32][FEP-8b32] inte
 
 ## Portable actors
 
-An actor object identified by `ap://` URL MUST have the `gateways` property containing an ordered list of gateways where the latest version of that actor object can be retrieved. Each item in the list MUST be an HTTP(S) [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin), and the list MUST contain at least one item.
+An actor object identified by `ap://` URL MUST have a `gateways` property containing an ordered list of gateways where the latest version of that actor object can be retrieved. Each item in the list MUST be an HTTP(S) URL with empty path, query and fragment components. The list MUST contain at least one item.
 
 An actor object identified by `ap://` URL MUST contain an [FEP-8b32][FEP-8b32] integrity proof.
 
@@ -95,13 +97,7 @@ Example:
   "@context": [
     "https://www.w3.org/ns/activitystreams",
     "https://w3id.org/security/data-integrity/v1",
-    {
-      "gateways": {
-        "@id": "https://w3id.org/fep/ef61/gateways",
-        "@type": "@id",
-        "@container": "@list"
-      }
-    }
+    "https://w3id.org/fep/ef61"
   ],
   "type": "Person",
   "id": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor",
@@ -149,13 +145,17 @@ Example:
 POST https://social.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox
 ```
 
-If a server does not accept deliveries on behalf of an actor, it MUST return `405 Method Not Allowed`.
+Delivered activities might be not portable. If delivered activity is portable (has `ap://` identifier), the server MUST verify its [FEP-8b32] integrity proof. If the server does not accept deliveries on behalf of an actor, it MUST return `405 Method Not Allowed`.
 
 ActivityPub clients MAY follow [FEP-ae97][FEP-ae97] to publish activities. In this case, the client MAY deliver signed activity to multiple outboxes, located on different servers.
 
-Upon receiving an activity in actor's outbox, server SHOULD forward it to outboxes located on other servers where actor's data is stored.
+Upon receiving an activity in actor's outbox, server SHOULD forward it to outboxes located on other servers where actor's data is stored. An activity MUST NOT be forwarded from outbox more than once.
 
 Upon receiving an activity in actor's inbox, server SHOULD forward it to inboxes located on other servers where actor's data is stored.
+
+### Collections
+
+Collections associated with portable actors (such as inbox and outbox collections) MAY not have [FEP-8b32] integrity proofs. Consuming implementations MUST NOT process unsecured collections retrieved from servers that are not listed in the `gateways` array of the actor document.
 
 ## Portable objects
 
@@ -167,13 +167,7 @@ Example:
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/security/data-integrity/v1",
-    {
-      "digestMultibase": {
-        "@id": "https://w3id.org/security#digestMultibase",
-        "@type": "https://w3id.org/security#multibase"
-      }
-    }
+    "https://w3id.org/security/data-integrity/v1"
   ],
   "type": "Note",
   "id": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/objects/dc505858-08ec-4a80-81dd-e6670fd8c55f",
@@ -206,15 +200,13 @@ Example:
 
 `ap://` URLs might not be compatible with existing [ActivityPub][ActivityPub] implementations. To provide backward compatibility, gateway-based HTTP(S) URLs of objects can be used instead of their actual `ap://` identifiers.
 
-Publishers MUST use the first gateway from actor's `gateways` list when constructing compatible identifiers. Consuming implementations that support `ap://` URLs MUST remove the part of the URL preceding `did:` and re-construct the canonical `ap://` identifier.
+Publishers MUST use the first gateway from actor's `gateways` list when constructing compatible identifiers. Consuming implementations that support `ap://` URLs MUST remove the part of the URL preceding `did:` and re-construct the canonical `ap://` identifier. Objects with the same canonical identifier, but located on different gateways MUST be treated as different instances of the same object.
 
 Publishers MUST NOT add the `gateways` query parameter to object IDs if compatible identifiers are used.
 
+When HTTP signatures are necessary for communicating with other servers, each gateway that makes requests on behalf of an actor SHOULD use a separate secret key. The corresponding public keys MUST be added to actor document using the `assertionMethod` property as described in [FEP-521a].
+
 ## Discussion
-
-### did:ap URLs
-
-An alternative to the `ap://` URL scheme could be a new DID method providing [DID URL syntax][DID-URL]. Example: `did:ap:example:123456/path/to/object`.
 
 ### Discovering locations
 
@@ -226,7 +218,9 @@ This proposal makes use of the `gateways` property, but the following alternativ
 
 ### Media
 
-Gateways can be used to retrieve media (by content hash):
+Integrity of external resources can be attested using the [`digestMultibase`](https://w3c.github.io/vc-data-integrity/#resource-integrity) property.
+
+Gateways can be used to store resources attached to portable objects. Consuming implementations can retrieve these resources by their content hashes:
 
 ```
 https://social.example/.well-known/apgateway/urn:sha256:11a8c27212f7bbc47a952494581f3bc92e84883ac343cd11a1e4f8eaa1254f4b
@@ -239,9 +233,18 @@ The following alternatives to gateway URLs are being considered:
 1. Use regular HTTP(S) URLs but specify the canonical `ap://` URL using the `url` property (with `canonical` relation type, as proposed in [FEP-fffd][FEP-fffd]). For pointers to other objects such as `inReplyTo` property, an embedded object with `url` property can be used instead of a plain URL.
 2. Alter object ID depending on the capabilities of the peer (which can be reported by [NodeInfo][NodeInfo] or some other mechanism).
 
+### 'ap' URL syntax
+
+'ap' URLs are not valid URIs per [RFC-3986]. To make them valid, the authority component can be percent-encoded:
+
+```
+ap://did%3Akey%3Az6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor
+```
+
 ## Implementations
 
-TBD
+- [Streams](https://codeberg.org/streams/streams)
+- [Mitra](https://codeberg.org/silverpill/mitra) (gateway only)
 
 ## References
 
@@ -251,9 +254,12 @@ TBD
 - Manu Sporny, Dave Longley, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DID], 2022
 - Dave Longley, Dmitri Zagidulin, Manu Sporny, [The did:key Method v0.7][did:key], 2022
 - Christian Gribneau, Michael Prorock, Orie Steele, Oliver Terbu, Mike Xu, Dmitri Zagidulin, [did:web Method Specification][did:web], 2023
+- Dave Longley, Manu Sporny, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Controller Documents 1.0][ControllerDocuments], 2024
 - M. Nottingham, [Well-Known Uniform Resource Identifiers (URIs)][well-known], 2019
 - silverpill, [FEP-8b32: Object Integrity Proofs][FEP-8b32], 2022
 - silverpill, [FEP-ae97: Client-side activity signing][FEP-ae97], 2023
+- silverpill, [FEP-521a: Representing actor's public keys][FEP-521a], 2023
+- Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][Data Integrity], 2024
 - Adam R. Nelson, [FEP-fffd: Proxy Objects][FEP-fffd], 2023
 - Jonne Haß, [NodeInfo][NodeInfo], 2014
 
@@ -263,10 +269,13 @@ TBD
 [DID]: https://www.w3.org/TR/did-core/
 [did:key]: https://w3c-ccg.github.io/did-method-key/
 [did:web]: https://w3c-ccg.github.io/did-method-web/
+[ControllerDocuments]: https://www.w3.org/TR/controller-document/
 [DID-URL]: https://www.w3.org/TR/did-core/#did-url-syntax
 [well-known]: https://datatracker.ietf.org/doc/html/rfc8615
 [FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
 [FEP-ae97]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md
+[FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
+[Data Integrity]: https://w3c.github.io/vc-data-integrity/
 [FEP-fffd]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fffd/fep-fffd.md
 [NodeInfo]: https://nodeinfo.diaspora.software/
 

@@ -1,0 +1,7 @@
+{
+    "gateways": {
+        "@id": "https://w3id.org/fep/ef61/gateways",
+        "@type": "@id",
+        "@container": "@list"
+    }
+}
