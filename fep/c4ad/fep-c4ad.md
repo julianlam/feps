@@ -3,10 +3,10 @@ slug: "c4ad"
 authors: AvidSeeker <avidseeker7@protonmail.com>
 status: DRAFT
 dateReceived: 2024-07-15
-trackingIssue: 'https://codeberg.org/fediverse/fep/issues/362'
-discussionsTo: 'https://socialhub.activitypub.rocks/t/4361'
+discussionsTo: https://socialhub.activitypub.rocks/t/4361
 title: Viewership History
 date: 2024-07-15
+trackingIssue: https://codeberg.org/fediverse/fep/issues/367
 ---
 
 # FEP-c4ad: Viewership History
