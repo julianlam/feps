@@ -3,9 +3,9 @@ slug: "c893"
 authors: AvidSeeker <avidseeker7@protonmail.com>
 status: DRAFT
 dateReceived: 2024-07-15
-trackingIssue: ''
-discussionsTo: 'https://socialhub.activitypub.rocks/t/fep-c893-doap/4363'
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-c893-doap/4363
 title: DOAP
+trackingIssue: https://codeberg.org/fediverse/fep/issues/372
 ---
 
 # FEP-c893: DOAP

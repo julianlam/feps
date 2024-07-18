@@ -82,6 +82,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-c551: Use ECMAScript Modules to Create Conformance Tests for Fediverse Enhancement Proposals](./fep/c551/fep-c551.md) | `DRAFT` | [#366](https://codeberg.org/fediverse/fep/issues/366) | 2024-07-11 | - |
 | [FEP-a5c5: Web Syndication Methods](./fep/a5c5/fep-a5c5.md) | `DRAFT` | [#368](https://codeberg.org/fediverse/fep/issues/368) | 2024-07-15 | - |
 | [FEP-c4ad: Viewership History](./fep/c4ad/fep-c4ad.md) | `DRAFT` | [#367](https://codeberg.org/fediverse/fep/issues/367) | 2024-07-15 | - |
+| [FEP-c893: DOAP](./fep/c893/fep-c893.md) | `DRAFT` | [#372](https://codeberg.org/fediverse/fep/issues/372) | 2024-07-15 | - |
 
 ## Submitting a FEP
 
