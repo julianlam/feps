@@ -2,10 +2,11 @@
 slug: "eb48"
 title: Hashtags
 dateReceived: 2024-07-16
-discussionsTo: 'https://socialhub.activitypub.rocks/t/4369'
+discussionsTo: https://socialhub.activitypub.rocks/t/4369
 title: Timeline Preferences
 authors: AvidSeeker <avidseeker7@protonmail.com>
 status: DRAFT
+trackingIssue: https://codeberg.org/fediverse/fep/issues/373
 ---
 
 # FEP-eb48: Hashtags

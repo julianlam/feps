@@ -83,6 +83,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-a5c5: Web Syndication Methods](./fep/a5c5/fep-a5c5.md) | `DRAFT` | [#368](https://codeberg.org/fediverse/fep/issues/368) | 2024-07-15 | - |
 | [FEP-c4ad: Viewership History](./fep/c4ad/fep-c4ad.md) | `DRAFT` | [#367](https://codeberg.org/fediverse/fep/issues/367) | 2024-07-15 | - |
 | [FEP-c893: DOAP](./fep/c893/fep-c893.md) | `DRAFT` | [#372](https://codeberg.org/fediverse/fep/issues/372) | 2024-07-15 | - |
+| [FEP-eb48: Hashtags](./fep/eb48/fep-eb48.md) | `DRAFT` | [#373](https://codeberg.org/fediverse/fep/issues/373) | 2024-07-16 | - |
 
 ## Submitting a FEP
 
