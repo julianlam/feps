@@ -65,6 +65,8 @@ The `subject` would typically be the resource URI. However, this proposal does n
 
 The Server-level Actor's URI will be the `href` property of a `link` with a `rel` (relation type) property of `https://www.w3.org/ns/activitystreams#Service` ([W3C AS2 Service Primer][ActivityPubService]). The type of the Server-level Actor itself is not required to be the same as the relation type.
 
+The `https://www.w3.org/ns/activitystreams#Service` `rel` value may be replaced with `self` if there is no ambiguity between the server-level actor and user's actor in a single actor server (see discussion of [single-actor servers](#single-actor-servers)).
+
 A `http://webfinger.net/rel/profile-page` `rel` ([WebFinger Relations][WebFingerRels]) can be used to link to server metadata (possibly with multiple content types). However, the structure of the target metadata has not been defined at this time. For example, the following links refer to profile data in HTML and JSON-LD formats.
 
 ```json
@@ -118,7 +120,7 @@ If multiple server-level actor links are returned, the links can be disambiguate
 }
 ```
 
-## Single Actor Servers
+## <a id="single-actor-servers"></a> Single Actor Servers
 
 A developer of a single-actor (user actor) server may want that user to have a URI corresponding to the server prefix although it's not intended to be an server-level actor. This scenario, which is not expected to be a common one, can be supported by returning multiple links in the [WebFinger] response.
 
@@ -202,10 +204,11 @@ Host: https://mastodon.social
 
 Some differences between the Mastodon implementation and this proposal include:
 
-* Mastodon returns the Server Actor with the same `rel` as a user actor ("self"). 
 * It does not support standard [WebFinger] filtering by `rel`.
 
-The `subject` is the Mastodon-specific account URI for the server-level actor rather than the [ActivityPub] actor URI.
+* The `subject` is the Mastodon-specific account URI for the server-level actor rather than the [ActivityPub] actor URI.
+
+Since no user-related actor link is provided for the server resource, the `self` `rel` value can be used without ambiguity
 
 ## Related Proposals
 
