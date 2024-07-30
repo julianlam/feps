@@ -15,6 +15,7 @@ def test_fep(fep):
     assert parsed_frontmatter["status"] in ["DRAFT", "FINAL", "WITHDRAWN"]
     assert parsed_frontmatter["slug"] == f'"{fep}"'
     assert "authors" in parsed_frontmatter
+    assert "dateReceived" in parsed_frontmatter
 
     if parsed_frontmatter["status"] == "FINAL":
         assert "dateFinalized" in parsed_frontmatter
