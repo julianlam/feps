@@ -22,7 +22,9 @@ b3f0
 
 7. Write down your idea in the newly created file and commit it to a new branch in your repository (ex. fep-xxxx).
 8. When you are ready to submit the FEP, change the value of `dateReceived` field in the frontmatter to the current date.
-9. Create a Pull Request to complete Step 1 of [FEP-a4ed: The Fediverse Enhancement Proposal Process](./fep/a4ed/fep-a4ed.md). Further process is described in FEP-a4ed.
+9. Create a discussion topic for your FEP. You can use [ActivityPub category](https://socialhub.activitypub.rocks/c/activitypub/5) on the SocialHub forum.
+10. Add `discussionsTo` field containing the URL of the discussion topic to the front matter of your FEP.
+11. Create a Pull Request to complete Step 1 of [FEP-a4ed: The Fediverse Enhancement Proposal Process](./fep/a4ed/fep-a4ed.md). Further process is described in FEP-a4ed.
 
 Alternatively to steps 3. to 6., you can run
 
@@ -34,11 +36,11 @@ that should create a prefilled template for you.
 
 ## Facilitators
 
-The list of FEP's is maintained by the facilitators who are listed in the [FACILITATORS.md](FACILITATORS.md) file. Facilitators are neutral custodians of the FEP process, who merge PR's, create tracking issues, and start discussion threads for each FEP in the [SocialHub](https://socialhub.activitypub.rocks) developer community forum.
+The list of FEP's is maintained by the facilitators who are listed in the [FACILITATORS.md](FACILITATORS.md) file. Facilitators are neutral custodians of the FEP process, who merge PR's and create tracking issues.
 
 ## Contributing
 
-Do you have ideas to improve the FEP Process? Post your suggestions to the issue tracker, or on the SocialHub forum. The SocialHub developer community is a "DoOcracy" which means: “pick up any task you want, and then steer it to completion”. Your contributions are most welcome, so delve in and find out how you can help.
+Do you have ideas to improve the FEP Process? Post your suggestions to the issue tracker, or on the [SocialHub](https://socialhub.activitypub.rocks) forum. The SocialHub developer community is a "DoOcracy" which means: “pick up any task you want, and then steer it to completion”. Your contributions are most welcome, so delve in and find out how you can help.
 
 ## License
 
