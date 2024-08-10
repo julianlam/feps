@@ -3,9 +3,9 @@ slug: "c16b"
 authors: ilja <ilja@ilja.space>
 status: DRAFT
 dateReceived: 2024-08-10
-trackingIssue: 
-discussionsTo: 
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-c16b-formatting-mfm-functions/4448
 relatedFeps: FEP-dc88
+trackingIssue: https://codeberg.org/fediverse/fep/issues/383
 ---
 # FEP-c16b: Formatting MFM functions
 
