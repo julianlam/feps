@@ -63,12 +63,16 @@ Collections without an `attributedTo` property are owned by the server. Unattrib
 
 ## Authorization
 
-The actor that creates the object MUST be its owner. If activity modifies or deletes the object, its owner MUST match the object's owner.
+The actor that creates the object MUST be its owner.
+
+If activity modifies or deletes an object, its owner SHOULD match the object's owner. If owners are different, their IDs MUST have the same origin.
 
 Examples:
 
-- `Create`, `Update` and `Delete` activities, and objects indicated by their `object` property MUST have the same owner.
-- `Add` and `Remove` activities, and objects indicated by their `target` property MUST have the same owner.
+- `Create`, `Update` and `Delete` activities, and objects indicated by their `object` property SHOULD have the same owner.
+- `Undo` activity and object indicated by its `object` property SHOULD have the same owner.
+- `Add` and `Remove` activities, and objects indicated by their `target` property SHOULD have the same owner.
+- `Announce` and `Like` activities don't modify objects indicated by their `object` property, therefore their owners can be different.
 
 ## Implementation notes
 
