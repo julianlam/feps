@@ -69,6 +69,7 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Hatsu](https://github.com/importantimport/hatsu/blob/main/FEDERATION.md)
 - [tootik](https://github.com/dimkr/tootik/blob/main/FEDERATION.md)
 - [Bridgy Fed](https://github.com/snarfed/bridgy-fed/blob/main/FEDERATION.md)
+- [Friendica](https://git.friendi.ca/friendica/friendica/src/branch/develop/FEDERATION.md)
 
 ## References
 
