@@ -4,6 +4,7 @@ authors: Manton Reece <manton@micro.blog>
 status: DRAFT
 dateReceived: 2024-07-25
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-eb22-supported-activitystreams-types-with-nodeinfo/4469
+trackingIssue: https://codeberg.org/fediverse/fep/issues/386
 ---
 # FEP-eb22: Supported ActivityStreams types with NodeInfo
 

@@ -84,6 +84,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-c4ad: Viewership History](./fep/c4ad/fep-c4ad.md) | `DRAFT` | [#367](https://codeberg.org/fediverse/fep/issues/367) | 2024-07-15 | - |
 | [FEP-c893: DOAP](./fep/c893/fep-c893.md) | `DRAFT` | [#372](https://codeberg.org/fediverse/fep/issues/372) | 2024-07-15 | - |
 | [FEP-eb48: Hashtags](./fep/eb48/fep-eb48.md) | `DRAFT` | [#373](https://codeberg.org/fediverse/fep/issues/373) | 2024-07-16 | - |
+| [FEP-eb22: Supported ActivityStreams types with NodeInfo](./fep/eb22/fep-eb22.md) | `DRAFT` | [#386](https://codeberg.org/fediverse/fep/issues/386) | 2024-07-25 | - |
 | [FEP-c0e0: Emoji reactions](./fep/c0e0/fep-c0e0.md) | `DRAFT` | [#384](https://codeberg.org/fediverse/fep/issues/384) | 2024-08-08 | - |
 | [FEP-c16b: Formatting MFM functions](./fep/c16b/fep-c16b.md) | `DRAFT` | [#383](https://codeberg.org/fediverse/fep/issues/383) | 2024-08-10 | - |
 
