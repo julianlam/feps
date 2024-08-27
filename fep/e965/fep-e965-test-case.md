@@ -3,7 +3,7 @@ type:
 - TestCase
 status: draft
 name: Actor Object Migration and Tombstone Syntax
-slug: fep-0f2a-actor-object-migration-and-tombstone-syntax
+slug: fep-e965-actor-object-migration-and-tombstone-syntax
 description: |
   This rule checks whether a given Actor Object has used valid `movedTo` or `copiedTo` values and exclusively.
 uuid: 73257c1a-70da-42df-9698-579940c7065a
@@ -23,7 +23,7 @@ respec:
     - name: bumblefudge
       url: "https://bumblefudge.com"
       w3cid: 143155
-    latestVersion: https://codeberg.org/fediverse/fep/src/branch/main/fep/0f2a/fep-0f2a.md
+    latestVersion: https://codeberg.org/fediverse/fep/src/branch/main/fep/e965/fep-e965.md
 
 ---
 
@@ -39,11 +39,11 @@ This proposal extends and combines prior FEPs to define syntax and parsing rules
 
 ## About this Test
 
-This is a Test Case testing conformance with the two properties of an Actor object specified in FEP-0f2a.
+This is a Test Case testing conformance with the two properties of an Actor object specified in FEP-e965.
 
 ## Test Subject
 
-The subject of this test is any data claiming to conform to the specification of an ActivityPub Actor Object and to the FEP-0f2a extension thereof.
+The subject of this test is any data claiming to conform to the specification of an ActivityPub Actor Object and to the FEP-e965 extension thereof.
 
 This test is *not* directly applicable to an ActivityPub Server.
 An ActivityPub Server serves 0 or more Actor Objects.
@@ -417,7 +417,7 @@ An outcome can be one of the three following types:
 ## Requirements Mapping
 
 * FEP requirement: - Actor Objects must express signing key as assertionMethod Multikey
-  * Required for Conformance to [FEP-0f2a][FEP-0f2a]
+  * Required for Conformance to [FEP-e965][FEP-e965]
   * Outcome Mapping
     * when test target `assertionMethod` has outcome `passed`, requirement is satisfied
     * when test target `assertionMethod` has outcome `failed`, requirement is not satisfied
@@ -425,11 +425,12 @@ An outcome can be one of the three following types:
 
 ## References
 
-[FEP-0f2a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-0f2a.md
+[FEP-e965]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-e965.md
 [FEP-7628]: https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md
 
 ## Change Log
 
+* 2024-08-28T15:20:36Z - tweak links because FEP slug changed
 * 2024-06-28T15:20:36Z - first draft by bumblefudge
 
 ## Issues List

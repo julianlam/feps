@@ -1,19 +1,19 @@
 ---
-slug: "0f2a"
+slug: "e965"
 authors: bumblefudge <bumblefudge@learningproof.xyz>, bengo <@bengo@social.coop>
 status: DRAFT
 dateReceived: 2024-07-05
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-0f2a-announce-activity-for-migrations-and-tombstone-events/4349
 trackingIssue: https://codeberg.org/fediverse/fep/issues/352
 ---
-# FEP-0f2a: Announce Activity for Migrations and Tombstone Events
+# FEP-e965: Move Activity for Migrations and Announce Activity for Tombstone Events
 
 ## Summary
 
 This FEP normatively specifies exactly one narrow step in almost all the migration user-stories defined in [FEP-73cd: User Migration Stories][FEP-73cd]:
 
 * the updates to an Actor object made after a migration and/or deactivation event, and
-* the Announcement activity which a source server propagates to inform followers of said Actor object update
+* the Move activity which a source server propagates to inform followers of said Actor object update
 
 Our proposal clarifies semantics and behavior of the earlier [FEP-7628][FEP-7628] on which it strictly relies.
 It also proposes a simple, additive approach to use the above to express "deactivated" Actors by "tombstoning" their Actor objects, i.e. adding "Tombstone" to their `type` array (already afforded by the Activity Streams vocabulary).
@@ -33,12 +33,12 @@ Beyond passively leaving a `Tombstone` hint for future queries, there have been 
 
 ### Conformance
 
-MUST, MAY, and SHOULD used in the [RFC-2119] sense where they appear in CAPITAL LETTERS. Similarly, the references to "valid" URIs throughout should be interpreted as conforming to both [RFC-3987][] and the [Activity Streams guidance on URI usage][Activity Streams URI].
+MUST, MAY, and SHOULD used in the [RFC-2119] sense where they appear in CAPITAL LETTERS. Similarly, the references to "valid" URIs throughout should be interpreted as conforming to both [RFC-3987][] and the [Activity Streams guidance on URI usage][Activity Streams URIs].
 
 Implementations SHOULD signal their support for this specification by including `"https://w3id.org/fep/7628"` in the `@context` array of their Actors, as this will clearly signal that the _ABSENCE_ of a `movedTo` or `copiedTo` property indicates a currently-active Actor.
 
 Implementations MAY prove support for this specification by publishing a Conformance Report referencing the tests run.
-A specification for possible tests is provided in [fep-0f2a-test-case](./fep-0f2a-test-case.md).
+A specification for possible tests is provided in [fep-e965-test-case](./fep-e965-test-case.md).
 
 ### Actor Object Migration and Deactivation Syntax
 
@@ -47,13 +47,19 @@ In the section, ["Move Activity"](https://codeberg.org/fediverse/fep/src/branch/
 > If previous primary actor is deactivated after migration, it MUST have movedTo property containing the ID of the new primary actor. [...]
 If previous primary actor is not deactivated, copiedTo property MUST be used.
 
-We add a few explicit requirements:
+We add a few more explicit requirements:
 
 * `movedTo` MUST be a string or an array containing 1 string.
 * `copiedTo` MUST be a string or an array of strings.
 * both `movedTo` and `copiedTo` MUST NOT be present in the same Actor object.
 * Consuming implementations SHOULD treat an Actor with both properties as malformed.
-* Deactivated Actors should be typed as `as:Tombstone`
+
+Many other current and future process and Activities could also be using the same semantics, including new "styles" or "profiles" of the many possible Actor objects allowed by the [ActivityPub] specification.
+These include Actors that *do not change `id` after migrating*, whether they conform to the [Nomadic][FEP-ef61] Actor extension, or to the [separately-hosted][FEP-7952] Actor extension.
+If an account is moving to one of these configurations, the `movedTo` or `copiedTo` value will be the `id` and location of an `ap://` URL, or to a URL controlled by the Actor object's data subject, respectively.
+
+If the Actor object before the deactivation event included a public key for signing Activities expressed according to [Client-Signing][FEP-521a], and the same public key will NOT be published at the destination server for verifying post-migration Activities, then the source server MAY add an `expires` key and current-timestamp value to the key's `assertionMethod` object as described in [section #2.3.1: Verification Methods](https://www.w3.org/TR/vc-data-integrity/#verification-methods) of the [W3C Data Integrity](https://www.w3.org/TR/vc-data-integrity) specification (to which [FEP-521a] normatively refers).
+Any consumer fetching this `assertionMethod` object for the purposes of verifying signatures according to the Data Integrity algorithm will thus invalidate signatures newer than the deactivation of that key.
 
 If an account has been deleted intentionally and consuming implementations are expected to recognize this, regardless of whether or not a `movedTo` value has been set, a server MUST include the string "Tombstone" in the `type` array of the deactivated or moved Actor object.
 Whether any other types are present is out of scope of this specification, to minimize side effects or complications for implementers.
@@ -63,26 +69,16 @@ A server performing this removal MAY move one valid URI from `copiedTo` to `move
 
 If a user account is being deactivated but the source server wants to enable a future migration to be authenticated cryptographically, it MAY add to the Actor object a public key authenticated to the account (if not already present), as per to [FEP-521a].
 
-#### Actor Objects including key material
-
-If the Actor object before the deactivation event included a public key for signing Activities expressed according to [Client-Signing][FEP-521a], and the same public key will NOT be published at the destination server for verifying post-migration Activities, then the source server MAY add an `expires` key and current-timestamp value to the key's `assertionMethod` object as described in [section #2.3.1: Verification Methods](https://www.w3.org/TR/vc-data-integrity/#verification-methods) of the [W3C Data Integrity](https://www.w3.org/TR/vc-data-integrity) specification (to which [FEP-521a] normatively refers).
-Any consumer fetching this `assertionMethod` object for the purposes of verifying signatures according to the Data Integrity algorithm will thus invalidate signatures newer than the deactivation of that key.
-
 An Actor object set to `Tombstone` SHOULD also set a top-level [`as:deleted`](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-deleted) property containing a current XSD `dateTime` as a courtesy to consumers.
-
-#### Novel Actor Types and their URIs
-
-Many other current and future process and Activities could also be using the same semantics, including new "styles" or "profiles" of the many possible Actor objects allowed by the [ActivityPub] specification.
-These include Actors that _do not change `id` after migrating_, whether they conform to the [Nomadic][FEP-ef61] Actor extension, or to the [separately-hosted][FEP-7952] Actor extension.
-If an account is moving to one of these configurations, the `movedTo` or `copiedTo` value will be the `id` and location of an `ap://` URL, or to a URL controlled by the Actor object's data subject, respectively.
 
 ### Announcing a Migration or Deactivation Event
 
-After these changes have been made to the Actor object on the source server, an Announce activity SHOULD be sent out with the Actor as its object.
+After these changes have been made to the Actor object on the source server, it should be announced according to the type of changes made.
+If `movedTo` or `copiedTo` have been changed, then a [FEP-73cd][]-compatible Move activity with the Actor as its object SHOULD be sent out, at least to all of that Actor's Followers.
+If the Actor is being retyped to `Tombstone`, an Announce activity with the Actor as object should be sent out, at least to all of that Actor's followers.
 
 If a user account is being deactivated but the source server wants to enable a future migration to be authenticated cryptographically, it is RECOMMENDED that the Announce activity be signed as per [FEP-8b32].
-
-An Actor-update Announce activity SHOULD be addressed to the Actor's Followers.
+In this way, a later Move activity **signed by the same key** could, at least theoretically, be accepted from a new server which authenticates it by [FEP-8b32].
 
 ### Interpreting a Migrated or Deactivated Actor Object
 
@@ -110,14 +106,14 @@ There are caveats to interpreting these values if the `movedTo` or `copiedTo` pr
 * If a querying implementation cannot resolve a value of these types or further indirections, it SHOULD consider them equivalent to URLs that return 404 and MAY log an error or warning to user or system log as appropriate.
 * It is RECOMMENDED that unresolvable `movedTo` values be displayed to end-users as corrupted or incomplete moves, rather than as deactivated accounts.
 
-### Interpreting an Announce Activity of a Deactivated Actor
+### Interpreting a Move Activity or an Announce Activity of a Deactivated Actor
 
-Servers receiving an Announce object with an Actor as its object SHOULD NOT increment a `shares` collection.
+Servers receiving a Move or an Announce activity with an Actor as its object SHOULD NOT increment a `shares` collection.
 If a receiving server persists redirects or aliases to more smoothly remain aware of migrating or multi-homed users, or for other reasons, it MAY resolve the new Actor object and perform the above-described checks and MAY record said Actor update.
 
 ## Open Issues
 
-1. Are there others to which an Actor-update Announce should be addressed beyond just Followers? is it worth calling out server-instance Actors, since they might also want to know for... idunno moderation reasons?
+1. Are there others to which an Actor-update Move or Announce should be addressed beyond just the old Actor's [Followers, somehow imported](https://socialhub.activitypub.rocks/t/fep-7628-move-actor/3583/3)? is it worth calling out server-instance Actors, since they might also want to know for... idunno moderation reasons?
 2. Announce Activity example
 3. Address Actor Equivalence Attestation objects explicitly, or leave up to implementer imagination?
 
