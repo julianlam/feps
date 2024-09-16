@@ -43,6 +43,11 @@ The owner of an object MUST be an actor.
 
 Object identifiers are grouped together into protection domains called "origins". This concept is similar to the "web origin" concept described in [RFC-6454], and origins of object IDs are computed by the same algorithm.
 
+The same-origin policy determines when a relationship between objects can be trusted.
+
+>[!NOTE]
+> There might be other ways to establish trust, but they are not covered by this document.
+
 ## Identifiers and ownership
 
 Identifier of an object and identifier of its owner MUST have the same origin.
@@ -67,9 +72,13 @@ If the object was delivered to inbox and its authentication fails, the recipient
 
 If the object is embedded within another object, it MAY be considered authentic if its owner has the same origin as the owner of the containing object. If the embedded and the containing objects have owners with different origins, the authenticity of the embedded object MUST be verified independently either by fetching it from the server of origin, or by verifying its [FEP-8b32] integrity proof.
 
+### Anonymous objects
+
+An object without an ID can only exist when embedded within another object. It has the same owner as the parent object and it is considered authentic when the parent object is authentic.
+
 ### Unattributed objects
 
-An object without an owner is owned by the server. Such object MUST be considered authentic only if fetched from the location that matches its ID.
+An object without an explicit owner is owned by the server. Such object MUST be considered authentic only if fetched from the location that has the same origin as its ID.
 
 ## Authorization
 
