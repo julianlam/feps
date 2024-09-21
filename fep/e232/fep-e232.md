@@ -80,6 +80,7 @@ Note that the `content` includes the `RE: <url>` microsyntax but consuming imple
 - Threads ([announcement](https://engineering.fb.com/2024/03/21/networking-traffic/threads-has-entered-the-fediverse/))
 - [Friendica](https://github.com/friendica/friendica/pull/14032)
 - Bridgy Fed
+- [Hollo](https://hollo.social/@hollo/01920132-739e-7eff-9f5f-424282884eee)
 
 ## References
 
