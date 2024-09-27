@@ -30,7 +30,7 @@ The proposed authentication mechanism is based on [Data Integrity][Data Integrit
 
 ### Proof generation
 
-The proof MUST be created according to the *Data Integrity* specification, section [4.1 Add Proof](https://w3c.github.io/vc-data-integrity/#add-proof).
+The proof MUST be created according to the *Data Integrity* specification, section [4.2 Add Proof](https://w3c.github.io/vc-data-integrity/#add-proof).
 
 The process of proof generation consists of the following steps:
 
@@ -40,13 +40,13 @@ The process of proof generation consists of the following steps:
 
 The resulting proof is added to the original JSON object under the key `proof`. Objects MAY contain multiple proofs.
 
-The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [1.2.1 Proofs](https://w3c.github.io/vc-data-integrity/#proofs). The proof type SHOULD be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof](https://w3c.github.io/vc-data-integrity/#dataintegrityproof). The value of `proofPurpose` attribute MUST be `assertionMethod`.
+The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [2.1 Proofs](https://w3c.github.io/vc-data-integrity/#proofs). The proof type SHOULD be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof](https://w3c.github.io/vc-data-integrity/#dataintegrityproof). The value of `proofPurpose` attribute MUST be `assertionMethod`.
 
-The value of the `verificationMethod` attribute of the proof can be an URL of a public key or a [DID][DIDs]. The [controller document][ControllerDocument] where verification method is expressed MUST be an actor object or another document that can be provably associated with an [ActivityPub] actor (e.g. a [DID][DIDs] document). The verification method MUST be associated with the `assertionMethod` property of the controller document. If controller document is an actor object, implementers SHOULD use `assertionMethod` property as described in [FEP-521a].
+The value of the `verificationMethod` attribute of the proof can be an HTTP(S) URL of a public key or a [DID URL][DID-URL]. The [controller document][ControllerDocument] where verification method is expressed MUST be an actor object or another document that can be provably associated with an [ActivityPub] actor (e.g. a [DID][DIDs] document). The verification method MUST be associated with the `assertionMethod` property of the controller document. If controller document is an actor object, implementers SHOULD use `assertionMethod` property as described in [FEP-521a].
 
 ### Proof verification
 
-Recipients of an object SHOULD perform proof verification if it contains integrity proofs. Verification process MUST follow the *Data Integrity* specification, section [4.3 Verify Proof](https://w3c.github.io/vc-data-integrity/#verify-proof). It starts with the removal of the `proof` value from the JSON object. Then verification method is retrieved from the controller document as described in *Controller Documents* specification, section [3.3 Retrieve Verification Method](https://www.w3.org/TR/controller-document/#retrieve-verification-method). Then the object is canonicalized, hashed and signature verification is performed according to the parameters specified in the proof.
+Recipients of an object SHOULD perform proof verification if it contains integrity proofs. Verification process MUST follow the *Data Integrity* specification, section [4.4 Verify Proof](https://w3c.github.io/vc-data-integrity/#verify-proof). It starts with the removal of the `proof` value from the JSON object. Then verification method is retrieved from the controller document as described in *Controller Documents* specification, section [3.3 Retrieve Verification Method](https://www.w3.org/TR/controller-document/#retrieve-verification-method). Then the object is canonicalized, hashed and signature verification is performed according to the parameters specified in the proof.
 
 If both HTTP signature and integrity proof are used, the integrity proof MUST be given precedence over HTTP signature. The HTTP signature MAY be dismissed.
 
@@ -61,7 +61,7 @@ Implementers are expected to pursue broad interoperability when choosing algorit
 - Signatures: EdDSA
 
 >[!WARNING]
->`eddsa-jcs-2022` cryptosuite specification is not stable and may change before it becomes a W3C Recommendation. In particular, the processing of nested objects is not [well defined](https://github.com/w3c/vc-di-eddsa/issues/81).
+>`eddsa-jcs-2022` cryptosuite specification is not stable and may change before it becomes a W3C Recommendation.
 
 ### Backward compatibility
 
@@ -76,13 +76,6 @@ If both `proof` and `signature` are present in a received object, the linked dat
 #### Activities
 
 The controller of the verification method MUST match the actor of activity, or be associated with that actor.
-
-#### Nested objects
-
-Nested objects containing integrity proofs that use [JCS] canonicalization algorithm might not be compatible with JSON-LD processors. To avoid verification errors, implementers MAY re-define properties such as `object` as having `@json` type when signing objects containing other signed objects.
-
->[!WARNING]
->`eddsa-jcs-2022` cryptosuite specification is not stable and recommendations for nested objects may change before it becomes a W3C Recommendation.
 
 ## Examples
 
@@ -146,9 +139,6 @@ Nested objects containing integrity proofs that use [JCS] canonicalization algor
 ```
 
 ### Signed activity with embedded signed object
-
->[!WARNING]
->Recommendations for nested objects may change in the future, see [Nested objects](#nested-objects) section.
 
 ```json
 {
@@ -238,6 +228,7 @@ See [fep-8b32.feature](./fep-8b32.feature)
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
 [Data Integrity]: https://w3c.github.io/vc-data-integrity/
 [DIDs]: https://www.w3.org/TR/did-core/
+[DID-URL]: https://www.w3.org/TR/did-core/#did-url-syntax
 [ControllerDocument]: https://www.w3.org/TR/controller-document/
 [FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
 [eddsa-jcs-2022]: https://w3c.github.io/vc-di-eddsa/#eddsa-jcs-2022
