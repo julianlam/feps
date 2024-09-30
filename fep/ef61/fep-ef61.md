@@ -51,12 +51,13 @@ scheme   authority           path        query   fragment
 
 - The URI scheme MUST be `ap`.
 - The authority component MUST be a valid [DID].
-- The path is REQUIRED.
-- The query and the fragment are OPTIONAL.
+- The path is REQUIRED. It MUST be treated as an opaque string.
+- The query is OPTIONAL. To avoid future conflicts, implementers SHOULD NOT use parameter names that are not defined in this proposal.
+- The fragment is OPTIONAL.
 
 ### DID methods
 
-Implementers MUST support the [did:key] method and MAY support the [did:web] method. Other DID methods SHOULD NOT be used.
+Implementers MUST support the [did:key] method and MAY support the [did:web] method. Other DID methods SHOULD NOT be used, as it might hinder interoperability.
 
 DID documents SHOULD contain Ed25519 public keys represented as verification methods with `Multikey` type (as defined in the [Controller Documents](https://www.w3.org/TR/controller-document/#multikey) specification).
 
@@ -80,7 +81,7 @@ If object identified by `ap://` URL is not stored on the server, it MUST return 
 
 If object is not public, the server MUST return `404 Not Found` unless the request has a HTTP signature and the signer is allowed to view the object.
 
-After retrieving an object, the client MUST verify its [FEP-8b32][FEP-8b32] integrity proof. The value of `verificationMethod` property of the proof MUST match the authority component of the `ap://` URL.
+After retrieving an object, the client MUST verify its [FEP-8b32][FEP-8b32] integrity proof. The value of `verificationMethod` property of the proof MUST be a [DID URL][DID-URL] where the DID matches the authority component of the `ap://` URL.
 
 ## Portable actors
 
@@ -111,7 +112,7 @@ Example:
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
     "created": "2023-02-24T23:36:38Z",
-    "verificationMethod": "did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    "verificationMethod": "did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     "proofPurpose": "assertionMethod",
     "proofValue": "..."
   }
@@ -189,14 +190,27 @@ Example:
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
     "created": "2023-02-24T23:36:38Z",
-    "verificationMethod": "did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    "verificationMethod": "did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
     "proofPurpose": "assertionMethod",
     "proofValue": "..."
   }
 }
 ```
 
+## Authentication and authorization
+
+Authentication and authorization MUST be performed in accordance with [FEP-c7d3] guidelines.
+
+When doing same-origin checks, the [origin][RFC-6454] of an `ap://` URL MUST be computed by the following algorithm:
+
+1. Let `uri-scheme` be the `ap` string.
+2. Let `uri-host` be the authority component of the URL.
+3. Let `uri-port` be the number 0.
+4. Return the triple `(uri-scheme, uri-host, uri-port)`.
+
 ## Compatibility
+
+### Identifiers
 
 `ap://` URLs might not be compatible with existing [ActivityPub][ActivityPub] implementations. To provide backward compatibility, gateway-based HTTP(S) URLs of objects can be used instead of their actual `ap://` identifiers.
 
@@ -206,7 +220,21 @@ Publishers MUST NOT add the `gateways` query parameter to object IDs if compatib
 
 When HTTP signatures are necessary for communicating with other servers, each gateway that makes requests on behalf of an actor SHOULD use a separate secret key. The corresponding public keys MUST be added to actor document using the `assertionMethod` property as described in [FEP-521a].
 
+### WebFinger addresses
+
+WebFinger address of a portable actor can be obtained by the reverse discovery algorithm described in section 2.2 of [ActivityPub and WebFinger](WebFinger) report, but instead of taking the hostname from the identifier, it MUST be taken from the first gateway in actor's `gateways` array.
+
 ## Discussion
+
+(This section is non-normative.)
+
+### 'ap' URL syntax
+
+'ap' URLs are not valid URIs per [RFC-3986]. To make them valid, the authority component can be percent-encoded:
+
+```
+ap://did%3Akey%3Az6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor
+```
 
 ### Discovering locations
 
@@ -215,6 +243,8 @@ This proposal makes use of the `gateways` property, but the following alternativ
 - `aliases` and [`sameAs`](https://schema.org/sameAs) (containing HTTP(S) URLs of objects)
 - `alsoKnownAs` (used for account migrations, so the usage of this property may cause issues)
 - `url` (with `alternate` [relation type](https://html.spec.whatwg.org/multipage/links.html#linkTypes))
+
+Also, `gateways` array can contain HTTP(S) URL with a path component, thus enabling discovery based on ["follow your nose"](https://indieweb.org/follow_your_nose) principle, as opposed to discovery based on a [well-known] location.
 
 ### Media
 
@@ -228,18 +258,10 @@ https://social.example/.well-known/apgateway/urn:sha256:11a8c27212f7bbc47a952494
 
 ### Compatibility
 
-The following alternatives to gateway URLs are being considered:
+The following alternatives to gateway-based compatible IDs are being considered:
 
 1. Use regular HTTP(S) URLs but specify the canonical `ap://` URL using the `url` property (with `canonical` relation type, as proposed in [FEP-fffd][FEP-fffd]). For pointers to other objects such as `inReplyTo` property, an embedded object with `url` property can be used instead of a plain URL.
 2. Alter object ID depending on the capabilities of the peer (which can be reported by [NodeInfo][NodeInfo] or some other mechanism).
-
-### 'ap' URL syntax
-
-'ap' URLs are not valid URIs per [RFC-3986]. To make them valid, the authority component can be percent-encoded:
-
-```
-ap://did%3Akey%3Az6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor
-```
 
 ## Implementations
 
@@ -258,7 +280,10 @@ ap://did%3Akey%3Az6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor
 - M. Nottingham, [Well-Known Uniform Resource Identifiers (URIs)][well-known], 2019
 - silverpill, [FEP-8b32: Object Integrity Proofs][FEP-8b32], 2022
 - silverpill, [FEP-ae97: Client-side activity signing][FEP-ae97], 2023
+- silverpill, [FEP-c7d3: Ownership][FEP-c7d3], 2024
+- A. Barth, [The Web Origin Concept][RFC-6454], 2011
 - silverpill, [FEP-521a: Representing actor's public keys][FEP-521a], 2023
+- a, Evan Prodromou, [ActivityPub and WebFinger][Webfinger], 2024
 - Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][Data Integrity], 2024
 - Adam R. Nelson, [FEP-fffd: Proxy Objects][FEP-fffd], 2023
 - Jonne Haß, [NodeInfo][NodeInfo], 2014
@@ -274,7 +299,10 @@ ap://did%3Akey%3Az6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor
 [well-known]: https://datatracker.ietf.org/doc/html/rfc8615
 [FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
 [FEP-ae97]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md
+[FEP-c7d3]: https://codeberg.org/fediverse/fep/src/branch/main/fep/c7d3/fep-c7d3.md
+[RFC-6454]: https://www.rfc-editor.org/rfc/rfc6454.html
 [FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
+[Webfinger]: https://swicg.github.io/activitypub-webfinger/
 [Data Integrity]: https://w3c.github.io/vc-data-integrity/
 [FEP-fffd]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fffd/fep-fffd.md
 [NodeInfo]: https://nodeinfo.diaspora.software/
