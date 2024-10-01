@@ -87,6 +87,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-eb22: Supported ActivityStreams types with NodeInfo](./fep/eb22/fep-eb22.md) | `DRAFT` | [#386](https://codeberg.org/fediverse/fep/issues/386) | 2024-07-25 | - |
 | [FEP-c0e0: Emoji reactions](./fep/c0e0/fep-c0e0.md) | `DRAFT` | [#384](https://codeberg.org/fediverse/fep/issues/384) | 2024-08-08 | - |
 | [FEP-c16b: Formatting MFM functions](./fep/c16b/fep-c16b.md) | `DRAFT` | [#383](https://codeberg.org/fediverse/fep/issues/383) | 2024-08-10 | - |
+| [FEP-0499: Delivering to multiple inboxes with a multibox endpoint](./fep/0499/fep-0499.md) | `DRAFT` | [#402](https://codeberg.org/fediverse/fep/issues/402) | 2024-09-30 | - |
 
 ## Submitting a FEP
 
