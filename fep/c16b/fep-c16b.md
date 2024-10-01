@@ -32,7 +32,7 @@ The core idea behind this FEP is attributed to Johan150 on the Foundkey issue tr
 
 It is common for a Fediverse implementation to allow a markup language as input for text. Federation of this content generally happens by converting this text input to a proper HTML representation that another implementation can easily understand. This HTML representation is federated over ActivityPub using the `content` property of the [ActivityStreams] Object. Meanwhile, the `source` property, which was added by ActivityPub, can optionally be used to provide the original input and input format.
 
-Misskey has been using its own Misskey Flavoured Markdown, also known as MFM, as a markup language. MFM is mostly composed of a combination of HTML, Markdown, Katex, and custom MFM functions of the form `$[name content]`. Properly displaying what these MFM functions intent, generally requires complex CSS or even Javascript. As such, only a watered down HTML representation is provided in the `content`. This representation can strip out so much information that a receiving implementation cannot always properly display what the author meant to convey. The only option for a receiving implementation who wants to display the MFM correctly, is to re-parse the `content` of the `source` property when it's `mediaType` has value `text/x.misskeymarkdown`. This causes not only unnecessary overhead, but also compatibility issues, especially when two implementations are using a different parser.
+Misskey has been using its own [Markup language For Misskey], also known as MFM. MFM is mostly composed of a combination of HTML, Markdown, Katex, and custom MFM functions of the form `$[name content]`. Properly displaying what these MFM functions intent, generally requires complex CSS or even Javascript. As such, only a watered down HTML representation is provided in the `content`. This representation can strip out so much information that a receiving implementation cannot always properly display what the author meant to convey. The only option for a receiving implementation who wants to display the MFM correctly, is to re-parse the `content` of the `source` property when it's `mediaType` has value `text/x.misskeymarkdown`. This causes not only unnecessary overhead, but also compatibility issues, especially when two implementations are using a different parser.
 
 
 ## MFM Functions
@@ -128,6 +128,7 @@ To signal that the `content` is FEP-c16b compliant, the implementation MAY use t
 - [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
 - [1] Johan150, [Federate MFM in content field using HTML](https://akkoma.dev/FoundKeyGang/FoundKey/issues/343#issuecomment-7344), 2023
 - [ActivityStreams] James M Snell, Evan Prodromou, [ActivityStreams 2.0](https://www.w3.org/TR/activitystreams-core), 2017
+- [Markup language For Misskey], [MFM](https://misskey-hub.net/en/docs/for-users/features/mfm/)
 - [FEP-dc88] Calvin Lee, [FEP-dc88: Formatting Mathematics](https://codeberg.org/ilja/fep/src/branch/main/fep/dc88/fep-dc88.md), 2023
 - [FEP-888d] a, [FEP-888d: Using https://w3id.org/fep as a base for FEP-specific namespaces](https://codeberg.org/ilja/fep/src/branch/main/fep/888d/fep-888d.md), 2023
 
