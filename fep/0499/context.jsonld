@@ -1,0 +1,8 @@
+{
+	"@context": {
+		"multibox": {
+			"@id": "https://w3id.org/fep/0499#multibox",
+			"@type": "@id"
+		}
+	}
+}
