@@ -4,6 +4,7 @@ authors: Evan Prodromou <evan@socialwebfoundation.org>
 status: DRAFT
 dateReceived: 2024-10-04
 discussionsTo: https://codeberg.org/evanp/fep/issues
+trackingIssue: https://codeberg.org/fediverse/fep/issues/407
 ---
 # FEP-76ea: Conversation Threads
 
