@@ -25,11 +25,11 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 `EmojiReact` activity type is considered to be a part of [LitePub] vocabulary. Its full IRI is `http://litepub.social/ns#EmojiReact`.
 
-This activity is similar to `Like` activity. In addition to standard properties of `Like` activity, `EmojiReact` activity MUST have a `content` property.
+This activity is similar to `Like` activity. In addition to standard properties of `Like` activity, `EmojiReact` activity MUST have a `content` property. Reaction content MUST be either a single unicode grapheme, or a shortcode of a custom emoji. The shortcode MUST be enclosed in colons.
 
-Reaction content MUST be either a single unicode grapheme, or a shortcode of a custom emoji. If custom emoji is used, `EmojiReact` activity MUST have a `tag` property containing a single `Emoji` object (which is specified in [Mastodon ActivityPub extension documentation](https://docs.joinmastodon.org/spec/activitypub/#Emoji)). The embedded `Emoji` can originate from a server that is different from the actor's server.
+If custom emoji is used, `EmojiReact` activity MUST have a `tag` property containing a single `Emoji` object (which is specified in [Mastodon ActivityPub extension documentation](https://docs.joinmastodon.org/spec/activitypub/#Emoji)). The value of its `name` property MUST be a shortcode that matches the shortcode in reaction content, and it SHOULD be enclosed in colons. The embedded `Emoji` can originate from a server that is different from the actor's server.
 
-An actor can generate multiple `EmojiReact` activities for a single `object`.
+An actor can generate multiple `EmojiReact` activities for a single `object`. However, implementers MAY choose to not allow more than one reaction with the same emoji, or more than one reaction per object.
 
 Example with unicode emoji:
 
@@ -97,6 +97,30 @@ Example with custom emoji:
 Emoji reaction can also be represented as a `Like` activity. This variant of emoji reaction will processed by non-supporting implementations as a regular "like", and when that is preferable, implementers MAY use `Like` type instead of `EmojiReact` type.
 
 Implementations MUST process `Like` with `content` in the same way as `EmojiReact` activities.
+
+## Undo reaction
+
+Emoji reactions can be retracted using a standard `Undo` activity:
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams"
+  ],
+  "actor": "https://alice.social/users/alice",
+  "id": "https://alice.social/activities/99b8f47b-f3a9-4cf5-94a2-95352e7462d6",
+  "object": "https://alice.social/activities/65379d47-b7aa-4ef6-8e4f-41149dda1d2c",
+  "to": [
+    "https://alice.social/users/alice/followers",
+    "https://bob.social/users/bob"
+  ],
+  "type": "Undo"
+}
+```
+
+## Implementations
+
+This document is based on implementations of emoji reactions in Misskey and Pleroma.
 
 ## References
 
