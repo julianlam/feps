@@ -42,7 +42,7 @@
 	dc:creator "a <a@trwnh.com>" ;
 	dc:rights "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"@en ;
 	dcterms:abstract "OrderedCollection is defined as an ordered set in the Activity Vocabulary, but the precise ordering is not defined. The ActivityPub specification requires that instances of OrderedCollection MUST be ordered reverse chronologically by insertion order, but a later errata was proposed to relax this restriction by only applying it to properties defined as OrderedCollection within the ActivityPub specification. Consequently, this allows for some collections to be presented forward chronologically by insertion order, and some collections to be presented reverse chronologically by insertion order. This FEP introduces an orderType property and two vocabulary terms ForwardChronological and ReverseChronological to explicitly signal the ordering of a collection." ;
-	dcterms:dateSubmitted "2024-10-06"^^xsd:date ;
+	dcterms:dateSubmitted "2024-10-10"^^xsd:date ;
 	dcterms:identifier "https://w3id.org/fep/1985"^^xsd:anyURI ;
 	dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
 	dcterms:title "FEP-1985: Signaling how an OrderedCollection is ordered" .
