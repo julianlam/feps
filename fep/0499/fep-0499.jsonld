@@ -1,0 +1,55 @@
+{
+  "@context": {
+    "multibox": {
+      "@id": "https://w3id.org/fep/0499/multibox",
+      "@type": "@id"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "https://w3id.org/fep/0499/multibox",
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+      "http://www.w3.org/2000/01/rdf-schema#comment": {
+        "@language": "en",
+        "@value": "An optional endpoint used for wide delivery of activities to multiple inboxes. POST an Add activity where the object is at least one activity to be delivered, and the target is at least one inbox to deliver to."
+      },
+      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+        "@id": "https://w3id.org/fep/0499"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "multibox endpoint"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#range": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Resource"
+      },
+      "http://www.w3.org/2002/07/owl#maxCardinality": {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    },
+    {
+      "@id": "https://w3id.org/fep/0499",
+      "@type": "http://www.w3.org/2002/07/owl#Ontology",
+      "http://purl.org/dc/elements/1.1/creator": "a <trwnh.com>",
+      "http://purl.org/dc/elements/1.1/rights": {
+        "@language": "en",
+        "@value": "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"
+      },
+      "http://purl.org/dc/terms/abstract": "This FEP introduces a server-wide endpoint for delivering activities to multiple inboxes. sharedInbox currently allows for doing this, but it requires the remote server to know how to deliver the activity based on its addressing properties. However, the remote server might not know how to deliver the activity to private recipients, or recipients within a collection. The multibox endpoint removes this knowledge requirement from the receiving server and instead makes the sending server responsible for marking inboxes to explicitly deliver to.",
+      "http://purl.org/dc/terms/dateSubmitted": {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2024-09-30"
+      },
+      "http://purl.org/dc/terms/identifier": {
+        "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+        "@value": "https://w3id.org/fep/0499"
+      },
+      "http://purl.org/dc/terms/license": {
+        "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "http://purl.org/dc/terms/title": "FEP-0499: Delivering to multiple inboxes with a multibox endpoint"
+    }
+  ],
+  "@id": "https://w3id.org/fep/0499#"
+}

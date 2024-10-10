@@ -1,0 +1,11 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/fep/0499/multibox> a rdf:Property ;
+	rdfs:label "multibox endpoint"@en ;
+	rdfs:comment "An optional endpoint used for wide delivery of activities to multiple inboxes. POST an Add activity where the object is at least one activity to be delivered, and the target is at least one inbox to deliver to."@en ;
+	rdfs:isDefinedBy <https://w3id.org/fep/0499> ;
+	rdfs:range rdfs:Resource ;
+	owl:maxCardinality "1"^^xsd:nonNegativeInteger .

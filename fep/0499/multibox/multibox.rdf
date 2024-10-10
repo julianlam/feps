@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="https://w3id.org/fep/0499/multibox">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <rdfs:label xml:lang="en">multibox endpoint</rdfs:label>
+    <rdfs:comment xml:lang="en">An optional endpoint used for wide delivery of activities to multiple inboxes. POST an Add activity where the object is at least one activity to be delivered, and the target is at least one inbox to deliver to.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/0499"/>
+  </rdf:Description>
+</rdf:RDF>

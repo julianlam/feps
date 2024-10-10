@@ -1,0 +1,23 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/fep/0499/multibox> a rdf:Property ;
+	rdfs:label "multibox endpoint"@en ;
+	rdfs:comment "An optional endpoint used for wide delivery of activities to multiple inboxes. POST an Add activity where the object is at least one activity to be delivered, and the target is at least one inbox to deliver to."@en ;
+	rdfs:isDefinedBy <https://w3id.org/fep/0499> ;
+	rdfs:range rdfs:Resource ;
+	owl:maxCardinality "1"^^xsd:nonNegativeInteger .
+
+<https://w3id.org/fep/0499> a owl:Ontology ;
+	dc:creator "a <trwnh.com>" ;
+	dc:rights "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"@en ;
+	dcterms:abstract "This FEP introduces a server-wide endpoint for delivering activities to multiple inboxes. sharedInbox currently allows for doing this, but it requires the remote server to know how to deliver the activity based on its addressing properties. However, the remote server might not know how to deliver the activity to private recipients, or recipients within a collection. The multibox endpoint removes this knowledge requirement from the receiving server and instead makes the sending server responsible for marking inboxes to explicitly deliver to." ;
+	dcterms:dateSubmitted "2024-09-30"^^xsd:date ;
+	dcterms:identifier "https://w3id.org/fep/0499"^^xsd:anyURI ;
+	dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+	dcterms:title "FEP-0499: Delivering to multiple inboxes with a multibox endpoint" .
+
