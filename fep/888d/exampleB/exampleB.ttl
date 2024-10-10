@@ -1,12 +1,11 @@
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<https://w3id.org/fep/888d/exampleB>
-	a owl:DatatypeProperty;
-	rdfs:label "exampleB"@en;
-	rdfs:comment "A property that links to another node on the graph (for example, another object)"@en;
-	rdfs:domain <https://w3id.org/fep/888d/SomeType>;
-	rdfs:range rdfs:Resource
-	.
+<https://w3id.org/fep/888d/exampleB> a owl:ObjectProperty ;
+	rdfs:label "has example relation B with"@en ;
+	rdfs:comment "A property that links to another node on the graph (for example, another object)"@en ;
+	rdfs:domain <https://w3id.org/fep/888d/SomeType> ;
+	rdfs:isDefinedBy <https://w3id.org/fep/888d> ;
+	rdfs:range rdfs:Resource ;
+	owl:minCardinality "0"^^xsd:nonNegativeInteger .

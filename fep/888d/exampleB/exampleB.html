@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>exampleB</title>
+</head>
+<body>
+<section id="exampleB" resource="https://w3id.org/fep/888d/exampleB" typeof="owl:ObjectProperty">
+<h1>exampleB</h1>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/888d/exampleB</code></dd>
+<dt>Label</dt>
+<dd lang="en" property="rdfs:label">has example relation B with</dd>
+<dt>Comment</dt>
+<dd lang="en" property="rdfs:comment">A property that links to another node on the graph (for example, another object)</dd>
+<dt>Domain</dt>
+<dd><a href="https://w3id.org/fep/888d/SomeType" property="rdfs:domain">SomeType</a></dd>
+<dt>Range</dt>
+<dd property="rdfs:range" resource="rdfs:Resource">An object (@id)</dd>
+<dt>Required</dt>
+<dd content="0" datatype="xsd:nonNegativeInteger" property="owl:minCardinality">No</dd>
+<dt>Functional</dt>
+<dd>No</dd>
+<dt>Is defined by</dt>
+<dd><a href="https://w3id.org/fep/888d" property="rdfs:isDefinedBy">FEP-888d</a></dd>
+</dl>
+<pre title="Example of a SomeType with properties exampleA, exampleB, exampleC">
+<code>
+{
+  "@context": "https://w3id.org/fep/888d",
+  "@type": "SomeType",
+  "exampleA": true,
+  "exampleB": "https://example.com/some-object",
+  "exampleC": [1, 1]
+}
+</code>
+</pre>
+</section>
+</body>
+</html>

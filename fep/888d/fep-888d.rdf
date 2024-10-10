@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="https://w3id.org/fep/888d/exampleA">
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+    <rdfs:label xml:lang="en">has example relation A with the literal value</rdfs:label>
+    <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+    <rdfs:comment xml:lang="en">A property with some literal value (string, boolean, number)</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/fep/888d/SomeType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/888d"/>
+    <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/888d/SomeType">
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/888d/exampleA"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/888d/exampleC"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/888d/exampleB"/>
+    <rdfs:subClassOf rdf:resource="https://www.w3.org/ns/activitystreams#Object"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/888d"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:comment xml:lang="en">Some type.</rdfs:comment>
+    <rdfs:label xml:lang="en">Some Type</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/888d">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <dcterms:identifier rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/fep/888d</dcterms:identifier>
+    <dc:rights xml:lang="en">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</dc:rights>
+    <dcterms:license rdf:resource="https://creativecommons.org/publicdomain/zero/1.0/"/>
+    <dcterms:title>FEP-888d: Using https://w3id.org/fep as a base for FEP-specific namespaces</dcterms:title>
+    <dcterms:abstract>It is considered best practice in the linked-data ecosystem to have IRIs be HTTPS URIs that resolve to a definition of the term being used, and it is desirable to define such terms in a JSON-LD context file that is referenced by its IRI rather than having the full @context object embedded in every single document. ActivityStreams 2.0 and ActivityPub do this with the normative context and namespace provided at https://www.w3.org/ns/activitystreams, but this namespace is not generally open to extensions or to experimental terms. This FEP therefore proposes using https://w3id.org/fep as a base IRI for the FEP process, allowing sub-namespaces for each FEP.</dcterms:abstract>
+    <dc:creator>a &lt;a@trwnh.com&gt;</dc:creator>
+    <dcterms:dateSubmitted rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2023-04-10</dcterms:dateSubmitted>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/888d/exampleC">
+    <rdfs:comment xml:lang="en">A property that is an ordered list of literal values that are specifically non-negative integers</rdfs:comment>
+    <rdfs:domain rdf:resource="https://w3id.org/fep/888d/SomeType"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+    <rdfs:label xml:lang="en">has an exampleC value of</rdfs:label>
+    <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/888d"/>
+    <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/888d#ExcludedExample">
+    <rdfs:comment xml:lang="en">A class that is useful for ontology but not intended to be used for the context mapping</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://www.w3.org/ns/activitystreams#Object"/>
+    <rdfs:label xml:lang="en">Excluded Example</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/888d"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/888d/exampleB">
+    <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment xml:lang="en">A property that links to another node on the graph (for example, another object)</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:label xml:lang="en">has example relation B with</rdfs:label>
+    <rdfs:domain rdf:resource="https://w3id.org/fep/888d/SomeType"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/888d"/>
+  </rdf:Description>
+</rdf:RDF>

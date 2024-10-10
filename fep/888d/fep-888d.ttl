@@ -1,0 +1,57 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/fep/888d#ExcludedExample> a rdfs:Class ;
+	rdfs:label "Excluded Example"@en ;
+	rdfs:comment "A class that is useful for ontology but not intended to be used for the context mapping"@en ;
+	rdfs:isDefinedBy <https://w3id.org/fep/888d> ;
+	rdfs:subClassOf as:Object .
+
+<https://w3id.org/fep/888d/SomeType> a rdfs:Class ;
+	rdfs:label "Some Type"@en ;
+	rdfs:comment "Some type."@en ;
+	rdfs:isDefinedBy <https://w3id.org/fep/888d> ;
+	rdfs:seeAlso <https://w3id.org/fep/888d/exampleA>,
+		<https://w3id.org/fep/888d/exampleB>,
+		<https://w3id.org/fep/888d/exampleC> ;
+	rdfs:subClassOf as:Object .
+
+<https://w3id.org/fep/888d/exampleA> a owl:DatatypeProperty ;
+	rdfs:label "has example relation A with the literal value"@en ;
+	rdfs:comment "A property with some literal value (string, boolean, number)"@en ;
+	rdfs:domain <https://w3id.org/fep/888d/SomeType> ;
+	rdfs:isDefinedBy <https://w3id.org/fep/888d> ;
+	rdfs:range rdfs:Literal ;
+	owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:minCardinality "1"^^xsd:nonNegativeInteger .
+
+<https://w3id.org/fep/888d/exampleB> a owl:ObjectProperty ;
+	rdfs:label "has example relation B with"@en ;
+	rdfs:comment "A property that links to another node on the graph (for example, another object)"@en ;
+	rdfs:domain <https://w3id.org/fep/888d/SomeType> ;
+	rdfs:isDefinedBy <https://w3id.org/fep/888d> ;
+	rdfs:range rdfs:Resource ;
+	owl:minCardinality "0"^^xsd:nonNegativeInteger .
+
+<https://w3id.org/fep/888d/exampleC> a owl:DatatypeProperty ;
+	rdfs:label "has an exampleC value of"@en ;
+	rdfs:comment "A property that is an ordered list of literal values that are specifically non-negative integers"@en ;
+	rdfs:domain <https://w3id.org/fep/888d/SomeType> ;
+	rdfs:isDefinedBy <https://w3id.org/fep/888d> ;
+	rdfs:range xsd:nonNegativeInteger ;
+	owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:minCardinality "0"^^xsd:nonNegativeInteger .
+
+<https://w3id.org/fep/888d> a owl:Ontology ;
+	dc:creator "a <a@trwnh.com>" ;
+	dc:rights "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"@en ;
+	dcterms:abstract "It is considered best practice in the linked-data ecosystem to have IRIs be HTTPS URIs that resolve to a definition of the term being used, and it is desirable to define such terms in a JSON-LD context file that is referenced by its IRI rather than having the full @context object embedded in every single document. ActivityStreams 2.0 and ActivityPub do this with the normative context and namespace provided at https://www.w3.org/ns/activitystreams, but this namespace is not generally open to extensions or to experimental terms. This FEP therefore proposes using https://w3id.org/fep as a base IRI for the FEP process, allowing sub-namespaces for each FEP." ;
+	dcterms:dateSubmitted "2023-04-10"^^xsd:date ;
+	dcterms:identifier "https://w3id.org/fep/888d"^^xsd:anyURI ;
+	dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+	dcterms:title "FEP-888d: Using https://w3id.org/fep as a base for FEP-specific namespaces" .
+

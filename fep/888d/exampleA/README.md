@@ -1,16 +1,35 @@
-# exampleA <https://w3id.org/fep/888d/exampleA>
+# exampleA
 
-A property with some literal value (string, boolean, number)
+URI
+: `https://w3id.org/fep/888d/exampleA`
+
+Label
+: has example relation A with the literal value
+
+Comment
+: A property with some literal value (string, boolean, number)
 
 Domain
-: SomeType <https://w3id.org/fep/888d/SomeType>
+: [SomeType](https://w3id.org/fep/888d/SomeType)
 
 Range
-: String or Boolean or Number
+: A literal value
 
-## Example
+Required
+: Yes
 
-```json
+Functional
+: Yes
+
+Is defined by
+: [FEP-888d](https://w3id.org/fep/888d)
+
+
+## Examples
+
+Example of a SomeType with properties exampleA, exampleB, exampleC
+
+```None
 {
   "@context": "https://w3id.org/fep/888d",
   "@type": "SomeType",

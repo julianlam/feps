@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>exampleC</title>
+</head>
+<body>
+<section id="exampleC" resource="https://w3id.org/fep/888d/exampleC" typeof="owl:DatatypeProperty">
+<h1>exampleC</h1>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/888d/exampleC</code></dd>
+<dt>Label</dt>
+<dd lang="en" property="rdfs:label">has an exampleC value of</dd>
+<dt>Comment</dt>
+<dd lang="en" property="rdfs:comment">A property that is an ordered list of literal values that are specifically non-negative integers</dd>
+<dt>Domain</dt>
+<dd><a href="https://w3id.org/fep/888d/SomeType" property="rdfs:domain">SomeType</a></dd>
+<dt>Range</dt>
+<dd property="rdfs:range" resource="xsd:nonNegativeInteger"> A list of non-negative integers (@list)</dd>
+<dt>Required</dt>
+<dd content="0" datatype="xsd:nonNegativeInteger" property="owl:minCardinality">No</dd>
+<dt>Functional</dt>
+<dd content="1" datatype="xsd:nonNegativeInteger" property="owl:maxCardinality">Yes</dd>
+<dt>Is defined by</dt>
+<dd><a href="https://w3id.org/fep/888d" property="rdfs:isDefinedBy">FEP-888d</a></dd>
+</dl>
+<pre title="Example of a SomeType with properties exampleA, exampleB, exampleC">
+<code>
+{
+  "@context": "https://w3id.org/fep/888d",
+  "@type": "SomeType",
+  "exampleA": true,
+  "exampleB": "https://example.com/some-object",
+  "exampleC": [1, 1]
+}
+</code>
+</pre>
+</section>
+</body>
+</html>

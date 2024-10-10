@@ -1,24 +1,41 @@
-{
-	"@context": {
-		"rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-		"rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-		"owl": "http://www.w3.org/2002/07/owl#",
-		"as": "https://www.w3.org/ns/activitystreams#"
-	},
-	"@id": "https://w3id.org/fep/888d/exampleB",
-	"@type": "owl:DatatypeProperty",
-	"rdfs:label": {
-		"@value": "exampleB",
-		"@language": "en"
-	},
-	"rdfs:comment": {
-		"@value": "A property that links to another node on the graph (for example, another object)",
-		"@language": "en"
-	},
-	"rdfs:domain": {
-		"@id": "https://w3id.org/fep/888d/SomeType"
-	},
-	"rdfs:range": {
-		"@id": "rdfs:Resource"
-	}
-}
+[
+  {
+    "@id": "https://w3id.org/fep/888d/exampleB",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#ObjectProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A property that links to another node on the graph (for example, another object)"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/fep/888d/SomeType"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "https://w3id.org/fep/888d"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "has example relation B with"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Resource"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#minCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "0"
+      }
+    ]
+  }
+]

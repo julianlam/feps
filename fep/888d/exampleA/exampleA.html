@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>exampleA</title>
+</head>
+<body>
+<section id="exampleA" resource="https://w3id.org/fep/888d/exampleA" typeof="owl:DatatypeProperty">
+<h1>exampleA</h1>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/888d/exampleA</code></dd>
+<dt>Label</dt>
+<dd lang="en" property="rdfs:label">has example relation A with the literal value</dd>
+<dt>Comment</dt>
+<dd lang="en" property="rdfs:comment">A property with some literal value (string, boolean, number)</dd>
+<dt>Domain</dt>
+<dd><a href="https://w3id.org/fep/888d/SomeType" property="rdfs:domain">SomeType</a></dd>
+<dt>Range</dt>
+<dd property="rdfs:range" resource="rdfs:Literal">A literal value</dd>
+<dt>Required</dt>
+<dd content="1" datatype="xsd:nonNegativeInteger" property="owl:minCardinality">Yes</dd>
+<dt>Functional</dt>
+<dd content="1" datatype="xsd:nonNegativeInteger" property="owl:maxCardinality">Yes</dd>
+<dt>Is defined by</dt>
+<dd><a href="https://w3id.org/fep/888d" property="rdfs:isDefinedBy">FEP-888d</a></dd>
+</dl>
+<pre title="Example of a SomeType with properties exampleA, exampleB, exampleC">
+<code>
+{
+  "@context": "https://w3id.org/fep/888d",
+  "@type": "SomeType",
+  "exampleA": true,
+  "exampleB": "https://example.com/some-object",
+  "exampleC": [1, 1]
+}
+</code>
+</pre>
+</section>
+</body>
+</html>

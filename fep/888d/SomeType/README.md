@@ -1,17 +1,29 @@
-# SomeType <https://w3id.org/fep/888d/SomeType>
+# SomeType
 
-Some type.
+URI
+: `https://w3id.org/fep/888d/SomeType`
 
-Inherits from Object <https://www.w3.org/ns/activitystreams#Object>
+Label
+: Some Type
 
-Properties:
-- exampleA <https://w3id.org/fep/888d/exampleA>
-- exampleB <https://w3id.org/fep/888d/exampleB>
-- exampleC <https://w3id.org/fep/888d/exampleC>
+Comment
+: Some type.
 
-## Example
+Subclass of
+: [Object](https://www.w3.org/ns/activitystreams#Object)
 
-```json
+See also
+: [exampleA](https://w3id.org/fep/888d/exampleA) | [exampleB](https://w3id.org/fep/888d/exampleB) | [exampleC](https://w3id.org/fep/888d/exampleC)
+
+Is defined by
+: [FEP-888d](https://w3id.org/fep/888d)
+
+
+## Examples
+
+Example of a SomeType with properties exampleA, exampleB, exampleC
+
+```None
 {
   "@context": "https://w3id.org/fep/888d",
   "@type": "SomeType",

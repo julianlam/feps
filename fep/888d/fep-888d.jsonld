@@ -1,0 +1,170 @@
+{
+  "@context": {
+    "SomeType": "https://w3id.org/fep/888d/SomeType",
+    "exampleA": "https://w3id.org/fep/888d/exampleA",
+    "exampleB": {
+      "@id": "https://w3id.org/fep/888d/exampleB",
+      "@type": "@id"
+    },
+    "exampleC": {
+      "@container": "@list",
+      "@id": "https://w3id.org/fep/888d/exampleC",
+      "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "https://w3id.org/fep/888d/exampleC",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2000/01/rdf-schema#comment": {
+        "@language": "en",
+        "@value": "A property that is an ordered list of literal values that are specifically non-negative integers"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#domain": {
+        "@id": "https://w3id.org/fep/888d/SomeType"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+        "@id": "https://w3id.org/fep/888d"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "has an exampleC value of"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#range": {
+        "@id": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+      },
+      "http://www.w3.org/2002/07/owl#maxCardinality": {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      },
+      "http://www.w3.org/2002/07/owl#minCardinality": {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "0"
+      }
+    },
+    {
+      "@id": "https://w3id.org/fep/888d/SomeType",
+      "@type": "http://www.w3.org/2000/01/rdf-schema#Class",
+      "http://www.w3.org/2000/01/rdf-schema#comment": {
+        "@language": "en",
+        "@value": "Some type."
+      },
+      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+        "@id": "https://w3id.org/fep/888d"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "Some Type"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+        {
+          "@id": "https://w3id.org/fep/888d/exampleA"
+        },
+        {
+          "@id": "https://w3id.org/fep/888d/exampleC"
+        },
+        {
+          "@id": "https://w3id.org/fep/888d/exampleB"
+        }
+      ],
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf": {
+        "@id": "https://www.w3.org/ns/activitystreams#Object"
+      }
+    },
+    {
+      "@id": "https://w3id.org/fep/888d#ExcludedExample",
+      "@type": "http://www.w3.org/2000/01/rdf-schema#Class",
+      "http://www.w3.org/2000/01/rdf-schema#comment": {
+        "@language": "en",
+        "@value": "A class that is useful for ontology but not intended to be used for the context mapping"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+        "@id": "https://w3id.org/fep/888d"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "Excluded Example"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf": {
+        "@id": "https://www.w3.org/ns/activitystreams#Object"
+      }
+    },
+    {
+      "@id": "https://w3id.org/fep/888d/exampleB",
+      "@type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+      "http://www.w3.org/2000/01/rdf-schema#comment": {
+        "@language": "en",
+        "@value": "A property that links to another node on the graph (for example, another object)"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#domain": {
+        "@id": "https://w3id.org/fep/888d/SomeType"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+        "@id": "https://w3id.org/fep/888d"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "has example relation B with"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#range": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Resource"
+      },
+      "http://www.w3.org/2002/07/owl#minCardinality": {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "0"
+      }
+    },
+    {
+      "@id": "https://w3id.org/fep/888d/exampleA",
+      "@type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+      "http://www.w3.org/2000/01/rdf-schema#comment": {
+        "@language": "en",
+        "@value": "A property with some literal value (string, boolean, number)"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#domain": {
+        "@id": "https://w3id.org/fep/888d/SomeType"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+        "@id": "https://w3id.org/fep/888d"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "has example relation A with the literal value"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#range": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      },
+      "http://www.w3.org/2002/07/owl#maxCardinality": {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      },
+      "http://www.w3.org/2002/07/owl#minCardinality": {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    },
+    {
+      "@id": "https://w3id.org/fep/888d",
+      "@type": "http://www.w3.org/2002/07/owl#Ontology",
+      "http://purl.org/dc/elements/1.1/creator": "a <a@trwnh.com>",
+      "http://purl.org/dc/elements/1.1/rights": {
+        "@language": "en",
+        "@value": "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"
+      },
+      "http://purl.org/dc/terms/abstract": "It is considered best practice in the linked-data ecosystem to have IRIs be HTTPS URIs that resolve to a definition of the term being used, and it is desirable to define such terms in a JSON-LD context file that is referenced by its IRI rather than having the full @context object embedded in every single document. ActivityStreams 2.0 and ActivityPub do this with the normative context and namespace provided at https://www.w3.org/ns/activitystreams, but this namespace is not generally open to extensions or to experimental terms. This FEP therefore proposes using https://w3id.org/fep as a base IRI for the FEP process, allowing sub-namespaces for each FEP.",
+      "http://purl.org/dc/terms/dateSubmitted": {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2023-04-10"
+      },
+      "http://purl.org/dc/terms/identifier": {
+        "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+        "@value": "https://w3id.org/fep/888d"
+      },
+      "http://purl.org/dc/terms/license": {
+        "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "http://purl.org/dc/terms/title": "FEP-888d: Using https://w3id.org/fep as a base for FEP-specific namespaces"
+    }
+  ],
+  "@id": "https://w3id.org/fep/888d#"
+}

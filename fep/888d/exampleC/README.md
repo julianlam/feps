@@ -1,16 +1,35 @@
-# exampleC <https://w3id.org/fep/888d/exampleC>
+# exampleC
 
-A property that is an ordered list of literal values that are specifically non-negative integers
+URI
+: `https://w3id.org/fep/888d/exampleC`
+
+Label
+: has an exampleC value of
+
+Comment
+: A property that is an ordered list of literal values that are specifically non-negative integers
 
 Domain
-: SomeType <https://w3id.org/fep/888d/SomeType>
+: [SomeType](https://w3id.org/fep/888d/SomeType)
 
 Range
-: List of nonNegativeInteger <http://www.w3.org/2001/XMLSchema#nonNegativeInteger>
+:  A list of non-negative integers (@list)
 
-## Example
+Required
+: No
 
-```json
+Functional
+: Yes
+
+Is defined by
+: [FEP-888d](https://w3id.org/fep/888d)
+
+
+## Examples
+
+Example of a SomeType with properties exampleA, exampleB, exampleC
+
+```None
 {
   "@context": "https://w3id.org/fep/888d",
   "@type": "SomeType",

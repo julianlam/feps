@@ -1,38 +1,47 @@
-{
-	"@context": {
-		"rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-		"rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-		"owl": "http://www.w3.org/2002/07/owl#",
-		"xsd": "http://www.w3.org/2001/XMLSchema#",
-		"as": "https://www.w3.org/ns/activitystreams#"
-	},
-	"@id": "https://w3id.org/fep/888d/exampleA",
-	"@type": "owl:DatatypeProperty",
-	"rdfs:label": {
-		"@value": "exampleA",
-		"@language": "en"
-	},
-	"rdfs:comment": {
-		"@value": "A property with some literal value (string, boolean, integer)",
-		"@language": "en"
-	},
-	"rdfs:domain": {
-		"@id": "https://w3id.org/fep/888d/SomeType"
-	},
-	"rdfs:range": {
-		"@type": "owl:Class",
-		"owl:unionOf": {
-			"@list": [
-				{
-					"@id": "xsd:string"
-				},
-				{
-					"@id": "xsd:boolean"
-				},
-				{
-					"@id": "xsd:integer"
-				}
-			]
-		}
-	}
-}
+[
+  {
+    "@id": "https://w3id.org/fep/888d/exampleA",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "A property with some literal value (string, boolean, number)"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://w3id.org/fep/888d/SomeType"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "https://w3id.org/fep/888d"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "has example relation A with the literal value"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Literal"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#maxCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#minCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ]
+  }
+]

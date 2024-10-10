@@ -1,12 +1,16 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:owl="http://www.w3.org/2002/07/owl#"
-         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-
-  <owl:Class rdf:about="https://w3id.org/fep/888d/SomeType">
-    <rdfs:label xml:lang="en">SomeType</rdfs:label>
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="https://w3id.org/fep/888d/SomeType">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:label xml:lang="en">Some Type</rdfs:label>
     <rdfs:comment xml:lang="en">Some type.</rdfs:comment>
     <rdfs:subClassOf rdf:resource="https://www.w3.org/ns/activitystreams#Object"/>
-  </owl:Class>
-
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/888d/exampleA"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/888d/exampleB"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/888d/exampleC"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/888d"/>
+  </rdf:Description>
 </rdf:RDF>

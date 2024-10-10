@@ -1,0 +1,16 @@
+{
+	"@context": {
+		"inReplyToProof": {
+			"@id": "https://w3id.org/fep/0391/inReplyToProof",
+			"@type": "@id"
+		},
+		"contextProof": {
+			"@id": "https://w3id.org/fep/0391/contextProof",
+			"@type": "@id"
+		},
+		"relationshipProof": {
+			"@id": "https://w3id.org/fep/0391/relationshipProof",
+			"@type": "@id"
+		}
+	}
+}
