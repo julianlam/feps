@@ -8,4 +8,5 @@
 	rdfs:comment "An optional endpoint used for wide delivery of activities to multiple inboxes. POST an Add activity where the object is at least one activity to be delivered, and the target is at least one inbox to deliver to."@en ;
 	rdfs:isDefinedBy <https://w3id.org/fep/0499> ;
 	rdfs:range rdfs:Resource ;
-	owl:maxCardinality "1"^^xsd:nonNegativeInteger .
+	owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:minCardinality "0"^^xsd:nonNegativeInteger .

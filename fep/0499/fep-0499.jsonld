@@ -7,28 +7,6 @@
   },
   "@graph": [
     {
-      "@id": "https://w3id.org/fep/0499/multibox",
-      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
-      "http://www.w3.org/2000/01/rdf-schema#comment": {
-        "@language": "en",
-        "@value": "An optional endpoint used for wide delivery of activities to multiple inboxes. POST an Add activity where the object is at least one activity to be delivered, and the target is at least one inbox to deliver to."
-      },
-      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
-        "@id": "https://w3id.org/fep/0499"
-      },
-      "http://www.w3.org/2000/01/rdf-schema#label": {
-        "@language": "en",
-        "@value": "multibox endpoint"
-      },
-      "http://www.w3.org/2000/01/rdf-schema#range": {
-        "@id": "http://www.w3.org/2000/01/rdf-schema#Resource"
-      },
-      "http://www.w3.org/2002/07/owl#maxCardinality": {
-        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
-        "@value": "1"
-      }
-    },
-    {
       "@id": "https://w3id.org/fep/0499",
       "@type": "http://www.w3.org/2002/07/owl#Ontology",
       "http://purl.org/dc/elements/1.1/creator": "a <trwnh.com>",
@@ -49,6 +27,32 @@
         "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
       },
       "http://purl.org/dc/terms/title": "FEP-0499: Delivering to multiple inboxes with a multibox endpoint"
+    },
+    {
+      "@id": "https://w3id.org/fep/0499/multibox",
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+      "http://www.w3.org/2000/01/rdf-schema#comment": {
+        "@language": "en",
+        "@value": "An optional endpoint used for wide delivery of activities to multiple inboxes. POST an Add activity where the object is at least one activity to be delivered, and the target is at least one inbox to deliver to."
+      },
+      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+        "@id": "https://w3id.org/fep/0499"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "multibox endpoint"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#range": {
+        "@id": "http://www.w3.org/2000/01/rdf-schema#Resource"
+      },
+      "http://www.w3.org/2002/07/owl#maxCardinality": {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      },
+      "http://www.w3.org/2002/07/owl#minCardinality": {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "0"
+      }
     }
   ],
   "@id": "https://w3id.org/fep/0499#"

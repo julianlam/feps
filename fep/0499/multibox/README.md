@@ -15,6 +15,9 @@ Domain
 Range
 : The endpoint (@id)
 
+Required
+: No
+
 Functional
 : Yes
 
