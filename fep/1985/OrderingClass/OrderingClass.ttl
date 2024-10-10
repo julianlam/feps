@@ -1,0 +1,8 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://w3id.org/fep/1985/OrderingClass> a rdfs:Class ;
+	rdfs:label "OrderingClass"@en ;
+	rdfs:comment "Abstract base class for the orderType property's range."@en ;
+	rdfs:isDefinedBy <https://w3id.org/fep/1985> ;
+	rdfs:seeAlso <https://w3id.org/fep/1985/ForwardChronological>,
+		<https://w3id.org/fep/1985/ReverseChronological> .

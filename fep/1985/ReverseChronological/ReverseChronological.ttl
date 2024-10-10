@@ -1,0 +1,8 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://w3id.org/fep/1985/ReverseChronological> a rdfs:Class ;
+	rdfs:label "reverse chronological order"@en ;
+	rdfs:comment "This OrderedCollection is ordered reverse chronologically, and adding an item to this collection will add it at the start."@en ;
+	rdfs:isDefinedBy <https://w3id.org/fep/1985> ;
+	rdfs:seeAlso <https://w3id.org/fep/1985/orderType> ;
+	rdfs:subClassOf <https://w3id.org/fep/1985/OrderingClass> .

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="https://w3id.org/fep/1985">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <dcterms:identifier rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://w3id.org/fep/1985</dcterms:identifier>
+    <dc:rights xml:lang="en">CC0 1.0 Universal (CC0 1.0) Public Domain Dedication</dc:rights>
+    <dcterms:license rdf:resource="https://creativecommons.org/publicdomain/zero/1.0/"/>
+    <dcterms:title>FEP-1985: Signaling how an OrderedCollection is ordered</dcterms:title>
+    <dcterms:abstract>OrderedCollection is defined as an ordered set in the Activity Vocabulary, but the precise ordering is not defined. The ActivityPub specification requires that instances of OrderedCollection MUST be ordered reverse chronologically by insertion order, but a later errata was proposed to relax this restriction by only applying it to properties defined as OrderedCollection within the ActivityPub specification. Consequently, this allows for some collections to be presented forward chronologically by insertion order, and some collections to be presented reverse chronologically by insertion order. This FEP introduces an orderType property and two vocabulary terms ForwardChronological and ReverseChronological to explicitly signal the ordering of a collection.</dcterms:abstract>
+    <dc:creator>a &lt;a@trwnh.com&gt;</dc:creator>
+    <dcterms:dateSubmitted rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2024-10-06</dcterms:dateSubmitted>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/1985/ForwardChronological">
+    <rdfs:comment xml:lang="en">This OrderedCollection is ordered forward chronologically, and adding an item to this collection will add it at the end.</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/1985"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/1985/orderType"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/1985/OrderingClass"/>
+    <rdfs:label xml:lang="en">forward chronological order</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/1985/orderType">
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/1985/ReverseChronological"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/1985/ForwardChronological"/>
+    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#OrderedCollection"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/1985"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <rdfs:range rdf:resource="https://w3id.org/fep/1985/OrderingClass"/>
+    <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+    <rdfs:comment xml:lang="en">Indicates the type of ordering for an OrderedCollection.</rdfs:comment>
+    <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+    <rdfs:label xml:lang="en">is ordered in</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/1985/OrderingClass">
+    <rdfs:label xml:lang="en">OrderingClass</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/1985"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/1985/ReverseChronological"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/1985/ForwardChronological"/>
+    <rdfs:comment xml:lang="en">Abstract base class for the orderType property's range.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/1985/ReverseChronological">
+    <rdfs:comment xml:lang="en">This OrderedCollection is ordered reverse chronologically, and adding an item to this collection will add it at the start.</rdfs:comment>
+    <rdfs:label xml:lang="en">reverse chronological order</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/1985"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/1985/orderType"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/1985/OrderingClass"/>
+  </rdf:Description>
+</rdf:RDF>

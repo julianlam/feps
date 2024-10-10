@@ -1,0 +1,33 @@
+[
+  {
+    "@id": "https://w3id.org/fep/1985/OrderingClass",
+    "@type": [
+      "http://www.w3.org/2000/01/rdf-schema#Class"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Abstract base class for the orderType property's range."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "https://w3id.org/fep/1985"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "OrderingClass"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+      {
+        "@id": "https://w3id.org/fep/1985/ForwardChronological"
+      },
+      {
+        "@id": "https://w3id.org/fep/1985/ReverseChronological"
+      }
+    ]
+  }
+]

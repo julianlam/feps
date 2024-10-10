@@ -1,0 +1,137 @@
+{
+  "@context": {
+    "ForwardChronological": "https://w3id.org/fep/1985/ForwardChronological",
+    "ReverseChronological": "https://w3id.org/fep/1985/ReverseChronological",
+    "orderType": {
+      "@id": "https://w3id.org/fep/1985/orderType",
+      "@type": "@vocab"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "https://w3id.org/fep/1985/orderType",
+      "@type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+      "http://www.w3.org/2000/01/rdf-schema#comment": {
+        "@language": "en",
+        "@value": "Indicates the type of ordering for an OrderedCollection."
+      },
+      "http://www.w3.org/2000/01/rdf-schema#domain": {
+        "@id": "https://www.w3.org/ns/activitystreams#OrderedCollection"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+        "@id": "https://w3id.org/fep/1985"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "is ordered in"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#range": {
+        "@id": "https://w3id.org/fep/1985/OrderingClass"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+        {
+          "@id": "https://w3id.org/fep/1985/ReverseChronological"
+        },
+        {
+          "@id": "https://w3id.org/fep/1985/ForwardChronological"
+        }
+      ],
+      "http://www.w3.org/2002/07/owl#maxCardinality": {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      },
+      "http://www.w3.org/2002/07/owl#minCardinality": {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "0"
+      }
+    },
+    {
+      "@id": "https://w3id.org/fep/1985/ReverseChronological",
+      "@type": "http://www.w3.org/2000/01/rdf-schema#Class",
+      "http://www.w3.org/2000/01/rdf-schema#comment": {
+        "@language": "en",
+        "@value": "This OrderedCollection is ordered reverse chronologically, and adding an item to this collection will add it at the start."
+      },
+      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+        "@id": "https://w3id.org/fep/1985"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "reverse chronological order"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#seeAlso": {
+        "@id": "https://w3id.org/fep/1985/orderType"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf": {
+        "@id": "https://w3id.org/fep/1985/OrderingClass"
+      }
+    },
+    {
+      "@id": "https://w3id.org/fep/1985",
+      "@type": "http://www.w3.org/2002/07/owl#Ontology",
+      "http://purl.org/dc/elements/1.1/creator": "a <a@trwnh.com>",
+      "http://purl.org/dc/elements/1.1/rights": {
+        "@language": "en",
+        "@value": "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"
+      },
+      "http://purl.org/dc/terms/abstract": "OrderedCollection is defined as an ordered set in the Activity Vocabulary, but the precise ordering is not defined. The ActivityPub specification requires that instances of OrderedCollection MUST be ordered reverse chronologically by insertion order, but a later errata was proposed to relax this restriction by only applying it to properties defined as OrderedCollection within the ActivityPub specification. Consequently, this allows for some collections to be presented forward chronologically by insertion order, and some collections to be presented reverse chronologically by insertion order. This FEP introduces an orderType property and two vocabulary terms ForwardChronological and ReverseChronological to explicitly signal the ordering of a collection.",
+      "http://purl.org/dc/terms/dateSubmitted": {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2024-10-06"
+      },
+      "http://purl.org/dc/terms/identifier": {
+        "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+        "@value": "https://w3id.org/fep/1985"
+      },
+      "http://purl.org/dc/terms/license": {
+        "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "http://purl.org/dc/terms/title": "FEP-1985: Signaling how an OrderedCollection is ordered"
+    },
+    {
+      "@id": "https://w3id.org/fep/1985/OrderingClass",
+      "@type": "http://www.w3.org/2000/01/rdf-schema#Class",
+      "http://www.w3.org/2000/01/rdf-schema#comment": {
+        "@language": "en",
+        "@value": "Abstract base class for the orderType property's range."
+      },
+      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+        "@id": "https://w3id.org/fep/1985"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "OrderingClass"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+        {
+          "@id": "https://w3id.org/fep/1985/ReverseChronological"
+        },
+        {
+          "@id": "https://w3id.org/fep/1985/ForwardChronological"
+        }
+      ]
+    },
+    {
+      "@id": "https://w3id.org/fep/1985/ForwardChronological",
+      "@type": "http://www.w3.org/2000/01/rdf-schema#Class",
+      "http://www.w3.org/2000/01/rdf-schema#comment": {
+        "@language": "en",
+        "@value": "This OrderedCollection is ordered forward chronologically, and adding an item to this collection will add it at the end."
+      },
+      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+        "@id": "https://w3id.org/fep/1985"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "forward chronological order"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#seeAlso": {
+        "@id": "https://w3id.org/fep/1985/orderType"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf": {
+        "@id": "https://w3id.org/fep/1985/OrderingClass"
+      }
+    }
+  ],
+  "@id": "https://w3id.org/fep/1985#"
+}

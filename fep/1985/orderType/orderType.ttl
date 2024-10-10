@@ -1,0 +1,16 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/fep/1985/orderType> a rdf:Property ;
+	rdfs:label "is ordered in"@en ;
+	rdfs:comment "Indicates the type of ordering for an OrderedCollection."@en ;
+	rdfs:domain as:OrderedCollection ;
+	rdfs:isDefinedBy <https://w3id.org/fep/1985> ;
+	rdfs:range <https://w3id.org/fep/1985/OrderingClass> ;
+	rdfs:seeAlso <https://w3id.org/fep/1985/ForwardChronological>,
+		<https://w3id.org/fep/1985/ReverseChronological> ;
+	owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:minCardinality "0"^^xsd:nonNegativeInteger .

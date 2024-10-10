@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="https://w3id.org/fep/1985/orderType">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <rdfs:label xml:lang="en">is ordered in</rdfs:label>
+    <rdfs:comment xml:lang="en">Indicates the type of ordering for an OrderedCollection.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#OrderedCollection"/>
+    <rdfs:range rdf:resource="https://w3id.org/fep/1985/OrderingClass"/>
+    <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+    <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/1985/ForwardChronological"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/1985/ReverseChronological"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/1985"/>
+  </rdf:Description>
+</rdf:RDF>

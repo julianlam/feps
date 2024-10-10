@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>orderType</title>
+</head>
+<body>
+<section id="orderType" resource="https://w3id.org/fep/1985/orderType" typeof="rdf:Property">
+<h1>orderType</h1>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/1985/orderType</code></dd>
+<dt>Label</dt>
+<dd lang="en" property="rdfs:label">is ordered in</dd>
+<dt>Comment</dt>
+<dd lang="en" property="rdfs:comment">Indicates the type of ordering for an OrderedCollection.</dd>
+<dt>Domain</dt>
+<dd><a href="https://www.w3.org/ns/activitystreams#OrderedCollection" property="rdfs:domain" resource="as:OrderedCollection">OrderedCollection</a></dd>
+<dt>Range</dt>
+<dd><a href="https://w3id.org/fep/1985/OrderingClass" property="rdfs:range" resource="https://w3id.org/fep/1985/OrderingClass">OrderingClass</a> (@vocab)</dd>
+<dt>Required</dt>
+<dd content="0" datatype="xsd:nonNegativeInteger" property="owl:minCardinality">No</dd>
+<dt>Functional</dt>
+<dd content="1" datatype="xsd:nonNegativeInteger" property="owl:maxCardinality">Yes</dd>
+<dt>See also</dt>
+<dd><a href="https://w3id.org/fep/1985/ForwardChronological" property="rdfs:seeAlso">ForwardChronological</a> | <a href="https://w3id.org/fep/1985/ReverseChronological" property="rdfs:seeAlso">ReverseChronological</a></dd>
+<dt>Is defined by</dt>
+<dd><a href="https://w3id.org/fep/1985" property="rdfs:isDefinedBy">FEP-1985</a></dd>
+</dl>
+<pre title="Example of a forward chronological OrderedCollection with additional context">
+<code>
+{
+	"@context": [
+		"https://www.w3.org/ns/activitystreams",
+		"https://w3id.org/fep/1985"
+	],
+	"id": "https://domain.example/some-collection",
+	"type": "OrderedCollection",
+	"orderedItems": [
+		"https://domain.example/objects/1",
+		"https://domain.example/objects/2",
+		"https://domain.example/objects/3"
+	],
+	"orderType": "ForwardChronological"
+}
+</code>
+</pre>
+<pre title="Example of a forward chronological OrderedCollection without additional context">
+<code>
+{
+	"@context": "https://www.w3.org/ns/activitystreams",
+	"id": "https://domain.example/some-collection",
+	"type": "OrderedCollection",
+	"orderedItems": [
+		"https://domain.example/objects/1",
+		"https://domain.example/objects/2",
+		"https://domain.example/objects/3"
+	],
+	"https://w3id.org/fep/1985/orderType": {
+		"id": "https://w3id.org/fep/1985/ForwardChronological"
+	}
+}
+</code>
+</pre>
+</section>
+</body>
+</html>
