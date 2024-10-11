@@ -1,0 +1,14 @@
+{
+  "@context": {
+    "xRobotsTag": {
+      "@id": "https://www.robotstxt.org/meta.html",
+      "@type": "@id",
+      "@container": "@list"
+    },
+    "SPC": {
+      "@id": "https://privacycg.github.io/gpc-spec/#the-sec-gpc-header-field-for-http-requests",
+      "@type": "@id",
+      "@container": "@list"
+    }
+  }
+}
