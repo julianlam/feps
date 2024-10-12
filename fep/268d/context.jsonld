@@ -1,0 +1,8 @@
+{
+  "@context": {
+    "searchableBy": {
+      "@id": "http://fedibird.com/ns#searchableBy",
+      "@type": "@id"
+    }
+  }
+}
