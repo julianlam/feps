@@ -5,6 +5,7 @@ status: DRAFT
 dateReceived: 2024-10-12
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-268d-search-consent-signals-for-objects/4654
 relatedFeps: FEP-5feb
+trackingIssue: https://codeberg.org/fediverse/fep/issues/421
 ---
 # FEP-268d: Search consent signals for objects
 
