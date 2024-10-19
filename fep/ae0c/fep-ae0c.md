@@ -2,10 +2,10 @@
 slug: "ae0c"
 authors: Steve Bate <svc-fep@stevebate.net>
 status: DRAFT
-type: Informational
+category: informational
 dateReceived: 2024-10-19
 trackingIssue: https://codeberg.org/fediverse/fep/issues/424
-discussionsTo: https://codeberg.org/fediverse/fep/issues/424
+discussionsTo: https://socialhub.activitypub.rocks/t/fediverse-relays/4626
 ---
 # FEP-ae0c: Fediverse Relay Protocols: Mastodon and LitePub
 
