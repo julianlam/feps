@@ -91,6 +91,7 @@ The FEP Process is an initiative of the [SocialHub](https://socialhub.activitypu
 | [FEP-76ea: Conversation Threads](./fep/76ea/fep-76ea.md) | `DRAFT` | [#407](https://codeberg.org/fediverse/fep/issues/407) | 2024-10-04 | - |
 | [FEP-1985: Signaling how an OrderedCollection is ordered](./fep/1985/fep-1985.md) | `DRAFT` | [#417](https://codeberg.org/fediverse/fep/issues/417) | 2024-10-10 | - |
 | [FEP-268d: Search consent signals for objects](./fep/268d/fep-268d.md) | `DRAFT` | [#421](https://codeberg.org/fediverse/fep/issues/421) | 2024-10-12 | - |
+| [FEP-ae0c: Fediverse Relay Protocols: Mastodon and LitePub](./fep/ae0c/fep-ae0c.md) | `DRAFT` | [#424](https://codeberg.org/fediverse/fep/issues/424) | 2024-10-19 | - |
 
 ## Submitting a FEP
 
