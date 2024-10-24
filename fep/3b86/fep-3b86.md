@@ -92,12 +92,22 @@ In all cases, Activity Intents intentionally use the property names defined in t
 
 In addition, remote servers MUST [Percent Encode](https://datatracker.ietf.org/doc/html/rfc3986#section-2.1) all values replaced in the href template.
 
-### 3.4 Workflow Redirects
+### 3.4 Workflow Actions
 Activity Intents MAY include additional query parameters `on-success` and `on-cancel` that allow home servers to return users to their original workflow on the remote server:
 
-**on-success** - If present in the link template, this value signifies a URL that the home server SHOULD redirect clients to once the Activity Intent workflow is complete.  If this parameter is missing, then the resulting page is left up to the home server to choose.
+**on-success** - If present in the link template, this value identifies the action that the home server SHOULD take once the Activity Intent workflow is complete.  If this parameter is missing, then the resulting page is left up to the home server to choose.
 
-**on-cancel** - If present in the link template, this value signifies a URL that the home server SHOULD redirect clients to if they abort the Activity Intent workflow.  If this parameter is missing, then the resulting page is left up to the home server to choose.
+**on-cancel** - If present in the link template, this value identifies the action that the home server SHOULD take if they abort the Activity Intent workflow.  If this parameter is missing, then the resulting page is left up to the home server to choose.
+
+#### Action: (close-window)
+If the value of either `on-success` or `on-cancel` parameter is the string `(close-window)` then the home server can assume that it is running in a pop-up window, and SHOULD close the current window.
+
+#### Action: Redirecting to a URL
+If the value of either `on-success` or `on-cancel` query parameter is a valid URL, then the home server SHOULD redirect clients to the provided URL.  When redirecting to a new URL, the home server MUST use an interstitial page that notified the user that they are being redirected, and displays the URL of the new page to them.
+
+IMPORTANT! [Unvalidated Redirects](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) are a documented vulnerability that opens the home server up to phishing attacks. 
+
+To avoid a potential security vulnerability when handling `on-success` and `on-cancel` workflows, it is important that the home server: "Force all redirects to first go through a page notifying users that they are going off of your site, with the destination clearly displayed, and have them click a link to confirm." ([owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html#preventing-unvalidated-redirects-and-forwards))
 
 ### 3.5 Endpoint Expectations
 The user's home server is a trusted environment that manages the user's sign-in status along with the rest of their social inbox and outbox.  When the remote server links to an Activity Intent provided by the home server, the layout, fields, and UI are all determined by the home server
@@ -131,7 +141,7 @@ The Accept intent publishes the API endpoint where the current user can "accept"
 ```
 
 ### 4.2. Add Intent
-This intent corresponds to the ActivityStreams [Add activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-add) and is defined using the link relation `https://w3id.org/fep/3b86/Accept` .
+This intent corresponds to the ActivityStreams [Add activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-add) and is defined using the link relation `https://w3id.org/fep/3b86/Add` .
 
 The Add intent publishes the API endpoint where the current user can add an object to the designated collection..
 
@@ -249,7 +259,7 @@ The Delete intent publishes the API endpoint where the current user can initiate
 ```
 
 ### 4.8. Dislike Intent
-This intent corresponds to the ActivityStreams [Dislike activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-delete) and is defined using the link relation  `https://w3id.org/fep/3b86/Dislike`.
+This intent corresponds to the ActivityStreams [Dislike activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-dislike) and is defined using the link relation  `https://w3id.org/fep/3b86/Dislike`.
 
 The Dislike intent publishes the API endpoint where the current user can initiate a "dislike" request.
 
@@ -506,7 +516,7 @@ The Reject intent publishes the API endpoint where the current user can initiate
 ```
 
 ### 4.22. Remove Intent
-This intent corresponds to the ActivityStreams [Remove activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-remove) and is defined using the link relation  `https://w3id.org/fep/3b86/Offer`.
+This intent corresponds to the ActivityStreams [Remove activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-remove) and is defined using the link relation  `https://w3id.org/fep/3b86/Remove`.
 
 The Remove intent publishes the API endpoint where the current user can initiate a "remove" request.
 
@@ -525,7 +535,7 @@ The Remove intent publishes the API endpoint where the current user can initiate
 ```
 
 ### 4.23. TentativeAccept Intent
-This intent corresponds to the ActivityStreams [TentativeAccept activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tentativeaccept), which itself is a specialization of the [Accept activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-accept) and is defined using the link relation  `https://w3id.org/fep/3b86/TentativeAccept`.
+This intent corresponds to the ActivityStreams [TentativeAccept activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tentativeaccept), which itself is a specialization of the [Accept activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tentativeaccept) and is defined using the link relation  `https://w3id.org/fep/3b86/TentativeAccept`.
 
 The TentativeAccept intent publishes the API endpoint where the current user can initiate an "tentative accept" request, indicating that acceptance of the original offer is tentative.
 
@@ -543,7 +553,7 @@ The TentativeAccept intent publishes the API endpoint where the current user can
 ```
 
 ### 4.24. TentativeReject Intent
-This intent corresponds to the ActivityStreams [TentativeReject activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tentativereject), which itself is a specialization of the [Reject activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-reject) and is defined using the link relation  `https://w3id.org/fep/3b86/TentativeReject`.
+This intent corresponds to the ActivityStreams [TentativeReject activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tentativereject), which itself is a specialization of the [Reject activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tentativereject) and is defined using the link relation  `https://w3id.org/fep/3b86/TentativeReject`.
 
 The TentativeReject intent publishes the API endpoint where the current user can initiate an "tentative reject" request, indicating that rejection of the original offer is tentative.
 
@@ -563,7 +573,7 @@ The TentativeReject intent publishes the API endpoint where the current user can
 ### 4.25. Travel Intent
 This intent corresponds to the ActivityStreams [Travel activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-travel) and is defined using the link relation  `https://w3id.org/fep/3b86/Travel`.
 
-The Travel intent publishes the API endpoint where the current user can initiate a "travel" request.
+The Travel intent publishes the API endpoint where the user can initiate a "travel" request.
 
 #### 4.25.1. Parameters
 * `{target}` - (optional) The ID of the location that the actor will travel to.
@@ -587,7 +597,7 @@ The Undo intent publishes the API endpoint where the current user can initiate a
 #### 4.26.1. Parameters
 * `{object}` - ID of the activity that the actor will undo.
 * `{on-success}` - (optional) URL to redirect the user to after the workflow completes.
-* `{on-cancel}` - (optional) URL to redirect the user to if they abort the workflow.
+* `{on-cancel}` - (optional) URL to redirect users if they abort the workflow.
 
 #### 4.26.2. Example
 ```json
@@ -600,7 +610,7 @@ The Undo intent publishes the API endpoint where the current user can initiate a
 ### 4.27. Update Intent
 This intent corresponds to the ActivityStreams [Update activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-update) and is defined using the link relation  `https://w3id.org/fep/3b86/Update`.
 
-The Update intent publishes the API endpoint where the current user can initiate an "update" request.
+The Update intent publishes the API endpoint where the user can initiate an "update" request.
 
 #### 4.27.1. Parameters
 * `{object}` - ID of the object that the actor will update when they use this workflow.
@@ -633,12 +643,19 @@ The View intent publishes the API endpoint where the current user can initiate a
 }
 ```
 
-## 5.0. Security Considerations and CSRF issues
-This FEP does not expose any additional attack vectors, but only documents the endpoints that already exist within the server.  Still, it is important to reiterate some key security practices to prevent [Cross Site Request Forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery) vulnerabilities.
+## 5.0. Security Considerations 
+
+### 5.1 CSRF issues
+It is important to reiterate some key security practices to prevent [Cross Site Request Forgery](https://en.wikipedia.org/wiki/Cross-site_request_forgery) vulnerabilities.
 
 * Remote Servers MUST only send `GET` requests to Home Servers.
 * Home Servers MUST NOT change data based on GET requests.
 * Home Servers SHOULD protect these published endpoints by generating CSRF tokens and including them with every POST request.  This validates that the request originated on the user's home server, and was initiated by the user. See [OWASP Related Controls](https://owasp.org/www-community/attacks/csrf#related-controls) for in-depth discussion.
+
+### 5.2 Open/Unvalidated Redirects
+Activity Intents includes the ability for home servers to redirect browsers to new URLs based on the `on-success` and `on-cancel` query parameters.  If improperly implemented, this has the potential to expose an [Unvalidated Redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) vulnerability, which can open the home server up to phishing attack. 
+
+To avoid a potential security vulnerability when handling `on-success` and `on-cancel` workflows, it is important that the home server: "Force all redirects to first go through a page notifying users that they are going off of your site, with the destination clearly displayed, and have them click a link to confirm." ([owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html#preventing-unvalidated-redirects-and-forwards))
 
 ## 6.0. Remote Servers: The Rest of the Equation
 This FEP provides the prerequisite information required for a "Home Server" publish Activity Intents for its Actors.  It does not specify how "Remote Servers" will use this information - i.e., how they implement "share" and "like" buttons in their content.
