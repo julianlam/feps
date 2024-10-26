@@ -92,7 +92,9 @@ A `http://webfinger.net/rel/profile-page` `rel` ([WebFinger Relations][WebFinger
 }
 ```
 
-If multiple server-level actor links are returned, the links can be disambiguated by adding metadata to the links using standard [WebFinger] properties. For example, an implementation could have different server-level actors that serve different purposes. It's also possible that another FEP will define standard `rel` URIs for common roles. In that case, the FEP roles should be preferred over using a relationship property. 
+If multiple server-level actor links are returned, the links can be disambiguated by adding metadata to the links using standard [WebFinger] properties. For example, an implementation could have different server-level actors that serve different purposes. 
+
+It's also possible that another FEP will define standard `rel` URIs for common roles. In that case, those FEP role URIs SHOULD be preferred. 
 
 > NOTE: The definition of standard server-level actor roles is outside the scope of this FEP.
 
@@ -105,7 +107,7 @@ If multiple server-level actor links are returned, the links can be disambiguate
             "type": "application/activity+json",
             "href": "https://server.example/actor",
             "properties": {
-              "https://www.w3.org/ns/activitystreams#relationship": "moderation"
+              "http://schema.org/roleName": "administration"
             }
         },
         {
@@ -113,12 +115,15 @@ If multiple server-level actor links are returned, the links can be disambiguate
             "type": "application/activity+json",
             "href": "https://server.example/actor",
             "properties": {
-              "https://www.w3.org/ns/activitystreams#relationship": "administration"
+              "http://schema.org/roleName": "moderation"
             }
         }
     ]
 }
 ```
+
+In this example, the same actor used used for administration and moderation. However, the example would also be valid if the actors were different. It's possible that for some use cases a role might be further refined. For example, additional properties might specify a geographical region for a role.
+
 
 ## <a id="single-actor-servers"></a> Single Actor Servers
 
