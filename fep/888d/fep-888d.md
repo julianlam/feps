@@ -4,7 +4,7 @@ authors: a <a@trwnh.com>
 status: DRAFT
 dateReceived: 2023-04-10
 trackingIssue: https://codeberg.org/fediverse/fep/issues/83
-discussionsTo: https://codeberg.org/fediverse/fep/issues/83
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-888d-using-w3id-org-fep-as-a-namespace-for-extension-terms-and-for-fep-documents/3098
 ---
 
 # FEP-888d: Using https://w3id.org/fep as a base for FEP-specific namespaces
@@ -80,24 +80,62 @@ At the time of writing this FEP, the Codeberg repository at `https://codeberg.or
 
 (This section is non-normative.)
 
+An example .htaccess file is co-located with this FEP, and reproduced below for convenience:
+
 ```perl
 RewriteEngine on
+
+
+# catch root request
+RewriteRule ^\/?$ https://codeberg.org/fediverse/fep [R=302,L]
+
+
+
+# Catch FEP documents
+
+## By content negotiation
+
+### JSON-LD
+RewriteCond %{HTTP_ACCEPT} application/ld\+json
+RewriteRule ^([A-Za-z0-9]+)\/?$ https://raw.codeberg.page/fediverse/fep/fep/$1/fep-$1.jsonld [R=302,L]
+
+### RDF+XML
+RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
+RewriteRule ^([A-Za-z0-9]+)\/?$ https://fediverse.codeberg.page/fep/fep/$1/fep-$1.rdf [R=302,L]
+
+### Turtle
+RewriteCond %{HTTP_ACCEPT} text/turtle
+RewriteRule ^([A-Za-z0-9]+)\/?$ https://fediverse.codeberg.page/fep/fep/$1/fep-$1.ttl [R=302,L]
+
+## By URL hacking
+RewriteRule ^([A-Za-z0-9]+).jsonld$ https://raw.codeberg.page/fediverse/fep/fep/$1/fep-$1.jsonld [R=302,L]
+RewriteRule ^([A-Za-z0-9]+).rdf$ https://raw.codeberg.page/fediverse/fep/fep/$1/fep-$1.rdf [R=302,L]
+RewriteRule ^([A-Za-z0-9]+).ttl$ https://raw.codeberg.page/fediverse/fep/fep/$1/fep-$1.ttl [R=302,L]
+
+## By default, take you to the FEP document
+RewriteRule ^([A-Za-z0-9]+)\/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/fep-$1.md [R=302,L]
+
+
 
 # Catch term definitions/schemas/ontologies
 
 ## By content negotiation
 
-### JSON-LD               
+### JSON-LD
 RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([A-Za-z0-9]+)\/(.*?)$ https://raw.codeberg.page/fediverse/fep/fep/$1/$2/$2.jsonld [R=302,L]
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)\/?$ https://raw.codeberg.page/fediverse/fep/fep/$1/$2/$2.jsonld [R=302,L]
 
-### RDF+XML              
+### RDF+XML
 RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^([A-Za-z0-9]+)\/(.*?)$ https://fediverse.codeberg.page/fep/fep/$1/$2/$2.rdf [R=302,L]
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)\/?$ https://fediverse.codeberg.page/fep/fep/$1/$2/$2.rdf [R=302,L]
 
-### Turtle               
+### Turtle
 RewriteCond %{HTTP_ACCEPT} text/turtle
-RewriteRule ^([A-Za-z0-9]+)\/(.*?)$ https://fediverse.codeberg.page/fep/fep/$1/$2/$2.ttl [R=302,L]
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)\/?$ https://fediverse.codeberg.page/fep/fep/$1/$2/$2.ttl [R=302,L]
+
+### test html
+RewriteCond %{HTTP_ACCEPT} ^text/html$
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)\/?$ https://fediverse.codeberg.page/fep/fep/$1/$2/$2.html [R=302,L]
 
 ## By URL hacking
 RewriteRule ^([A-Za-z0-9]+)\/(.*?).jsonld$ https://raw.codeberg.page/fediverse/fep/fep/$1/$2/$2.jsonld [R=302,L]
@@ -107,34 +145,9 @@ RewriteRule ^([A-Za-z0-9]+)\/(.*?).html$ https://fediverse.codeberg.page/fep/fep
 RewriteRule ^([A-Za-z0-9]+)\/(.*?).md$ https://fediverse.codeberg.page/fep/fep/$1/$2/README.md [R=302,L]
 
 ## By default, just take you to the term's folder
-RewriteRule ^([A-Za-z0-9]+)\/(.*?)$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/$2 [R=302,L]
+RewriteRule ^([A-Za-z0-9]+)\/(.*?)\/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/$2 [R=302,L]
 
-# Catch FEP documents     
 
-## By content negotiation
-
-### JSON-LD                                  
-RewriteCond %{HTTP_ACCEPT} application/ld\+json
-RewriteRule ^([A-Za-z0-9]+)\/?$ https://raw.codeberg.page/fediverse/fep/fep/$1/fep-$1.jsonld [R=302,L]
-
-### RDF+XML                
-RewriteCond %{HTTP_ACCEPT} application/rdf\+xml
-RewriteRule ^([A-Za-z0-9]+)\/?$ https://fediverse.codeberg.page/fep/fep/$1/fep-$1.rdf [R=302,L]
-
-### Turtle                 
-RewriteCond %{HTTP_ACCEPT} text/turtle         
-RewriteRule ^([A-Za-z0-9]+)\/?$ https://fediverse.codeberg.page/fep/fep/$1/fep-$1.ttl [R=302,L]
-
-## By URL hacking
-RewriteRule ^([A-Za-z0-9]+).jsonld$ https://raw.codeberg.page/fediverse/fep/fep/$1/fep-$1.jsonld [R=302,L]
-RewriteRule ^([A-Za-z0-9]+).rdf$ https://raw.codeberg.page/fediverse/fep/fep/$1/fep-$1.rdf [R=302,L]
-RewriteRule ^([A-Za-z0-9]+).ttl$ https://raw.codeberg.page/fediverse/fep/fep/$1/fep-$1.ttl [R=302,L]
-
-# catch FEP proposal documents
-RewriteRule ^([A-Za-z0-9]+)\/?$ https://codeberg.org/fediverse/fep/src/branch/main/fep/$1/fep-$1.md [R=302,L]
-
-# catch root request
-RewriteRule ^$ https://codeberg.org/fediverse/fep [R=302,L]
 
 # a generic catch-all rule
 RewriteRule ^(.*)\/?$  https://codeberg.org/fediverse/fep/raw/branch/main/fep/$1 [R=302,L]
@@ -514,6 +527,8 @@ We can formulate the following machine-readable term definition blocks, which ar
 ## References
 
 - [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
+- [AS2-Core] James M Snell, Evan Prodromou, [Activity Streams 2.0][AS2-Core], 2017
+- [AS2-Vocab] James M Snell, Evan Prodromou, [Activity Vocabulary][AS2-Vocab], 2017
 - [CM-ATTRS] mb21, [Consistent attribute syntax][CM-ATTRS], 2014
 - [LD-TERM-DFN] Gregg Kellogg, Pierre-Antoine Champin, Dave Longley, [JSON-LD 1.1 - Section 9.15.1 "Expanded term definition"][LD-TERM-DFN], 2020
 - [RFC-2119] S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119]
