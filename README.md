@@ -117,6 +117,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-cd47: Federation-friendly Addressing and Deduplication Use-Cases](./fep/cd47/fep-cd47.md) | `DRAFT` | [#319](https://codeberg.org/fediverse/fep/issues/319) | 2024-05-31 | - |
 | [FEP-c7d3: Ownership](./fep/c7d3/fep-c7d3.md) | `DRAFT` | [#323](https://codeberg.org/fediverse/fep/issues/323) | 2024-06-04 | - |
 | [FEP-5e53: Opt-out Preference Signals](./fep/5e53/fep-5e53.md) | `DRAFT` | [#327](https://codeberg.org/fediverse/fep/issues/327) | 2024-06-09 | - |
+| [FEP-7952: Roadmap For Actor and Object Portability](./fep/7952/fep-7952.md) | `DRAFT` | [#435](https://codeberg.org/fediverse/fep/issues/435) | 2024-06-20 | - |
 | [FEP-e3e9: Actor-Relative URLs](./fep/e3e9/fep-e3e9.md) | `DRAFT` | [#346](https://codeberg.org/fediverse/fep/issues/346) | 2024-06-29 | - |
 | [FEP-d9ad: Create Conformance Tests for Fediverse Enhancement Proposals](./fep/d9ad/fep-d9ad.md) | `DRAFT` | [#350](https://codeberg.org/fediverse/fep/issues/350) | 2024-07-02 | - |
 | [FEP-e965: Move Activity for Migrations and Announce Activity for Tombstone Events](./fep/e965/fep-e965.md) | `DRAFT` | [#352](https://codeberg.org/fediverse/fep/issues/352) | 2024-07-05 | - |
