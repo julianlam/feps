@@ -1,0 +1,21 @@
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.w3.org/ns/auth/acl#AuthenticatedAgent> a rdfs:Class ;
+	rdfs:label "Anyone authenticated"@en ;
+	rdfs:isDefinedBy <https://www.w3.org/ns/auth/acl> ;
+	rdfs:subClassOf foaf:Agent .
+
+<https://w3id.org/fep/7502> a owl:Ontology ;
+	dc:creator "a <a@trwnh.com>" ;
+	dc:rights "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"@en ;
+	dcterms:abstract "Some servers require authentication for all requests made via ActivityPub, even for GET requests on public objects addressed to as:Public. This violates the requirement that anything addressed to as:Public is made available without requiring authentication. This FEP proposes an alternative addressing that may be used in such scenarios, signaling that the object is not fully public but is otherwise available to any actor." ;
+	dcterms:dateSubmitted "2023-12-24"^^xsd:date ;
+	dcterms:identifier "https://w3id.org/fep/7502"^^xsd:anyURI ;
+	dcterms:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+	dcterms:title "FEP-7502: Limiting visibility to authenticated actors" .
+

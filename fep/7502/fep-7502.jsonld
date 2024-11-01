@@ -1,0 +1,44 @@
+{
+  "@context": {
+    "Authenticated": "http://www.w3.org/ns/auth/acl#AuthenticatedAgent"
+  },
+  "@graph": [
+    {
+      "@id": "https://w3id.org/fep/7502",
+      "@type": "http://www.w3.org/2002/07/owl#Ontology",
+      "http://purl.org/dc/elements/1.1/creator": "a <a@trwnh.com>",
+      "http://purl.org/dc/elements/1.1/rights": {
+        "@language": "en",
+        "@value": "CC0 1.0 Universal (CC0 1.0) Public Domain Dedication"
+      },
+      "http://purl.org/dc/terms/abstract": "Some servers require authentication for all requests made via ActivityPub, even for GET requests on public objects addressed to as:Public. This violates the requirement that anything addressed to as:Public is made available without requiring authentication. This FEP proposes an alternative addressing that may be used in such scenarios, signaling that the object is not fully public but is otherwise available to any actor.",
+      "http://purl.org/dc/terms/dateSubmitted": {
+        "@type": "http://www.w3.org/2001/XMLSchema#date",
+        "@value": "2023-12-24"
+      },
+      "http://purl.org/dc/terms/identifier": {
+        "@type": "http://www.w3.org/2001/XMLSchema#anyURI",
+        "@value": "https://w3id.org/fep/7502"
+      },
+      "http://purl.org/dc/terms/license": {
+        "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
+      },
+      "http://purl.org/dc/terms/title": "FEP-7502: Limiting visibility to authenticated actors"
+    },
+    {
+      "@id": "http://www.w3.org/ns/auth/acl#AuthenticatedAgent",
+      "@type": "http://www.w3.org/2000/01/rdf-schema#Class",
+      "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": {
+        "@id": "https://www.w3.org/ns/auth/acl"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "Anyone authenticated"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#subClassOf": {
+        "@id": "http://xmlns.com/foaf/0.1/Agent"
+      }
+    }
+  ],
+  "@id": "https://w3id.org/fep/7502#"
+}
