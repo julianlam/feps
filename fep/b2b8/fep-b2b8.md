@@ -4,6 +4,7 @@ authors: Evan Prodromou <evan@socialwebfoundation.org>
 status: DRAFT
 dateReceived: 2024-11-07
 discussionsTo: https://codeberg.org/evanp/fep/issues
+trackingIssue: https://codeberg.org/fediverse/fep/issues/441
 ---
 # FEP-b2b8: Long-form Text
 

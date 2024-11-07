@@ -136,6 +136,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-1985: Signaling how an OrderedCollection is ordered](./fep/1985/fep-1985.md) | `DRAFT` | [#417](https://codeberg.org/fediverse/fep/issues/417) | 2024-10-10 | - |
 | [FEP-268d: Search consent signals for objects](./fep/268d/fep-268d.md) | `DRAFT` | [#421](https://codeberg.org/fediverse/fep/issues/421) | 2024-10-12 | - |
 | [FEP-ae0c: Fediverse Relay Protocols: Mastodon and LitePub](./fep/ae0c/fep-ae0c.md) | `DRAFT` | [#424](https://codeberg.org/fediverse/fep/issues/424) | 2024-10-19 | - |
+| [FEP-b2b8: Long-form Text](./fep/b2b8/fep-b2b8.md) | `DRAFT` | [#441](https://codeberg.org/fediverse/fep/issues/441) | 2024-11-07 | - |
 
 ## License
 
