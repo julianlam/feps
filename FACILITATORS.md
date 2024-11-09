@@ -2,7 +2,7 @@
 
 ## About
 
-FEP Facilitators ensure that the procedures outlined in [FEP-a4ed: The Fediverse Enhancement Proposal Process](https://codeberg.org/fediverse/fep/src/branch/main/fep/a4ed/fep-a4ed.md) are followed. FEP Facilitators are unbiased custodians of the process. All facilitators are members of the [SocialHub](https://socialhub.activitypub.rocks) developer community, a liaison of the [W3C Social Web Incubator Community Group](https://www.w3.org/community/SocialCG/), where they create related discussion topics in the [FEP forum category](https://socialhub.activitypub.rocks/c/standards/fep/54).
+FEP Facilitators ensure that the procedures outlined in [FEP-a4ed: The Fediverse Enhancement Proposal Process](https://codeberg.org/fediverse/fep/src/branch/main/fep/a4ed/fep-a4ed.md) are followed. FEP Facilitators are unbiased custodians of the process. All facilitators are members of the [SocialHub](https://socialhub.activitypub.rocks) developer community, a liaison of the [W3C Social Web Incubator Community Group](https://www.w3.org/community/SocialCG/).
 
 ## Facilitators
 
