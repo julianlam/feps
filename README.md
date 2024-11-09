@@ -107,7 +107,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-61cf: The OpenWebAuth Protocol](./fep/61cf/fep-61cf.md) | `DRAFT` | [#263](https://codeberg.org/fediverse/fep/issues/263) | 2024-02-06 | - |
 | [FEP-73cd: Migration User Stories](./fep/73cd/fep-73cd.md) | `DRAFT` | [#265](https://codeberg.org/fediverse/fep/issues/265) | 2024-02-07 | - |
 | [FEP-96ff: Explicit signalling of ActivityPub Semantics](./fep/96ff/fep-96ff.md) | `DRAFT` | [#272](https://codeberg.org/fediverse/fep/issues/272) | 2024-02-17 | - |
-| [FEP-6481: Specifying ActivityPub extension support with NodeInfo](./fep/6481/fep-6481.md) | `DRAFT` | [#279](https://codeberg.org/fediverse/fep/issues/279) | 2024-03-12 | - |
+| [FEP-6481: Specifying ActivityPub extension support with NodeInfo](./fep/6481/fep-6481.md) | `WITHDRAWN` | [#279](https://codeberg.org/fediverse/fep/issues/279) | 2024-03-12 | 2024-10-31 |
 | [FEP-9fde: Mechanism for servers to expose supported operations](./fep/9fde/fep-9fde.md) | `DRAFT` | [#282](https://codeberg.org/fediverse/fep/issues/282) | 2024-03-14 | - |
 | [FEP-e229: Best practices for extensibility](./fep/e229/fep-e229.md) | `DRAFT` | [#293](https://codeberg.org/fediverse/fep/issues/293) | 2024-04-02 | - |
 | [FEP-3b86: Activity Intents](./fep/3b86/fep-3b86.md) | `DRAFT` | [#302](https://codeberg.org/fediverse/fep/issues/302) | 2024-04-19 | - |
