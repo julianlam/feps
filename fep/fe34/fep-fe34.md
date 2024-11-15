@@ -4,6 +4,7 @@ authors: silverpill <@silverpill@mitra.social>
 status: DRAFT
 dateReceived: 2024-11-15
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-c7d3-ownership/4292
+trackingIssue: https://codeberg.org/fediverse/fep/issues/445
 ---
 # FEP-fe34: Origin-based security model
 
