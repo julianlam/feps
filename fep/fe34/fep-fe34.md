@@ -52,8 +52,6 @@ ActivityPub object is considered authentic if any of the following conditions ar
 
 If none of these conditions are met, the object MUST be discarded.
 
-If signature verification is performed, the key ID SHOULD match the object ID.
-
 >[!NOTE]
 >In some cases, consumers can process unauthenticated objects if the risk is deemed acceptable.
 
