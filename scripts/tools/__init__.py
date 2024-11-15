@@ -36,7 +36,6 @@ class Readme:
     @property
     def table(self):
         fep_files = [FepFile(fep) for fep in get_fep_ids()]
-        fep_files = reversed(fep_files)
         fep_files = sorted(
             fep_files,
             key=lambda x: (x.parsed_frontmatter["dateReceived"], x.parsed_frontmatter["slug"]),

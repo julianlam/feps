@@ -8,30 +8,19 @@ Merge the Pull Request in [https://codeberg.org/fediverse/fep/pulls](https://cod
 and note the slug.
 
 ```bash
-python scripts/create_issue.py $SLUG
+./scripts/create_issue.py $SLUG
 ```
 
 creates the tracking issue and updates the FEP with the information.
 Then run
 
 ```bash
-python scripts/create_readme.py
+./scripts/create_readme.py
 ```
 
 to update the table in `README.md`. You are now ready to commit the
 changes to the FEP (added `trackingIssue` to frontmatter) and README.md,
 added the new FEP.
-
-Run
-
-```bash
-python scripts/create_topic.py $SLUG
-```
-
-and following the instructions to create a topic on SocialHub to discuss
-the FEP.
-
-Finally, add the link to the SocialHub topic to the tracking issue, created above.
 
 ## Configuration
 
