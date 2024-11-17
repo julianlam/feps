@@ -43,10 +43,10 @@ An [ActivityPub][ActivityPub] object can be made portable by using an identifier
 `ap://` URL is constructed according to the [URI][RFC-3986] specification, but with a [Decentralized Identifier][DID] in place of the authority:
 
 ```text
-ap://did:example:123456/path/to/object?name=value#key-id
-\_/  \________________/ \____________/ \________/ \____/
- |           |                |            |        |
-scheme   authority           path        query   fragment
+ap://did:example:123456/path/to/object?name=value#fragment-id
+\_/  \________________/ \____________/ \________/ \_________/
+ |           |                |            |           |
+scheme   authority           path        query     fragment
 ```
 
 - The URI scheme MUST be `ap`.
@@ -57,9 +57,12 @@ scheme   authority           path        query   fragment
 
 ### DID methods
 
-Implementers MUST support the [did:key] method and MAY support the [did:web] method. Other DID methods SHOULD NOT be used, as it might hinder interoperability.
+Implementers MUST support the [did:key] method. Other DID methods SHOULD NOT be used, as it might hinder interoperability.
 
-DID documents SHOULD contain Ed25519 public keys represented as verification methods with `Multikey` type (as defined in the [Controller Documents](https://www.w3.org/TR/controller-document/#multikey) specification).
+>[!NOTE]
+>The following additional DID methods are being considered: [did:web](https://w3c-ccg.github.io/did-method-web/), [did:dns](https://danubetech.github.io/did-method-dns/), [did:tdw](https://identity.foundation/trustdidweb/) and [did:fedi](https://arcanican.is/excerpts/did-method-fedi.html).
+
+DID documents SHOULD contain Ed25519 public keys represented as verification methods with `Multikey` type (as defined in the [Controller Documents](https://www.w3.org/TR/controller-document/#Multikey) specification).
 
 Any [DID URL][DID-URL] capabilities of a DID method MUST be ignored when working with `ap://` URLs.
 
@@ -75,7 +78,7 @@ GET https://social.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cg
 
 ActivityPub objects identified by `ap://` URLs can be stored on multiple servers simultaneously.
 
-If object identified by `ap://` URL is stored on the server, it MUST return a response with status `200 OK` containing the requested object.
+If object identified by `ap://` URL is stored on the server, it MUST return a response with status `200 OK` containing the requested object. The value of a `Content-Type` header MUST be `application/ld+json; profile="https://www.w3.org/ns/activitystreams"`.
 
 If object identified by `ap://` URL is not stored on the server, it MUST return `404 Not Found`.
 
@@ -199,7 +202,7 @@ Example:
 
 ## Authentication and authorization
 
-Authentication and authorization MUST be performed in accordance with [FEP-c7d3] guidelines.
+Authentication and authorization MUST be performed in accordance with [FEP-fe34] guidelines.
 
 When doing same-origin checks, the [origin][RFC-6454] of an `ap://` URL MUST be computed by the following algorithm:
 
@@ -208,11 +211,22 @@ When doing same-origin checks, the [origin][RFC-6454] of an `ap://` URL MUST be 
 3. Let `uri-port` be the number 0.
 4. Return the triple `(uri-scheme, uri-host, uri-port)`.
 
+And the origin of a [DID URL][DID-URL] MUST be computed by the following algorithm:
+
+1. Let `uri-scheme` be the `ap` string.
+2. Let `uri-host` be the DID component of the DID URL.
+3. Let `uri-port` be the number 0.
+4. Return the triple `(uri-scheme, uri-host, uri-port)`.
+
 ## Compatibility
 
 ### Identifiers
 
-`ap://` URLs might not be compatible with existing [ActivityPub][ActivityPub] implementations. To provide backward compatibility, gateway-based HTTP(S) URLs of objects can be used instead of their actual `ap://` identifiers.
+`ap://` URLs might not be compatible with existing [ActivityPub][ActivityPub] implementations. To provide backward compatibility, gateway-based HTTP(S) URLs of objects can be used instead of their actual `ap://` identifiers:
+
+```
+https://social.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object
+```
 
 Publishers MUST use the first gateway from actor's `gateways` list when constructing compatible identifiers. Consuming implementations that support `ap://` URLs MUST remove the part of the URL preceding `did:` and re-construct the canonical `ap://` identifier. Objects with the same canonical identifier, but located on different gateways MUST be treated as different instances of the same object.
 
@@ -222,7 +236,7 @@ When HTTP signatures are necessary for communicating with other servers, each ga
 
 ### WebFinger addresses
 
-WebFinger address of a portable actor can be obtained by the reverse discovery algorithm described in section 2.2 of [ActivityPub and WebFinger](WebFinger) report, but instead of taking the hostname from the identifier, it MUST be taken from the first gateway in actor's `gateways` array.
+WebFinger address of a portable actor can be obtained by the reverse discovery algorithm described in section 2.2 of [ActivityPub and WebFinger][WebFinger] report, but instead of taking the hostname from the identifier, it MUST be taken from the first gateway in actor's `gateways` array.
 
 ## Discussion
 
@@ -275,15 +289,14 @@ The following alternatives to gateway-based compatible IDs are being considered:
 - T. Berners-Lee, R. Fielding, L. Masinter, [Uniform Resource Identifier (URI): Generic Syntax][RFC-3986], 2005
 - Manu Sporny, Dave Longley, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DID], 2022
 - Dave Longley, Dmitri Zagidulin, Manu Sporny, [The did:key Method v0.7][did:key], 2022
-- Christian Gribneau, Michael Prorock, Orie Steele, Oliver Terbu, Mike Xu, Dmitri Zagidulin, [did:web Method Specification][did:web], 2023
 - Dave Longley, Manu Sporny, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Controller Documents 1.0][ControllerDocuments], 2024
 - M. Nottingham, [Well-Known Uniform Resource Identifiers (URIs)][well-known], 2019
 - silverpill, [FEP-8b32: Object Integrity Proofs][FEP-8b32], 2022
 - silverpill, [FEP-ae97: Client-side activity signing][FEP-ae97], 2023
-- silverpill, [FEP-c7d3: Ownership][FEP-c7d3], 2024
+- silverpill, [FEP-fe34: Origin-based security model][FEP-fe34], 2024
 - A. Barth, [The Web Origin Concept][RFC-6454], 2011
 - silverpill, [FEP-521a: Representing actor's public keys][FEP-521a], 2023
-- a, Evan Prodromou, [ActivityPub and WebFinger][Webfinger], 2024
+- a, Evan Prodromou, [ActivityPub and WebFinger][WebFinger], 2024
 - Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][Data Integrity], 2024
 - Adam R. Nelson, [FEP-fffd: Proxy Objects][FEP-fffd], 2023
 - Jonne Haß, [NodeInfo][NodeInfo], 2014
@@ -293,16 +306,15 @@ The following alternatives to gateway-based compatible IDs are being considered:
 [RFC-3986]: https://datatracker.ietf.org/doc/html/rfc3986.html
 [DID]: https://www.w3.org/TR/did-core/
 [did:key]: https://w3c-ccg.github.io/did-method-key/
-[did:web]: https://w3c-ccg.github.io/did-method-web/
 [ControllerDocuments]: https://www.w3.org/TR/controller-document/
 [DID-URL]: https://www.w3.org/TR/did-core/#did-url-syntax
 [well-known]: https://datatracker.ietf.org/doc/html/rfc8615
 [FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
 [FEP-ae97]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md
-[FEP-c7d3]: https://codeberg.org/fediverse/fep/src/branch/main/fep/c7d3/fep-c7d3.md
+[FEP-fe34]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md
 [RFC-6454]: https://www.rfc-editor.org/rfc/rfc6454.html
 [FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
-[Webfinger]: https://swicg.github.io/activitypub-webfinger/
+[WebFinger]: https://swicg.github.io/activitypub-webfinger/
 [Data Integrity]: https://w3c.github.io/vc-data-integrity/
 [FEP-fffd]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fffd/fep-fffd.md
 [NodeInfo]: https://nodeinfo.diaspora.software/
