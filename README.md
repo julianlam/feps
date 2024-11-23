@@ -138,6 +138,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-ae0c: Fediverse Relay Protocols: Mastodon and LitePub](./fep/ae0c/fep-ae0c.md) | `DRAFT` | [#424](https://codeberg.org/fediverse/fep/issues/424) | 2024-10-19 | - |
 | [FEP-b2b8: Long-form Text](./fep/b2b8/fep-b2b8.md) | `DRAFT` | [#441](https://codeberg.org/fediverse/fep/issues/441) | 2024-11-07 | - |
 | [FEP-fe34: Origin-based security model](./fep/fe34/fep-fe34.md) | `DRAFT` | [#445](https://codeberg.org/fediverse/fep/issues/445) | 2024-11-15 | - |
+| [FEP-171b: Conversation Containers](./fep/171b/fep-171b.md) | `DRAFT` | [#449](https://codeberg.org/fediverse/fep/issues/449) | 2024-11-23 | - |
 
 ## License
 

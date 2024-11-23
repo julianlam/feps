@@ -4,6 +4,7 @@ authors: silverpill <@silverpill@mitra.social>
 status: DRAFT
 dateReceived: 2024-11-23
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-171b-conversation-containers/4766
+trackingIssue: https://codeberg.org/fediverse/fep/issues/449
 ---
 
 # FEP-171b: Conversation Containers
