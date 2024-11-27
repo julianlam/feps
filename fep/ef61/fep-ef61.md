@@ -26,9 +26,9 @@ The proposed solution should satisfy the following constraints:
 
 ## History
 
-[Streams](https://codeberg.org/streams/streams) implemented [Nomadic Identity](https://codeberg.org/streams/streams/src/commit/5a20e0102b73a2c05e72bead13ddd712e4c2f885/FEDERATION.md#nomadic-identity) mechanism, that makes identity independent from a server. Nomadic accounts were not supported by ActivityPub but were available via the [Nomad protocol](https://codeberg.org/streams/streams/src/commit/11f5174fdd3dfcd8714974f93d8b8fc50378a193/spec/Nomad/Home.md).
+[Streams](https://codeberg.org/streams/streams) implemented [Nomadic Identity](https://codeberg.org/streams/streams/src/commit/5a20e0102b73a2c05e72bead13ddd712e4c2f885/FEDERATION.md#nomadic-identity) mechanism, that makes identity independent from a server. Nomadic accounts were not supported by ActivityPub at the time, but were available via the [Nomad protocol](https://codeberg.org/streams/streams/src/commit/11f5174fdd3dfcd8714974f93d8b8fc50378a193/spec/Nomad/Home.md).
 
-[Decentralized Identifiers (DIDs) v1.0][DID] specification suggests that DIDs might be assigned to web resources in section [B.8 Assigning DIDs to existing web resources](https://www.w3.org/TR/did-core/#assigning-dids-to-existing-web-resources).
+[FEP-c390](https://codeberg.org/fediverse/fep/src/branch/main/fep/c390/fep-c390.md) (2022) introduced a decentralized identity solution compatible with ActivityPub. It enabled permissionless migration of followers between servers, but didn't provide full data portability.
 
 ## Requirements
 
@@ -171,7 +171,8 @@ Example:
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/security/data-integrity/v1"
+    "https://w3id.org/security/data-integrity/v1",
+    "https://w3id.org/fep/ef61"
   ],
   "type": "Note",
   "id": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/objects/dc505858-08ec-4a80-81dd-e6670fd8c55f",
@@ -181,7 +182,7 @@ Example:
   "attachment": [
     {
       "type": "Image",
-      "href": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/media/image123.png",
+      "url": "hl:zQmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n",
       "mediaType": "image/png",
       "digestMultibase": "zQmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n"
     }
@@ -217,6 +218,33 @@ And the origin of a [DID URL][DID-URL] MUST be computed by the following algorit
 2. Let `uri-host` be the DID component of the DID URL.
 3. Let `uri-port` be the number 0.
 4. Return the triple `(uri-scheme, uri-host, uri-port)`.
+
+## Media
+
+Integrity of an external resource is attested with a digest. When a portable object contains a reference to an external resource (such as image), it MUST also contain a [`digestMultibase`](https://w3c.github.io/vc-data-integrity/#resource-integrity) property representing the integrity digest of that resource. The digest MUST be computed using the SHA-256 algorithm.
+
+The URI of an external resource SHOULD be a [hashlink][Hashlinks].
+
+Example of an `Image` attachment:
+
+```json
+{
+  "type": "Image",
+  "url": "hl:zQmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n",
+  "mediaType": "image/png",
+  "digestMultibase": "zQmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n"
+}
+```
+
+After retrieving a resource, the client MUST verify its integrity by computing its digest and comparing the result with the value encoded in `digestMultibase` property.
+
+Resources attached to portable objects using hashlinks can be stored by gateways. To retrieve a resource from a gateway, the client MUST make an HTTP GET request to the gateway endpoint at [well-known] location `/.well-known/apgateway`. The value of a hashlink URI MUST be appended to the gateway base URL.
+
+Example of a request:
+
+```
+GET https://social.example/.well-known/apgateway/hl:zQmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n
+```
 
 ## Compatibility
 
@@ -260,16 +288,6 @@ This proposal makes use of the `gateways` property, but the following alternativ
 
 Also, `gateways` array can contain HTTP(S) URL with a path component, thus enabling discovery based on ["follow your nose"](https://indieweb.org/follow_your_nose) principle, as opposed to discovery based on a [well-known] location.
 
-### Media
-
-Integrity of external resources can be attested using the [`digestMultibase`](https://w3c.github.io/vc-data-integrity/#resource-integrity) property.
-
-Gateways can be used to store resources attached to portable objects. Consuming implementations can retrieve these resources by their content hashes:
-
-```
-https://social.example/.well-known/apgateway/urn:sha256:11a8c27212f7bbc47a952494581f3bc92e84883ac343cd11a1e4f8eaa1254f4b
-```
-
 ### Compatibility
 
 The following alternatives to gateway-based compatible IDs are being considered:
@@ -295,6 +313,7 @@ The following alternatives to gateway-based compatible IDs are being considered:
 - silverpill, [FEP-ae97: Client-side activity signing][FEP-ae97], 2023
 - silverpill, [FEP-fe34: Origin-based security model][FEP-fe34], 2024
 - A. Barth, [The Web Origin Concept][RFC-6454], 2011
+- M. Sporny, L. Rosenthol, [Cryptographic Hyperlinks][Hashlinks], 2021
 - silverpill, [FEP-521a: Representing actor's public keys][FEP-521a], 2023
 - a, Evan Prodromou, [ActivityPub and WebFinger][WebFinger], 2024
 - Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][Data Integrity], 2024
@@ -313,6 +332,7 @@ The following alternatives to gateway-based compatible IDs are being considered:
 [FEP-ae97]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md
 [FEP-fe34]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md
 [RFC-6454]: https://www.rfc-editor.org/rfc/rfc6454.html
+[Hashlinks]: https://datatracker.ietf.org/doc/html/draft-sporny-hashlink-07
 [FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
 [WebFinger]: https://swicg.github.io/activitypub-webfinger/
 [Data Integrity]: https://w3c.github.io/vc-data-integrity/
