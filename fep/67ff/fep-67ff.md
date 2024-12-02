@@ -70,6 +70,7 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [tootik](https://github.com/dimkr/tootik/blob/main/FEDERATION.md)
 - [Bridgy Fed](https://github.com/snarfed/bridgy-fed/blob/main/FEDERATION.md)
 - [Friendica](https://git.friendi.ca/friendica/friendica/src/branch/develop/FEDERATION.md)
+- [PieFed](https://codeberg.org/rimu/pyfedi/src/branch/main/FEDERATION.md)
 
 ## References
 
