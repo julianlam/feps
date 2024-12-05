@@ -11,9 +11,9 @@ trackingIssue: https://codeberg.org/fediverse/fep/issues/449
 
 ## Summary
 
-This document specifies a model for managing conversations in [ActivityPub] network as collections. It is based on the implementation of [Conversation Containers][Containers] in [Streams](https://codeberg.org/streams/streams).
+This document specifies a model for managing conversations in [ActivityPub] network. It is based on the implementation of [Conversation Containers][Containers] in [Streams](https://codeberg.org/streams/streams).
 
-In this model conversations are managed by the actor that created the initial post of a conversation thread. Such conversations take place within a specific audience and may be moderated.
+In this model conversations are represented as collections controlled by a single actor. Such conversations take place within a specific audience and may be moderated.
 
 ## Requirements
 
@@ -55,10 +55,12 @@ When activity is added to the conversation, its owner sends an `Add` activity to
 
 ### Top-level post
 
-The top-level post MUST have a `context` property indicating a conversation container.
+The author of a top-level post it not necessarily the conversation owner. When owner is a group, conversations can be started by any of its members.
+
+The top-level post MUST have a `context` property indicating the conversation container.
 
 >[!NOTE]
->The usage of a `context` property in conversation containers differs from recommendations provided in [FEP-7888].
+>The usage of a `context` property in conversation containers differs from recommendations provided in [FEP-7888]. The name of this property might be changed in a future version of this document.
 
 ### Interactions
 
@@ -72,7 +74,9 @@ Reply with a different audience can be created by starting a new conversation an
 
 ### Moderation
 
-To remove a post from a conversation, its owner publishes a `Delete` activity where `object` is the post that must be removed. This activity is then wrapped in `Add` activity and distributed to the conversation audience.
+When conversation owner does not want to add activity to a conversation, that activity is ignored and a corresponding `Add` activity is not published.
+
+To remove a previously approved post from a conversation, its owner publishes a `Delete` activity where `object` is the post that must be removed. This activity is then wrapped in `Add` activity and distributed to the conversation audience.
 
 >[!NOTE]
 >Actor shouldn't be able to delete objects it didn't create. In a future version of this document `Delete` might be replaced with `Remove(target: Thread)`.
@@ -90,6 +94,8 @@ When an ActivityPub server receives an `Add` activity in its inbox, it MUST perf
 - If origins are equal, add `Add.object` to the conversation.
 - If origins are different and [FEP-8b32] integrity proof is present, verify the proof. If the proof is valid, add `Add.object` to the conversation.
 - If integrity proof is not present, fetch `Add.object` by its `id`. If location of the fetched activity has the same origin as `Add.object.id`, add fetched activity to the conversation.
+
+The processing of unauthenticated embedded activities is strongly discouraged. If such activities are not rejected by the consumer, a malicious conversation owner may be able to perform a [cache poisoning](https://en.wikipedia.org/wiki/Cache_poisoning) attack and overwrite any actor or a post in consumer's local cache by sending a forged `Update(Actor)` or `Update(Object)` wrapped in an `Add` activity.
 
 >[!WARNING]
 >Sometimes activities have non-dereferenceable identifiers. That may prevent their authentication.
@@ -149,11 +155,13 @@ Example of a container of a followers-only conversation:
 ```json
 {
   "@context": [
-    "https://www.w3.org/ns/activitystreams"
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/fep/171b"
   ],
   "type": "OrderedCollection",
   "id": "https://alice.example/contexts/1",
   "attributedTo": "https://alice.example/actors/1",
+  "collectionOf": "Activity",
   "orderedItems": [
     "https://alice.example/activities/add/1"
   ]
