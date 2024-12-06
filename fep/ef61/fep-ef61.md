@@ -26,7 +26,9 @@ The proposed solution should satisfy the following constraints:
 
 ## History
 
-[Streams](https://codeberg.org/streams/streams) implemented [Nomadic Identity](https://codeberg.org/streams/streams/src/commit/5a20e0102b73a2c05e72bead13ddd712e4c2f885/FEDERATION.md#nomadic-identity) mechanism, that makes identity independent from a server. Nomadic accounts were not supported by ActivityPub at the time, but were available via the [Nomad protocol](https://codeberg.org/streams/streams/src/commit/11f5174fdd3dfcd8714974f93d8b8fc50378a193/spec/Nomad/Home.md).
+[Nomadic identity](https://joinfediverse.wiki/index.php?title=Nomadic_identity/en) mechanism makes identity independent from a server and was originally part of the Zot federation protocol.
+
+[Streams](https://codeberg.org/streams/streams) (2021) made nomadic accounts available via the [Nomad protocol](https://codeberg.org/streams/streams/src/commit/11f5174fdd3dfcd8714974f93d8b8fc50378a193/spec/Nomad/Home.md), which supported ActivityStreams serialisation.
 
 [FEP-c390](https://codeberg.org/fediverse/fep/src/branch/main/fep/c390/fep-c390.md) (2022) introduced a decentralized identity solution compatible with ActivityPub. It enabled permissionless migration of followers between servers, but didn't provide full data portability.
 
@@ -60,7 +62,7 @@ scheme   authority           path        query     fragment
 Implementers MUST support the [did:key] method. Other DID methods SHOULD NOT be used, as it might hinder interoperability.
 
 >[!NOTE]
->The following additional DID methods are being considered: [did:web](https://w3c-ccg.github.io/did-method-web/), [did:dns](https://danubetech.github.io/did-method-dns/), [did:tdw](https://identity.foundation/trustdidweb/) and [did:fedi](https://arcanican.is/excerpts/did-method-fedi.html).
+>The following additional DID methods are being considered: [did:web](https://w3c-ccg.github.io/did-method-web/), [did:dns](https://danubetech.github.io/did-method-dns/), [did:webvh](https://identity.foundation/didwebvh/next/) (formerly `did:tdw`) and [did:fedi](https://arcanican.is/excerpts/did-method-fedi.html).
 
 DID documents SHOULD contain Ed25519 public keys represented as verification methods with `Multikey` type (as defined in the [Controller Documents](https://www.w3.org/TR/controller-document/#Multikey) specification).
 
@@ -85,6 +87,9 @@ If object identified by `ap://` URL is not stored on the server, it MUST return 
 If object is not public, the server MUST return `404 Not Found` unless the request has a HTTP signature and the signer is allowed to view the object.
 
 After retrieving an object, the client MUST verify its [FEP-8b32][FEP-8b32] integrity proof. The value of `verificationMethod` property of the proof MUST be a [DID URL][DID-URL] where the DID matches the authority component of the `ap://` URL.
+
+>[!NOTE]
+>This document describes web gateways, which use HTTP transport. However, the data model and authentication mechanism are transport-agnostic and other types of gateways could exist.
 
 ## Portable actors
 
@@ -280,13 +285,33 @@ ap://did%3Akey%3Az6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor
 
 ### Discovering locations
 
+#### Arbitrary paths
+
+The `gateways` array can contain HTTP(S) URLs with a path component, thus enabling discovery based on the ["follow your nose"](https://indieweb.org/follow_your_nose) principle, as opposed to discovery based on a [well-known] location.
+
+Example of a compatible object ID if the gateway endpoint is `https://social.example/ap`:
+
+```
+https://social.example/ap/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object
+```
+
+#### Alternatives to `gateways` property
+
 This proposal makes use of the `gateways` property, but the following alternatives are being considered:
 
 - `aliases` and [`sameAs`](https://schema.org/sameAs) (containing HTTP(S) URLs of objects)
 - `alsoKnownAs` (used for account migrations, so the usage of this property may cause issues)
 - `url` (with `alternate` [relation type](https://html.spec.whatwg.org/multipage/links.html#linkTypes))
 
-Also, `gateways` array can contain HTTP(S) URL with a path component, thus enabling discovery based on ["follow your nose"](https://indieweb.org/follow_your_nose) principle, as opposed to discovery based on a [well-known] location.
+#### DID services
+
+Instead of specifying gateways in actor document, they can be specified in [DID] document using [DID services](https://www.w3.org/TR/did-core/#services). This approach is not compatible with generative DID methods such as `did:key`, which might be necessary for some types of applications.
+
+### Media access control
+
+The proposed approach to referencing media with hashlinks does not support access control: anybody who knows the hash can retrieve the file.
+
+To work around this limitation, a different kind of identifier can be used where digest is combined with the `ap://` identifier of its parent document. The gateway will not serve media unless parent document ID is provided, and will check whether request signer has permission to view the document and therefore the attached media.
 
 ### Compatibility
 
