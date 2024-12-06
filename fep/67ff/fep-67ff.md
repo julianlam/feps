@@ -1,10 +1,11 @@
 ---
 slug: "67ff"
 authors: silverpill <@silverpill@mitra.social>
-status: DRAFT
+status: FINAL
 dateReceived: 2023-09-05
+dateFinalized: 2024-09-22
 trackingIssue: https://codeberg.org/fediverse/fep/issues/157
-discussionsTo: https://codeberg.org/fediverse/fep/issues/157
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-67ff-federation-md/3555
 ---
 # FEP-67ff: FEDERATION.md
 
