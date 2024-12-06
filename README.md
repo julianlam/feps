@@ -38,7 +38,7 @@ b3f0
 Alternatively to steps 3. to 6., you can run
 
 ```bash
-python scripts/new_proposal.py TITLE OF YOUR PROPOSAL
+./scripts/new_proposal.py TITLE OF YOUR PROPOSAL
 ```
 
 that should create a prefilled template for you.
