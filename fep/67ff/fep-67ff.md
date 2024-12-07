@@ -72,6 +72,8 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Bridgy Fed](https://github.com/snarfed/bridgy-fed/blob/main/FEDERATION.md)
 - [Friendica](https://git.friendi.ca/friendica/friendica/src/branch/develop/FEDERATION.md)
 - [PieFed](https://codeberg.org/rimu/pyfedi/src/branch/main/FEDERATION.md)
+- [Akkoma](https://akkoma.dev/AkkomaGang/akkoma/src/branch/stable/FEDERATION.md)
+- [Iceshrimp.NET](https://iceshrimp.dev/iceshrimp/Iceshrimp.NET/src/branch/dev/FEDERATION.md)
 
 ## References
 
