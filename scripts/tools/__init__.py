@@ -18,6 +18,15 @@ def build_url_link(url):
     return f"[#{url_number}]({url})"
 
 
+def index():
+    fep_files = [FepFile(fep) for fep in get_fep_ids()]
+    fep_files = sorted(
+        fep_files,
+        key=lambda x: (x.parsed_frontmatter["dateReceived"], x.parsed_frontmatter["slug"]),
+    )
+    return fep_files
+
+
 class Readme:
     @property
     def content(self):
@@ -35,15 +44,9 @@ class Readme:
 
     @property
     def table(self):
-        fep_files = [FepFile(fep) for fep in get_fep_ids()]
-        fep_files = sorted(
-            fep_files,
-            key=lambda x: (x.parsed_frontmatter["dateReceived"], x.parsed_frontmatter["slug"]),
-        )
-
         result = []
 
-        for fep in fep_files:
+        for fep in index():
             link = f"[FEP-{fep.fep}: {fep.title}](./{fep.filename})"
             parsed = fep.parsed_frontmatter
 

@@ -13,7 +13,7 @@ def test_fep(fep):
 
     assert "status" in parsed_frontmatter
     assert parsed_frontmatter["status"] in ["DRAFT", "FINAL", "WITHDRAWN"]
-    assert parsed_frontmatter["slug"] == f'"{fep}"'
+    assert parsed_frontmatter["slug"] == fep
     assert "authors" in parsed_frontmatter
     assert "dateReceived" in parsed_frontmatter
     assert "discussionsTo" in parsed_frontmatter

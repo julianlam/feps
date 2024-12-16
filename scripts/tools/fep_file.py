@@ -1,3 +1,10 @@
+def unquote(value):
+    if value.startswith('"') and value.endswith('"'):
+        return value[1:-1]
+    else:
+        return value
+
+
 class FepFile:
     def __init__(self, fep):
         self.fep = fep
@@ -32,7 +39,7 @@ class FepFile:
     @property
     def parsed_frontmatter(self):
         split = [x.split(":", 1) for x in self.frontmatter]
-        return {a: b.strip() for a, b in split}
+        return {a: unquote(b.strip()) for a, b in split}
 
     @property
     def title(self):
