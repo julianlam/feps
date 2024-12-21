@@ -16,7 +16,7 @@ This is not a specification, a proposal, or a "best practice" document. The aim 
 
 In OpenWebAuth, each user is identified by a public/private key pair. The protocol relies on there being a mechanism for other nodes on the network to discover a user's public key. This document assumes that ActivityPub actor objects will be used for this purpose. OpenWebAuth can also work with other protocols such as Zot6 and Nomad but these are not considered here.
 
-## Operation of the protocol
+## Overview
 
 The protocol takes place between two participants:
 
@@ -24,31 +24,43 @@ The protocol takes place between two participants:
 
  - The _target instance_, which allows remote users to log in to it using the provided identity. This is equivalent to the Relying Party (RP) in SAML and OpenID Connect.
 
+### Starting the login flow
+
 The OpenWebAuth login flow can begin in one of two ways:
 
 - The user visits the target instance and sees a login screen. They type their Fediverse ID into a form field and click "Login".
 
 - The user follows a link to the target instance. This link has a query parameter, `zid=`, which specifies the user's Fediverse ID.
 
-Either way, the protocol begins with the user's browser making a request to the target instance.
+This `zid=` mechanism is not necessarily specific to OpenWebAuth. It can be used to start an OAuth2-based login flow in just the same way. Implementers should note, though, that it can make attacks easier to launch; an attacker who can trick a victim into clicking a malicious link can cause them to start the login flow using a maliciously constructed identity, perhaps leading to a [MixUpAttack].
 
-1. The target instance identifies the home instance's "redirection endpoint".
+## Operation of the protocol
+
+Regardless of how the flow is started, the protocol begins with the user's browser making a request to the target instance.
+
+### 1. Redirection to home instance
+
+First the target instance identifies the home instance's "redirection endpoint".
 
 Some existing implementations hard-code this to `/magic`. New implementations should perform a webfinger lookup on the provided user ID looking for a link with `rel` set to `http://purl.org/openwebauth/v1#redirect`. If found, this link's `href` should be used as the redirection endpoint.
 
 The target instance constructs a URL from the redirection endpoint with the following query parameters:
 - `owa`: must be set to 1
-- `bdest`: The URL that the user is trying to visit. This is encoded as UTF-8 and then converted to a hexadecimal string.
+- `bdest`: The URL which the browser will be returned to after acquiring a token. This is encoded as UTF-8 and then converted to a hexadecimal string. This is equivalent to the `redirect_uri` in OAuth2. The `bdest` URL can include query parameters.
 
-The user's browser is redirected to this URL.
+The user's browser is redirected to this URL. The target instance should check that the URL has the same origin as the webfinger ID, to avoid acting as an open redirector.
 
-2. The `/magic` endpoint at the user's home instance first checks that the user is logged in.
+### 2. Home instance requests a token
+
+The `/magic` endpoint at the user's home instance first checks that the user's browser has a valid session cookie.
 
 If so, it decodes the `bdest` destination URL. It performs a webfinger lookup on the root URL of the destination site and looks for a link with `rel` set to `http://purl.org/openwebauth/v1`. This identifies the target instance's "token endpoint".
 
 The home instance constructs and issues a signed HTTPS request to this endpoint. The request also contains an additional signed header, `X-Open-Web-Auth`, containing a random string. Target instances do not use this header; it is provided to add additional entropy to the signature calculation.
 
-3. The target instance's token endpoint extracts the `keyId`, fetches the actor record, extracts the public key and verifies the signature.
+### 3. Target instance provides a token
+
+The target instance's token endpoint extracts the `keyId`, fetches the actor record, extracts the public key and verifies the signature.
 
 On success, it generates an URL-safe random string to use as a token. This token is stored locally, associated with the actor who signed the message. The token is also encrypted using the actor's public key and the RSA PKCS #1 v1.5 encryption scheme. The encrypted result is encoded as URL-safe Base64 with no '=' padding bytes.
 
@@ -63,13 +75,25 @@ Next it constructs the following JSON object in response:
 
 On failure it can also return a result with `success` set to false.
 
-4. The signed request issued in step 2 completes. The home instance decodes the JSON response and verifies that `success` is true. Next it decodes the Base64-encoded encrypted token and decrypts it using the actor's private key.
+### 4. Home instance receives the token
 
-If successful, it takes the original `bdest` destination URL, adds the query parameter: `owt=<decrypted token>`, and redirects the user's browser to it.
+The signed request issued in step 2 completes. The home instance decodes the JSON response and verifies that `success` is true. Next it decodes the Base64-encoded encrypted token and decrypts it using the actor's private key.
 
-5. The user arrives back at the target instance. The target instance sees the `owt=` query parameter and checks its local storage for the token which it saved in step 3.
+If successful, it takes the `bdest` destination URL, adds the query parameter: `owt=<decrypted token>`, and redirects the user's browser to it.
+
+### 5. User returns to target instance
+
+The user arrives back at the target instance. The target instance sees the `owt=` query parameter and checks its local storage for the token which it saved in step 3.
 
 If found, this token identifies the remote user, and the target instance logs them in, overriding any existing login they may have. The token is also deleted from local storage so that it cannot be redeemed more than once.
+
+## What Next?
+
+*(This section is non-normative.)*
+
+What does the target instance allow the user to do, now that they have signed in? The simplest option is to treat them as though they had signed in using a local username and password, but this isn't really enough.
+
+In an [ActivityPub] context, a remotely authenticated user will expect to be able to post to the target instance using their existing identity. This poses the question of how the target instance should sign the post, since it does not have access to the user's private key. Hubzilla solves this by attributing the post to the user's identity, but signing it with a key belonging to the target instance; any other instance which receives the post must be aware of this mechanism, or the signature will be rejected.
 
 ## Additional notes
 
@@ -107,11 +131,17 @@ This consideration may involve policies such as displaying a consent screen to t
 
 Unused `owt=` login tokens are deleted after a couple of minutes. This protects against a potential DoS attack which could fill up the target instance's storage with unused tokens.
 
+The `zid=` query parameter may make a [MixUpAttack] easier to launch, as discussed briefly above.
+
 ## References
 
+- Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
 - Ryan Barrett, nightpool, [ActivityPub and HTTP Signatures][ActPubSig], 2024
+- Karsten Meyer zu Selhausen, [How to Protect Your OAuth Client Against Mix-Up Attacks][MixUpAttack], 2020
 
+[ActivityPub]: https://www.w3.org/TR/activitypub/
 [ActPubSig]: https://swicg.github.io/activitypub-http-signature/
+[MixUpAttack]: https://www.hackmanit.de/en/blog-en/132-how-to-protect-your-oauth-client-against-mix-up-attacks
 
 ## Copyright
 
