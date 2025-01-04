@@ -57,10 +57,10 @@ When activity is added to the conversation, its owner sends an `Add` activity to
 
 The author of a top-level post it not necessarily the conversation owner. When owner is a group, conversations can be started by any of its members.
 
-The top-level post MUST have a `context` property indicating the conversation container.
+The top-level post SHOULD have a `context` property indicating the conversation container.
 
 >[!NOTE]
->The usage of a `context` property in conversation containers differs from recommendations provided in [FEP-7888]. The name of this property might be changed in a future version of this document.
+>The usage of a `context` property in conversation containers differs from recommendations provided in [FEP-7888]. The name of this property might be changed in a future version of this document (e.g. to `contextHistory`).
 
 ### Interactions
 
@@ -177,6 +177,7 @@ Example of a container of a followers-only conversation:
 ## Implementations
 
 - [Streams](https://codeberg.org/streams/streams)
+- [Hubzilla](https://hub.somaton.com/item/0145da10-b608-4b19-b1d5-89a461e473d0)
 
 ## References
 
