@@ -1,0 +1,24 @@
+when:
+  - branch: [main]
+    event: push
+
+steps:
+  build:
+    image: python:3.11-alpine
+    commands:
+      - ./scripts/update_issues.py
+      - ./scripts/create_readme.py
+    environment:
+      CODEBERG_API_TOKEN:
+        from_secret: codeberg_api_token
+
+  push:
+    image: appleboy/drone-git-push
+    settings:
+      branch: main
+      remote: ${CI_REPO_CLONE_SSH_URL}
+      force: false
+      commit: true
+      commit_message: Automatic update [skip ci]
+      ssh_key:
+        from_secret: deploy_key
