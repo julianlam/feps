@@ -141,6 +141,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-171b: Conversation Containers](./fep/171b/fep-171b.md) | `DRAFT` | [#449](https://codeberg.org/fediverse/fep/issues/449) | 2024-11-23 | - |
 | [FEP-6606: ActivityPub client to server collections addressing conventions](./fep/6606/fep-6606.md) | `DRAFT` | [#453](https://codeberg.org/fediverse/fep/issues/453) | 2024-12-04 | - |
 | [FEP-1311: Media Attachments](./fep/1311/fep-1311.md) | `DRAFT` | [#459](https://codeberg.org/fediverse/fep/issues/459) | 2024-12-08 | - |
+| [FEP-7d8c: Documentation: Automation of FEP](./fep/7d8c/fep-7d8c.md) | `DRAFT` | [#474](https://codeberg.org/fediverse/fep/issues/474) | 2025-01-20 | - |
 
 ## License
 

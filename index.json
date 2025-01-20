@@ -776,5 +776,14 @@
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-1311-media-attachments/4796",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/459",
     "title": "Media Attachments"
+  },
+  {
+    "slug": "7d8c",
+    "authors": "Helge <@helge@mymath.rocks>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-repo-rights/4797/3",
+    "dateReceived": "2025-01-20",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/474",
+    "title": "Documentation: Automation of FEP"
   }
 ]

@@ -2,8 +2,9 @@
 slug: "7d8c"
 authors: Helge <@helge@mymath.rocks>
 status: DRAFT
-dateReceived: 1970-01-01
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-repo-rights/4797/3
+dateReceived: 2025-01-20
+trackingIssue: https://codeberg.org/fediverse/fep/issues/474
 ---
 # FEP-7d8c: Documentation: Automation of FEP
 
