@@ -52,16 +52,10 @@ ActivityPub object is considered authentic if any of the following conditions ar
 
 If none of these conditions are met, the object MUST be discarded.
 
+Consumers SHOULD attempt to fetch the object by its ID if other authentication methods are not available.
+
 >[!NOTE]
 >In some cases, consumers can process unauthenticated objects if the risk is deemed acceptable.
-
-### Delivered to inbox
-
-If the object was delivered to inbox and its authentication fails, the recipient SHOULD fetch it and repeat the authentication procedure.
-
-### Emdedded objects
-
-If embedded object and containing object have IDs with different origins, the authenticity of the embedded object MUST be verified independently either by fetching it from the server of origin, or by verifying its [FEP-8b32] integrity proof.
 
 ### Anonymous objects
 
