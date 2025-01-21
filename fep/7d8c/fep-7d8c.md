@@ -4,7 +4,7 @@ authors: Helge <@helge@mymath.rocks>
 status: DRAFT
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-repo-rights/4797/3
 dateReceived: 2025-01-20
-trackingIssue: https://codeberg.org/fediverse/fep/issues/474
+trackingIssue: https://codeberg.org/fediverse/fep/issues/470
 ---
 # FEP-7d8c: Documentation: Automation of FEP
 
