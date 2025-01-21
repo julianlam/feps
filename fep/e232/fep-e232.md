@@ -81,6 +81,7 @@ Note that the `content` includes the `RE: <url>` microsyntax but consuming imple
 - [Friendica](https://github.com/friendica/friendica/pull/14032)
 - Bridgy Fed
 - [Hollo](https://hollo.social/@hollo/01920132-739e-7eff-9f5f-424282884eee)
+- [Iceshrimp.NET](https://iceshrimp.dev/iceshrimp/Iceshrimp.NET/src/commit/bdfd3a8d4e788ef3bdec06f32f444ed7fcffc3c7/FEDERATION.md#supported-feps)
 
 ## References
 
