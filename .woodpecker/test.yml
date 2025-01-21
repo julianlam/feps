@@ -1,5 +1,6 @@
 when:
   - branch: [main]
+    event: [pull_request, push]
 
 steps:
   build:
