@@ -785,5 +785,14 @@
     "dateReceived": "2025-01-20",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/470",
     "title": "Documentation: Automation of FEP"
+  },
+  {
+    "slug": "9967",
+    "authors": "silverpill <@silverpill@mitra.social>",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
+    "dateReceived": "2025-01-23",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/478",
+    "title": "Polls"
   }
 ]
