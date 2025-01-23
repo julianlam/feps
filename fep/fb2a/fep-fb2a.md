@@ -145,6 +145,7 @@ Implementation according to this FEP might result in a simpler and more semantic
 
 - WordPress
 - Streams
+- NodeBB
 
 ## References
 
