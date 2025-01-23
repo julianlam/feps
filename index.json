@@ -790,7 +790,7 @@
     "slug": "9967",
     "authors": "silverpill <@silverpill@mitra.social>",
     "status": "DRAFT",
-    "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-9967-polls/4885",
     "dateReceived": "2025-01-23",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/478",
     "title": "Polls"
