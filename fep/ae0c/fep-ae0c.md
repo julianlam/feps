@@ -20,7 +20,7 @@ Several styles of relays existing in the Activity Fediverse. This FEP describe t
 * [Mastodon-style relays](#mastodon-relay-protocol)
 * [LitePub-style relays](#litepub-relay-protocol)
 
-*NOTE: This is an informational FEP documenting the current status quo. It uses [RFC-2119] requirements keywords only as a convenience.*
+*NOTE: This is an informational FEP documenting the current status quo. It uses [RFC-2119] requirements keywords only as a convenience. Also, these are not standardized protocols. They will generally not be conformant with the ActivityPub standard although they use some concepts from it.*
 
 ## Terminology
 
@@ -104,7 +104,7 @@ To unsubscribe from a relay send an `Undo` with the original `Follow` activity (
 
 #### Publishing Messages to a Relay
 
-To publish an activity to a Mastodon-style relay, the publisher MUST sign the message using the Mastodon-specific [LD Signatures] algorithm. The benefit of using LD Signatures is that the receiving servers can verify the message content without refetching from the client server. This lowers the server load on the client server.
+To publish an activity to a Mastodon-style relay, the publisher MUST sign the message using the Mastodon-specific [LD Signature][Mastodon LD Signatures] algorithm. The benefit of using LD Signatures is that the receiving servers can verify the message content without refetching from the client server. This lowers the server load on the client server.
 
 The disadvantage is that the LD Signatures are not easy to implement and Mastodon uses an outdated nonstandard form of the algorithm. The Mastodon documentation recommends not supporting LD Signatures for these reasons.
 Furthermore, the Mastodon documentation does not accurately describe the LD Signature algorithm it implements. For more details, see the additional information about [Mastodon LD Signatures](#mastodon-ld-signatures) in this document.
@@ -198,7 +198,7 @@ The [LitePub][litepub] protocol is based on [ActivityPub] and is used in Pleroma
 
 ### Relay Client
 
-A LitePub relay client actor must have a type of `Application` and an actor ID ending with `/relay` (TODO verify). For best interoperability, it should be compatible with Mastodon actor documents and have WebFinger support.
+A LitePub relay client actor must have a type of `Application` and an actor ID ending with `/relay`. For best interoperability, it should be compatible with Mastodon actor documents and have WebFinger support. Other implementations may use different actor ID structures (e.g., AodeRelay apparently uses `/actor` and works with Pleroma). General relay interoperability of these LitePub variants is not known.
 
 #### Relay Subscription
 
