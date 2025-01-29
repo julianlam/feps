@@ -273,6 +273,7 @@
   {
     "slug": "521a",
     "authors": "silverpill <@silverpill@mitra.social>",
+    "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2023-07-08",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/130",
