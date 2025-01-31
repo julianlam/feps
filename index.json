@@ -795,5 +795,15 @@
     "dateReceived": "2025-01-23",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/478",
     "title": "Polls"
+  },
+  {
+    "slug": "2277",
+    "authors": "silverpill <@silverpill@mitra.social>",
+    "type": "informational",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
+    "dateReceived": "2025-01-31",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/485",
+    "title": "ActivityPub core types"
   }
 ]
