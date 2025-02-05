@@ -33,6 +33,8 @@ def test_fep_front_matter(fep):
         if field_name in parsed_frontmatter:
             datetime.datetime.strptime(parsed_frontmatter[field_name], "%Y-%m-%d")
 
+    if "type" in parsed_frontmatter:
+        assert parsed_frontmatter["type"] in ["informational", "implementation"]
 
 @pytest.mark.parametrize("fep", get_fep_ids())
 def test_fep_content(fep):
