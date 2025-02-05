@@ -2,8 +2,9 @@
 slug: "a974"
 authors: James Smith <james@floppy.org.uk>
 status: DRAFT
-dateReceived: 2025-02-05
 discussionsTo: https://socialhub.activitypub.rocks/t/proposed-fep-a974-all-actor-types-should-be-followable/5012
+dateReceived: 2025-02-05
+trackingIssue: https://codeberg.org/fediverse/fep/issues/487
 ---
 # FEP-a974: All Actor types should be followable
 
