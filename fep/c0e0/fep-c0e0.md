@@ -1,6 +1,7 @@
 ---
 slug: "c0e0"
 authors: silverpill <@silverpill@mitra.social>
+type: implementation
 status: DRAFT
 dateReceived: 2024-08-08
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-c0e0-emoji-reactions/4443
@@ -118,9 +119,15 @@ Emoji reactions can be retracted using a standard `Undo` activity:
 }
 ```
 
+## `emojiReactions` collection
+
+The list of emoji reactions to an object can be exposed using the `emojiReactions` property. Its full IRI is `http://fedibird.com/ns#emojiReactions`.
+
+The URL specified by this property MUST resolve to a `Collection` object containing `Like` (with `content`) and `EmojiReact` activities.
+
 ## Implementations
 
-This document is based on implementations of emoji reactions in Misskey and Pleroma.
+This document is based on implementations of emoji reactions in Misskey, Pleroma and Fedibird.
 
 ## References
 

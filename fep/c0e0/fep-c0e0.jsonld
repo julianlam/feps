@@ -1,5 +1,6 @@
 {
   "@context": {
-    "EmojiReact": "http://litepub.social/ns#EmojiReact"
+    "EmojiReact": "http://litepub.social/ns#EmojiReact",
+    "emojiReactions": "http://fedibird.com/ns#emojiReactions"
   }
 }
