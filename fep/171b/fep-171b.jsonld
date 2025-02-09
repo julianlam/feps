@@ -1,5 +1,9 @@
 {
   "@context": {
-    "collectionOf": "https://fediversity.site/apschema#collectionOf"
+    "collectionOf": "https://fediversity.site/apschema#collectionOf",
+    "contextHistory": {
+      "@id": "https://w3id.org/fep/171b/contextHistory",
+      "@type": "@id"
+    },
   }
 }

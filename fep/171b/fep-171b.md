@@ -1,6 +1,7 @@
 ---
 slug: "171b"
 authors: silverpill <@silverpill@mitra.social>
+type: implementation
 status: DRAFT
 dateReceived: 2024-11-23
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-171b-conversation-containers/4766
@@ -31,7 +32,7 @@ A conversation container is implemented as a collection. Every item in that coll
 - Collection SHOULD have `collectionOf` property with value `Activity`.
 
 >[!NOTE]
->The required collection type might be changed to a more descriptive one (such as `Context`) in a future version of this document. That will allow identification of `Add` activities belonging to a conversation container by the value of `Add.target.type`.
+>The required collection type might be changed to a more descriptive one (such as `ConversationContainer`) in a future version of this document. That will allow identification of `Add` activities belonging to a conversation container by the value of `Add.target.type`.
 
 >[!NOTE]
 >In addition to the conversation container collection, implementers MAY provide collection that represents the conversation tree and contains posts.
@@ -57,10 +58,10 @@ When activity is added to the conversation, its owner sends an `Add` activity to
 
 The author of a top-level post it not necessarily the conversation owner. When owner is a group, conversations can be started by any of its members.
 
-The top-level post SHOULD have a `context` property indicating the conversation container.
+The top-level post MUST have a `contextHistory` property that refers to the conversation container. The presence of this property indicates that publisher implements conversation containers.
 
 >[!NOTE]
->The usage of a `context` property in conversation containers differs from recommendations provided in [FEP-7888]. The name of this property might be changed in a future version of this document (e.g. to `contextHistory`).
+>In addtion to `contextHistory` property, implementers MAY add a `context` property that refers to a collection of posts.
 
 ### Interactions
 
@@ -185,7 +186,6 @@ Example of a container of a followers-only conversation:
 - Mike Macgirvin, [Containers], 2024
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
 - Gregory Klyushnikov, [FEP-400e: Publicly-appendable ActivityPub collections][FEP-400e], 2021
-- a, [FEP-7888: Demystifying the context property][FEP-7888], 2023
 - silverpill, [FEP-e232: Object Links][FEP-e232], 2022
 - silverpill, [FEP-fe34: Origin-based security model][FEP-fe34], 2024
 - silverpill, [FEP-8b32: Object Integrity Proofs][FEP-8b32], 2022
@@ -194,7 +194,6 @@ Example of a container of a followers-only conversation:
 [Containers]: https://fediversity.site/help/develop/en/Containers
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
 [FEP-400e]: https://codeberg.org/fediverse/fep/src/branch/main/fep/400e/fep-400e.md
-[FEP-7888]: https://codeberg.org/fediverse/fep/src/branch/main/fep/7888/fep-7888.md
 [FEP-e232]: https://codeberg.org/fediverse/fep/src/branch/main/fep/e232/fep-e232.md
 [FEP-fe34]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md
 [FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
