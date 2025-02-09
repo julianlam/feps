@@ -755,6 +755,7 @@
   {
     "slug": "171b",
     "authors": "silverpill <@silverpill@mitra.social>",
+    "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2024-11-23",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-171b-conversation-containers/4766",
