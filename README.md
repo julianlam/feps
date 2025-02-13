@@ -145,6 +145,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-9967: Polls](./fep/9967/fep-9967.md) | `DRAFT` | [#478](https://codeberg.org/fediverse/fep/issues/478) | 2025-01-23 | - |
 | [FEP-2277: ActivityPub core types](./fep/2277/fep-2277.md) | `DRAFT` | [#485](https://codeberg.org/fediverse/fep/issues/485) | 2025-01-31 | - |
 | [FEP-a974: All Actor types should be followable](./fep/a974/fep-a974.md) | `DRAFT` | [#487](https://codeberg.org/fediverse/fep/issues/487) | 2025-02-05 | - |
+| [FEP-efda: Followable objects](./fep/efda/fep-efda.md) | `DRAFT` | [#492](https://codeberg.org/fediverse/fep/issues/492) | 2025-02-13 | - |
 
 ## License
 

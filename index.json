@@ -816,5 +816,14 @@
     "dateReceived": "2025-02-05",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/487",
     "title": "All Actor types should be followable"
+  },
+  {
+    "slug": "efda",
+    "authors": "a <a@trwnh.com>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-efda-followable-objects/5030",
+    "dateReceived": "2025-02-13",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/492",
+    "title": "Followable objects"
   }
 ]

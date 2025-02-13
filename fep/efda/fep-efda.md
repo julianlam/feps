@@ -2,8 +2,9 @@
 slug: "efda"
 authors: a <a@trwnh.com>
 status: DRAFT
-dateReceived: 2025-02-13
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-efda-followable-objects/5030
+dateReceived: 2025-02-13
+trackingIssue: https://codeberg.org/fediverse/fep/issues/492
 ---
 # FEP-efda: Followable objects
 
