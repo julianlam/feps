@@ -62,7 +62,7 @@ scheme   authority           path        query     fragment
 Implementers MUST support the [did:key] method. Other DID methods SHOULD NOT be used, as it might hinder interoperability.
 
 >[!NOTE]
->The following additional DID methods are being considered: [did:web](https://w3c-ccg.github.io/did-method-web/), [did:dns](https://danubetech.github.io/did-method-dns/), [did:webvh](https://identity.foundation/didwebvh/next/) (formerly `did:tdw`) and [did:fedi](https://arcanican.is/excerpts/did-method-fedi.html).
+>The following additional DID methods are being considered: [did:web](https://w3c-ccg.github.io/did-method-web/), [did:dns](https://danubetech.github.io/did-method-dns/), [did:webvh](https://identity.foundation/didwebvh/) (formerly `did:tdw`) and [did:fedi](https://arcanican.is/excerpts/did-method-fedi.html).
 
 DID documents SHOULD contain Ed25519 public keys represented as verification methods with `Multikey` type (as defined in the [Controller Documents](https://www.w3.org/TR/controller-document/#Multikey) specification).
 
@@ -86,16 +86,37 @@ If object identified by `ap://` URL is not stored on the server, it MUST return 
 
 If object is not public, the server MUST return `404 Not Found` unless the request has a HTTP signature and the signer is allowed to view the object.
 
-After retrieving an object, the client MUST verify its [FEP-8b32][FEP-8b32] integrity proof. The value of `verificationMethod` property of the proof MUST be a [DID URL][DID-URL] where the DID matches the authority component of the `ap://` URL.
-
 >[!NOTE]
 >This document describes web gateways, which use HTTP transport. However, the data model and authentication mechanism are transport-agnostic and other types of gateways could exist.
+
+## Authentication and authorization
+
+Authentication and authorization are performed in accordance with [FEP-fe34] origin-based security model.
+
+The [origin][RFC-6454] of an `ap://` URL is computed by the following algorithm:
+
+1. Let `uri-scheme` be the `ap` string.
+2. Let `uri-host` be the authority component of the URL.
+3. Let `uri-port` be the number 0.
+4. Return the triple `(uri-scheme, uri-host, uri-port)`.
+
+And the origin of a [DID URL][DID-URL] is computed by the following algorithm:
+
+1. Let `uri-scheme` be the `ap` string.
+2. Let `uri-host` be the DID component of the DID URL.
+3. Let `uri-port` be the number 0.
+4. Return the triple `(uri-scheme, uri-host, uri-port)`.
+
+Actors, activities and objects identified by `ap://` URLs MUST contain [FEP-8b32] integrity proofs. Collections identified by `ap://` URLs MAY contain integrity proofs. If collection doesn't contain an integrity proof, [another authentication method](#collections) MUST be used.
+
+The value of `verificationMethod` property of the proof MUST be a [DID URL][DID-URL] where the DID matches the authority component of the `ap://` URL.
+
+>[!NOTE]
+>This document uses terms "actor", "activity", "collection" and "object" according to the classification given in [FEP-2277].
 
 ## Portable actors
 
 An actor object identified by `ap://` URL MUST have a `gateways` property containing an ordered list of gateways where the latest version of that actor object can be retrieved. Each item in the list MUST be an HTTP(S) URL with empty path, query and fragment components. The list MUST contain at least one item.
-
-An actor object identified by `ap://` URL MUST contain an [FEP-8b32][FEP-8b32] integrity proof.
 
 One identity (represented by [DID]) can control multiple actors (which are differentiated by the path component of an `ap://` URL).
 
@@ -168,8 +189,6 @@ Collections associated with portable actors (such as inbox and outbox collection
 
 ## Portable objects
 
-Objects identified by `ap://` URLs MUST contain [FEP-8b32][FEP-8b32] integrity proof.
-
 Example:
 
 ```json
@@ -205,24 +224,6 @@ Example:
   }
 }
 ```
-
-## Authentication and authorization
-
-Authentication and authorization MUST be performed in accordance with [FEP-fe34] guidelines.
-
-When doing same-origin checks, the [origin][RFC-6454] of an `ap://` URL MUST be computed by the following algorithm:
-
-1. Let `uri-scheme` be the `ap` string.
-2. Let `uri-host` be the authority component of the URL.
-3. Let `uri-port` be the number 0.
-4. Return the triple `(uri-scheme, uri-host, uri-port)`.
-
-And the origin of a [DID URL][DID-URL] MUST be computed by the following algorithm:
-
-1. Let `uri-scheme` be the `ap` string.
-2. Let `uri-host` be the DID component of the DID URL.
-3. Let `uri-port` be the number 0.
-4. Return the triple `(uri-scheme, uri-host, uri-port)`.
 
 ## Media
 
@@ -332,12 +333,12 @@ The following alternatives to gateway-based compatible IDs are being considered:
 - T. Berners-Lee, R. Fielding, L. Masinter, [Uniform Resource Identifier (URI): Generic Syntax][RFC-3986], 2005
 - Manu Sporny, Dave Longley, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DID], 2022
 - Dave Longley, Dmitri Zagidulin, Manu Sporny, [The did:key Method v0.7][did:key], 2022
-- Dave Longley, Manu Sporny, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Controller Documents 1.0][ControllerDocuments], 2024
 - M. Nottingham, [Well-Known Uniform Resource Identifiers (URIs)][well-known], 2019
 - silverpill, [FEP-8b32: Object Integrity Proofs][FEP-8b32], 2022
 - silverpill, [FEP-ae97: Client-side activity signing][FEP-ae97], 2023
 - silverpill, [FEP-fe34: Origin-based security model][FEP-fe34], 2024
 - A. Barth, [The Web Origin Concept][RFC-6454], 2011
+- silverpill, [FEP-2277: ActivityPub core types][FEP-2277], 2025
 - M. Sporny, L. Rosenthol, [Cryptographic Hyperlinks][Hashlinks], 2021
 - silverpill, [FEP-521a: Representing actor's public keys][FEP-521a], 2023
 - a, Evan Prodromou, [ActivityPub and WebFinger][WebFinger], 2024
@@ -350,13 +351,13 @@ The following alternatives to gateway-based compatible IDs are being considered:
 [RFC-3986]: https://datatracker.ietf.org/doc/html/rfc3986.html
 [DID]: https://www.w3.org/TR/did-core/
 [did:key]: https://w3c-ccg.github.io/did-method-key/
-[ControllerDocuments]: https://www.w3.org/TR/controller-document/
 [DID-URL]: https://www.w3.org/TR/did-core/#did-url-syntax
 [well-known]: https://datatracker.ietf.org/doc/html/rfc8615
 [FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
 [FEP-ae97]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md
 [FEP-fe34]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md
 [RFC-6454]: https://www.rfc-editor.org/rfc/rfc6454.html
+[FEP-2277]: https://codeberg.org/fediverse/fep/src/branch/main/fep/2277/fep-2277.md
 [Hashlinks]: https://datatracker.ietf.org/doc/html/draft-sporny-hashlink-07
 [FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
 [WebFinger]: https://swicg.github.io/activitypub-webfinger/
