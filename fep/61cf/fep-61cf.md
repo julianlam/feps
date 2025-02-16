@@ -36,6 +36,32 @@ This `zid=` mechanism is not necessarily specific to OpenWebAuth. It can be used
 
 ## Operation of the protocol
 
+The protocol can be summarised in a sequence diagram as below. This diagram shows the `zid=` case, where the user is not prompted to log in.
+
+```mermaid
+sequenceDiagram
+  participant browser as Browser
+  participant target as Target instance
+  participant home as Home instance
+
+  browser ->> target: GET /page?zid=user@home
+  target ->> home: webfinger user@home
+  home -->> target: location of redirection endpoint
+  target -->> browser: Location: https://home.example/magic?...
+  browser ->> home: GET /magic?...
+  Note over home: Check user is logged in,<br/>eg by checking session cookie
+  home ->> target: webfinger /
+  target -->> home: location of token endpoint
+  rect rgb(216, 255, 216)
+  Note over home,target: Protected by actor's private key
+  home ->> target: GET /token<br/>(signed)
+  target -->> home: <token><br/>(encrypted)
+  end
+  home -->> browser: Location: https://target.example/page?owt=<token>
+  browser ->> target: GET /page?owt=<token>
+  target -->> browser: <contents of page>
+```
+
 Regardless of how the flow is started, the protocol begins with the user's browser making a request to the target instance.
 
 ### 1. Redirection to home instance
