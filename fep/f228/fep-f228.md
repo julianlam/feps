@@ -3,8 +3,9 @@ slug: "f228"
 authors: silverpill <@silverpill@mitra.social>
 type: implementation
 status: DRAFT
-dateReceived: 2025-02-17
 discussionsTo: https://codeberg.org/silverpill/feps/issues
+dateReceived: 2025-02-17
+trackingIssue: https://codeberg.org/fediverse/fep/issues/500
 ---
 # FEP-f228: Backfilling conversations
 
