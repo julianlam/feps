@@ -11,25 +11,31 @@ trackingIssue: https://codeberg.org/fediverse/fep/issues/441
 
 ## Summary
 
-Multi-paragraph text is an important content type on the Social Web. This FEP defines best practices for representing and using properties of a long-form text object in Activity Streams 2.0.
+Multi-paragraph text is an important content type on the Social Web. This FEP defines best practices for representing and using properties of a long-form text object in [Activity Streams 2.0][AS2].
 
 ## Motivation
 
-Blog posts, magazine articles, and forum posts are often made up of multiple paragraphs of text, sometimes with embedded images, video, audio or other media. This important content type is documented in the Activity Vocabulary, but this FEP provides additional guidance for publishers and consumers and collects the relevant properties in one place.
+Blog posts, magazine articles, and forum posts are often made up of multiple paragraphs of text, sometimes with embedded images, video, audio or other media. This important content type is documented in the [Activity Vocabulary], but this FEP provides additional guidance for publishers and consumers and collects the relevant properties in one place.
+
+Well-defined behaviour for supporting long-form text provides multiple benefits. Not only does it allow publishers to integrate content in a dependable way across different platforms, but it also gives users of Activity Streams 2.0 consumer applications more control over their reading experience -- including filtering or sorting long-form text objects in their stream.
 
 This FEP does not provide guidance for book-length or longer text.
 
-This document provides information for multiple protocols that use Activity Streams 2.0 as a representation format. Where ActivityPub use is different than AS2, it is noted.
+This document provides information for multiple protocols that use Activity Streams 2.0 as a representation format. Where [ActivityPub] use is different than AS2, it is noted.
+
+Because long-form text is often syndicated using [RSS 2.0][RSS2], the properties in this FEP are compared to the properties in that format where appropriate.
 
 ## Type
 
-The [Article](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-article) type is used to represent multi-paragraph text.
+The [Article](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-article) type is used to represent multi-paragraph text. The Activity Streams 2.0 primer provides [guidance](https://w3.org/wiki/Activity_Streams/Primer/Article_and_Note) on when to use the `Article` type and when to use the `Note` type.
 
 Some consumers do not display `Article` objects with their full content. Some publishers work around this by using a `Note`-type object with much more content than expected for a note.
 
-Publishers should avoid this workaround, and instead give consumers the full information they need to display the content correctly in their own interfaces.
+Publishers should avoid this workaround, and instead give consumers the full information they need to display the content correctly in their own interfaces. The [preview](#preview) property can be used to provide a simpler version of the content for consumers that don't support `Article` directly.
 
-Consumers that only display short text should show the `name`, `summary` and a link to the `url` property so that users can view the full content in a web browser.
+Forcing long-form text into a `Note` object can cause problems for consumers that expect `Note` objects to be short and well-formatted for stream display. Maintaining a clear distinction between `Note` and `Article` objects is important for interoperability.
+
+Consumers that only display short text should show the `name`, `summary` and a link to the `url` property so that users can view the full content in a web browser. As a fallback, they can use the `preview` property if it is present.
 
 ## Properties
 
@@ -103,6 +109,7 @@ the full HTML element set. It should not include any CSS or JavaScript. This sub
 
 - `<p>`
 - `<span>` (class)
+- `<h2>`, `<h3>`, `<h4>`, `<h5>`, `<h6>`
 - `<br>`
 - `<a>` (href, rel, class)
 - `<del>`
@@ -118,8 +125,12 @@ the full HTML element set. It should not include any CSS or JavaScript. This sub
 - `<li>` (value)
 - `<blockquote>`
 - `<img>` (src, alt, title, width, height, class)
-- `<video>` (src, poster, width, height, class)
-- `<audio>` (src, controls, class)
+- `<video>` (src, controls, loop, poster, width, height, class)
+- `<audio>` (src, controls, loop, class)
+- `<source>` (src, type)
+- `<ruby>`
+- `<rt>`
+- `<rp>`
 
 The HTML should only include the content of the text. Additional navigation to other pages on the originating site, like category links or home page links, should not be included. Other affordances like "favourite", "like", "bookmark" or other buttons should not be included.
 
@@ -159,6 +170,26 @@ There can be multiple `context` properties, either as an array of strings or obj
 ### `generator`
 
 The [generator](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-generator) property provides information about the software that generated the text. This is usually an `Application` or `Service` object with an `id` and a `name` property.
+
+### `preview`
+
+In AS2, the `preview` property provides an abbreviated version of the content of the object. Especially for microblogging applications, the `preview` property is a useful fallback for supporting unrecognized object types like `Article`.
+
+For an article, the `preview` can be a `Note` that gives a well-formatted preview of the article content in its `content` property. For example, the `name`, `summary`, and a link to the `url` would be an appropriate representation.
+
+The `content` property of the `preview` should include a minimal set of HTML elements, as described in [ActivityPub Primer HTML](https://www.w3.org/wiki/ActivityPub/Primer/HTML).
+
+Metadata on the `Article` that applies equally to the preview, such as `attributedTo`, `published`, `updated`, and `tag` should be repeated in the `preview` property.
+
+The `image` property of the `Article` may be included in the `preview` property as `attachment` items.
+
+The `preview` property may have an `id` property.
+
+### `to`, `cc`, `bcc`, `bto`, `audience`
+
+As with other AS2 object types, the `to`, `cc`, `bcc`, `bto`, and `audience` properties identify the addressees of the text. For ActivityPub, they also determine the delivery targets of the text.
+
+The addressing properties provide an access control mechanism for AS2. Publishers and consumers should not disclose the properties of any AS2 object type, including the `Article` type, with anyone except the addressees, listed in these addressing properties, or the creator(s), listed in the `attributedTo` property.
 
 ## Examples
 
@@ -297,11 +328,71 @@ This section includes examples of long-form text objects. Note that for brevity,
 }
 ```
 
+### Long-form text with preview
+
+```
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "type": "Article",
+  "id": "https://example.com/2025/02/17/long-form-text-preview.jsonld",
+  "name": "Long-form text with preview",
+  "url": "https://example.com/2025/02/17/long-form-text-preview.html",
+  "attributedTo": "https://example.com/evan",
+  "summary": "<p>This is the summary for a long-form text with a preview.</p>",
+  "content": "<p>This is the content for a long-form text with a preview.</p>",
+  "published": "2024-11-07T12:00:00Z",
+  "image": {
+    "type": "Link",
+    "href": "https://example.com/image.jpg",
+    "mediaType": "image/jpeg"
+  },
+  "preview": {
+    "type": "Note",
+    "attributedTo": "https://example.com/evan",
+    "content": "<p><strong>Long-form text with preview</strong></p><p>This is the summary for a long-form text with a preview.</p><p><a href='https://example.com/2025/02/17/long-form-text-preview.html'>Read more</a></p>",
+    "published": "2024-11-07T12:00:00Z",
+    "attachment": {
+      "type": "Link",
+      "href": "https://example.com/image.jpg",
+      "mediaType": "image/jpeg"
+    }
+  }
+}
+```
+
+## User interface guidance
+
+Consumers should use their native interfaces to handle `Article` objects in an intuitive way that integrates well with other object types. The following illustrations provide examples of how `Article` objects might be displayed in a stream-oriented social web interface, such as a microblogging application. The UI elements are labelled with the properties of the `Article` object that most likely correspond to them.
+
+### In stream, with image
+
+An example of a long-form text object with an `image` property displayed in a social stream.
+
+![Article in stream, with image](in-stream-with-image.drawio.svg)
+
+### In stream, without image
+
+An example of a long-form text object without an `image` property displayed in a social stream.
+
+![Article in stream, without image](in-stream-no-image.drawio.svg)
+
+### In stream, no title
+
+An example of a long-form text object without a `name` property displayed in a social stream.
+
+![Article in stream, no title](in-stream-no-title.drawio.svg)
+
 ## References
 
+- James Snell, Evan Prodromou, [Activity Streams 2.0][AS2], 2017
+- James Snell, Evan Prodromou, [Activity Vocabulary][Activity Vocabulary], 2017
 - Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
+- Dave Winer, [RSS 2.0 Specification][RSS2], 2003
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
+[AS2]: https://www.w3.org/TR/activitystreams-core/
+[Activity Vocabulary]: https://www.w3.org/TR/activitystreams-vocabulary/
+[RSS2]: https://cyber.harvard.edu/rss/rss.html
 
 ## Copyright
 
