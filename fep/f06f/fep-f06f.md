@@ -5,6 +5,7 @@ type: implementation
 status: DRAFT
 discussionsTo: https://codeberg.org/silverpill/feps/issues
 dateReceived: 2025-02-18
+trackingIssue: https://codeberg.org/fediverse/fep/issues/503
 ---
 # FEP-f06f: Object observers
 

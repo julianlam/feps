@@ -147,6 +147,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-a974: All Actor types should be followable](./fep/a974/fep-a974.md) | `DRAFT` | [#487](https://codeberg.org/fediverse/fep/issues/487) | 2025-02-05 | - |
 | [FEP-efda: Followable objects](./fep/efda/fep-efda.md) | `DRAFT` | [#492](https://codeberg.org/fediverse/fep/issues/492) | 2025-02-13 | - |
 | [FEP-f228: Backfilling conversations](./fep/f228/fep-f228.md) | `DRAFT` | [#500](https://codeberg.org/fediverse/fep/issues/500) | 2025-02-17 | - |
+| [FEP-f06f: Object observers](./fep/f06f/fep-f06f.md) | `DRAFT` | [#503](https://codeberg.org/fediverse/fep/issues/503) | 2025-02-18 | - |
 
 ## License
 
