@@ -245,6 +245,12 @@ Although the definition isn't clear, the "Application Actor" in [FEP-2677] appea
 - Brad Fitzpatrick, [WebFinger], 2013
 - WebFinger\.net [Link Relations][WebFingerRels]
 
+## Implementations
+
+Known implementations include:
+
+* FIRM
+
 ## Copyright
 
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication

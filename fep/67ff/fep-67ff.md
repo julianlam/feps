@@ -76,6 +76,7 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Iceshrimp.NET](https://iceshrimp.dev/iceshrimp/Iceshrimp.NET/src/branch/dev/FEDERATION.md)
 - [Forte](https://codeberg.org/fortified/forte/src/branch/dev/FEDERATION.md)
 - [NeoDB](https://github.com/neodb-social/neodb/blob/main/FEDERATION.md)
+- [FIRM](https://github.com/steve-bate/firm/blob/main/FEDERATION.md)
 
 ## References
 
