@@ -1,5 +1,6 @@
 ---
 slug: "d556"
+type: implementation
 authors: Steve Bate <svc-fep@stevebate.net>
 status: DRAFT
 dateReceived: 2024-01-20
@@ -61,7 +62,7 @@ Response:
     ]
 }
 ```
-The `subject` would typically be the resource URI. However, this proposal does not depend on any specific value for `subject`.
+The `subject` would typically be the resource URI. This proposal does not depend on any specific URI for `subject`, although the ActivityPub actor URI is recommended.
 
 The Server-level Actor's URI will be the `href` property of a `link` with a `rel` (relation type) property of `https://www.w3.org/ns/activitystreams#Service` ([W3C AS2 Service Primer][ActivityPubService]). The type of the Server-level Actor itself is not required to be the same as the relation type.
 
@@ -170,7 +171,12 @@ GET /.well-known/webfinger?resource=https://server.example/&rel=self
 
 # Implementations
 
-[Mastodon] implements something similar to this proposal. For example,
+Known implementations include:
+
+* FIRM
+* [Mastodon] implements something similar to this proposal. 
+
+## Mastodon Example
 
 ```
 GET /.well-known/webfinger?resource=https://mastodon.social/
@@ -211,7 +217,7 @@ Some differences between the Mastodon implementation and this proposal include:
 
 * It does not support standard [WebFinger] filtering by `rel`.
 
-* The `subject` is the Mastodon-specific account URI for the server-level actor rather than the [ActivityPub] actor URI.
+* The `subject` is the Mastodon-specific account URI for the server-level actor rather than the recommended [ActivityPub] actor URI.
 
 Since no user-related actor link is provided for the server resource, the `self` `rel` value can be used without ambiguity
 
@@ -244,12 +250,6 @@ Although the definition isn't clear, the "Application Actor" in [FEP-2677] appea
 - MDN, [Same-origin Policy][SameOriginPolicy]
 - Brad Fitzpatrick, [WebFinger], 2013
 - WebFinger\.net [Link Relations][WebFingerRels]
-
-## Implementations
-
-Known implementations include:
-
-* FIRM
 
 ## Copyright
 
