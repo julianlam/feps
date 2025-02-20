@@ -23,7 +23,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Collection of posts
 
-This collection contains all posts in a conversation, according to the conversation owner.
+This collection represents a [thread] and contains all posts in a conversation, from the perspective of the conversation owner.
 
 It is an `OrderedCollection`, and the order of items is chronological. It MUST contain at least one item, the top-level post. This post MUST have a `context` property referring to the collection. Other items might not have this property,
 
@@ -72,6 +72,7 @@ Collection of posts:
 
 - NodeBB
 - Iceshrimp.NET
+- WordPress
 
 Collection of activities:
 
@@ -86,6 +87,7 @@ Collection of activities:
 - a, [FEP-bad1: Object history collection][FEP-bad1], 2023
 
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
+[thread]: https://en.wikipedia.org/wiki/Thread_(online_communication)
 [FEP-7888]: https://codeberg.org/fediverse/fep/src/branch/main/fep/7888/fep-7888.md
 [FEP-171b]: https://codeberg.org/fediverse/fep/src/branch/main/fep/171b/fep-171b.md
 [FEP-bad1]: https://codeberg.org/fediverse/fep/src/branch/main/fep/bad1/fep-bad1.md
