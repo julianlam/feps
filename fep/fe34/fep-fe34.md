@@ -74,6 +74,9 @@ The owner of an object MUST be an actor.
 
 Identifier of an object and identifier of its owner MUST have the same origin.
 
+>[!NOTE]
+>This document uses terms "actor", "activity", "collection" and "object" according to the classification given in [FEP-2277].
+
 >[!WARNING]
 >According to [Activity Vocabulary][ActivityVocabulary], `actor` and `attributedTo` properties can contain references to multiple actors. These scenarios are not covered by this document and implementers are expected to determine the appropriate authorization procedures on a case-by-case basis.
 
@@ -101,6 +104,15 @@ When ownership changes, the new owner ID MUST have the same origin as the old ow
 
 When a protected object is fetched, the `GET` request MUST contain a [HTTP signature][HttpSig] created using a key whose owner SHOULD belong to object's intended audience. If key owner doesn't belong to intended audience, its ID MUST have the same origin as one of the actors in object's intended audience.
 
+### Implicit ownership
+
+In some cases ownership can be implicit. Examples:
+
+- Inbox and outbox collections are expected to be owned by the actor to which they are attached.
+- All pages of a collection are expected to be owned by the same actor.
+
+Authorization recommendations provided in this document still apply in such cases.
+
 ## References
 
 - Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
@@ -115,6 +127,7 @@ When a protected object is fetched, the `GET` request MUST contain a [HTTP signa
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
 [RFC-6454]: https://www.rfc-editor.org/rfc/rfc6454.html
 [FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
+[FEP-2277]: https://codeberg.org/fediverse/fep/src/branch/main/fep/2277/fep-2277.md
 [HttpSig]: https://swicg.github.io/activitypub-http-signature/
 
 ## Copyright
