@@ -1,8 +1,9 @@
 ---
 slug: "c7d3"
 authors: silverpill <@silverpill@mitra.social>
-status: DRAFT
+status: WITHDRAWN
 dateReceived: 2024-06-04
+dateWithdrawn: 2025-02-21
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-c7d3-ownership/4292
 trackingIssue: https://codeberg.org/fediverse/fep/issues/323
 ---
@@ -11,6 +12,9 @@ trackingIssue: https://codeberg.org/fediverse/fep/issues/323
 ## Summary
 
 In this document we discuss the concept of ownership, as applied to [ActivityPub] objects.
+
+>[!WARNING]
+>This FEP has been superseded by [FEP-fe34](https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md).
 
 ## Rationale
 
