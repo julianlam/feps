@@ -847,5 +847,14 @@
     "dateReceived": "2025-02-18",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/503",
     "title": "Object observers"
+  },
+  {
+    "slug": "dd4b",
+    "authors": "Evan Prodromou <evan@socialwebfoundation.org>",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/evanp/fep/issues",
+    "dateReceived": "2025-02-21",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/511",
+    "title": "Quote Posts"
   }
 ]

@@ -2,8 +2,9 @@
 slug: "dd4b"
 authors: Evan Prodromou <evan@socialwebfoundation.org>
 status: DRAFT
-dateReceived: 2025-02-21
 discussionsTo: https://codeberg.org/evanp/fep/issues
+dateReceived: 2025-02-21
+trackingIssue: https://codeberg.org/fediverse/fep/issues/511
 ---
 # FEP-dd4b: Quote Posts
 
