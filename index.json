@@ -543,8 +543,9 @@
   {
     "slug": "c7d3",
     "authors": "silverpill <@silverpill@mitra.social>",
-    "status": "DRAFT",
+    "status": "WITHDRAWN",
     "dateReceived": "2024-06-04",
+    "dateWithdrawn": "2025-02-21",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-c7d3-ownership/4292",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/323",
     "title": "Ownership"

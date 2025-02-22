@@ -115,7 +115,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-0391: Special collection proofs](./fep/0391/fep-0391.md) | `DRAFT` | [#310](https://codeberg.org/fediverse/fep/issues/310) | 2024-04-29 | - |
 | [FEP-db0e: Authentication mechanism for non-public groups](./fep/db0e/fep-db0e.md) | `DRAFT` | [#313](https://codeberg.org/fediverse/fep/issues/313) | 2024-05-03 | - |
 | [FEP-cd47: Federation-friendly Addressing and Deduplication Use-Cases](./fep/cd47/fep-cd47.md) | `DRAFT` | [#319](https://codeberg.org/fediverse/fep/issues/319) | 2024-05-31 | - |
-| [FEP-c7d3: Ownership](./fep/c7d3/fep-c7d3.md) | `DRAFT` | [#323](https://codeberg.org/fediverse/fep/issues/323) | 2024-06-04 | - |
+| [FEP-c7d3: Ownership](./fep/c7d3/fep-c7d3.md) | `WITHDRAWN` | [#323](https://codeberg.org/fediverse/fep/issues/323) | 2024-06-04 | 2025-02-21 |
 | [FEP-5e53: Opt-out Preference Signals](./fep/5e53/fep-5e53.md) | `DRAFT` | [#327](https://codeberg.org/fediverse/fep/issues/327) | 2024-06-09 | - |
 | [FEP-7952: Roadmap For Actor and Object Portability](./fep/7952/fep-7952.md) | `DRAFT` | [#435](https://codeberg.org/fediverse/fep/issues/435) | 2024-06-20 | - |
 | [FEP-e3e9: Actor-Relative URLs](./fep/e3e9/fep-e3e9.md) | `DRAFT` | [#346](https://codeberg.org/fediverse/fep/issues/346) | 2024-06-29 | - |
