@@ -21,11 +21,15 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Observers
 
-Object observer can be specified using the `observer` property.
+Object observer is a followable actor. It doesn't perform any activities on its own, but activities that affect the observed object are [forwarded][InboxForwarding] to its followers. Only objects and collections can be observed.
 
-It MUST be a followable actor and SHOULD have an `Application` type. Observer doesn't perform any activities on its own, but [forwards][InboxForwarding] to its followers all activities that affect the observed object.
+Object observer MUST have an `observerOf` property specifying the observed object, and it SHOULD have an `Application` type.
 
-It SHOULD have a WebFinger address (consumers should be able to follow it even if they don't understand `observer` property).
+Objects can specify their observers using the `observer` property.
+
+Object observer can be created with [ActivityPub] client by publishing a `Create` activity with user's actor as its `actor` and with observer actor as its `object`.
+
+Implementers MAY use a single cryptographic key for signing all HTTP requests made by observers on a server.
 
 ## Use case: subscribing to a conversation
 
@@ -36,6 +40,21 @@ This actor can be attached to a collection via `observer` property, and can forw
 ## Non-forwarding observers
 
 If forwarding is not desirable, object observers can use `Announce` activity to distribute observed activities.
+
+## Examples
+
+Example of an observer actor:
+
+```json
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "type": "Application",
+  "id": "https://server.example/objects/123456/observer",
+  "inbox": "https://server.example/objects/123456/observer/inbox",
+  "outbox": "https://server.example/objects/123456/observer/outbox",
+  "observerOf": "https://server.example/objects/123456"
+}
+```
 
 ## References
 
