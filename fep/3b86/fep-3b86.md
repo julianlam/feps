@@ -626,7 +626,7 @@ The Update intent publishes the API endpoint where the user can initiate an "upd
 ```
 
 ### 4.28. View Intent
-This intent corresponds to the ActivityStreams [View activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-view) and is defined using the link relation  `https://w3id.org/fep/3b86/Update`.
+This intent corresponds to the ActivityStreams [View activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-view) and is defined using the link relation  `https://w3id.org/fep/3b86/View`.
 
 The View intent publishes the API endpoint where the current user can initiate an "update" request.
 
