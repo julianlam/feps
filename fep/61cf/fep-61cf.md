@@ -82,7 +82,9 @@ The `/magic` endpoint at the user's home instance first checks that the user's b
 
 If so, it decodes the `bdest` destination URL. It performs a webfinger lookup on the root URL of the destination site and looks for a link with `rel` set to `http://purl.org/openwebauth/v1`. This identifies the target instance's "token endpoint".
 
-The home instance constructs and issues a signed HTTPS request to this endpoint. The request also contains an additional signed header, `X-Open-Web-Auth`, containing a random string. Target instances do not use this header; it is provided to add additional entropy to the signature calculation.
+If an error occurs during this step, the home instance should not redirect to the 'bdest' URL; this would allow it to be used as an open redirector. Instead it should respond with a suitable HTTP error code.
+
+On success, the home instance constructs and issues a signed HTTPS request to the discovered token endpoint. The request also contains an additional signed header, `X-Open-Web-Auth`, containing a random string. Target instances do not use this header; it is provided to add additional entropy to the signature calculation.
 
 ### 3. Target instance provides a token
 
