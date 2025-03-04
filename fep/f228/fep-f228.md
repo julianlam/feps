@@ -25,7 +25,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 This collection represents a [thread] and contains all posts in a conversation, from the perspective of the conversation owner.
 
-It is an `OrderedCollection`, and the order of items is chronological. It MUST contain at least one item, the top-level post. This post MUST have a `context` property referring to the collection. Other items might not have this property,
+It is an `OrderedCollection`, and the order of items is chronological. It MUST contain at least one item, the top-level post. This post MUST have a `context` property referring to the collection. Other posts might not have this property.
 
 When `context` property is present on a post, it MUST resolve to a collection of posts.
 
@@ -73,6 +73,8 @@ Collection of posts:
 - NodeBB
 - Iceshrimp.NET
 - WordPress
+- Discourse
+- Mitra
 
 Collection of activities:
 
