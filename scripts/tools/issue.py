@@ -1,6 +1,5 @@
 from datetime import timedelta, date
 from urllib.request import Request, urlopen
-
 import json
 
 from .fep_file import FepFile
@@ -22,25 +21,36 @@ Please post links to relevant discussions as comments to this issue.
 `dateReceived`: {date1}
 
 If no further actions are taken, the proposal may be set by the facilitators to `WITHDRAWN` on {date2} (in 1 year).
-    """
+"""
 
     return body
 
 
-def create_codeberg_issue(owner, repo, token, title, body):
-    request = Request(f"https://codeberg.org/api/v1/repos/{owner}/{repo}/issues")
+def perform_post_request(url, token, body):
+    request = Request(url)
     request.add_header("Content-Type", "application/json; charset=utf-8")
+
+    request.add_header("authorization", f"Bearer {token}")
+    request.add_header("Content-Length", str(len(body)))
+    request.data = body
+
+    response = urlopen(request)
+    return json.loads(response.read())
+
+
+def create_codeberg_issue(owner, repo, token, title, body):
     request_body = json.dumps(
         {"title": title, "body": body, "labels": [DRAFT_FEP_LABEL]}
     ).encode("utf-8")
-    request.add_header("authorization", f"Bearer {token}")
-    request.add_header("Content-Length", len(request_body))
-    request.data = request_body
-    response = urlopen(request)
 
-    issue_url = json.loads(response.read())["html_url"]
+    response = perform_post_request(
+        f"https://codeberg.org/api/v1/repos/{owner}/{repo}/issues", token, request_body
+    )
 
-    return issue_url
+    issue_url = response["html_url"]
+    issue_id = response["number"]
+
+    return issue_url, issue_id
 
 
 def parse_and_update_date_received(input_date: str) -> date:
@@ -75,14 +85,20 @@ def create_issue(owner, repo, token, slug):
         fep_file.parsed_frontmatter["dateReceived"]
     )
     update_fep_file_with_date_received(fep_file, date_received)
+    discussions_to = fep_file.parsed_frontmatter["discussionsTo"]
 
     body = create_body(fep_file.filename, date_received)
+    issue_url, issue_id = create_codeberg_issue(owner, repo, token, title, body)
 
-    issue_url = create_codeberg_issue(owner, repo, token, title, body)
+    body_comment = f"Discussions: {discussions_to}"
+    issue_body = json.dumps({"body": body_comment}).encode("utf-8")
+    perform_post_request(
+        f"https://codeberg.org/api/v1/repos/{owner}/{repo}/issues/{issue_id}/comments",
+        token,
+        issue_body,
+    )
 
     fep_file.frontmatter.append(f"trackingIssue: {issue_url}")
-    if "discussionsTo" not in fep_file.parsed_frontmatter:
-        fep_file.frontmatter.append(f"discussionsTo: {issue_url}")
 
     fep_file.write()
 

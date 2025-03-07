@@ -95,6 +95,12 @@ See [here](https://codeberg.org/fediverse/fep/settings/keys).
 
 One can add these secrets on [woodpecker](https://ci.codeberg.org/repos/12388), then selecting the settings wheel -> `secrets` -> `add secret`. The secrets only need to available for the `push` action (corresponding to a merged pull request).
 
+The deploy_key needs to be end with a new line when pasting into the woodpecker ui.
+
+## Changes
+
+- Added discussion link to tracking issue, use table to format (@helge, 2025-03-07)
+
 ## References
 
 - pukkamustard, [FEP-a4ed: The Fediverse Enhancement Proposal Process][a4ed], 2020
