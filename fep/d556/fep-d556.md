@@ -174,7 +174,9 @@ GET /.well-known/webfinger?resource=https://server.example/&rel=self
 Known implementations include:
 
 * FIRM
-* [Mastodon] implements something similar to this proposal. 
+* [Mastodon] implements something similar to this proposal.
+* Streams
+* Mitra
 
 ## Mastodon Example
 
