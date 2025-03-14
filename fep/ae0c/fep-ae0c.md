@@ -1,9 +1,10 @@
 ---
 slug: "ae0c"
 authors: Steve Bate <svc-fep@stevebate.net>
-status: DRAFT
+status: FINAL
 category: informational
 dateReceived: 2024-10-19
+dateFinalized: 2025-03-14
 trackingIssue: https://codeberg.org/fediverse/fep/issues/424
 discussionsTo: https://socialhub.activitypub.rocks/t/fediverse-relays/4626
 ---
