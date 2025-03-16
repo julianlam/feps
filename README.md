@@ -101,7 +101,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-ef61: Portable Objects](./fep/ef61/fep-ef61.md) | `DRAFT` | [#209](https://codeberg.org/fediverse/fep/issues/209) | 2023-12-06 | - |
 | [FEP-7502: Limiting visibility to authenticated actors](./fep/7502/fep-7502.md) | `DRAFT` | [#218](https://codeberg.org/fediverse/fep/issues/218) | 2023-12-24 | - |
 | [FEP-2c59: Discovery of a Webfinger address from an ActivityPub actor](./fep/2c59/fep-2c59.md) | `DRAFT` | [#226](https://codeberg.org/fediverse/fep/issues/226) | 2024-01-04 | - |
-| [FEP-d556: Server-Level Actor Discovery Using WebFinger](./fep/d556/fep-d556.md) | `DRAFT` | [#243](https://codeberg.org/fediverse/fep/issues/243) | 2024-01-20 | - |
+| [FEP-d556: Server-Level Actor Discovery Using WebFinger](./fep/d556/fep-d556.md) | `FINAL` | [#243](https://codeberg.org/fediverse/fep/issues/243) | 2024-01-20 | 2025-03-15 |
 | [FEP-3264: Federated Work Coordination](./fep/3264/fep-3264.md) | `DRAFT` | [#255](https://codeberg.org/fediverse/fep/issues/255) | 2024-01-31 | - |
 | [FEP-c5a1: To-do's](./fep/c5a1/fep-c5a1.md) | `DRAFT` | [#256](https://codeberg.org/fediverse/fep/issues/256) | 2024-01-31 | - |
 | [FEP-61cf: The OpenWebAuth Protocol](./fep/61cf/fep-61cf.md) | `DRAFT` | [#263](https://codeberg.org/fediverse/fep/issues/263) | 2024-02-06 | - |

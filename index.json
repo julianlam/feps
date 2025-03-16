@@ -411,8 +411,9 @@
     "slug": "d556",
     "type": "implementation",
     "authors": "Steve Bate <svc-fep@stevebate.net>",
-    "status": "DRAFT",
+    "status": "FINAL",
     "dateReceived": "2024-01-20",
+    "dateFinalized": "2025-03-15",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/243",
     "discussionsTo": "https://codeberg.org/fediverse/fep/issues/243",
     "title": "Server-Level Actor Discovery Using WebFinger"
