@@ -1,9 +1,10 @@
 ---
 slug: "fe34"
 authors: silverpill <@silverpill@mitra.social>
+type: implementation
 status: DRAFT
 dateReceived: 2024-11-15
-discussionsTo: https://socialhub.activitypub.rocks/t/fep-c7d3-ownership/4292
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-fe34-origin-based-security-model/4292
 trackingIssue: https://codeberg.org/fediverse/fep/issues/445
 ---
 # FEP-fe34: Origin-based security model
@@ -38,14 +39,13 @@ Object identifiers are grouped together into protection domains called "origins"
 
 The same-origin policy determines when a relationship between objects can be trusted.
 
->[!NOTE]
->There might be other ways to establish trust, but they are not covered by this document.
-
 ## Authentication
+
+Authentication is the process of verifying the origin of an object.
 
 ActivityPub object is considered authentic if any of the following conditions are met:
 
-1. It was fetched from the location that has the same origin as its ID.
+1. It was fetched from the location (the last URL in the chain of redirects) that has the same origin as its ID.
 2. It was delivered to inbox and the request contained a valid [HTTP signature][HttpSig] created using a key whose ID has the same origin as the object ID.
 3. It contains a valid [FEP-8b32] integrity proof created using a key whose ID has the same origin as the object ID.
 4. If it is embedded within another object, and its ID has the same origin as containing object ID.
@@ -61,7 +61,11 @@ Consumers SHOULD attempt to fetch the object by its ID if other authentication m
 
 An object without an ID can only exist when embedded within another object. It is considered authentic when the parent object is authentic.
 
-## Ownership
+## Authorization
+
+Authorization is the process of veryfing permission to [create, read, update or delete](https://en.wikipedia.org/wiki/Create%2C_read%2C_update_and_delete) an object.
+
+### Ownership
 
 Ownership is indicated by a property of an ActivityPub object. The name of this property differs depending on the object type:
 
@@ -83,7 +87,7 @@ Identifier of an object and identifier of its owner MUST have the same origin.
 >[!NOTE]
 >In subsequent sections, "objects" and "activities" will be referred to as simply "objects".
 
-## Authorization
+### Create, update and delete
 
 The actor that creates an object MUST be its owner.
 
@@ -112,6 +116,15 @@ In some cases ownership can be implicit. Examples:
 - All pages of a collection are expected to be owned by the same actor.
 
 Authorization recommendations provided in this document still apply in such cases.
+
+## Cross-origin relationships
+
+Relationships between objects with different origins are also possible. In that case, the same-origin policy can be bypassed, but the relationship MUST be confirmed by both origins.
+
+Examples:
+
+- An activity can be signed with a key of different origin if that key is referenced from the actor document.
+- An object can be deleted by an actor of different origin if that actor is specified as a moderator for the context to which the object belongs.
 
 ## References
 
