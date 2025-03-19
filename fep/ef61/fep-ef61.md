@@ -1,6 +1,7 @@
 ---
 slug: "ef61"
 authors: silverpill <@silverpill@mitra.social>
+type: implementation
 status: DRAFT
 dateReceived: 2023-12-06
 trackingIssue: https://codeberg.org/fediverse/fep/issues/209
@@ -57,6 +58,12 @@ scheme   authority           path        query     fragment
 - The query is OPTIONAL. To avoid future conflicts, implementers SHOULD NOT use parameter names that are not defined in this proposal.
 - The fragment is OPTIONAL.
 
+>[!NOTE]
+>ActivityPub specification [requires][ActivityPub-ObjectIdentifiers] identifiers to have an authority "belonging to that of their originating server". The authority of 'ap' URL is a DID, which does not belong to any particular server.
+
+>[!WARNING]
+>The URI scheme might be changed to `ap+ef61` in a future version of this document, because these identifiers are not intended to be used for all ActivityPub objects, but only for portable ones.
+
 ### DID methods
 
 Implementers MUST support the [did:key] method. Other DID methods SHOULD NOT be used, as it might hinder interoperability.
@@ -64,7 +71,7 @@ Implementers MUST support the [did:key] method. Other DID methods SHOULD NOT be 
 >[!NOTE]
 >The following additional DID methods are being considered: [did:web](https://w3c-ccg.github.io/did-method-web/), [did:dns](https://danubetech.github.io/did-method-dns/), [did:webvh](https://identity.foundation/didwebvh/) (formerly `did:tdw`) and [did:fedi](https://arcanican.is/excerpts/did-method-fedi.html).
 
-DID documents SHOULD contain Ed25519 public keys represented as verification methods with `Multikey` type (as defined in the [Controller Documents](https://www.w3.org/TR/controller-document/#Multikey) specification).
+DID documents SHOULD contain Ed25519 public keys represented as verification methods with `Multikey` type (as defined in the [Controlled Identifiers][Multikey] specification).
 
 Any [DID URL][DID-URL] capabilities of a DID method MUST be ignored when working with `ap://` URLs.
 
@@ -116,9 +123,11 @@ The value of `verificationMethod` property of the proof MUST be a [DID URL][DID-
 
 ## Portable actors
 
+One identity (represented by [DID]) can control multiple actors (which are differentiated by the path component of an `ap://` URL).
+
 An actor object identified by `ap://` URL MUST have a `gateways` property containing an ordered list of gateways where the latest version of that actor object can be retrieved. Each item in the list MUST be an HTTP(S) URL with empty path, query and fragment components. The list MUST contain at least one item.
 
-One identity (represented by [DID]) can control multiple actors (which are differentiated by the path component of an `ap://` URL).
+Gateways are expected to be the same for all actors under a DID authority and MAY be also specified in the DID document as [services][DID-Services].
 
 Example:
 
@@ -300,6 +309,7 @@ https://social.example/ap/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbT
 
 This proposal makes use of the `gateways` property, but the following alternatives are being considered:
 
+- `gateways` property in actor's `endpoints` mapping
 - `aliases` and [`sameAs`](https://schema.org/sameAs) (containing HTTP(S) URLs of objects)
 - `alsoKnownAs` (used for account migrations, so the usage of this property may cause issues)
 - `url` (with `alternate` [relation type](https://html.spec.whatwg.org/multipage/links.html#linkTypes))
@@ -332,6 +342,7 @@ The following alternatives to gateway-based compatible IDs are being considered:
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
 - T. Berners-Lee, R. Fielding, L. Masinter, [Uniform Resource Identifier (URI): Generic Syntax][RFC-3986], 2005
 - Manu Sporny, Dave Longley, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DID], 2022
+- Dave Longley, Manu Sporny, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Controlled Identifiers v1.0][ControlledIdentifiers], 2025
 - Dave Longley, Dmitri Zagidulin, Manu Sporny, [The did:key Method v0.7][did:key], 2022
 - M. Nottingham, [Well-Known Uniform Resource Identifiers (URIs)][well-known], 2019
 - silverpill, [FEP-8b32: Object Integrity Proofs][FEP-8b32], 2022
@@ -342,16 +353,19 @@ The following alternatives to gateway-based compatible IDs are being considered:
 - M. Sporny, L. Rosenthol, [Cryptographic Hyperlinks][Hashlinks], 2021
 - silverpill, [FEP-521a: Representing actor's public keys][FEP-521a], 2023
 - a, Evan Prodromou, [ActivityPub and WebFinger][WebFinger], 2024
-- Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][Data Integrity], 2024
 - Adam R. Nelson, [FEP-fffd: Proxy Objects][FEP-fffd], 2023
 - Jonne Haß, [NodeInfo][NodeInfo], 2014
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
+[ActivityPub-ObjectIdentifiers]: https://www.w3.org/TR/activitypub/#obj-id
 [RFC-2119]: https://datatracker.ietf.org/doc/html/rfc2119.html
 [RFC-3986]: https://datatracker.ietf.org/doc/html/rfc3986.html
 [DID]: https://www.w3.org/TR/did-core/
 [did:key]: https://w3c-ccg.github.io/did-method-key/
 [DID-URL]: https://www.w3.org/TR/did-core/#did-url-syntax
+[DID-Services]: https://www.w3.org/TR/did-1.0/#services
+[ControlledIdentifiers]: https://www.w3.org/TR/cid/
+[Multikey]: https://www.w3.org/TR/cid/#Multikey
 [well-known]: https://datatracker.ietf.org/doc/html/rfc8615
 [FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
 [FEP-ae97]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md
@@ -361,7 +375,6 @@ The following alternatives to gateway-based compatible IDs are being considered:
 [Hashlinks]: https://datatracker.ietf.org/doc/html/draft-sporny-hashlink-07
 [FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
 [WebFinger]: https://swicg.github.io/activitypub-webfinger/
-[Data Integrity]: https://w3c.github.io/vc-data-integrity/
 [FEP-fffd]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fffd/fep-fffd.md
 [NodeInfo]: https://nodeinfo.diaspora.software/
 
