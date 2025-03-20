@@ -49,14 +49,14 @@ The `about:blank` type defined in [RFC 9457][RFC 9457] MAY be used for problems 
 
 ### Problem types for ActivityPub
 
-Problem types in this vocabulary use the https://w3c.id/fep/c180 prefix.
+Problem types in this vocabulary use the https://w3id.org/fep/c180 prefix.
 
 Each of the following problem types lists the applicability of the problem (per the list of request types above), the type URI, the title of the problem, the HTTP status code that SHOULD be used, and additional fields that MAY be included in the response.
 
 #### Unsupported type
 
 - applicability: inbox, outbox, sharedInbox, media upload
-- type: https://w3c.id/fep/c180#unsupported-type
+- type: https://w3id.org/fep/c180#unsupported-type
 - title: Unsupported type
 - status: 400 Bad Request
 - additional fields:
@@ -68,7 +68,7 @@ This indicates that the type of the activity, or one of the objects referred to 
 #### Object does not exist
 
 - applicability: inbox, outbox, sharedInbox, media upload
-- type: https://w3c.id/fep/c180#object-does-not-exist
+- type: https://w3id.org/fep/c180#object-does-not-exist
 - title: Object does not exist
 - status: 400 Bad Request
 - additional fields:
@@ -81,7 +81,7 @@ Note that this type is distinct from an endpoint returning a 404 Not Found statu
 #### Redundant activity
 
 - applicability: inbox, outbox, sharedInbox, media upload
-- type: https://w3c.id/fep/c180#redundant-activity
+- type: https://w3id.org/fep/c180#redundant-activity
 - title: Redundant activity
 - status: 400 Bad Request
 - additional fields:
@@ -94,7 +94,7 @@ Activity types that are often treated as idempotent and can only be processed on
 #### Approval required
 
 - applicability: inbox, outbox, sharedInbox, media upload
-- type: https://w3c.id/fep/c180#approval-required
+- type: https://w3id.org/fep/c180#approval-required
 - title: Approval required
 - status: 202 Accepted
 - additional fields:
@@ -111,7 +111,7 @@ This problem type would be used for activities that are manually approved, not a
 #### Not an actor
 
 - applicability: inbox, outbox, sharedInbox, media upload
-- type: https://w3c.id/fep/c180#not-an-actor
+- type: https://w3id.org/fep/c180#not-an-actor
 - title: Not an actor
 - status: 400 Bad Request
 - additional fields:
@@ -122,7 +122,7 @@ The activity refers to an object in one of its properties, such as `object` or a
 #### Principal-actor mismatch
 
 - applicability: inbox, outbox, sharedInbox, media upload
-- type: https://w3c.id/fep/c180#principal-actor-mismatch
+- type: https://w3id.org/fep/c180#principal-actor-mismatch
 - title: Principal-actor mismatch
 - status: 400 Bad Request
 - additional fields:
@@ -138,7 +138,7 @@ Note that it is possibly valid for the `actor` property of an activity to not be
 #### Actor not authorized
 
 - applicability: inbox, outbox, sharedInbox, media upload
-- type: https://w3c.id/fep/c180#actor-not-authorized
+- type: https://w3id.org/fep/c180#actor-not-authorized
 - title: Actor not authorized
 - status: 403 Forbidden
 - additional fields:
@@ -158,7 +158,7 @@ Note that this type is distinct from [Principal not authorized](#principal-not-a
 #### Principal not authorized
 
 - applicability: inbox, outbox, sharedInbox, media upload, proxy, get
-- type: https://w3c.id/fep/c180#principal-not-authorized
+- type: https://w3id.org/fep/c180#principal-not-authorized
 - title: Principal not authorized
 - status: 403 Forbidden
 - additional fields:
@@ -174,7 +174,7 @@ This type is distinct from [actor not authorized](#actor-not-authorized). This t
 #### Client not authorized
 
 - applicability: outbox, media upload, proxy, get
-- type: https://w3c.id/fep/c180#client-not-authorized
+- type: https://w3id.org/fep/c180#client-not-authorized
 - title: Client not authorized
 - status: 403 Forbidden
 - additional fields:
@@ -184,7 +184,7 @@ This problem type is applicability GET and POST requests.
 
 This indicates that the client is not authorized to perform the given activity. The security principal, like the authenticated user, may be authorized, but the client is not.
 
-An example would be a client that uses OAuth 2.0 to authenticate, perhaps with [FEP-d8c2](https://w3c.id/fep/d8c2), but has not been granted the proper [scopes](https://oauth.net/2/scope/) to perform the activity.
+An example would be a client that uses OAuth 2.0 to authenticate, perhaps with [FEP-d8c2](https://w3id.org/fep/d8c2), but has not been granted the proper [scopes](https://oauth.net/2/scope/) to perform the activity.
 
 This error type implies, but does not promise, that the security principal would be authorized to perform the activity with a different client.
 
@@ -193,7 +193,7 @@ This problem type is primarily for the ActivityPub API, between a client and a s
 #### Unsupported media type
 
 - applicability: media upload
-- type: https://w3c.id/fep/c180#unsupported-media-type
+- type: https://w3id.org/fep/c180#unsupported-media-type
 - title: Unsupported media type
 - status: 400 Bad Request
 - additional fields:
@@ -205,7 +205,7 @@ The media type of the uploaded file is not supported by the server.
 #### Media too large
 
 - applicability: media upload
-- type: https://w3c.id/fep/c180#media-too-large
+- type: https://w3id.org/fep/c180#media-too-large
 - title: Media too large
 - status: 413 Payload Too Large
 - additional fields:
@@ -218,7 +218,7 @@ The uploaded file is too large to be processed by the server.
 #### No applicable addressees
 
 - applicability: inbox, sharedInbox
-- type: https://w3c.id/fep/c180#no-applicable-addressees
+- type: https://w3id.org/fep/c180#no-applicable-addressees
 - title: No applicable addressees
 - status: 400 Bad Request
 
@@ -229,7 +229,7 @@ Another case is where the addressees are [Collections](https://www.w3.org/TR/act
 #### Rate limit exceeded
 
 - applicability: outbox, media upload, get, proxy, inbox, sharedInbox
-- type: https://w3c.id/fep/c180#rate-limit-exceeded
+- type: https://w3id.org/fep/c180#rate-limit-exceeded
 - title: Rate limit exceeded
 - status: 429 Too Many Requests
 
