@@ -2,8 +2,9 @@
 slug: "c180"
 authors: Evan Prodromou <evan@socialwebfoundation.org>
 status: DRAFT
-dateReceived: 2025-03-11
 discussionsTo: https://codeberg.org/evanp/fep/issues
+dateReceived: 2025-03-11
+trackingIssue: https://codeberg.org/fediverse/fep/issues/531
 ---
 # FEP-c180: Problem Details for ActivityPub
 

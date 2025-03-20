@@ -149,6 +149,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-f228: Backfilling conversations](./fep/f228/fep-f228.md) | `DRAFT` | [#500](https://codeberg.org/fediverse/fep/issues/500) | 2025-02-17 | - |
 | [FEP-f06f: Object observers](./fep/f06f/fep-f06f.md) | `DRAFT` | [#503](https://codeberg.org/fediverse/fep/issues/503) | 2025-02-18 | - |
 | [FEP-dd4b: Quote Posts](./fep/dd4b/fep-dd4b.md) | `DRAFT` | [#511](https://codeberg.org/fediverse/fep/issues/511) | 2025-02-21 | - |
+| [FEP-c180: Problem Details for ActivityPub](./fep/c180/fep-c180.md) | `DRAFT` | [#531](https://codeberg.org/fediverse/fep/issues/531) | 2025-03-11 | - |
 
 ## License
 

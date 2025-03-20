@@ -861,5 +861,14 @@
     "dateReceived": "2025-02-21",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/511",
     "title": "Quote Posts"
+  },
+  {
+    "slug": "c180",
+    "authors": "Evan Prodromou <evan@socialwebfoundation.org>",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/evanp/fep/issues",
+    "dateReceived": "2025-03-11",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/531",
+    "title": "Problem Details for ActivityPub"
   }
 ]
