@@ -36,15 +36,24 @@ We may therefore express Mastodon's requirements as follows:
 
 A proposed modified requirement and algorithm are as follows:
 
-- The object MUST have a `followers` collection present.
+- The object SHOULD have a `followers` collection present. (If it does not, then it is unknown whether it is followable.)
 - If the object does not have an `inbox`, then you MAY recurse upwards through `attributedTo` until you find a resource with an `inbox`. The maximum recursion depth SHOULD be 1.
 
 ## Algorithm
 
 Given an object O and a recursion limit L, a general algorithm for following it can be expressed like so:
 
+Inputs:
+- O (Object): an object that may be followable
+- L (integer): a recursion limit.
+
+Outputs:
+- Error OBJECT_HAS_UNKNOWN_FOLLOWERS_COLLECTION
+- Error MAX_RECURSION_LIMIT
+- Success
+
 (1) Initialize a variable INBOX.
-(2) If `O.followers` is not present, return an error OBJECT_CANNOT_BE_FOLLOWED.
+(2) If `O.followers` is not present, optionally return an error OBJECT_HAS_UNKNOWN_FOLLOWERS_COLLECTION.
 (3) If `O.inbox` is present, set INBOX to the referenced IRI.
 (4) If INBOX is unset, then initialize a variable R whose initial value is O.
 (5) While INBOX is unset:
