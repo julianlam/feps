@@ -870,5 +870,16 @@
     "dateReceived": "2025-03-11",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/531",
     "title": "Problem Details for ActivityPub"
+  },
+  {
+    "slug": "2931",
+    "authors": "a <a@trwnh.com>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-2931-representing-context-with-a-collection/5154",
+    "relatedFeps": "FEP-7888",
+    "type": "implementation",
+    "dateReceived": "2025-03-22",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/534",
+    "title": "Representing context with a Collection"
   }
 ]

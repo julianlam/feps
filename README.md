@@ -150,6 +150,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-f06f: Object observers](./fep/f06f/fep-f06f.md) | `DRAFT` | [#503](https://codeberg.org/fediverse/fep/issues/503) | 2025-02-18 | - |
 | [FEP-dd4b: Quote Posts](./fep/dd4b/fep-dd4b.md) | `DRAFT` | [#511](https://codeberg.org/fediverse/fep/issues/511) | 2025-02-21 | - |
 | [FEP-c180: Problem Details for ActivityPub](./fep/c180/fep-c180.md) | `DRAFT` | [#531](https://codeberg.org/fediverse/fep/issues/531) | 2025-03-11 | - |
+| [FEP-2931: Representing context with a Collection](./fep/2931/fep-2931.md) | `DRAFT` | [#534](https://codeberg.org/fediverse/fep/issues/534) | 2025-03-22 | - |
 
 ## License
 
