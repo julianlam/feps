@@ -99,6 +99,8 @@ See [fep-c390.feature](./fep-c390.feature)
 ## Implementations
 
 - [Mitra](https://codeberg.org/silverpill/mitra/src/commit/351de5f2dd9f42995dca3ba20f1c0b017f463d07/FEDERATION.md#identity-proofs)
+- [Streams](https://codeberg.org/streams/streams/src/commit/6ec6780c7515a638b1ff818559af646fc8e21d94/FEDERATION.md#fediverse-feps)
+- [Forte](https://codeberg.org/fortified/forte/src/commit/ade73e4ed05d0ea2b001abd8e3f2e94c856ac99f/FEDERATION.md#fediverse-feps)
 
 ## References
 
