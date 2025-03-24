@@ -90,6 +90,7 @@
   {
     "slug": "8b32",
     "authors": "silverpill <@silverpill@mitra.social>",
+    "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2022-11-12",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/29",
