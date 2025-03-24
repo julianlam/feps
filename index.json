@@ -881,5 +881,14 @@
     "dateReceived": "2025-03-22",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/534",
     "title": "Representing context with a Collection"
+  },
+  {
+    "slug": "5711",
+    "authors": "Evan Prodromou <evan@socialwebfoundation.org>",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/evanp/fep/issues",
+    "dateReceived": "2025-03-24",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/539",
+    "title": "Inverse Properties for Collections"
   }
 ]
