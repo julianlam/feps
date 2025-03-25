@@ -333,8 +333,10 @@ The following alternatives to gateway-based compatible IDs are being considered:
 
 ## Implementations
 
-- [Streams](https://codeberg.org/streams/streams)
+- [Streams](https://codeberg.org/streams/streams/src/commit/6ec6780c7515a638b1ff818559af646fc8e21d94/FEDERATION.md#fediverse-feps)
 - [Mitra](https://codeberg.org/silverpill/mitra) (gateway only)
+- [fep-ae97-client](https://codeberg.org/silverpill/fep-ae97-client) (client)
+- [Forte](https://codeberg.org/fortified/forte/src/commit/ade73e4ed05d0ea2b001abd8e3f2e94c856ac99f/FEDERATION.md#fediverse-feps)
 
 ## References
 
@@ -361,7 +363,7 @@ The following alternatives to gateway-based compatible IDs are being considered:
 [RFC-2119]: https://datatracker.ietf.org/doc/html/rfc2119.html
 [RFC-3986]: https://datatracker.ietf.org/doc/html/rfc3986.html
 [DID]: https://www.w3.org/TR/did-core/
-[did:key]: https://w3c-ccg.github.io/did-method-key/
+[did:key]: https://w3c-ccg.github.io/did-key-spec/
 [DID-URL]: https://www.w3.org/TR/did-core/#did-url-syntax
 [DID-Services]: https://www.w3.org/TR/did-1.0/#services
 [ControlledIdentifiers]: https://www.w3.org/TR/cid/
