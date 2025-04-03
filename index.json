@@ -891,5 +891,14 @@
     "dateReceived": "2025-03-24",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/539",
     "title": "Inverse Properties for Collections"
+  },
+  {
+    "slug": "1042",
+    "authors": "Mauve Signweaver <contact@mauve.moe>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-1024-peer-to-peer-fediverse-identities/4400",
+    "dateReceived": "2025-04-03",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/546",
+    "title": "Peer to Peer Fediverse Identities"
   }
 ]

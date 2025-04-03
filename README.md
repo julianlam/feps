@@ -152,6 +152,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-c180: Problem Details for ActivityPub](./fep/c180/fep-c180.md) | `DRAFT` | [#531](https://codeberg.org/fediverse/fep/issues/531) | 2025-03-11 | - |
 | [FEP-2931: Representing context with a Collection](./fep/2931/fep-2931.md) | `DRAFT` | [#534](https://codeberg.org/fediverse/fep/issues/534) | 2025-03-22 | - |
 | [FEP-5711: Inverse Properties for Collections](./fep/5711/fep-5711.md) | `DRAFT` | [#539](https://codeberg.org/fediverse/fep/issues/539) | 2025-03-24 | - |
+| [FEP-1042: Peer to Peer Fediverse Identities](./fep/1042/fep-1042.md) | `DRAFT` | [#546](https://codeberg.org/fediverse/fep/issues/546) | 2025-04-03 | - |
 
 ## License
 
