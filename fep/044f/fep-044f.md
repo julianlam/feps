@@ -2,8 +2,9 @@
 slug: "044f"
 authors: Claire <claire.fep-1d7d@sitedethib.com>
 status: DRAFT
-dateReceived: 2025-04-03
 discussionsTo: https://socialhub.activitypub.rocks/t/pre-fep-quote-posts-quote-policies-and-quote-controls/5031
+dateReceived: 2025-04-03
+trackingIssue: https://codeberg.org/fediverse/fep/issues/547
 ---
 
 # FEP-044f: Consent-respecting quote posts

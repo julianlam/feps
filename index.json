@@ -893,6 +893,15 @@
     "title": "Inverse Properties for Collections"
   },
   {
+    "slug": "044f",
+    "authors": "Claire <claire.fep-1d7d@sitedethib.com>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/pre-fep-quote-posts-quote-policies-and-quote-controls/5031",
+    "dateReceived": "2025-04-03",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/547",
+    "title": "Consent-respecting quote posts"
+  },
+  {
     "slug": "1042",
     "authors": "Mauve Signweaver <contact@mauve.moe>",
     "status": "DRAFT",
