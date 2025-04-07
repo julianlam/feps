@@ -68,7 +68,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-1b12: Group federation](./fep/1b12/fep-1b12.md) | `FINAL` | [#22](https://codeberg.org/fediverse/fep/issues/22) | 2022-11-12 | 2023-02-09 |
 | [FEP-8b32: Object Integrity Proofs](./fep/8b32/fep-8b32.md) | `DRAFT` | [#29](https://codeberg.org/fediverse/fep/issues/29) | 2022-11-12 | - |
 | [FEP-c390: Identity Proofs](./fep/c390/fep-c390.md) | `DRAFT` | [#34](https://codeberg.org/fediverse/fep/issues/34) | 2022-11-23 | - |
-| [FEP-cb76: Content Addressed Vocabulary](./fep/cb76/fep-cb76.md) | `DRAFT` | [#41](https://codeberg.org/fediverse/fep/issues/41) | 2022-11-29 | - |
+| [FEP-cb76: Content Addressed Vocabulary](./fep/cb76/fep-cb76.md) | `WITHDRAWN` | [#41](https://codeberg.org/fediverse/fep/issues/41) | 2022-11-29 | 2025-04-07 |
 | [FEP-fb2a: Actor metadata](./fep/fb2a/fep-fb2a.md) | `DRAFT` | [#45](https://codeberg.org/fediverse/fep/issues/45) | 2022-12-09 | - |
 | [FEP-c118: Content licensing support](./fep/c118/fep-c118.md) | `DRAFT` | [#57](https://codeberg.org/fediverse/fep/issues/57) | 2023-01-16 | - |
 | [FEP-2e40: The FEP Vocabulary Extension Process](./fep/2e40/fep-2e40.md) | `WITHDRAWN` | [#62](https://codeberg.org/fediverse/fep/issues/62) | 2023-02-13 | 2023-09-04 |
