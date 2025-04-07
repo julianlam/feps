@@ -1,10 +1,11 @@
 ---
 slug: "cb76"
 authors: a <a@trwnh.com>
-status: DRAFT
+status: WITHDRAWN
 dateReceived: 2022-11-29
+dateWithdrawn: 2025-04-07
 trackingIssue: https://codeberg.org/fediverse/fep/issues/41
-discussionsTo: https://codeberg.org/fediverse/fep/issues/41
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-cb76-content-addressed-vocabulary/2735
 ---
 # FEP-cb76: Content Addressed Vocabulary
 
