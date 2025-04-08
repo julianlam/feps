@@ -22,6 +22,7 @@ Dramatis Personae:
 * Existing Fediverse Voices, hereinafer *EFV1*, *EFV2*, etc
 
 *Noob*: Hey, I want to crawl the Fediverse and build an index so we can…
+
 *EFV1*: Stop! Go back! Don't!
 
 *EFV2*: We prefer not to do that here because we want to avoid into big-tech surveillance capitalism.
@@ -42,7 +43,8 @@ Dramatis Personae:
 
 ## Discussion
 
-This scenario is happening really a lot, multiple times per week in December/January 2022-3.
+While Fediverse search has become less controversial since the previous revision of this FEP, the issue remains
+highly relevant with the advent of crawlers from AI companies gathering material to feed into LLMs.
 
 At the moment, the Fediverse privacy story is unsatisfactory. Unless a user really understands the
 visibility levels, every post they make instantly becomes part of the permanent indelible Internet
@@ -77,6 +79,7 @@ to *commercial* data harvesters, and provide a tool to combat certain classes of
 - @pamela@bsd.network, [Hacky folks, please resist finding ways to scrape the fediverse….](https://bsd.network/@pamela/109287805657081451)
 - GitHub discussion, [Controlling availability to search](https://github.com/w3c/activitypub/issues/221)
 - Tim Bray [Private and Public Mastodon](https://www.tbray.org/ongoing/When/202x/2022/12/30/Mastodon-Privacy-and-Search)
+- IETF [Activity Preferences Working Group](https://www.ietf.org/blog/aipref-wg/)
 
 ## Copyright
 
