@@ -154,7 +154,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-5711: Inverse Properties for Collections](./fep/5711/fep-5711.md) | `DRAFT` | [#539](https://codeberg.org/fediverse/fep/issues/539) | 2025-03-24 | - |
 | [FEP-044f: Consent-respecting quote posts](./fep/044f/fep-044f.md) | `DRAFT` | [#547](https://codeberg.org/fediverse/fep/issues/547) | 2025-04-03 | - |
 | [FEP-1042: Peer to Peer Fediverse Identities](./fep/1042/fep-1042.md) | `DRAFT` | [#546](https://codeberg.org/fediverse/fep/issues/546) | 2025-04-03 | - |
-| [FEP-4f05: Soft Deletion](./fep/4f05/fep-4f05.md) | `DRAFT` | _TBD_ | 2025-04-15 | - |
+| [FEP-4f05: Soft Deletion](./fep/4f05/fep-4f05.md) | `DRAFT` | [#554](https://codeberg.org/fediverse/fep/issues/554) | 2025-04-15 | - |
 
 ## License
 

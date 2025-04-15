@@ -2,8 +2,9 @@
 slug: "4f05"
 authors: Julian Lam <julian@nodebb.org>, Angus McLeod <angus@pavilion.tech>
 status: DRAFT
-dateReceived: 2025-04-15
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-4f05-soft-deletion
+dateReceived: 2025-04-15
+trackingIssue: https://codeberg.org/fediverse/fep/issues/554
 ---
 # FEP-4f05: Soft Deletion
 
