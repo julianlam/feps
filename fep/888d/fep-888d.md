@@ -276,73 +276,74 @@ The script will operate according to the following logic:
 
 #### Algorithm
 
-1) Render markdown as HTML.
-2) Find all HTML elements that have `id` and `resource`. These are considered "term definitions".
-3) Initialize an empty graph for the entire FEP.
-4) Initialize an empty context mapping for the entire FEP.
-4.1) If GENERATE_CONTEXT_FROM_TERMDEFS is set to false, then try to load an existing context mapping from PATH_TO_CONTEXT.
-5) Loop over all elements identified as "term definitions".
-5.1) Initialize an empty graph for the current term.
-5.2) Set the subject `s` equal to the `resource` attribute of the element.
-5.3) Set `term_type` equal to the `typeof` attribute of the element.
-5.4) Add a statement to the current term graph, of the form `s rdf:type term_type`.
-5.5) Loop over all child elements with a `property` attribute. These are considered "property definitions".
-5.5.1) Set the predicate `p` equal to the `property` attribute.
-5.5.2) Set the object `o` equal to the `resource` attribute. If not present, then set the object `o` equal to the `href` attribute. If not present, then set the object `o` equal to the `content` attribute. If not present, then set the object `o` equal to the inner text of the current element.
-5.5.3) Set the language `lang` equal to the `lang` attribute.
-5.5.4) Set the datatype `datatype` equal to the `datatype` attribute.
-5.5.5) Add a statement to the current term's graph using `s`, `p`, `o`, `lang`, and `datatype`, making sure to expand any CURIEs according to the RDFa initial context.
-5.5.5.1) If there is a `datatype` or `lang`, then the object `o` is a Literal.
-5.5.5.2) Otherwise, the object `o` is an IRI reference.
-5.6) If GENERATE_CONTEXT_FROM_TERMDEFS is set to true and the current element does not have an `excluded` attribute, then extract JSON-LD keywords and automatically generate a context term definition.
-5.6.1) Set the shorthand `term_name` equal to the `id` attribute of the element.
-5.6.2) Initialize an `options` mapping to keep track of extended term definitions.
-5.6.3) Pairwise combine each child `<dt>` element with its corresponding child `<dd>` element.
-5.6.4) Find a `<dt>` element whose inner text is exactly "Range". [TODO: something less fragile?]
-5.6.5) Check the corresponding `<dd>` element for a `resource` attribute. If there is one, extract this IRI as `type_iri`.
-5.6.5.1) If this `type_iri` starts with `xsd`, then insert `@type: type_iri` into the `options` mapping.
-5.6.6) Check the text content of the `<dd>` element for a substring `@id`. If found, then insert `@type: @id` into the `options` mapping.
-5.6.7) Check the text content of the `<dd>` element for a substring `@vocab`. If found, then insert `@type: @vocab` into the `options` mapping.
-5.6.8) Check the text content of the `<dd>` element for a substring `@set`. If found, then insert `@container: @set` into the `options` mapping.
-5.6.9) Check the text content of the `<dd>` element for a substring `@list`. If found, then insert `@container: @list` into the `options` mapping.
-5.6.10) If the `options` mapping is not empty, then insert `@id: s` into the `options` mapping.
-5.6.11) If the `options` mapping is not empty, then map `term_name` to the `options` mapping. Otherwise, map `term_name` to the string `s`. This is considered a "context term definition".
-5.6.12) Insert the context term definition into the context mapping.
-5.7) Merge the current term graph into the FEP-wide graph.
-5.8) If the subject `s` is not a fragment identifier, then for each alternate output format in OUTPUT_FORMATS, serialize the current term graph to that format and write it to a file within a co-located subfolder with the name `term_name`.
-5.8.1) If HTML+RDFa is one of the OUTPUT_FORMATS, then the term definition element can be copied as-is.
-5.8.2) If Markdown is one of the OUTPUT_FORMATS:
-5.8.2.1) Write a first-level heading with the shorthand `term_name` set equal to the `id` attribute of the term definition.
-5.8.2.2) Pairwise combine each child `<dt>` element with its corresponding child `<dd>` element.
-5.8.2.3) For each pair of `<dt>` and `<dd>` element, write a definition list term and definition list definition.
-5.8.2.4) Extract examples by finding all HTML elements that are `<pre>`.
-5.8.2.5) If any examples were found, write a second-level heading with the text set to `Examples`.
-5.8.2.5) For each example block found:
-5.8.2.5.1) If a `title` attribute is present, then write a paragraph with the text set to the value of `title`.
-5.8.2.5.2) Write the start of the code block with backticks. If a `lang` attribute is present, then append its value immediately afterward.
-5.8.2.5.3) Write the inner text of the example.
-5.8.2.5.4) Write the closing backticks for closing the code block.
-6) For each alternate output format in OUTPUT_FORMATS, serialize the FEP-wide graph to that format and write it to a file co-located with the name `fep-$SLUG.$FORMAT`. For example, if Turtle output is enabled, then `fep-xxxx.ttl` will be written. For JSON-LD output, use the current context mapping when serializing the FEP-wide graph. For HTML+RDFa or Markdown output, ignore these formats. (Outputting HTML can be done as part of a separate process of rendering the Markdown with a static site generator. Outputting the Markdown makes no sense since it is the source material and should not be overwritten.)
-6.3) If GENERATE_CONTEXT_FROM_TERMDEFS is set to true but JSON-LD is not one of the output formats, then initialize and serialize an empty graph, using the generated context term definition.
-6.1.1) Remove the graph from the context document.
-6.1.2) Save the generated context document as `fep-xxxx.jsonld`.
+- (1) Render markdown as HTML.
+- (2) Find all HTML elements that have `id` and `resource`. These are considered "term definitions".
+- (3) Initialize an empty graph for the entire FEP.
+- (4) Initialize an empty context mapping for the entire FEP.
+  - (4.1) If GENERATE_CONTEXT_FROM_TERMDEFS is set to false, then try to load an existing context mapping from PATH_TO_CONTEXT.
+- (5) Loop over all elements identified as "term definitions".
+  - (5.1) Initialize an empty graph for the current term.
+  - (5.2) Set the subject `s` equal to the `resource` attribute of the element.
+  - (5.3) Set `term_type` equal to the `typeof` attribute of the element.
+  - (5.4) Add a statement to the current term graph, of the form `s rdf:type term_type`.
+  - (5.5) Loop over all child elements with a `property` attribute. These are considered "property definitions".
+    - (5.5.1) Set the predicate `p` equal to the `property` attribute.
+    - (5.5.2) Set the object `o` equal to the `resource` attribute. If not present, then set the object `o` equal to the `href` attribute. If not present, then set the object `o` equal to the `content` attribute. If not present, then set the object `o` equal to the inner text of the current element.
+    - (5.5.3) Set the language `lang` equal to the `lang` attribute.
+    - (5.5.4) Set the datatype `datatype` equal to the `datatype` attribute.
+    - (5.5.5) Add a statement to the current term's graph using `s`, `p`, `o`, `lang`, and `datatype`, making sure to expand any CURIEs according to the RDFa initial context.
+      - (5.5.5.1) If there is a `datatype` or `lang`, then the object `o` is a Literal.
+      - (5.5.5.2) Otherwise, the object `o` is an IRI reference.
+  - (5.6) If GENERATE_CONTEXT_FROM_TERMDEFS is set to true and the current element does not have an `excluded` attribute, then extract JSON-LD keywords and automatically generate a context term definition.
+    - (5.6.1) Set the shorthand `term_name` equal to the `id` attribute of the element.
+    - (5.6.2) Initialize an `options` mapping to keep track of extended term definitions.
+    - (5.6.3) Pairwise combine each child `<dt>` element with its corresponding child `<dd>` element.
+    - (5.6.4) Find a `<dt>` element whose inner text is exactly "Range". [TODO: something less fragile?]
+    - (5.6.5) Check the corresponding `<dd>` element for a `resource` attribute. If there is one, extract this IRI as `type_iri`.
+       - (5.6.5.1) If this `type_iri` starts with `xsd`, then insert `@type: type_iri` into the `options` mapping.
+    - (5.6.6) Check the text content of the `<dd>` element for a substring `@id`. If found, then insert `@type: @id` into the `options` mapping.
+    - (5.6.7) Check the text content of the `<dd>` element for a substring `@vocab`. If found, then insert `@type: @vocab` into the `options` mapping.
+    - (5.6.8) Check the text content of the `<dd>` element for a substring `@set`. If found, then insert `@container: @set` into the `options` mapping.
+    - (5.6.9) Check the text content of the `<dd>` element for a substring `@list`. If found, then insert `@container: @list` into the `options` mapping.
+    - (5.6.10) If the `options` mapping is not empty, then insert `@id: s` into the `options` mapping.
+    - (5.6.11) If the `options` mapping is not empty, then map `term_name` to the `options` mapping. Otherwise, map `term_name` to the string `s`. This is considered a "context term definition".
+    - (5.6.12) Insert the context term definition into the context mapping.
+  - (5.7) Merge the current term graph into the FEP-wide graph.
+  - (5.8) If the subject `s` is not a fragment identifier, then for each alternate output format in OUTPUT_FORMATS, serialize the current term graph to that format and write it to a file within a co-located subfolder with the name `term_name`.
+    - (5.8.1) If HTML+RDFa is one of the OUTPUT_FORMATS, then the term definition element can be copied as-is.
+    - (5.8.2) If Markdown is one of the OUTPUT_FORMATS:
+      - (5.8.2.1) Write a first-level heading with the shorthand `term_name` set equal to the `id` attribute of the term definition.
+      - (5.8.2.2) Pairwise combine each child `<dt>` element with its corresponding child `<dd>` element.
+      - (5.8.2.3) For each pair of `<dt>` and `<dd>` element, write a definition list term and definition list definition.
+      - (5.8.2.4) Extract examples by finding all HTML elements that are `<pre>`.
+      - (5.8.2.5) If any examples were found, write a second-level heading with the text set to `Examples`.
+      - (5.8.2.5) For each example block found:
+        - (5.8.2.5.1) If a `title` attribute is present, then write a paragraph with the text set to the value of `title`.
+        - (5.8.2.5.2) Write the start of the code block with backticks. If a `lang` attribute is present, then append its value immediately afterward.
+        - (5.8.2.5.3) Write the inner text of the example.
+        - (5.8.2.5.4) Write the closing backticks for closing the code block.
+- (6) For each alternate output format in OUTPUT_FORMATS, serialize the FEP-wide graph to that format and write it to a file co-located with the name `fep-$SLUG.$FORMAT`. For example, if Turtle output is enabled, then `fep-xxxx.ttl` will be written. For JSON-LD output, use the current context mapping when serializing the FEP-wide graph. For HTML+RDFa or Markdown output, ignore these formats. (Outputting HTML can be done as part of a separate process of rendering the Markdown with a static site generator. Outputting the Markdown makes no sense since it is the source material and should not be overwritten.)
+  - (6.1) If GENERATE_CONTEXT_FROM_TERMDEFS is set to true but JSON-LD is not one of the output formats, then initialize and serialize an empty graph, using the generated context term definition.
+    - (6.1.1) Remove the graph from the context document.
+    - (6.1.2) Save the generated context document as `fep-xxxx.jsonld`.
 
 #### Usage
 
-- Install required python dependencies, for example in a virtual environment:
-  - python-markdown
-  - beautifulsoup4
-  - rdflib
-  - markdownify
-  - python-frontmatter
+- Either install required python dependencies, for example in a virtual environment:
+  - Python-Markdown (`markdown` on PyPI)
+  - BeautifulSoup4 (`beautifulsoup4`)
+  - RDFLib (`rdflib`)
+  - markdownify (`markdownify`)
+  - python-frontmatter (`python-frontmatter`)
+- ...or use [`uv run`](https://docs.astral.sh/uv/) instead.
 - The script should be run in the base directory of the fediverse/fep repo.
-- `python make_definitions.py $SLUG` will read term definitions from the contents of `fep/$SLUG/fep-$SLUG.md`, then generate alternate formats for the FEP. If your terms are defined with fragment identifiers (of the form `https://w3id.org/fep/xxxx#term`), then only the FEP itself will be generated in alternate formats. If your terms are defined with absolute identifiers (of the form `https://w3id.org/fep/xxxx/term`), then co-located subdirectories will be created as well, and singular term definitions will be generated in chosen output formats. If a `context.jsonld` document is present in the FEP folder, then it will be copied into the JSON-LD alternate format output. The current default output formats are:
+- `python fep/888d/make_definitions.py $SLUG` will read term definitions from the contents of `fep/$SLUG/fep-$SLUG.md`, then generate alternate formats for the FEP. If your terms are defined with fragment identifiers (of the form `https://w3id.org/fep/xxxx#term`), then only the FEP itself will be generated in alternate formats. If your terms are defined with absolute identifiers (of the form `https://w3id.org/fep/xxxx/term`), then co-located subdirectories will be created as well, and singular term definitions will be generated in chosen output formats. If a `context.jsonld` document is present in the FEP folder, then it will be copied into the JSON-LD alternate format output. The current default output formats are:
   - .ttl (Turtle)
   - .rdf (RDF/XML)
   - .jsonld (JSON-LD)
   - .html (HTML+RDFa) (singular term definitions only)
   - .md (README.md for the Codeberg repo viewer) (singular term definitions only)
-- `python make_definitions.py $SLUG -c` will do everything in the above bullet point, except for copying `context.jsonld`. Instead, it will check for JSON-LD keywords and attempt to auto-generate a context document based on those keywords. If JSON-LD output is disabled, the script will generate only a context document instead of a combined context document and schema or ontology.
+- `python fep/888d/make_definitions.py $SLUG -c` will do everything in the above bullet point, except for copying `context.jsonld`. Instead, it will check for JSON-LD keywords and attempt to auto-generate a context document based on those keywords. If JSON-LD output is disabled, the script will generate only a context document instead of a combined context document and schema or ontology.
 
 ## Example terms defined by this FEP
 
@@ -448,7 +449,7 @@ We can formulate the following machine-readable term definition blocks, which ar
 <dt>Domain</dt>
 <dd><a property="rdfs:domain" href="https://w3id.org/fep/888d/SomeType">SomeType</a></dd>
 <dt>Range</dt>
-<dd property="rdfs:range" resource="rdfs:Resource">An object (@id)</dd>
+<dd property="rdfs:range" resource="rdfs:Resource">An object (<code>@id</code>)</dd>
 <dt>Required</dt>
 <dd property="owl:minCardinality" content="0" datatype="xsd:nonNegativeInteger">No</dd>
 <dt>Functional</dt>

@@ -1,13 +1,25 @@
-import markdown
-import bs4
-import rdflib
+# /// script
+# dependencies = [
+#   "markdown",
+#   "beautifulsoup4",
+#   "rdflib>=7.0.0",
+#   "markdownify",
+#   "python-frontmatter",
+# ]
+# ///
+
+import markdown  # convert Markdown to HTML
+import bs4  # HTML filtering
+import rdflib  # load and serialize ontology graphs
 from rdflib.plugins.serializers.turtle import TurtleSerializer
 import json
 import argparse
 import pathlib
-import markdownify
-import frontmatter
+import markdownify  # convert HTML to markdown
+import frontmatter  # load YAML frontmatter
 import re
+
+# TODO: consider migrating from `markdown` and maybe `frontmatter` to `markdown-it-py`?
 
 #### Some logic to make rdflib output prettier Turtle documents.
 # Most of it is commented out for now because
@@ -219,7 +231,7 @@ g_all.add((
 g_all.add((
 	rdflib.URIRef(fep_id),
 	rdflib.URIRef(nm.expand_curie('dcterms:abstract')),
-	rdflib.Literal(soup.find(string='Summary').parent.findNextSibling().text)
+	rdflib.Literal(soup.find(string='Summary').parent.find_next_sibling().text)
 ))
 ## `authors`
 for author in fep.get('authors', '').split(','):
