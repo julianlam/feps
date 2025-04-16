@@ -27,16 +27,22 @@ In the remaining of this document, “quoted object” refers to the object bein
 
 This proposal has benefitted from significant discussions on SocialHub as well as discussions with _trwnh_ and [GoToSocial](https://gotosocial.org/) developers. In fact, the `interactionPolicy` vocabulary directly comes from [GoToSocial's interaction policies](https://docs.gotosocial.org/en/latest/federation/interaction_policy/) which have since evolved along the current proposal.
 
-## Representation of a quote post
+## Representation of a quote post {#quote}
 
-A “quote post” is represented as an object with an Object Link (FEP-e232) to a “quoted object” using `https://misskey-hub.net/ns#_misskey_quote` as a link relation.
+A “quote post” is represented as an object with a `quote` (`https://w3id.org/fep/044f#quote`) attribute.
 
 ### Example
 
 ```json
 {
   "@context": [
-    "https://www.w3.org/ns/activitystreams"
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "quote": {
+        "@id": "https://w3id.org/fep/044f#quote",
+        "@type": "@id"
+      }
+    }
   ],
   "type": "Note",
   "id": "https://example.com/users/bob/statuses/1",
@@ -46,18 +52,62 @@ A “quote post” is represented as an object with an Object Link (FEP-e232) to
     "https://example.com/users/alice"
   ],
   "content": "I am quoting alice's post<span class=\"quote-inline\"><br/>RE: <a href=\"https://example.com/users/alice/statuses/1\">https://example.com/users/alice/statuses/1</a></span>",
-  "tag": [
-    {
-      "type": "Link",
-      "mediaType": "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"",
-      "href": "https://example.com/users/alice/statuses/1",
-      "rel": "https://misskey-hub.net/ns#_misskey_quote",
-    }
-  ]
+  "quote": "https://example.com/users/alice/statuses/1"
 }
 ```
 
 This example is non-normative, and the `<span class=\"quote-inline\"><br/>RE: <a href=\"https://example.com/users/alice/statuses/1\">https://example.com/users/alice/statuses/1</a></span>` part of the content is an example of textual fallback, but does not otherwise carry meaning. In particular, it does not influence where the embedded quote should be displayed.
+
+### Compatibility with other quote implementations
+
+(This section is non-normative.)
+
+While this FEP introduces `https://w3id.org/fep/044f#quote`, there are competing definitions for the representation of quote posts:
+- `_misskey_quote` (`https://misskey-hub.net/ns/#_misskey_quote`)
+- `quoteUrl` (`https://www.w3.org/ns/activitystreams#quoteUrl`)
+- `quoteUri` (`http://fedibird.com/ns#quoteUri`)
+- FEP-e232 Object links with a `https://misskey-hub.net/ns/#_misskey_quote` `rel` value
+
+We believe each of those to have significant drawbacks, such as re-using a namespace that has no definition for them, implying the value is an URL or URI, or using an unusual naming scheme, and none of them are linked to a control mechanism like the one defined in this FEP, hence why we introduced `https://w3.id.org/fep/044f#quote`.
+
+That being said, we suggest some of them as fallback for compatibility with existing fediverse software implementations.
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "quoteUrl": "as:quoteUrl",
+      "quoteUri": "http://fedibird.com/ns#quoteUri",
+      "_misskey_quote": "https://misskey-hub.net/ns/#_misskey_quote",
+      "quote": {
+        "@id": "https://w3id.org/fep/044f#quote",
+        "@type": "@id"
+      }
+    }
+  ],
+  "type": "Note",
+  "id": "https://example.com/users/bob/statuses/1",
+  "attributedTo": "https://example.com/users/bob",
+  "to": [
+    "https://www.w3.org/ns/activitystreams#Public",
+    "https://example.com/users/alice"
+  ],
+  "content": "I am quoting alice's post<span class=\"quote-inline\"><br/>RE: <a href=\"https://example.com/users/alice/statuses/1\">https://example.com/users/alice/statuses/1</a></span>",
+  "quote": "https://example.com/users/alice/statuses/1",
+  "quoteUrl": "https://example.com/users/alice/statuses/1",
+  "quoteUri": "https://example.com/users/alice/statuses/1",
+  "_misskey_quote": "https://example.com/users/alice/statuses/1",
+  "tag": [
+    {
+      "type": "Link",
+      "mediaType": "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"",
+      "rel": "https://misskey-hub.net/ns#_misskey_quote",
+      "href": "https://example.com/users/alice/statuses/1"
+    }
+  ]
+}
+```
 
 ## Advertising a quote policy
 
@@ -113,7 +163,7 @@ See later sections for the actual verification mechanism.
 }
 ```
 
-## Approval stamps
+## Approval stamps {#QuoteAuthorization}
 
 In order to enforce a policy, we rely on approval stamps, a mechanism used to tell third-party servers that a quote is approved, regardless of the current state of the policy.
 
@@ -180,6 +230,10 @@ The `QuoteRequest` activity uses the `object` property to refer to the quoted ob
   "@context": [
     "https://www.w3.org/ns/activitystreams",
     {
+      "quote": {
+        "@id": "https://w3id.org/fep/044f#quote",
+        "@type": "@id"
+      },
       "toot": "http://joinmastodon.org/ns#",
       "QuoteRequest": "toot:QuoteRequest"
     }
@@ -197,14 +251,7 @@ The `QuoteRequest` activity uses the `object` property to refer to the quoted ob
       "https://example.com/users/alice"
     ],
     "content": "I am quoting alice's post<br/>RE: https://example.com/users/alice/statuses/1",
-    "tag": [
-      {
-        "type": "Link",
-        "mediaType": "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"",
-        "href": "https://example.com/users/alice/statuses/1",
-        "rel": "https://misskey-hub.net/ns#_misskey_quote",
-      }
-    ]
+    "quote": "https://example.com/users/alice/statuses/1"
   }
 }
 ```
@@ -270,7 +317,7 @@ If the quote post is considered unacceptable, the authority SHOULD reply with a 
 }
 ```
 
-## Requesting, obtaining and validating approval
+## Requesting, obtaining and validating approval {#quoteAuthorization}
 
 In order to get approval, the quote post author MUST send a `QuoteRequest` (`http://joinmastodon.org/ns#QuoteRequest`) activity to the author of the quoted object, with the quoted object as its `object` property and the quote post as its `instrument`.
 
@@ -290,9 +337,9 @@ Otherwise, it MAY translate as a `Delete` to outright remove the quote post, or 
 
 ### Acceptance
 
-If the author of the quote receives an `Accept` activity, they MUST add a reference to its `result` in the `approvedBy` property of the relevant object link.
+If the author of the quote receives an `Accept` activity, they MUST add a reference to its `result` in the `quoteAuthorization` (`https://w3id.org/fep/044f#quoteAuthorization`) property.
 
-Depending on whether they already sent a `Create` activity to the quote post's intended audience, they SHOULD send a `Create` activity or an `Update` activity with the updated `approvedBy` property.
+Depending on whether they already sent a `Create` activity to the quote post's intended audience, they SHOULD send a `Create` activity or an `Update` activity with the updated `quoteAuthorization` property.
 
 #### Example updated `Note` object
 
@@ -301,11 +348,8 @@ Depending on whether they already sent a `Create` activity to the quote post's i
   "@context": [
     "https://www.w3.org/ns/activitystreams",
     {
-      "gts": "https://gotosocial.org/ns#",
-      "approvedBy": {
-        "@id": "gts:approvedBy",
-        "@type": "@id"
-      }
+      "quote": "https://w3id.org/fep/044f#quote",
+      "quoteAuthorization": "https://w3id.org/fep/044f#quoteAuthorization"
     }
   ],
   "type": "Note",
@@ -316,15 +360,8 @@ Depending on whether they already sent a `Create` activity to the quote post's i
     "https://example.com/users/alice"
   ],
   "content": "I am quoting alice's post<br/>RE: https://example.com/users/alice/statuses/1",
-  "tag": [
-    {
-      "type": "Link",
-      "mediaType": "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"",
-      "href": "https://example.com/users/alice/statuses/1",
-      "rel": "https://misskey-hub.net/ns#_misskey_quote",
-      "approvedBy": "https://example.com/users/alice/stamps/1"
-    }
-  ]
+  "quote": "https://example.com/users/alice/statuses/1",
+  "quoteAuthorization": "https://example.com/users/alice/stamps/1"
 }
 ```
 
@@ -333,7 +370,7 @@ Depending on whether they already sent a `Create` activity to the quote post's i
 When processing a quote post from a remote actor, a recipient MUST consider them unapproved unless any of those conditions apply:
 - the author of the quote post and that of the original post are the same (same `attributedTo`)
 - the author of the quote post is mentioned in the original post
-- `approvedBy` exists, can be dereferenced and is a valid `QuoteAuthorization` activity for this object
+- `quoteAuthorization` exists, can be dereferenced and is a valid `QuoteAuthorization` activity for this object
 
 ## Revocation of a quote post
 
@@ -355,7 +392,7 @@ Additionally, if the recipient owns the quote post, it MUST forward the `Delete`
 
 Because getting revocation properly forwarded depends on the good will of the revoked post's author, it may be necessary to have other means of checking whether an approval has been revoked.
 
-For this reason, recipients SHOULD re-check the `approvedBy` document when an already-known quote post is accessed for the first time in a given period of time.
+For this reason, recipients SHOULD re-check the `quoteAuthorization` document when an already-known quote post is accessed for the first time in a given period of time.
 
 ## Server behavior considerations
 
