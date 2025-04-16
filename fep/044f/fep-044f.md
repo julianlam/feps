@@ -416,9 +416,11 @@ Using a special class like `quote-inline` can be useful to hide redundant inform
 
 ## Security considerations
 
-Servers not implementing this FEP will still be able to quote the post and provide no dogpiling-reducing friction. There is unfortunately nothing we can do about that.
+(This section is non-normative.)
 
-Effectively revoking quote posts relies on the participation of the quote poster's server to effectively reach the audience of the quote post, so an ill-intentioned server could quote post then refuse to forward the revocation. Still, this can arise on well-intentioned servers too, so the feature remains useful. Opportunistic re-verification of quote approvals should also help.
+Servers that do not implementing the current FEP will still be able to quote the post without providing any dogpiling-reducing friction. There is unfortunately nothing we can do about that. However, servers which do implement the current FEP should refuse displaying those quotes, so implementing the control mechanisms of the current FEP remains worthwhile.
+
+Effectively revoking authorized quote posts relies on the participation of the quote poster's server to effectively reach the audience of the quote post. This means that an ill-intentioned server which obtained an authorization could deliberately refuse to forward the revocation. Still, the ability to revoke a quote post remains useful between well-intentioned servers, and opportunistic re-verification of quote approvals should also help with discovering that a quote authorization has been revoked, despite the potential lack of forwarding.
 
 By not adding a hash or copy of the reply in the `QuoteAuthorization` object, malicious actors could exploit this in a split horizon setting, sending different versions of the same activity to different actors. This is, however, already a concern in pretty much all contexts in ActivityPub, and enshrining that information in the `QuoteAuthorization` object would have many drawbacks:
 - significantly more complex implementation
