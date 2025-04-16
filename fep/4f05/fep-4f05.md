@@ -11,13 +11,13 @@ trackingIssue: https://codeberg.org/fediverse/fep/issues/554
 
 ## Summary
 
-The standard CRUD (Create, Read, Update, Delete) behaviours specified in [ActivityPub] specify a single `Delete` activity for use in all cases. This is insufficient to describe two-stage deletion, often referred to as "soft" and "hard" deletion.
+The standard CRUD (Create, Read, Update, Delete) behaviours in [ActivityPub] specify a single `Delete` activity for use in all cases. This is insufficient to describe two-stage deletion, often referred to as "soft" and "hard" deletion.
 
 Not all software implements two-stage deletion, and so the behaviours described here progressively enhance the functionality for those supporting it, while retaining backward compatibility otherwise.
 
 ### Assumptions
 
-[A blog post by kaniini][DeleteSocialHub] advocates for the treatment of copies remote data _as a cache_. From there we derive the following assumptions:
+[A blog post by kaniini][DeleteSocialHub] advocates for the treatment of copies of remote data _as a cached representation_. From there we derive the following assumptions:
 
 * data living on the remote server is considered canonical.
 * an incoming `Delete` activity should be treated as a request to refresh the locally cached copy or delete it otherwise.
@@ -44,7 +44,7 @@ A `Delete` activity MUST be published in order to propagate the hard deletion to
 
 When a `Delete` activity is encountered, the `actor` may not match the `attributedTo` of the targeted object. Follow the [origin-based security model][fe34] for verifying authenticity of the received activity.
 
-Request the object (via its `id`) from the origin server directly, and handle appropriately based on the received response code or object `type`.
+Handle the received activity as below based on the received response code or object `type`. In cases where the object is referenced (not embedded in the activity itself), request the object (via its `id`) from the origin server directly.
 
 ### `Tombstone`
 
