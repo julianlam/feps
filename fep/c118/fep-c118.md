@@ -79,7 +79,7 @@ to *commercial* data harvesters, and provide a tool to combat certain classes of
 - @pamela@bsd.network, [Hacky folks, please resist finding ways to scrape the fediverse….](https://bsd.network/@pamela/109287805657081451)
 - GitHub discussion, [Controlling availability to search](https://github.com/w3c/activitypub/issues/221)
 - Tim Bray [Private and Public Mastodon](https://www.tbray.org/ongoing/When/202x/2022/12/30/Mastodon-Privacy-and-Search)
-- IETF [Activity Preferences Working Group](https://www.ietf.org/blog/aipref-wg/)
+- IETF [AI Preferences Working Group](https://www.ietf.org/blog/aipref-wg/)
 
 ## Copyright
 
