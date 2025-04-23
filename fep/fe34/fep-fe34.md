@@ -35,9 +35,11 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Origin
 
-Object identifiers are grouped together into protection domains called "origins". This concept is similar to the "web origin" concept described in [RFC-6454], and origins of object IDs are computed by the same algorithm.
+Object identifiers can be grouped together into protection domains called "origins". This concept is similar to the "web origin" concept described in [RFC-6454], and origins of object IDs are computed by the same algorithm.
 
-The same-origin policy determines when a relationship between objects can be trusted.
+The same-origin policy determines when a relationship between objects can be trusted. Different origins are considered potentially hostile and are isolated from each other to varying degrees.
+
+Origin-based security model is supposed to be used when object identifiers are HTTP(S) URIs and actors are managed by servers. The model can also be used with other kinds of identifiers, but that is not covered in this document.
 
 ## Authentication
 
@@ -54,6 +56,8 @@ If none of these conditions are met, the object MUST be discarded.
 
 Consumers SHOULD attempt to fetch the object by its ID if other authentication methods are not available.
 
+Servers MUST NOT share secret keys with clients.
+
 >[!NOTE]
 >In some cases, consumers can process unauthenticated objects if the risk is deemed acceptable.
 
@@ -63,7 +67,7 @@ An object without an ID can only exist when embedded within another object. It i
 
 ## Authorization
 
-Authorization is the process of veryfing permission to [create, read, update or delete](https://en.wikipedia.org/wiki/Create%2C_read%2C_update_and_delete) an object.
+Authorization is the process of verifying permission to [create, read, update or delete](https://en.wikipedia.org/wiki/Create%2C_read%2C_update_and_delete) an object.
 
 ### Ownership
 
@@ -125,6 +129,7 @@ Examples:
 
 - An activity can be signed with a key of different origin if that key is referenced from the actor document.
 - An object can be deleted by an actor of different origin if that actor is specified as a moderator for the context to which the object belongs.
+- An actor can migrate from one server to another by performing the `Move` activity if the migrating actor is included in the target actor's `alsoKnownAs`.
 
 ## References
 
