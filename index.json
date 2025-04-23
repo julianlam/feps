@@ -52,10 +52,11 @@
   {
     "slug": "2100",
     "authors": "Diogo Peralta Cordeiro <mail@diogo.site>",
-    "status": "DRAFT",
+    "status": "WITHDRAWN",
     "dateReceived": "2022-03-31",
+    "dateWithdrawn": "2025-04-06",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/36",
-    "discussionsTo": "https://codeberg.org/fediverse/fep/issues/36",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-2100-unbound-group-and-organization/2727",
     "title": "Unbound Group and Organization"
   },
   {
