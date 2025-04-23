@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>joinMode</title>
+</head>
+<body>
+<section id="joinMode" resource="https://w3id.org/fep/8a8e/joinMode" typeof="owl:ObjectProperty">
+<h1>joinMode</h1>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/8a8e/joinMode</code></dd>
+<dt>rdfs:label</dt>
+<dd lang="en" property="rdfs:label">Join mode</dd>
+<dt>rdfs:comment</dt>
+<dd lang="en" property="rdfs:comment">
+      Indicator of how new members may be able to join an event.
+      Accepted values: <code>free</code>, <code>restricted</code>, <code>external</code>, <code>none</code>, <code>invite</code>.
+      If <code>external</code>, you must also set <a href="https://w3id.org/fep/8a8e/externalParticipationUrl"><code>externalParticipationUrl</code></a>.
+    </dd>
+<dt>rdfs:domain</dt>
+<dd>
+<a href="https://www.w3.org/ns/activitystreams#Event" property="rdfs:domain">as:Event</a>
+</dd>
+<dt>rdfs:range</dt>
+<dd property="rdfs:range" resource="xsd:string">A string</dd>
+<dt>rdfs:isDefinedBy</dt>
+<dd>
+<a href="https://w3id.org/fep/8a8e/" property="rdfs:isDefinedBy">FEP‑8a8e</a>
+</dd>
+</dl>
+<pre lang="json" title="Example: restricted">
+<code>{
+  "@context": [
+    "https://w3id.org/fep/8a8e",
+    "https://www.w3.org/ns/activitystreams"
+  ],
+  "type": "Event",
+  "url": "http://example.org/events/1234",
+  "joinMode": "restricted"
+}
+</code>
+  </pre>
+<pre lang="json" title="Example: external">
+<code>{
+  "@context": [
+    "https://w3id.org/fep/8a8e",
+    "https://www.w3.org/ns/activitystreams"
+  ],
+  "type": "Event",
+  "url": "http://example.org/events/1234",
+  "joinMode": "external",
+  "externalParticipationUrl": "https://www.escample.org/events/1234/participate"
+}
+</code>
+  </pre>
+</section>
+</body>
+</html>

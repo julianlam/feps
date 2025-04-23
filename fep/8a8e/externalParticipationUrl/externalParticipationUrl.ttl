@@ -1,0 +1,13 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/fep/8a8e/externalParticipationUrl> a owl:DatatypeProperty ;
+	rdfs:label "External participation URL"@en ;
+	rdfs:comment """
+      A URL that points to an external platform where people can join the event or where they can buy tickets for the event. Required if joinMode is set to external.
+    """@en ;
+	rdfs:domain as:Event ;
+	rdfs:isDefinedBy <https://w3id.org/fep/8a8e> ;
+	rdfs:range xsd:anyURI .

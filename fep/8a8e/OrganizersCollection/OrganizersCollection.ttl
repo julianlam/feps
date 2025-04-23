@@ -1,0 +1,9 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://w3id.org/fep/8a8e/OrganizersCollection> a rdfs:Class ;
+	rdfs:label "An Event's Organizer Collection"@en ;
+	rdfs:comment "Inherits all properties from https://www.w3.org/ns/activitystreams#Collection with the addition that the items may also include https://schema.org/Person or https://schema.org/Organization."@en ;
+	rdfs:isDefinedBy <https://w3id.org/fep/8a8e> ;
+	rdfs:seeAlso <https://w3id.org/fep/8a8e/organizers> ;
+	rdfs:subClassOf as:Collection .

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>externalParticipationUrl</title>
+</head>
+<body>
+<section id="externalParticipationUrl" resource="https://w3id.org/fep/8a8e/externalParticipationUrl" typeof="owl:DatatypeProperty">
+<h1>externalParticipationUrl</h1>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/8a8e/externalParticipationUrl</code></dd>
+<dt>rdfs:label</dt>
+<dd lang="en" property="rdfs:label">External participation URL</dd>
+<dt>rdfs:comment</dt>
+<dd lang="en" property="rdfs:comment">
+      A URL that points to an external platform where people can join the event or where they can buy tickets for the event. Required if <a href="https://w3id.org/fep/8a8e/"><code>joinMode</code></a> is set to <code>external</code>.
+    </dd>
+<dt>rdfs:domain</dt>
+<dd><a href="https://www.w3.org/ns/activitystreams#Event" property="rdfs:domain">as:Event</a></dd>
+<dt>rdfs:range</dt>
+<dd property="rdfs:range" resource="xsd:anyURI">xsd:anyURI</dd>
+<dt>rdfs:isDefinedBy</dt>
+<dd><a href="https://w3id.org/fep/8a8e" property="rdfs:isDefinedBy">FEP‑8a8e</a></dd>
+</dl>
+<pre lang="json" title="Example usage of externalParticipationUrl">
+<code>{
+  "@context": [
+    "https://w3id.org/fep/8a8e",
+    "https://www.w3.org/ns/activitystreams"
+  ],
+  "type": "Event",
+  "url": "http://example.org/events/1234",
+  "joinMode": "external",
+  "externalParticipationUrl": "https://www.meetup.com/somegroup/events/00000/"
+}
+</code>
+  </pre>
+</section>
+</body>
+</html>

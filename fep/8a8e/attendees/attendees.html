@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>attendees</title>
+</head>
+<body>
+<section id="attendees" resource="https://w3id.org/fep/8a8e/attendees" typeof="owl:ObjectProperty">
+<h1>attendees</h1>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/8a8e/attendees</code></dd>
+<dt>Label</dt>
+<dd lang="en" property="rdfs:label">Attendees of an Event</dd>
+<dt>Comment</dt>
+<dd lang="en" property="rdfs:comment"></dd>
+<dt>Is defined by</dt>
+<dd><a href="https://w3id.org/fep/8a8e" property="rdfs:isDefinedBy">FEP-8a8e</a></dd>
+<dt>Range</dt>
+<dd property="rdfs:range" resource="rdfs:Resource"><a href="https://w3id.org/fep/8a8e/AttendeesCollection" target="_blank">Collection</a> (ActivityStreams Type)</dd>
+<dt>Required</dt>
+<dd content="0" datatype="xsd:nonNegativeInteger" property="owl:minCardinality">No</dd>
+<dt>Functional</dt>
+<dd>No</dd>
+</dl>
+<pre lang="json" title="Example usage of attendees">
+    <code>
+    {
+      "@context": [
+        "https://schema.org",
+        "https://w3id.org/fep/8a8e",
+        "https://www.w3.org/ns/activitystreams",
+        {
+          "sc": "https://schema.org#"
+        }
+      ],
+      "type": "Event",
+      "attendees": {
+        "type": "https://w3id.org/fep/8a8e/OrganizersCollection",
+        "totalItems": 4,
+        "items": [
+          { "type": "Actor", "name": "ActivityPub Group Actor", "id": "https://example.org/actors/group1"},
+          { "type": "Link", "href": "https://organizer1.example.org"},
+          { "type": "Person", "name": "Alice" },
+          { "type": "sc:Organization", "name": "Event Co." }
+        ]
+      }
+    }
+    </code>
+  </pre>
+</section>
+</body>
+</html>

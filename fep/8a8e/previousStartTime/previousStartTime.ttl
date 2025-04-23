@@ -1,0 +1,13 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/fep/8a8e/previousStartTime> a owl:DatatypeProperty ;
+	rdfs:label "The event previous start time."@en ;
+	rdfs:comment "The events previous start time is the old start time before an event got postponed or rescheduled."@en ;
+	rdfs:domain as:Event ;
+	rdfs:isDefinedBy <https://w3id.org/fep/8a8e> ;
+	rdfs:range xsd:dateTime ;
+	rdfs:seeAlso <https://w3id.org/fep/8a8e/EventPostponed>,
+		<https://w3id.org/fep/8a8e/EventRescheduled> .

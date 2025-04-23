@@ -1,0 +1,10 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/fep/8a8e/attendees> a owl:ObjectProperty ;
+	rdfs:label "Attendees of an Event"@en ;
+	rdfs:comment ""@en ;
+	rdfs:isDefinedBy <https://w3id.org/fep/8a8e> ;
+	rdfs:range rdfs:Resource ;
+	owl:minCardinality "0"^^xsd:nonNegativeInteger .

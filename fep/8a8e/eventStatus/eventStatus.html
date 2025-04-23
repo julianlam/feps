@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>eventStatus</title>
+</head>
+<body>
+<section id="eventStatus" resource="https://w3id.org/fep/8a8e/eventStatus" typeof="rdf:Property">
+<h1>eventStatus</h1>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/8a8e/eventStatus</code></dd>
+<dt>Label</dt>
+<dd lang="en" property="rdfs:label">The events status is</dd>
+<dt>Comment</dt>
+<dd lang="en" property="rdfs:comment">An eventStatus of an event represents its status; particularly useful when an event is cancelled or rescheduled.</dd>
+<dt>Domain</dt>
+<dd><a href="https://www.w3.org/ns/activitystreams#Event" property="rdfs:domain" resource="as:Event">Event</a></dd>
+<dt>Range</dt>
+<dd><a href="https://w3id.org/fep/8a8e/EventStatusType" property="rdfs:range" resource="https://w3id.org/fep/8a8e/EventStatusType">EventStatusType</a> (@vocab)</dd>
+<dt>Required</dt>
+<dd content="0" datatype="xsd:nonNegativeInteger" property="owl:minCardinality">No</dd>
+<dt>Functional</dt>
+<dd content="1" datatype="xsd:nonNegativeInteger" property="owl:maxCardinality">Yes</dd>
+<dt>See also</dt>
+<dd><a href="https://w3id.org/fep/8a8e/EventCancelled" property="rdfs:seeAlso">EventCancelled</a> | <a href="https://w3id.org/fep/8a8e/EventScheduled" property="rdfs:seeAlso">EventScheduled</a> | <a href="https://w3id.org/fep/8a8e/EventTentative" property="rdfs:seeAlso">EventTentative</a> | <a href="https://w3id.org/fep/8a8e/EventMovedOnline" property="rdfs:seeAlso">EventMovedOnline</a> | <a href="https://w3id.org/fep/8a8e/EventPostponed" property="rdfs:seeAlso">EventPostponed</a> | <a href="https://w3id.org/fep/8a8e/EventRescheduled" property="rdfs:seeAlso">EventRescheduled</a></dd>
+<dt>Is defined by</dt>
+<dd><a href="https://w3id.org/fep/8a8e" property="rdfs:isDefinedBy">FEP-8a8e</a></dd>
+</dl>
+<pre title="Example of a forward chronological OrderedCollection with additional context">
+<code>
+{
+  "@context": [
+    "https://w3id.org/fep/8a8e"
+    "https://www.w3.org/ns/activitystreams",
+  ],
+  "id": "https://domain.example/events/0",
+  "type": "Event",
+  "eventStatus": "eventScheduled",
+}
+</code>
+</pre>
+</section>
+</body>
+</html>

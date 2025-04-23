@@ -1,0 +1,8 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://w3id.org/fep/8a8e/timezone> a owl:ObjectProperty ;
+	rdfs:label "The timezone of an Event"@en ;
+	rdfs:comment "Indicates the timezone for which the time(s) indicated in the event are given. The value provided should be among those listed in the IANA Time Zone Database."@en ;
+	rdfs:isDefinedBy <https://w3id.org/fep/8a8e> ;
+	rdfs:range rdfs:Literal .

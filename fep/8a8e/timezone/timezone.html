@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>timezone</title>
+</head>
+<body>
+<section id="timezone" resource="https://w3id.org/fep/8a8e/timezone" typeof="owl:ObjectProperty">
+<h1>timezone</h1>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/8a8e/timezone</code></dd>
+<dt>Label</dt>
+<dd lang="en" property="rdfs:label">The timezone of an Event</dd>
+<dt>Comment</dt>
+<dd lang="en" property="rdfs:comment">Indicates the timezone for which the time(s) indicated in the event are given. The value provided should be among those listed in the IANA Time Zone Database.</dd>
+<dt>Is defined by</dt>
+<dd><a href="https://w3id.org/fep/8a8e" property="rdfs:isDefinedBy">FEP-8a8e</a></dd>
+<dt>Range</dt>
+<dd property="rdfs:range" resource="rdfs:Literal">IANA Time Zone identifier</dd>
+<dt>Required</dt>
+<dd>No</dd>
+<dt>Functional</dt>
+<dd>No</dd>
+</dl>
+<pre lang="json" title="Example usage of timezone">
+    <code>
+    {
+      "@context": [
+        "https://w3id.org/fep/8a8e",
+        "https://www.w3.org/ns/activitystreams"
+      ]
+      "type": "Event",
+      "id": "https://example.org/events/new-years-party",
+      "name": "New years party",
+      "startTime": "2014-12-31T23:00:00Z",
+      "endTime": "2015-01-01T06:00:00Z",
+      "timezone": "Europe/Vienna",
+      "organizers": null,
+    }
+    </code>
+  </pre>
+</section>
+</body>
+</html>

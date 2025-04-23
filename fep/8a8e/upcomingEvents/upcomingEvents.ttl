@@ -1,0 +1,9 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://w3id.org/fep/8a8e/upcomingEvents> a owl:ObjectProperty ;
+	rdfs:label "Ordered collection of upcoming Events"@en ;
+	rdfs:comment "An ActivityStreams OrderedCollection of Event objects that have a startTime property in the future, sorted by startTime with the earliest first."@en ;
+	rdfs:isDefinedBy <https://w3id.org/fep/8a8e> ;
+	rdfs:range as:OrderedCollection .

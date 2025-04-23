@@ -1,0 +1,8 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://w3id.org/fep/8a8e/organizers> a owl:ObjectProperty ;
+	rdfs:label "Organizers Collection"@en ;
+	rdfs:comment "An ActivityStreams Collection collection that lists the entities that are disclosed to as organizers of an event. If set to null this explicitly indicates a deliberate choice to withhold organizer information."@en ;
+	rdfs:isDefinedBy <https://w3id.org/fep/8a8e> ;
+	rdfs:range <https://w3id.org/fep/8a8e/OrganizersCollection> .

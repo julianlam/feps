@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>OrganizersCollection</title>
+</head>
+<body>
+<section id="OrganizersCollection" resource="https://w3id.org/fep/8a8e/OrganizersCollection" typeof="rdfs:Class">
+<h1>OrganizersCollection</h1>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/8a8e/OrganizersCollection</code></dd>
+<dt>Label</dt>
+<dd lang="en" property="rdfs:label">An Event's Organizer Collection</dd>
+<dt>Comment</dt>
+<dd lang="en" property="rdfs:comment">Inherits all properties from <code><a href="https://www.w3.org/ns/activitystreams#Collection">https://www.w3.org/ns/activitystreams#Collection</a></code> with the addition that the <code>items</code> may also include <code>https://schema.org/Person</code> or <code>https://schema.org/Organization</code>.</dd>
+<dt>Subclass of</dt>
+<dd><a href="https://www.w3.org/ns/activitystreams#Collection" property="rdfs:subClassOf">Object</a></dd>
+<dt>See also</dt>
+<dd><a href="https://w3id.org/fep/8a8e/organizers" property="rdfs:seeAlso">organizers</a></dd>
+<dt>Is defined by</dt>
+<dd><a href="https://w3id.org/fep/8a8e" property="rdfs:isDefinedBy">FEP-8a8e</a></dd>
+</dl>
+<pre lang="json" title="Example of an OrganizersCollection with different items">
+    <code>
+    {
+      "@context": [
+        "https://w3id.org/fep/8a8e",
+        "https://www.w3.org/ns/activitystreams",
+        {
+          "sc": "http://schema.org#",
+        }
+      ],
+      "type": "OrganizersCollection",
+      "items": [
+        { "type": "Group", "name": "ActivityPub Group Actor", "id": "https://example.org/actors/group1"},
+        { "type": "Link", "href": "https://organizer1.example.org"},
+        { "type": "sc:Person", "name": "Alice" },
+        { "type": "Organization", "name": "Event Co." }
+      ]
+    }
+    </code>
+  </pre>
+</section>
+</body>
+</html>

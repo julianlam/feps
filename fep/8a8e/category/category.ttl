@@ -1,0 +1,12 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/fep/8a8e/category> a owl:DatatypeProperty ;
+	rdfs:label "The category of an Event"@en ;
+	rdfs:comment """Recommended event categories include: ARTS, AUTO_BOAT_AIR, BOOK_CLUBS, BUSINESS, CAUSES, CLIMATE_ENVIRONMENT, COMMUNITY, COMEDY, CRAFTS, CREATIVE_JAM, DIY_MAKER_SPACES, FAMILY_EDUCATION, FASHION_BEAUTY, FESTIVALS, FILM_MEDIA, FOOD_DRINK, GAMES, INCLUSIVE_SPACES, LANGUAGE_CULTURE, LEARNING, LGBTQ, MEETING, MEDITATION_WELLBEING, MOVEMENTS_POLITICS, MUSIC, NETWORKING, OUTDOORS_ADVENTURE, PARTY, PERFORMING_VISUAL_ARTS, PETS, PHOTOGRAPHY, SCIENCE_TECH, SPIRITUALITY_RELIGION_BELIEFS, SPORTS, THEATRE, WORKSHOPS_SKILL_SHARING
+"""@en ;
+	rdfs:domain as:Event ;
+	rdfs:isDefinedBy <https://w3id.org/fep/8a8e> ;
+	rdfs:range xsd:string .

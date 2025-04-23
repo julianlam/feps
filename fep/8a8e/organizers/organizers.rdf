@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/organizers">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">Organizers Collection</rdfs:label>
+    <rdfs:comment xml:lang="en">An ActivityStreams Collection collection that lists the entities that are disclosed to as organizers of an event. If set to null this explicitly indicates a deliberate choice to withhold organizer information.</rdfs:comment>
+    <rdfs:range rdf:resource="https://w3id.org/fep/8a8e/OrganizersCollection"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+  </rdf:Description>
+</rdf:RDF>

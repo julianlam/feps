@@ -1,0 +1,13 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/fep/8a8e/isBannerImage> a owl:DatatypeProperty ;
+	rdfs:label "Image is a banner image"@en ;
+	rdfs:comment """
+      Whether an image is an (events) banner image.
+    """@en ;
+	rdfs:domain as:Image ;
+	rdfs:isDefinedBy <https://w3id.org/fep/8a8e> ;
+	rdfs:range xsd:boolean .

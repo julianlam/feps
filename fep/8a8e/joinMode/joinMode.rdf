@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/joinMode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="en">Join mode</rdfs:label>
+    <rdfs:comment xml:lang="en">
+      Indicator of how new members may be able to join an event.
+      Accepted values: free, restricted, external, none, invite.
+      If external, you must also set externalParticipationUrl.
+    </rdfs:comment>
+    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e/"/>
+  </rdf:Description>
+</rdf:RDF>

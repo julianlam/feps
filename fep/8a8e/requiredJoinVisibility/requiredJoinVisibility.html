@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>requiredJoinVisibility</title>
+</head>
+<body>
+<section id="requiredJoinVisibility" resource="https://w3id.org/fep/8a8e/requiredJoinVisibility" typeof="owl:ObjectProperty">
+<h1>requiredJoinVisibility</h1>
+<dl>
+<dt>Label</dt>
+<dd lang="en" property="rdfs:label">Required Join Visibility</dd>
+<dt>Comment</dt>
+<dd lang="en" property="rdfs:comment">
+      Specifies the minimum audience that must be addressed in a valid <code>Join</code> activity related to the event. This can include individual actors, groups, the <code>as:Public</code> collection, or any other URI. The <code>Join</code> activity must be addressed accordingly (e.g., using <code>to</code>, <code>cc</code>, <code>bto</code>, or <code>audience</code>).
+    </dd>
+<dt>Domain</dt>
+<dd property="rdfs:domain"><a href="https://www.w3.org/ns/activitystreams#Event">as:Event</a></dd>
+<dt>Range</dt>
+<dd property="rdfs:range" resource="xsd:anyURI"> A list of any addressed targets, i.e. URIs (@list)</dd>
+<dt>Is defined by</dt>
+<dd><a href="https://w3id.org/fep/8a8e" property="rdfs:isDefinedBy">FEP-8a8e</a></dd>
+</dl>
+<pre lang="json" title="Example usage of requiredJoinVisibility">
+<code>{
+   "@context": [
+    "https://schema.org",
+    "https://https://w3id.org/fep/8a8e",
+    "https://www.w3.org/ns/activitystreams"
+  ],
+  "type": "Event",
+  "id": "https://example.org/yoga-workshop",
+  "name": "Yoga Workshop with Alice and Bob",
+  "startTime": "2014-12-12T18:00:00-08:00",
+  "endTime": "2014-12-12T19:30:00-08:00",
+  "attributedTo": "https://example.org/groups/fediyoga",
+  "organizers": {
+    "type": "OrganizersCollection",
+    "id": "https://example.org/yoga-workshop/organizers",
+    "totalItems": 3,
+    "first": {
+      "type": "CollectionPage",
+      "partOf": "https://example.org/yoga-workshop/organizers",
+      "items": [
+        "https://example.org/users/bob",
+        "https://example.org/users/alice",
+        "https://example.org/groups/fediyoga"
+      ]
+    },
+  "joinMode": "restricted",
+  "requiredJoinVisibility": [
+    "https://example.org/yoga-with-alice/organizers"
+  ]
+}</code>
+  </pre>
+</section>
+</body>
+</html>

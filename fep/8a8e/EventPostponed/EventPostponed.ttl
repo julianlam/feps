@@ -1,0 +1,8 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://w3id.org/fep/8a8e/EventPostponed> a rdfs:Class ;
+	rdfs:label "The event has been postponed."@en ;
+	rdfs:comment "The event has been postponed and no new date has been set. The event's previousStartTime should be set."@en ;
+	rdfs:isDefinedBy <https://w3id.org/fep/8a8e> ;
+	rdfs:seeAlso <https://w3id.org/fep/8a8e/eventStatus> ;
+	rdfs:subClassOf <https://w3id.org/fep/8a8e/EventStatusType> .

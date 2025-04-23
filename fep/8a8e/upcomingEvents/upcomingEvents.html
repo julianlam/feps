@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>upcomingEvents</title>
+</head>
+<body>
+<section id="upcomingEvents" resource="https://w3id.org/fep/8a8e/upcomingEvents" typeof="owl:ObjectProperty">
+<h1>upcomingEvents</h1>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/8a8e/upcomingEvents</code></dd>
+<dt>Label</dt>
+<dd lang="en" property="rdfs:label">Ordered collection of upcoming Events</dd>
+<dt>Comment</dt>
+<dd lang="en" property="rdfs:comment">An ActivityStreams OrderedCollection of Event objects that have a startTime property in the future, sorted by startTime with the earliest first.</dd>
+<dt>Range</dt>
+<dd property="rdfs:range" resource="as:OrderedCollection">An OrderedCollection (@id)</dd>
+<dt>Is defined by</dt>
+<dd><a href="https://w3id.org/fep/8a8e" property="rdfs:isDefinedBy">FEP-8a8e</a></dd>
+</dl>
+<pre lang="json" title="Example usage of upcomingEvents">
+    <code>
+    {
+      "@context": [
+        "https://w3id.org/fep/8a8e",
+        "https://www.w3.org/ns/activitystreams"
+      ],
+      "@type": "Actor",
+      "upcomingEvents": {
+        "type": "Collection",
+        "items": [
+          { "type": "Event", "startTime": "2025-06-01T12:00:00Z" },
+          { "type": "Event", "startTime": "2025-07-15T15:30:00Z" }
+        ]
+      }
+    }
+    </code>
+  </pre>
+</section>
+</body>
+</html>

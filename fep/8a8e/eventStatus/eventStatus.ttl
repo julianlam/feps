@@ -1,0 +1,20 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/fep/8a8e/eventStatus> a rdf:Property ;
+	rdfs:label "The events status is"@en ;
+	rdfs:comment "An eventStatus of an event represents its status; particularly useful when an event is cancelled or rescheduled."@en ;
+	rdfs:domain as:Event ;
+	rdfs:isDefinedBy <https://w3id.org/fep/8a8e> ;
+	rdfs:range <https://w3id.org/fep/8a8e/EventStatusType> ;
+	rdfs:seeAlso <https://w3id.org/fep/8a8e/EventCancelled>,
+		<https://w3id.org/fep/8a8e/EventMovedOnline>,
+		<https://w3id.org/fep/8a8e/EventPostponed>,
+		<https://w3id.org/fep/8a8e/EventRescheduled>,
+		<https://w3id.org/fep/8a8e/EventScheduled>,
+		<https://w3id.org/fep/8a8e/EventTentative> ;
+	owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:minCardinality "0"^^xsd:nonNegativeInteger .

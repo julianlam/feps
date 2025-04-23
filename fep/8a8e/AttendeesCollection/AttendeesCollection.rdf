@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/AttendeesCollection">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:label xml:lang="en">A Collection of the Event's attendees</rdfs:label>
+    <rdfs:comment xml:lang="en">
+      Inherits all properties from https://www.w3.org/ns/activitystreams#Collection with the addition that the items may also include https://schema.org/Person or https://schema.org/Organization.
+      The items of the AttendeesCollection are entities that are confirmed attendees by an Events organizer(s). It contains all ActivityPub actors that meet one or more of the following conditions, added as a side effect.
+      
+The actor has sent a Join activity with this object as the object property that has been answered with an Accept.
+The actor has responded to an Invite activity from the Event's owner (where the Event is specified as the object property) with an Accept activity.
+
+      The items MAY be filtered on privileges of an authenticated user or as appropriate when no authentication is given. This collection *SHOULD* have the totalItems set in any case.
+    </rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://www.w3.org/ns/activitystreams#OrderedCollection"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/attendees"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+  </rdf:Description>
+</rdf:RDF>

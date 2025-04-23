@@ -1,0 +1,15 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/fep/8a8e/joinMode> a owl:ObjectProperty ;
+	rdfs:label "Join mode"@en ;
+	rdfs:comment """
+      Indicator of how new members may be able to join an event.
+      Accepted values: free, restricted, external, none, invite.
+      If external, you must also set externalParticipationUrl.
+    """@en ;
+	rdfs:domain as:Event ;
+	rdfs:isDefinedBy <https://w3id.org/fep/8a8e/> ;
+	rdfs:range xsd:string .

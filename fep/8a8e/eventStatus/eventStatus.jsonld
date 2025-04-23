@@ -1,0 +1,67 @@
+[
+  {
+    "@id": "https://w3id.org/fep/8a8e/eventStatus",
+    "@type": [
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "An eventStatus of an event represents its status; particularly useful when an event is cancelled or rescheduled."
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://www.w3.org/ns/activitystreams#Event"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "https://w3id.org/fep/8a8e"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "The events status is"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "https://w3id.org/fep/8a8e/EventStatusType"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#seeAlso": [
+      {
+        "@id": "https://w3id.org/fep/8a8e/EventCancelled"
+      },
+      {
+        "@id": "https://w3id.org/fep/8a8e/EventScheduled"
+      },
+      {
+        "@id": "https://w3id.org/fep/8a8e/EventTentative"
+      },
+      {
+        "@id": "https://w3id.org/fep/8a8e/EventMovedOnline"
+      },
+      {
+        "@id": "https://w3id.org/fep/8a8e/EventPostponed"
+      },
+      {
+        "@id": "https://w3id.org/fep/8a8e/EventRescheduled"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#maxCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "1"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#minCardinality": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger",
+        "@value": "0"
+      }
+    ]
+  }
+]

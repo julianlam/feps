@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AttendeesCollection</title>
+</head>
+<body>
+<section id="AttendeesCollection" resource="https://w3id.org/fep/8a8e/AttendeesCollection" typeof="rdfs:Class">
+<h1>AttendeesCollection</h1>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/8a8e/AttendeesCollection</code></dd>
+<dt>Label</dt>
+<dd lang="en" property="rdfs:label">A Collection of the Event's attendees</dd>
+<dt>Comment</dt>
+<dd lang="en" property="rdfs:comment">
+      Inherits all properties from <code><a href="https://www.w3.org/ns/activitystreams#Collection">https://www.w3.org/ns/activitystreams#Collection</a></code> with the addition that the <code>items</code> may also include <code>https://schema.org/Person</code> or <code>https://schema.org/Organization</code>.
+      The items of the <code>AttendeesCollection</code> are entities that are confirmed attendees by an Events organizer(s). It contains all ActivityPub actors that meet one or more of the following conditions, added as a side effect.
+      <ul>
+<li>The actor has sent a Join activity with this object as the object property that has been answered with an Accept.</li>
+<li>The actor has responded to an Invite activity from the Event's owner (where the Event is specified as the object property) with an Accept activity.</li>
+</ul>
+      The items MAY be filtered on privileges of an authenticated user or as appropriate when no authentication is given. This collection *SHOULD* have the totalItems set in any case.
+    </dd>
+<dt>Subclass of</dt>
+<dd><a href="https://www.w3.org/ns/activitystreams#OrderedCollection" property="rdfs:subClassOf">Object</a></dd>
+<dt>See also</dt>
+<dd><a href="https://w3id.org/fep/8a8e/attendees" property="rdfs:seeAlso">attendees</a></dd>
+<dt>Is defined by</dt>
+<dd><a href="https://w3id.org/fep/8a8e" property="rdfs:isDefinedBy">FEP-8a8e</a></dd>
+</dl>
+<pre lang="json" title="Example of an AttendeesCollection with different items">
+    <code>
+    {
+      "@context": [
+        "https://w3id.org/fep/8a8e",
+        "https://www.w3.org/ns/activitystreams",
+        {
+          "sc": "https://schema.org#"
+        }
+      ]
+      "type": "AttendeesCollection",
+      "totalItems": 2,
+      "context": "https://example.org/events/alice-birthday-party"
+      "items": [
+        { "type": "Person", "name": "Bob", "id": "https://example.org/actors/bob"},
+        { "type": "sc:Person", "name": "Alice", "email": "alice@example.org"},
+      ]
+    }
+    </code>
+  </pre>
+</section>
+</body>
+</html>

@@ -1,0 +1,35 @@
+[
+  {
+    "@id": "https://w3id.org/fep/8a8e/category",
+    "@type": [
+      "http://www.w3.org/2002/07/owl#DatatypeProperty"
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#comment": [
+      {
+        "@language": "en",
+        "@value": "Recommended event categories include: ARTS, AUTO_BOAT_AIR, BOOK_CLUBS, BUSINESS, CAUSES, CLIMATE_ENVIRONMENT, COMMUNITY, COMEDY, CRAFTS, CREATIVE_JAM, DIY_MAKER_SPACES, FAMILY_EDUCATION, FASHION_BEAUTY, FESTIVALS, FILM_MEDIA, FOOD_DRINK, GAMES, INCLUSIVE_SPACES, LANGUAGE_CULTURE, LEARNING, LGBTQ, MEETING, MEDITATION_WELLBEING, MOVEMENTS_POLITICS, MUSIC, NETWORKING, OUTDOORS_ADVENTURE, PARTY, PERFORMING_VISUAL_ARTS, PETS, PHOTOGRAPHY, SCIENCE_TECH, SPIRITUALITY_RELIGION_BELIEFS, SPORTS, THEATRE, WORKSHOPS_SKILL_SHARING\n"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#domain": [
+      {
+        "@id": "https://www.w3.org/ns/activitystreams#Event"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#isDefinedBy": [
+      {
+        "@id": "https://w3id.org/fep/8a8e"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#label": [
+      {
+        "@language": "en",
+        "@value": "The category of an Event"
+      }
+    ],
+    "http://www.w3.org/2000/01/rdf-schema#range": [
+      {
+        "@id": "http://www.w3.org/2001/XMLSchema#string"
+      }
+    ]
+  }
+]

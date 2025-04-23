@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/eventStatus">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+    <rdfs:label xml:lang="en">The events status is</rdfs:label>
+    <rdfs:comment xml:lang="en">An eventStatus of an event represents its status; particularly useful when an event is cancelled or rescheduled.</rdfs:comment>
+    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
+    <rdfs:range rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
+    <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+    <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventCancelled"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventScheduled"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventTentative"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventMovedOnline"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventPostponed"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventRescheduled"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+  </rdf:Description>
+</rdf:RDF>
