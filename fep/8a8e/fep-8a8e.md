@@ -2,8 +2,9 @@
 slug: "8a8e"
 authors: André Menrath <andre.menrath@posteo.de>, les <lesion@autistici.org>
 status: DRAFT
-dateReceived: 2025-04-23
 discussionsTo: https://socialhub.activitypub.rocks/t/events-interoperability-validation-minimum-requirements-common-extensions/3849/
+dateReceived: 2025-04-23
+trackingIssue: https://codeberg.org/fediverse/fep/issues/565
 ---
 # FEP-8a8e: A common approach to using the Event object type
 
