@@ -15,7 +15,7 @@ discussionsTo: https://forum.example/topics/xxxx
 
 ## References
 
-- Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
+- Christine Lemmer-Webber, Jessica Tallon, Erin Shepherd, Amy Guy, Evan Prodromou, [ActivityPub], 2018
 - Alyssa P. Hacker, [An example proposal][ABC], 2020
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
