@@ -25,7 +25,7 @@ Developing a comprehensive [ActivityPub] security framework based on the concept
 
 >... The receiving server MUST take care to be sure that the Update is authorized to modify its object. At minimum, this may be done by ensuring that the Update and its object are of same origin.
 
-Implementations often rely on origin and ownership checks for determining the validity of activities and objects, but exact requirements are not documented and can be easily overlooked, leading to vulnerabilities such as [GHSA-3fjr-858r-92rw](https://github.com/mastodon/mastodon/security/advisories/GHSA-3fjr-858r-92rw).
+Implementations often rely on origin and ownership checks for determining the validity of activities and objects, but exact requirements are not documented and can be easily overlooked, leading to vulnerabilities such as [GHSA-3fjr-858r-92rw].
 
 This proposal attempts to formalize existing practices and provide guidance for implementers.
 
@@ -39,7 +39,15 @@ Object identifiers can be grouped together into protection domains called "origi
 
 The same-origin policy determines when a relationship between objects can be trusted. Different origins are considered potentially hostile and are isolated from each other to varying degrees.
 
+## Assumptions
+
 Origin-based security model is supposed to be used when object identifiers are HTTP(S) URIs and actors are managed by servers. The model can also be used with other kinds of identifiers, but that is not covered in this document.
+
+Servers MUST NOT store invalid objects received from clients. Special attention needs to be paid to media uploads, because malicious actors might attempt to bypass validation by uploading ActivityPub documents as media (see [GHSA-jhrq-qvrm-qr36] for more information).
+
+Servers MUST NOT allow clients to create objects representing public keys (including such objects embedded within actors and other objects).
+
+Servers MUST NOT share secret keys with clients.
 
 ## Authentication
 
@@ -47,7 +55,7 @@ Authentication is the process of verifying the origin of an object.
 
 ActivityPub object is considered authentic if any of the following conditions are met:
 
-1. It was fetched from the location (the last URL in the chain of redirects) that has the same origin as its ID.
+1. It was fetched by its ID from the location (the last URL in the chain of redirects) that has the same origin as its ID.
 2. It was delivered to inbox and the request contained a valid [HTTP signature][HttpSig] created using a key whose ID has the same origin as the object ID.
 3. It contains a valid [FEP-8b32] integrity proof created using a key whose ID has the same origin as the object ID.
 4. If it is embedded within another object, and its ID has the same origin as containing object ID.
@@ -55,8 +63,6 @@ ActivityPub object is considered authentic if any of the following conditions ar
 If none of these conditions are met, the object MUST be discarded.
 
 Consumers SHOULD attempt to fetch the object by its ID if other authentication methods are not available.
-
-Servers MUST NOT share secret keys with clients.
 
 >[!NOTE]
 >In some cases, consumers can process unauthenticated objects if the risk is deemed acceptable.
@@ -71,25 +77,22 @@ Authorization is the process of verifying permission to [create, read, update or
 
 ### Ownership
 
-Ownership is indicated by a property of an ActivityPub object. The name of this property differs depending on the object type:
+Ownership is indicated by a property of an ActivityPub object. The name of this property differs depending on the object class:
 
-- Owner of an actor is indicated by its `id` property.
+- The owner of an actor is indicated by its `id` property.
 - Activities have an `actor` property, which describes the actor that performed the activity. This actor is considered to be the owner of the activity.
-- An object (that is, not an actor and not an activity) can have an `attributedTo` property, which describes the actor to which the object is attributed. This actor is considered to be the owner of the object.
 - Public keys and verification methods have `owner` and `controller` properties.
+- Other kinds of objects might have an `attributedTo` property, which describes the actor to which the object is attributed. This actor is considered to be the owner of the object.
 
 The owner of an object MUST be an actor.
 
 Identifier of an object and identifier of its owner MUST have the same origin.
 
 >[!NOTE]
->This document uses terms "actor", "activity", "collection" and "object" according to the classification given in [FEP-2277].
+>This document uses terms such as "actor" and "activity" in accordance with the object classification given in [FEP-2277].
 
 >[!WARNING]
 >According to [Activity Vocabulary][ActivityVocabulary], `actor` and `attributedTo` properties can contain references to multiple actors. These scenarios are not covered by this document and implementers are expected to determine the appropriate authorization procedures on a case-by-case basis.
-
->[!NOTE]
->In subsequent sections, "objects" and "activities" will be referred to as simply "objects".
 
 ### Create, update and delete
 
@@ -110,7 +113,7 @@ When ownership changes, the new owner ID MUST have the same origin as the old ow
 
 ### Access control
 
-When a protected object is fetched, the `GET` request MUST contain a [HTTP signature][HttpSig] created using a key whose owner SHOULD belong to object's intended audience. If key owner doesn't belong to intended audience, its ID MUST have the same origin as one of the actors in object's intended audience.
+When a protected object is retrieved, the `GET` request MUST contain a [HTTP signature][HttpSig] created using a key whose owner MUST belong to object's intended audience. The same-origin policy is not sufficient in this case because clients might use the [proxyUrl] endpoint to make requests signed with a key controlled by the server.
 
 ### Implicit ownership
 
@@ -142,11 +145,14 @@ Examples:
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [ActivityVocabulary]: https://www.w3.org/TR/activitystreams-vocabulary/
+[GHSA-3fjr-858r-92rw]: https://github.com/mastodon/mastodon/security/advisories/GHSA-3fjr-858r-92rw
+[GHSA-jhrq-qvrm-qr36]: https://github.com/mastodon/mastodon/security/advisories/GHSA-jhrq-qvrm-qr36
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
 [RFC-6454]: https://www.rfc-editor.org/rfc/rfc6454.html
 [FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
 [FEP-2277]: https://codeberg.org/fediverse/fep/src/branch/main/fep/2277/fep-2277.md
 [HttpSig]: https://swicg.github.io/activitypub-http-signature/
+[proxyUrl]: https://www.w3.org/TR/activitypub/#actor-objects
 
 ## Copyright
 
