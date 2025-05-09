@@ -148,11 +148,15 @@ Comments are usually `Note` objects, but can be other types of objects like `Art
 
 This property provides the same functionality as the `comments` property in RSS 2.0.
 
+### `inReplyTo`
+
+If the text is a reply to another ActivityPub object, such as an `Article` or `Note`, the `inReplyTo` property can include a string with the URL of the object being replied to, or a JSON object representing that object.
+
+If the text is a commentary on or review of a particular link on the Web, the `inReplyTo` property can include a `Link` object with a `href` property that is the URL of the linked resource.
+
 ### `attachment`
 
 The [attachment](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-attachment) property provides additional media that is part of the text. This can include images, video, audio, or other media. Consumers can use this property to pre-fetch media for display without needing to load and parse the full `content` property.
-
-If the text is a commentary on or review of a particular link on the Web, the `attachment` property can include a `Link` object with a `href` property that is the URL of the linked resource.
 
 ### `tag`
 
@@ -175,13 +179,9 @@ The [generator](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-generator)
 
 In AS2, the `preview` property provides an abbreviated version of the content of the object. Especially for microblogging applications, the `preview` property is a useful fallback for supporting unrecognized object types like `Article`.
 
-For an article, the `preview` can be a `Note` that gives a well-formatted preview of the article content in its `content` property. For example, the `name`, `summary`, and a link to the `url` would be an appropriate representation.
+For an article, the `preview` can be a `Note` that gives a well-formatted preview of the article content in its `content` property. For example, the `name`, `summary`, and a link to the `url` would be an appropriate representation. Additional navigation to other pages on the originating site, like category links, home page links, and other affordances like "favourite", "like", "bookmark" or other buttons should not be included.
 
 The `content` property of the `preview` should include a minimal set of HTML elements, as described in [ActivityPub Primer HTML](https://www.w3.org/wiki/ActivityPub/Primer/HTML).
-
-The HTML should only include an excerpt or summary of the full article text. Additional navigation to other pages on the originating site, like category links, home page links. Other affordances like "favourite", "like", "bookmark" or other buttons should not be included.
-
-The `preview` property should not include a link to the full article with a "Read more..." link. The consumer should use the `url` property of the `Article` to link to the full article.
 
 Metadata on the `Article` that applies equally to the preview, such as `attributedTo`, `published`, `updated`, and `tag` can be repeated in the `preview` property. The consumer should fall back to the `Article` properties if they are not present in the `preview`.
 
