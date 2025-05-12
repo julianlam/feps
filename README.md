@@ -156,6 +156,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-1042: Peer to Peer Fediverse Identities](./fep/1042/fep-1042.md) | `DRAFT` | [#546](https://codeberg.org/fediverse/fep/issues/546) | 2025-04-03 | - |
 | [FEP-4f05: Soft Deletion](./fep/4f05/fep-4f05.md) | `DRAFT` | [#554](https://codeberg.org/fediverse/fep/issues/554) | 2025-04-15 | - |
 | [FEP-8a8e: A common approach to using the Event object type](./fep/8a8e/fep-8a8e.md) | `DRAFT` | [#565](https://codeberg.org/fediverse/fep/issues/565) | 2025-04-23 | - |
+| [FEP-0151: NodeInfo in Fediverse Software (2025 edition)](./fep/0151/fep-0151.md) | `DRAFT` | [#599](https://codeberg.org/fediverse/fep/issues/599) | 2025-05-12 | - |
 
 ## License
 

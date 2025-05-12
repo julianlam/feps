@@ -931,5 +931,15 @@
     "dateReceived": "2025-04-23",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/565",
     "title": "A common approach to using the Event object type"
+  },
+  {
+    "slug": "0151",
+    "authors": "silverpill <@silverpill@mitra.social>",
+    "type": "implementation",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
+    "dateReceived": "2025-05-12",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/599",
+    "title": "NodeInfo in Fediverse Software (2025 edition)"
   }
 ]
