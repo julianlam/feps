@@ -1,8 +1,9 @@
 ---
 slug: "07d7"
 authors: Jennifer Moore <contact@jenniferplusplus.com>
-status: DRAFT
+status: WITHDRAWN
 dateReceived: 2023-09-22
+dateWithdrawn: 2025-04-22
 trackingIssue: https://codeberg.org/fediverse/fep/issues/171
 discussionsTo: https://codeberg.org/fediverse/fep/issues/171
 ---
