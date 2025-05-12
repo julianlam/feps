@@ -37,13 +37,13 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 Object identifiers can be grouped together into protection domains called "origins". This concept is similar to the "web origin" concept described in [RFC-6454], and origins of object IDs are computed by the same algorithm.
 
-The same-origin policy determines when a relationship between objects can be trusted. Different origins are considered potentially hostile and are isolated from each other to varying degrees.
+The same-origin policy determines when a relationship between objects can be trusted. Different origins are considered potentially hostile and are isolated from each other to varying degrees. Actors sharing an origin are assumed to trust each other because all their interactions are mediated by a single piece of software operated by a single person or an organization.
 
 ## Assumptions
 
 Origin-based security model is supposed to be used when object identifiers are HTTP(S) URIs and actors are managed by servers. The model can also be used with other kinds of identifiers, but that is not covered in this document.
 
-Servers MUST NOT store invalid objects received from clients. Special attention needs to be paid to media uploads, because malicious actors might attempt to bypass validation by uploading ActivityPub documents as media (see [GHSA-jhrq-qvrm-qr36] for more information).
+Servers MUST NOT store invalid objects received from clients. This includes any activities representing actions that actors are not authorized to perform. Special attention needs to be paid to media uploads, because malicious actors might attempt to bypass validation by uploading ActivityPub documents as media (see [GHSA-jhrq-qvrm-qr36] for more information).
 
 Servers MUST NOT allow clients to create objects representing public keys (including such objects embedded within actors and other objects).
 
@@ -51,7 +51,7 @@ Servers MUST NOT share secret keys with clients.
 
 ## Authentication
 
-Authentication is the process of verifying the origin of an object.
+Authentication is the process of verifying the origin of an object. It is performed in order to protect an application from [spoofing](https://en.wikipedia.org/wiki/Spoofing_attack) attacks.
 
 ActivityPub object is considered authentic if any of the following conditions are met:
 
@@ -124,9 +124,17 @@ In some cases ownership can be implicit. Examples:
 
 Authorization recommendations provided in this document still apply in such cases.
 
+## Reciprocal claims
+
+When the same-origin policy can not be used, a trusted relationship between objects can be established with reciprocal claims. Claims are considered reciprocal when one object specifies a claim that is accompanied by a reverse claim specified in another object.
+
+Example:
+
+- Any activity performed by an actor can be verified by retrieving it from the actor's outbox.
+
 ## Cross-origin relationships
 
-Relationships between objects with different origins are also possible. In that case, the same-origin policy can be bypassed, but the relationship MUST be confirmed by both origins.
+Relationships between objects with different origins are possible, but they MUST be confirmed with reciprocal claims made by both origins. In that case, the same-origin policy can be bypassed.
 
 Examples:
 
@@ -136,7 +144,7 @@ Examples:
 
 ## References
 
-- Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
+- Christine Lemmer-Webber, Jessica Tallon, Erin Shepherd, Amy Guy, Evan Prodromou, [ActivityPub], 2018
 - James M Snell, Evan Prodromou, [Activity Vocabulary][ActivityVocabulary], 2017
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
 - A. Barth, [The Web Origin Concept][RFC-6454], 2011
