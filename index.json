@@ -941,5 +941,14 @@
     "dateReceived": "2025-05-12",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/599",
     "title": "NodeInfo in Fediverse Software (2025 edition)"
+  },
+  {
+    "slug": "82f6",
+    "authors": "Gregory Klyushnikov <activitypub@grishka.me>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-82f6-actor-statuses/5310",
+    "dateReceived": "2025-05-12",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/600",
+    "title": "Actor statuses"
   }
 ]

@@ -2,8 +2,9 @@
 slug: "82f6"
 authors: Gregory Klyushnikov <activitypub@grishka.me>
 status: DRAFT
-dateReceived: 1970-01-01
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-82f6-actor-statuses/5310
+dateReceived: 2025-05-12
+trackingIssue: https://codeberg.org/fediverse/fep/issues/600
 ---
 # FEP-82f6: Actor statuses
 
