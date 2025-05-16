@@ -77,6 +77,7 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Forte](https://codeberg.org/fortified/forte/src/branch/dev/FEDERATION.md)
 - [NeoDB](https://github.com/neodb-social/neodb/blob/main/FEDERATION.md)
 - [FIRM](https://github.com/steve-bate/firm/blob/main/FEDERATION.md)
+- [Vernissage](https://github.com/VernissageApp/VernissageServer/blob/main/FEDERATION.md)
 
 ## References
 
