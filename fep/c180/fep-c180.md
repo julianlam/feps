@@ -78,6 +78,20 @@ The activity refers to an object in one of its properties, such as `object`, `ta
 
 Note that this type is distinct from an endpoint returning a 404 Not Found status code for a GET request for an object that does not exist, or for posting to an endpoint that does not exist.
 
+#### Duplicate delivery
+
+- applicability: inbox, sharedInbox
+- type: https://w3id.org/fep/c180#duplicate-delivery
+- title: Duplicate delivery
+- status: 400 Bad Request
+- additional fields:
+  - id: The `id` of the activity that was previously delivered
+
+The activity has already been delivered to the `inbox` or to all accounts using the `sharedInbox`.
+
+Note that this is different from [Redundant activity](#redundant-activity). Duplicate delivery is when the same activity is delivered multiple times. Redundant activity is when two different activities that
+do the same thing are received.
+
 #### Redundant activity
 
 - applicability: inbox, outbox, sharedInbox, media upload
@@ -90,6 +104,8 @@ Note that this type is distinct from an endpoint returning a 404 Not Found statu
 The activity is a duplicate of a previous activity which has already been processed by the server, and which has not been reverted with an `Undo` activity or with other activities. The `duplicate` property contains the `id` of the previous activity.
 
 Activity types that are often treated as idempotent and can only be processed once include `Create`, `Delete`, `Follow`, `Accept`, `Reject`, `Add`, `Remove`, `Block`, `Undo`, and `Like`. Other activity types like `Announce` are treated as idempotent by some servers.
+
+Note that this is different from [Duplicate delivery](#duplicate-delivery).Redundant activity is when two different activities that do the same thing are received.  Duplicate delivery is when the same activity is delivered multiple times.
 
 #### Approval required
 
