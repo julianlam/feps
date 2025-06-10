@@ -298,10 +298,11 @@
   {
     "slug": "0837",
     "authors": "silverpill <@silverpill@mitra.social>",
+    "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2023-08-17",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/147",
-    "discussionsTo": "https://codeberg.org/fediverse/fep/issues/147",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-0837-federated-marketplace/3501",
     "title": "Federated Marketplace"
   },
   {
