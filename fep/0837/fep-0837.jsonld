@@ -1,0 +1,23 @@
+{
+  "@context": {
+    "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
+    "vf": "https://w3id.org/valueflows/ont/vf#",
+    "Agreement": "vf:Agreement",
+    "Commitment": "vf:Commitment",
+    "Intent": "vf:Intent",
+    "Proposal": "vf:Proposal",
+    "action": "vf:action",
+    "availableQuantity": "vf:availableQuantity",
+    "hasUnit": "om2:hasUnit",
+    "hasNumericalValue": "om2:hasNumericalValue",
+    "purpose": "vf:purpose",
+    "publishes": "vf:publishes",
+    "reciprocal": "vf:reciprocal",
+    "resourceConformsTo": "vf:resourceConformsTo",
+    "resourceQuantity": "vf:resourceQuantity",
+    "satisfies": "vf:satisfies",
+    "stipulates": "vf:stipulates",
+    "stipulatesReciprocal": "vf:stipulatesReciprocal",
+    "unitBased": "vf:unitBased"
+  }
+}
