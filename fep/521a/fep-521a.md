@@ -32,8 +32,6 @@ Each public key MUST be represented as an object with `Multikey` type, as define
 - `controller`: the value of this property MUST match actor ID.
 - `publicKeyMultibase`: a [Multibase] encoded value of a [Multicodec] prefix and the public key. Implementations MUST use the `base-58-btc` alphabet.
 
-The `Multikey` object MAY contain the `expires` property indicating the expiration date of the key. Implementations MUST NOT not accept a signature created with a key that has expired.
-
 ### Key IDs
 
 Key identifiers MUST be absolute [URIs][RFC-3986].
