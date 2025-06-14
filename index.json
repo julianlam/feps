@@ -952,5 +952,15 @@
     "dateReceived": "2025-05-12",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/600",
     "title": "Actor statuses"
+  },
+  {
+    "slug": "844e",
+    "authors": "silverpill <@silverpill@mitra.social>",
+    "type": "implementation",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
+    "dateReceived": "2025-06-14",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/624",
+    "title": "Capability discovery"
   }
 ]

@@ -3,8 +3,9 @@ slug: "844e"
 authors: silverpill <@silverpill@mitra.social>
 type: implementation
 status: DRAFT
-dateReceived: 2025-06-14
 discussionsTo: https://codeberg.org/silverpill/feps/issues
+dateReceived: 2025-06-14
+trackingIssue: https://codeberg.org/fediverse/fep/issues/624
 ---
 # FEP-844e: Capability discovery
 
