@@ -1,8 +1,9 @@
 ---
 slug: "5bf0"
 authors: Michael Puckett <michael@puckett.contact>
-status: DRAFT
+status: WITHDRAWN
 dateReceived: 2023-04-10
+dateWithdrawn: 2025-06-14
 trackingIssue: https://codeberg.org/fediverse/fep/issues/80
 discussionsTo: https://codeberg.org/fediverse/fep/issues/80
 ---
