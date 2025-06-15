@@ -86,7 +86,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-4ccd: Pending Followers Collection and Pending Following Collection](./fep/4ccd/fep-4ccd.md) | `DRAFT` | [#129](https://codeberg.org/fediverse/fep/issues/129) | 2023-06-21 | - |
 | [FEP-d36d: Sharing Content Across Federated Forums](./fep/d36d/fep-d36d.md) | `DRAFT` | [#125](https://codeberg.org/fediverse/fep/issues/125) | 2023-07-01 | - |
 | [FEP-1970: Chat Links](./fep/1970/fep-1970.md) | `DRAFT` | [#128](https://codeberg.org/fediverse/fep/issues/128) | 2023-07-04 | - |
-| [FEP-521a: Representing actor's public keys](./fep/521a/fep-521a.md) | `DRAFT` | [#130](https://codeberg.org/fediverse/fep/issues/130) | 2023-07-08 | - |
+| [FEP-521a: Representing actor's public keys](./fep/521a/fep-521a.md) | `FINAL` | [#130](https://codeberg.org/fediverse/fep/issues/130) | 2023-07-08 | 2025-06-14 |
 | [FEP-ae97: Client-side activity signing](./fep/ae97/fep-ae97.md) | `DRAFT` | [#148](https://codeberg.org/fediverse/fep/issues/148) | 2023-08-14 | - |
 | [FEP-0837: Federated Marketplace](./fep/0837/fep-0837.md) | `DRAFT` | [#147](https://codeberg.org/fediverse/fep/issues/147) | 2023-08-17 | - |
 | [FEP-67ff: FEDERATION.md](./fep/67ff/fep-67ff.md) | `FINAL` | [#157](https://codeberg.org/fediverse/fep/issues/157) | 2023-09-05 | 2024-09-22 |
