@@ -2,8 +2,9 @@
 slug: "521a"
 authors: silverpill <@silverpill@mitra.social>
 type: implementation
-status: DRAFT
+status: FINAL
 dateReceived: 2023-07-08
+dateFinalized: 2025-06-14
 trackingIssue: https://codeberg.org/fediverse/fep/issues/130
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-521a-representing-actors-public-keys/3380
 ---
