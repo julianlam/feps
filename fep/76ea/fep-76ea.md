@@ -26,6 +26,20 @@ This FEP defines an extension property, `thread`, that can be used to identify t
 
 [ActivityPub] is the primary use case for Activity Streams 2.0, but not the only one. Where specific processing requirements of ActivityPub implementations are made, they are specifically noted. General processing hints for other use cases are also provided.
 
+### User stories
+
+These are some user stories for threading in conversations.
+
+1. *As an ActivityPub developer, I want to be able to determine if two objects are part of the same conversation thread, so that I can display them together in a conversation view.* This is possible to do by walking up the `inReplyTo` chain and following the `replies` collections, but it can be slow and inefficient. Comparing a thread identifier found in each object can be much faster.
+2. *As an ActivityPub developer, I want to get the full conversation thread of an object efficiently, so I can show the object in context.* Again, using the `inReplyTo` chain and `replies` collections can be slow and inefficient, especially if the thread is deep or has many objects.
+3. *As an ActivityPub developer, I want to get the most-recently-added objects in a conversation thread, so I can keep my view of the thread up-to-date.* This is hard to do with `inReplyTo` and `replies`, and possibly requires fetching every single `replies` collection in the tree.
+4. *As an ActivityPub developer, I want to be able to identify the original post of a conversation thread, so I can show the thread in context.* This content object is usually treated differently by clients, so it's useful to be able to identify it.
+5. *As a commenter, I want my reply to a content object to be part of the same thread, so I am participating in a larger context.*
+6. *As the original poster, I want to be able to curate the conversation thread, so I can remove spam, off-topic, or abusive content from the thread.* Maintaining a curated thread is an important service that the original poster provides. Curating the `replies` collection is not sufficient, because it only contains direct replies to the object, not the full conversation tree.
+7. *As a user, I want to comment on or about a content object without being part of the conversation thread, so I can discuss it in my own social sphere.* Not all continued conversation should be part of the original reply tree.
+8. *As a user, I want to branch a reply into its own conversation thread, so I can have a separate conversation about a sub-topic.* This is common in forums and other threaded discussion software.
+9. *As a user, I want to graft part of a conversation thread into another thread, so I can consolidate related conversations.* This is common in forums and other threaded discussion software.
+
 ## Context
 
 The context URL for this FEP is `https://purl.archive.org/socialweb/thread`.
@@ -70,7 +84,29 @@ This property gives an easy way for a consumer to find the root post of the thre
 
 Note that `thread` and `root` are partially inverse properties. The `thread` property of the `root` property of a collection SHOULD contain the `id` of the `thread` collection. However, the `root` property of the `thread` property of an object MAY not contain the object's `id`, because the object is in the thread, but is not the root.
 
-## Thread maintenance
+## Behavioral specification
+
+This covers recommended behavior for processors that implement the `thread` property.
+
+### Original posts
+
+When a publisher creates a new content object that is not a reply to any others, it should include a new, unique collection as its `thread` property. The collection should contain only the new object. The thread collection should be addressed to all the same addressees as the original object.
+
+### Replies in the thread
+
+When a publisher is creating a new content object with an `inReplyTo` property, the publisher SHOULD use the `thread` property of the object being replied to as the `thread` property of the new object. The addressees of the new object should include the creator of the original post, identified by the `attributedTo` property of the original post or the `attributedTo` property of the thread collection.
+
+Replies can be created to multiple other objects; the `inReplyTo` property can be an array. The `thread` property can also be an array, with more or fewer values than the `inReplyTo`. Each `thread` property should correspond to the `thread` property of an object in the `inReplyTo` array.
+
+### Branching
+
+To branch a content object into its own conversation thread, the publisher should create an `Announce` activity that includes the new object as the `object` property. The `Announce` activity should have a new, unique `thread` property. The `Announce` activity can include a `content` property.
+
+### Grafting
+
+To graft a content object into a different thread than the ones it is already part of, the publisher should create an `Announce` activity that includes the new object as the `object` property. The `Announce` activity should have the `thread` property of the new thread, and an `inReplyTo` property that matches one of the objects in the thread. The `Announce` activity can include a `content` property.
+
+### Thread maintenance
 
 As with the `replies` property, the processor implementing the original post of a thread SHOULD maintain the `thread` collection by adding new objects to the collection as they are received.
 
@@ -275,6 +311,63 @@ The `root` property can be used to identify the original post of a thread.
   "first": "https://example.com/thread/654/page/23",
   "last": "https://example.com/thread/654/page/1",
   "root": "https://example.com/note/654"
+}
+```
+
+# Example 7
+
+To branch an object to a new conversation, an `Announce` activity is used.
+
+```
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://purl.archive.org/socialweb/thread"
+  ],
+  "id": "https://example.com/announce/123",
+  "to": "as:Public",
+  "type": "Announce",
+  "actor": "https://example.com/user/1",
+  "thread": "https://example.com/thread/123",
+  "content": "I think this note is important and I want to start a separate discussion about it.",
+  "object": {
+    "id": "https://example.com/note/456",
+    "type": "Note",
+    "attributedTo": "https://example.org/user/2",
+    "thread": "https://example.net/thread/789",
+    "inReplyTo": "https://example.net/note/foo",
+    "to": "as:Public",
+    "content": "Trains are great."
+  }
+}
+```
+
+# Example 8
+
+To graft an object to an existing conversation, an `Announce` activity is used.
+
+```
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://purl.archive.org/socialweb/thread"
+  ],
+  "id": "https://example.com/announce/456",
+  "to": "as:Public",
+  "type": "Announce",
+  "actor": "https://example.com/user/1",
+  "thread": "https://social.example/thread/222",
+  "inReplyTo": "https://social.example/note/888",
+  "content": "This comment about trains from another thread seems relevant here.",
+  "object": {
+    "id": "https://example.com/note/456",
+    "type": "Note",
+    "attributedTo": "https://example.org/user/2",
+    "thread": "https://example.net/thread/789",
+    "inReplyTo": "https://example.net/note/foo",
+    "to": "as:Public",
+    "content": "Trains are great."
+  }
 }
 ```
 
