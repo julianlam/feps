@@ -202,6 +202,19 @@ A common representation of quote posts is to include the `object` of the `Announ
 
 For all `Announce` activities, it's important to consider how much of the shared content to expose to the recipient of the `Announce` activity. Using an URL as a reference, or including a limited set of metadata as in the examples in this FEP, allows the publishing server for the shared content to control access to the content. See [Inclusion of the shared object](https://www.w3.org/wiki/ActivityPub/Primer/Announce_activity#Inclusion_of_the_shared_object) in the [ActivityPub Primer][Primer] for more information.
 
+## Privacy considerations
+
+### Consent to be shared
+
+The creator of the quoted content can indicate their consent to be quoted using the `shares` collection. If the creator consents to being quoted, they can add the quote post to the `shares` collection. If they do not consent, they can omit the quote post or remove it.
+
+Servers SHOULD provide affordances to allow creators to add to, and remove from, the `shares` collection. Servers may provide opt-in consent, where `Announce` activities are not added to the `shares` collection unless the original author explicitly adds them. The server MAY provide opt-out consent, where `Announce` activities are added to the `shares` collection automatically on receipt, but can be removed by the original author.
+
+Consumers of quote posts can refer to the `shares` collection at any time to determine if the publisher has expressed consent. Consent may be extended or withdrawn at any time.
+
+Consumers SHOULD indicate if the original author has consented to the quote post, and MAY obscure or hide quote posts that do not have the original author's consent.
+
+
 ## References
 
 - James Snell, Evan Prodromou, et al. [Activity Streams 2.0][AS2]. W3C Recommendation. 8 May 2018.
