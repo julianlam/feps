@@ -25,13 +25,17 @@ An application can advertise its capabilities using the `implements` property on
 
 This object might not be an actor. The value of `implements` property MUST be an array of `Link` objects, each containing the following properties:
 
-- `href` (REQUIRED): the unique identifier of the implementable feature. The value MUST be an URI.
-- `name` (RECOMMENDED): the short description of the implementable feature.
+- `href` (REQUIRED): the unique identifier of the capability. The value MUST be an URI.
+- `name` (RECOMMENDED): the short description of the capability.
 
 Example:
 
 ```json
 {
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/fep/844e"
+  ],
   "type": "Application",
   "id": "https://social.example/server",
   "implements": [
@@ -51,6 +55,10 @@ Example:
 
 ```json
 {
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/fep/844e"
+  ],
   "id": "https://social.example/actors/1",
   "type": "Person",
   "inbox": "https://social.example/actors/1/inbox",
@@ -77,13 +85,20 @@ The reliance on the mechanism described in this document might increase implemen
 
 Implementers MUST NOT use it in cases where capabilities can be inferred from properties and types of objects.
 
-## Registry of implementable features
+## Registry of software capabilities
 
 (This section is non-normative.)
 
 | Name | Identifier |
 | ---  | ---        |
-| RFC-9421: HTTP Message Signatures     | https://datatracker.ietf.org/doc/html/rfc9421      |
+| RFC-9421: HTTP Message Signatures | https://datatracker.ietf.org/doc/html/rfc9421 |
+| RFC-9421 signatures using the Ed25519 algorithm | https://datatracker.ietf.org/doc/html/rfc9421#name-eddsa-using-curve-edwards25 |
+
+## Implementations
+
+- Streams
+- Forte
+- Mitra
 
 ## References
 
