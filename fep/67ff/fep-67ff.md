@@ -78,6 +78,9 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [NeoDB](https://github.com/neodb-social/neodb/blob/main/FEDERATION.md)
 - [FIRM](https://github.com/steve-bate/firm/blob/main/FEDERATION.md)
 - [Vernissage](https://github.com/VernissageApp/VernissageServer/blob/main/FEDERATION.md)
+- [apkit](https://github.com/fedi-libs/apkit/blob/main/FEDERATION.md)
+- [Tvmarks](https://github.com/stefanhayden/tvmarks/blob/main/FEDERATION.md)
+- [Manyfold](https://github.com/manyfold3d/manyfold/blob/main/FEDERATION.md)
 
 ## References
 
