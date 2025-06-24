@@ -9,7 +9,7 @@ DRAFT_FEP_LABEL = 149758
 
 def create_body(filename: str, date_received: date):
     date1 = date_received.isoformat()
-    date2 = (date_received + timedelta(days=365)).isoformat()
+    date2 = (date_received + timedelta(days=365 * 2)).isoformat()
 
     body = f"""
 The [proposal](https://codeberg.org/fediverse/fep/src/branch/main/{filename}) has been received. Thank you!
@@ -20,7 +20,7 @@ Please post links to relevant discussions as comments to this issue.
 
 `dateReceived`: {date1}
 
-If no further actions are taken, the proposal may be set by the facilitators to `WITHDRAWN` on {date2} (in 1 year).
+If no further actions are taken, the proposal will be set by the facilitators to `WITHDRAWN` on {date2} (in 2 years).
 """
 
     return body

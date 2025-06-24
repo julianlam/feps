@@ -38,6 +38,6 @@ Please post links to relevant discussions as comments to this issue.
 
 `dateReceived`: 2025-02-08
 
-If no further actions are taken, the proposal may be set by the facilitators to `WITHDRAWN` on 2026-02-08 (in 1 year).
+If no further actions are taken, the proposal will be set by the facilitators to `WITHDRAWN` on 2027-02-08 (in 2 years).
 """
     )
