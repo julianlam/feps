@@ -6,9 +6,7 @@ FEP Facilitators ensure that the procedures outlined in [FEP-a4ed: The Fediverse
 
 ## Facilitators
 
-- David Sterry: [@weex](https://socialhub.activitypub.rocks/u/weex/summary) at SocialHub, [@weex@c4.social](https://c4.social/@weex)
-- Anthony Wang: [@dodecahedron](https://socialhub.activitypub.rocks/u/dodecahedron/summary) at SocialHub, [@a@exozy.me](https://social.exozy.me/@a)
-- Pere Lev: [@fr33domlover](https://socialhub.activitypub.rocks/u/fr33domlover/summary) at SocialHub, [@pere@micro.towards.vision](https://micro.towards.vision/@pere)
+- David Sterry: [@weex](https://socialhub.activitypub.rocks/u/weex/summary) at SocialHub, [@weex@fosstodon.org](https://fosstodon.org/@weex)
 - Helge: [@helge](https://socialhub.activitypub.rocks/u/helge/summary) at SocialHub, [@helge@mymath.rocks](https://mymath.rocks/timeline/)
 - silverpill: [@silverpill](https://socialhub.activitypub.rocks/u/silverpill/summary) at SocialHub, [@silverpill@mitra.social](https://mitra.social/@silverpill)
 - a: [@trwnh](https://codeberg.org/trwnh) at Codeberg, [@trwnh](https://socialhub.activitypub.rocks/u/trwnh/summary) at SocialHub, [trwnh.com](https://trwnh.com) on the Web
