@@ -1,0 +1,7 @@
+{
+  "@context": {
+    "poll": "https://w3id.org/fep/b06c#",
+    "pollOnly": "poll:pollOnly",
+    "updateInterval": "poll:updateInterval"
+  }
+}
