@@ -2,8 +2,9 @@
 slug: "b06c"
 authors: Evan Prodromou <evan@socialwebfoundation.org>
 status: DRAFT
-dateReceived: 2025-06-25
 discussionsTo: https://codeberg.org/evanp/fep/issues
+dateReceived: 2025-06-25
+trackingIssue: https://codeberg.org/fediverse/fep/issues/638
 ---
 # FEP-b06c: ActivityPoll
 

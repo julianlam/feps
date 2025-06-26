@@ -159,6 +159,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-0151: NodeInfo in Fediverse Software (2025 edition)](./fep/0151/fep-0151.md) | `DRAFT` | [#599](https://codeberg.org/fediverse/fep/issues/599) | 2025-05-12 | - |
 | [FEP-82f6: Actor statuses](./fep/82f6/fep-82f6.md) | `DRAFT` | [#600](https://codeberg.org/fediverse/fep/issues/600) | 2025-05-12 | - |
 | [FEP-844e: Capability discovery](./fep/844e/fep-844e.md) | `DRAFT` | [#624](https://codeberg.org/fediverse/fep/issues/624) | 2025-06-14 | - |
+| [FEP-b06c: ActivityPoll](./fep/b06c/fep-b06c.md) | `DRAFT` | [#638](https://codeberg.org/fediverse/fep/issues/638) | 2025-06-25 | - |
 
 ## License
 
