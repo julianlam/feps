@@ -179,7 +179,7 @@ The [generator](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-generator)
 
 In AS2, the `preview` property provides an abbreviated version of the content of the object. Especially for microblogging applications, the `preview` property is a useful fallback for supporting unrecognized object types like `Article`.
 
-For an article, the `preview` can be a `Note` that gives a well-formatted preview of the article content in its `content` property. For example, the `name`, `summary`, and a link to the `url` would be an appropriate representation. Additional navigation to other pages on the originating site, like category links, home page links, and other affordances like "favourite", "like", "bookmark" or other buttons should not be included.
+For an article, the `preview` can be a `Note` that gives a well-formatted preview of the article content in its `content` property. For example, the `name` and `summary`. The preview content SHOULD NOT include a link to the HTML representation for the article. Additional navigation to other pages on the originating site, like category links, home page links, and other affordances like "favourite", "like", "bookmark" or other buttons should not be included.
 
 The `content` property of the `preview` should include a minimal set of HTML elements, as described in [ActivityPub Primer HTML](https://www.w3.org/wiki/ActivityPub/Primer/HTML).
 
@@ -366,7 +366,7 @@ This section includes examples of long-form text objects. Note that for brevity,
   "preview": {
     "type": "Note",
     "attributedTo": "https://example.com/evan",
-    "content": "<p><strong>Long-form text with preview</strong></p><p>This is the summary for a long-form text with a preview.</p><p><a href='https://example.com/2025/02/17/long-form-text-preview.html'>Read more</a></p>",
+    "content": "<p><strong>Long-form text with preview</strong></p><p>This is the summary for a long-form text with a preview.</p>",
     "published": "2024-11-07T12:00:00Z",
     "attachment": {
       "type": "Link",
@@ -430,6 +430,13 @@ An example of a long-form text object without a `name` property displayed in a s
 An example of a long-form text object with a `sensitive` property displayed in a social stream with a content warning.
 
 ![Article in stream, sensitive content](content-warning.drawio.svg)
+
+
+### In stream, with preview
+
+An example of a long-form text object with a `preview` property displayed in a social stream. Note that the consumer is responsible for displaying a link to the article's full content.
+
+![Article in stream, with preview](preview.drawio.svg)
 
 ## References
 
