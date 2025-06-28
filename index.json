@@ -450,6 +450,7 @@
   {
     "slug": "61cf",
     "authors": "FenTiger <@FenTiger@zotum.net>",
+    "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2024-02-06",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/263",
