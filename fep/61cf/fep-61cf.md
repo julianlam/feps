@@ -1,12 +1,15 @@
 ---
 slug: "61cf"
 authors: FenTiger <@FenTiger@zotum.net>
+type: implementation
 status: DRAFT
 dateReceived: 2024-02-06
 trackingIssue: https://codeberg.org/fediverse/fep/issues/263
 discussionsTo: https://codeberg.org/fediverse/fep/issues/263
 ---
 # FEP-61cf: The OpenWebAuth Protocol
+
+OpenWebAuth is a federated remote authentication protocol. It can be used alongside protocols such as ActivityPub and Zot to add single sign-on to the Fediverse or to other "social web" projects such as blogs.
 
 ## Summary
 
@@ -74,7 +77,7 @@ The target instance constructs a URL from the redirection endpoint with the foll
 - `owa`: must be set to 1
 - `bdest`: The URL which the browser will be returned to after acquiring a token. This is encoded as UTF-8 and then converted to a hexadecimal string. This is equivalent to the `redirect_uri` in OAuth2. The `bdest` URL can include query parameters.
 
-The user's browser is redirected to this URL. The target instance should check that the URL has the same origin as the webfinger ID, to avoid acting as an open redirector.
+The user's browser is redirected to this URL. The target instance should check that the URL has the same origin as the webfinger ID, to avoid acting as an [open redirector](#open-redirection).
 
 ### 2. Home instance requests a token
 
@@ -82,7 +85,7 @@ The `/magic` endpoint at the user's home instance first checks that the user's b
 
 If so, it decodes the `bdest` destination URL. It performs a webfinger lookup on the root URL of the destination site and looks for a link with `rel` set to `http://purl.org/openwebauth/v1`. This identifies the target instance's "token endpoint".
 
-If an error occurs during this step, the home instance should not redirect to the 'bdest' URL; this would allow it to be used as an open redirector. Instead it should respond with a suitable HTTP error code.
+If an error occurs during this step, the home instance should not redirect to the 'bdest' URL; this would allow it to be used as an [open redirector](#open-redirection). Instead it should respond with a suitable HTTP error code.
 
 On success, the home instance constructs and issues a signed HTTPS request to the discovered token endpoint. The request also contains an additional signed header, `X-Open-Web-Auth`, containing a random string. Target instances do not use this header; it is provided to add additional entropy to the signature calculation.
 
@@ -135,7 +138,7 @@ To support logged in users, the target instance needs some logic to identify the
 
 Some corner cases are possible here. For instance, the user could already be logged in to the target instance when the OWA login flow begins.
 
-When the OpenWebAuth flow succeeds, the `owt=` query parameter will identify the user who is logged in to the home instance. This will be a user from the domain in the original `zid=` parameter, but may not be the exact same user.
+When the OpenWebAuth flow succeeds, the `owt=` token will identify the logged-in user. It is important that the target instance trusts this token rather than the original `zid=` query parameter, to prevent an [impersonation attack](#impersonation-attack).
 
 ### Target instance's token endpoint
 
@@ -147,29 +150,55 @@ The implementation of this endpoint needs to request a login token from the targ
 
 ## Implementations
 
-OpenWebAuth was developed as part of the Hubzilla / Streams family of projects. More recently it has been added to Friendica and proposed for inclusion in Mastodon and PixelFed.
-
-There is a [wiki page](https://hz.eenoog.org/wiki/pascal/Fediverse%2820%29OpenWebAuth%2820%29support/Home) which lists the current implementation status and links to the relevant pull requests.
+- [Hubzilla](https://framagit.org/hubzilla/core)
+- [Streams](https://codeberg.org/streams/streams/)
+- [Forte](https://codeberg.org/fortified/forte)
+- [Friendica](https://github.com/friendica/friendica) (partial)
+- [FedIAM](https://codeberg.org/FenTiger/FedIAM)
 
 ## Security Considerations
+
+### Information leakage
 
 The purpose of OpenWebAuth is to provide a strong guarantee of a user's identity to the web sites that they visit. This is often considered undesirable and consideration should be given to preventing this information from leaking to sites which may not be acting in the user's best interests.
 
 This consideration may involve policies such as displaying a consent screen to the user or otherwise allowing them to choose which target instances they are willing to authenticate themselves to. The user's browser is redirected to their home instance at step 2, giving it an opportunity to implement policies such as these.
 
+### Denial-of-service attack
+
 Unused `owt=` login tokens are deleted after a couple of minutes. This protects against a potential DoS attack which could fill up the target instance's storage with unused tokens.
 
-The `zid=` query parameter may make a [MixUpAttack] easier to launch, as discussed briefly above.
+### Impersonation attack
+
+Suppose Mallory is logged into his home instance as `mallory@example.social`. It is easy for him to manually navigate to a URL on Alice's instance which looks like `https://alice.social/somepage?zid=bob@example.social`. When the OpenWebAuth flow completes, Mallory will return to Alice's instance with an `owt=` token identifying him as `mallory@example.social`. It is important that Alice's instance trusts this `owt=` token. If it mistakenly trusts the original `zid=` parameter, Mallory will be able to impersonate Bob.
+
+### Open redirection
+
+OpenWebAuth involves redirecting the user's browser twice. It is important to verify the relevant URLs to avoid an [OpenRedirectionAttack].
+
+The first redirection sends the user to their home instance's redirection endpoint (often `/magic`). If this endpoint is discovered via webfinger, the target instance should check that its hostname portion matches the hostname in the user's claimed ID.
+
+The second redirection sends the user back to the URL specified in the `bdest` query parameter. This redirection should only take place if
+* the token endpoint discovery step succeeded
+* the discovered token endpoint URL has the same origin as the `bdest` URL
+
+In any other case the home instance's redirection endpoint should return a suitable HTTP error code.
+
+### Mixup attack
+
+The `zid=` query parameter may make a [MixUpAttack] easier to launch, as discussed briefly above. This does not apply to OpenWebAuth but should be considered carefully when trying to generalise the `zid=` mechanism to other authentication protocols.
 
 ## References
 
 - Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
 - Ryan Barrett, nightpool, [ActivityPub and HTTP Signatures][ActPubSig], 2024
-- Karsten Meyer zu Selhausen, [How to Protect Your OAuth Client Against Mix-Up Attacks][MixUpAttack], 2020
+- RFC9700, [Best Current Practice for OAuth 2.0 Security][MixUpAttack], 2025
+- OWASP, [Unvalidated Redirects and Forwards Cheat Sheet][OpenRedirectionAttack]
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [ActPubSig]: https://swicg.github.io/activitypub-http-signature/
-[MixUpAttack]: https://www.hackmanit.de/en/blog-en/132-how-to-protect-your-oauth-client-against-mix-up-attacks
+[MixUpAttack]: https://datatracker.ietf.org/doc/html/rfc9700#name-mix-up-attacks
+[OpenRedirectionAttack]: https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html#dangerous-url-redirects
 
 ## Copyright
 
