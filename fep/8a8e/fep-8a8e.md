@@ -54,13 +54,16 @@ For an `Event` at least the following properties are *REQUIRED*:
 
 ```json
 {
-  "@context": "https://www.w3.org/ns/activitystreams",
+  "@context": [
+    "https://w3id.org/fep/8a8e",
+    "https://www.w3.org/ns/activitystreams"
+  ],
   "type": "Event",
   "id": "https://example.org/foo",
   "name": "New years party",
   "startTime": "2014-12-31T23:00:00Z",
   "endTime": "2015-01-01T06:00:00Z",
-  "organizers": null,
+  "organizers": null
 }
 ```
 
@@ -101,10 +104,8 @@ In case the `https://w3id.org/fep/8a8e/timezone` property is specified it *MUST*
 ```json
 {
   "@context": [
-    "https://www.w3.org/ns/activitystreams",
-    {
-      "timezone": "http://www.w3.org/2006/time#timezone"
-    }
+    "https://w3id.org/fep/8a8e",
+    "https://www.w3.org/ns/activitystreams"
   ],
   "type": "Event",
   "id": "https://example.org/foo",
@@ -115,7 +116,6 @@ In case the `https://w3id.org/fep/8a8e/timezone` property is specified it *MUST*
   "timezone": "Europe/Rome"
 }
 ```
-
 
 ### Location
 
@@ -147,10 +147,8 @@ Example with pure text address:
 ```json
 {
   "@context": [
-    "https://www.w3.org/ns/activitystreams",
-    {
-      "address": "https://schema.org/address"
-    }
+    "https://schema.org",
+    "https://www.w3.org/ns/activitystreams"
   ],
   "type": "Event",
   "id": "https://example.org/new-year-party",
@@ -165,6 +163,7 @@ Example with pure text address:
     "latitude": 47.06829,
     "longitude": 15.45634
   }
+}
 ```
 
 Example with address of type `https://schema.org/PostalAddress`:
@@ -219,7 +218,7 @@ Applications *SHOULD* at least set and be able to make use of `name` and `url` p
   "endTime": "2015-01-01T04:00:00-08:00",
   "location": {
     "type": "VirtualLocation",
-    "name":"Jitsi Meet Meeting Link",
+    "name": "Jitsi Meet Meeting Link",
     "url": "https://jitsi.example.org/fediverse-moderation-meeting"
   }
 }
@@ -345,13 +344,8 @@ Remaining attendee capacity *SHOULD* be shown indirectly via using the Collectio
 {
   "@context": [
     "https://schema.org",
-    "https://www.w3.org/ns/activitystreams",
-    {
-      "attendees": {
-        "@id": "https://w3id.org/fep/8a8e/attendees",
-        "@type": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collection"
-      }
-    }
+    "https://w3id.org/fep/8a8e",
+    "https://www.w3.org/ns/activitystreams"
   ],
   "type": "Event",
   "id": "https://example.org/foo-bar-party",
@@ -475,8 +469,8 @@ Applications *SHOULD* utilize at least the following recommended set of event ca
 ```json
 {
   "@context": [
-    "https://https://w3id.org/fep/8a8e",
-    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/fep/8a8e",
+    "https://www.w3.org/ns/activitystreams"
   ],
   "type": "Event",
   "id": "https://example.org/event/1",
@@ -493,8 +487,8 @@ Applications *SHOULD* utilize at least the following recommended set of event ca
 ```json
 {
   "@context": [
-    "https://https://w3id.org/fep/8a8e",
-    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/fep/8a8e",
+    "https://www.w3.org/ns/activitystreams"
   ],
   "type": "Event",
   "id": "https://example.org/open-mic-jam",
@@ -530,8 +524,8 @@ If the organizer is not an ActivityPub entity (e.g., a website or organization w
 {
   "@context": [
     "https://schema.org",
-    "https://https://w3id.org/fep/8a8e",
-    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/fep/8a8e",
+    "https://www.w3.org/ns/activitystreams"
   ],
   "type": "Event",
   "id": "https://example.org/foo-bar-party",
@@ -641,9 +635,9 @@ Note that the terms `joinMode` and `externalParticipationUrl` are compatible wit
         "https://w3id.org/fep/8a8e",
         "https://www.w3.org/ns/activitystreams"
       ],
-      "@type": "Actor",
+      "type": "Organization",
       "upcomingEvents": {
-        "type": "Collection",
+        "type": "OrderedCollection",
         "items": [
           { "type": "Event", "startTime": "2025-06-01T12:00:00Z" },
           { "type": "Event", "startTime": "2025-07-15T15:30:00Z" }
@@ -677,7 +671,7 @@ Note that the terms `joinMode` and `externalParticipationUrl` are compatible wit
         "https://w3id.org/fep/8a8e",
         "https://www.w3.org/ns/activitystreams",
         {
-          "sc": "http://schema.org#",
+          "sc": "http://schema.org/"
         }
       ],
       "type": "OrganizersCollection",
@@ -714,10 +708,11 @@ Note that the terms `joinMode` and `externalParticipationUrl` are compatible wit
     <code>
     {
       "@context": [
+        "https://schema.org",
         "https://w3id.org/fep/8a8e",
         "https://www.w3.org/ns/activitystreams",
         {
-          "sc": "http://schema.org#",
+          "sc": "http://schema.org/"
         }
       ],
       "type": "Event",
@@ -725,7 +720,7 @@ Note that the terms `joinMode` and `externalParticipationUrl` are compatible wit
         "type": "OrganizersCollection",
         "totalItems": 4,
         "items": [
-          { "type": "Actor", "name": "ActivityPub Group Actor", "id": "https://example.org/actors/group1"},
+          { "type": "Person", "name": "ActivityPub Person Actor", "id": "https://example.org/actors/1"},
           { "type": "Link", "href": "https://organizer1.example.org"},
           { "type": "sc:Person", "name": "Alice" },
           { "type": "sc:Organization", "name": "Event Co." }
@@ -764,18 +759,19 @@ Note that the terms `joinMode` and `externalParticipationUrl` are compatible wit
     <code>
     {
       "@context": [
+        "https://schema.org",
         "https://w3id.org/fep/8a8e",
         "https://www.w3.org/ns/activitystreams",
         {
-          "sc": "https://schema.org#"
+          "sc": "https://schema.org/"
         }
-      ]
+      ],
       "type": "AttendeesCollection",
       "totalItems": 2,
-      "context": "https://example.org/events/alice-birthday-party"
+      "id": "https://example.org/events/alice-birthday-party"
       "items": [
         { "type": "Person", "name": "Bob", "id": "https://example.org/actors/bob"},
-        { "type": "sc:Person", "name": "Alice", "email": "alice@example.org"},
+        { "type": "sc:Person", "name": "Alice", "email": "alice@example.org"}
       ]
     }
     </code>
@@ -813,12 +809,12 @@ Note that the terms `joinMode` and `externalParticipationUrl` are compatible wit
       ],
       "type": "Event",
       "attendees": {
-        "type": "https://w3id.org/fep/8a8e/OrganizersCollection",
+        "type": "OrganizersCollection",
         "totalItems": 4,
         "items": [
-          { "type": "Actor", "name": "ActivityPub Group Actor", "id": "https://example.org/actors/group1"},
+          { "type": "Person", "name": "ActivityPub Person", "id": "https://example.org/actors/1"},
           { "type": "Link", "href": "https://organizer1.example.org"},
-          { "type": "Person", "name": "Alice" },
+          { "type": "sc:Person", "name": "Alice" },
           { "type": "sc:Organization", "name": "Event Co." }
         ]
       }
@@ -851,14 +847,14 @@ Note that the terms `joinMode` and `externalParticipationUrl` are compatible wit
       "@context": [
         "https://w3id.org/fep/8a8e",
         "https://www.w3.org/ns/activitystreams"
-      ]
+      ],
       "type": "Event",
       "id": "https://example.org/events/new-years-party",
       "name": "New years party",
       "startTime": "2014-12-31T23:00:00Z",
       "endTime": "2015-01-01T06:00:00Z",
       "timezone": "Europe/Vienna",
-      "organizers": null,
+      "organizers": null
     }
     </code>
   </pre>
@@ -961,7 +957,7 @@ Note that the terms `joinMode` and `externalParticipationUrl` are compatible wit
     },
   "joinMode": "restricted",
   "requiredJoinVisibility": [
-    "https://example.org/yoga-with-alice/organizers"
+    "https://example.org/yoga-workshop/organizers"
   ]
 }</code>
   </pre>
@@ -1024,7 +1020,14 @@ Note that the terms `joinMode` and `externalParticipationUrl` are compatible wit
 <code>{
   "@context": [
     "https://w3id.org/fep/8a8e",
-    "https://www.w3.org/ns/activitystreams"
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "toot": "http://joinmastodon.org/ns#",
+      "focalPoint": {
+        "@container": "@list",
+        "@id": "toot:focalPoint"
+      }
+    }
   ],
   "type": "Event",
   "id": "https://example.org/new-year-party",
@@ -1046,7 +1049,7 @@ Note that the terms `joinMode` and `externalParticipationUrl` are compatible wit
       "type": "Image",
       "mediaType": "image/jpeg",
       "url": "https://example.com/images/new-year-party-banner.png",
-      "witdh": 1000,
+      "width": 1000,
       "height": 500,
       "isBannerImage": true
     }
@@ -1082,12 +1085,12 @@ Note that the terms `joinMode` and `externalParticipationUrl` are compatible wit
 <code>
 {
   "@context": [
-    "https://w3id.org/fep/8a8e"
-    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/fep/8a8e",
+    "https://www.w3.org/ns/activitystreams"
   ],
   "id": "https://domain.example/events/0",
   "type": "Event",
-  "eventStatus": "eventScheduled",
+  "eventStatus": "EventScheduled"
 }
 </code>
 </pre>
@@ -1105,6 +1108,25 @@ Note that the terms `joinMode` and `externalParticipationUrl` are compatible wit
 <dd property="rdfs:comment" lang="en">EventStatusType is an enumeration type whose instances represent several states that an Event may be in.</dd>
 <dt>Subclass of</dt>
 <dd property="rdfs:subClassOf" resource="https://schema.org/EventStatusType">https://schema.org/EventStatusType</dd>
+<dt>See also</dt>
+<dd><a property="rdfs:seeAlso" href="https://w3id.org/fep/8a8e/eventStatus">eventStatus</a></dd>
+<dt>Is defined by</dt>
+<dd><a property="rdfs:isDefinedBy" href="https://w3id.org/fep/8a8e">FEP-8a8e</a></dd>
+</dl>
+</section>
+
+<section id="EventScheduled" resource="https://w3id.org/fep/8a8e/EventScheduled" typeof="rdfs:Class">
+<h3>EventScheduled</h3>
+<dl>
+<dt>URI</dt>
+<dd><code>https://w3id.org/fep/8a8e/EventScheduled</code>
+</dd>
+<dt>Label</dt>
+<dd property="rdfs:label" lang="en">The event is scheduled.</dd>
+<dt>Comment</dt>
+<dd property="rdfs:comment" lang="en">The event is normally scheduled and planned.</dd>
+<dt>Subclass of</dt>
+<dd property="rdfs:subClassOf" resource="https://w3id.org/fep/8a8e/EventStatusType">EventStatusType</dd>
 <dt>See also</dt>
 <dd><a property="rdfs:seeAlso" href="https://w3id.org/fep/8a8e/eventStatus">eventStatus</a></dd>
 <dt>Is defined by</dt>

@@ -47,6 +47,6 @@ Example usage of requiredJoinVisibility
     },
   "joinMode": "restricted",
   "requiredJoinVisibility": [
-    "https://example.org/yoga-with-alice/organizers"
+    "https://example.org/yoga-workshop/organizers"
   ]
 }```

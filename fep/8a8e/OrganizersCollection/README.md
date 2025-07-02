@@ -29,7 +29,7 @@ Example of an OrganizersCollection with different items
         "https://w3id.org/fep/8a8e",
         "https://www.w3.org/ns/activitystreams",
         {
-          "sc": "http://schema.org#",
+          "sc": "http://schema.org/"
         }
       ],
       "type": "OrganizersCollection",

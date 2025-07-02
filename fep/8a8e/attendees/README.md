@@ -38,12 +38,12 @@ Example usage of attendees
       ],
       "type": "Event",
       "attendees": {
-        "type": "https://w3id.org/fep/8a8e/OrganizersCollection",
+        "type": "OrganizersCollection",
         "totalItems": 4,
         "items": [
-          { "type": "Actor", "name": "ActivityPub Group Actor", "id": "https://example.org/actors/group1"},
+          { "type": "Person", "name": "ActivityPub Person", "id": "https://example.org/actors/1"},
           { "type": "Link", "href": "https://organizer1.example.org"},
-          { "type": "Person", "name": "Alice" },
+          { "type": "sc:Person", "name": "Alice" },
           { "type": "sc:Organization", "name": "Event Co." }
         ]
       }

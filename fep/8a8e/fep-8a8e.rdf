@@ -6,82 +6,71 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 >
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventMovedOnline">
-    <rdfs:label xml:lang="en">The event moved online.</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
-    <rdfs:comment xml:lang="en">Indicates that the event was changed to allow online participation.</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/isBannerImage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventPostponed">
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
-    <rdfs:label xml:lang="en">The event has been postponed.</rdfs:label>
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
-    <rdfs:comment xml:lang="en">The event has been postponed and no new date has been set. The event's previousStartTime should be set.</rdfs:comment>
-    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/joinMode">
-    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Image"/>
+    <rdfs:label xml:lang="en">Image is a banner image</rdfs:label>
     <rdfs:comment xml:lang="en">
-      Indicator of how new members may be able to join an event.
-      Accepted values: free, restricted, external, none, invite.
-      If external, you must also set externalParticipationUrl.
+      Whether an image is an (events) banner image.
     </rdfs:comment>
-    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e/"/>
-    <rdfs:label xml:lang="en">Join mode</rdfs:label>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/upcomingEvents">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventRescheduled">
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
+    <rdfs:comment xml:lang="en">The event's previousStartTime should be set to the old date and the startTime should be set to the event's new start date.</rdfs:comment>
+    <rdfs:label xml:lang="en">The event has been rescheduled.</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
     <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:range rdf:resource="https://www.w3.org/ns/activitystreams#OrderedCollection"/>
-    <rdfs:label xml:lang="en">Ordered collection of upcoming Events</rdfs:label>
-    <rdfs:comment xml:lang="en">An ActivityStreams OrderedCollection of Event objects that have a startTime property in the future, sorted by startTime with the earliest first.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventScheduled">
+    <rdfs:label xml:lang="en">The event is scheduled.</rdfs:label>
+    <rdfs:comment xml:lang="en">The event is normally scheduled and planned.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/OrganizersCollection">
+    <rdfs:comment xml:lang="en">Inherits all properties from https://www.w3.org/ns/activitystreams#Collection with the addition that the items may also include https://schema.org/Person or https://schema.org/Organization.</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/organizers"/>
+    <rdfs:subClassOf rdf:resource="https://www.w3.org/ns/activitystreams#Collection"/>
+    <rdfs:label xml:lang="en">An Event's Organizer Collection</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/fep/8a8e/attendees">
     <rdfs:comment xml:lang="en"></rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
     <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:label xml:lang="en">Attendees of an Event</rdfs:label>
     <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/isBannerImage">
-    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:comment xml:lang="en">
-      Whether an image is an (events) banner image.
-    </rdfs:comment>
-    <rdfs:label xml:lang="en">Image is a banner image</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Image"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
+    <rdfs:label xml:lang="en">Attendees of an Event</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/fep/8a8e/eventStatus">
     <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventCancelled"/>
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventRescheduled"/>
     <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventScheduled"/>
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventTentative"/>
     <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventPostponed"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventRescheduled"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventCancelled"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventTentative"/>
     <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventMovedOnline"/>
-    <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-    <rdfs:range rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
-    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
-    <rdfs:comment xml:lang="en">An eventStatus of an event represents its status; particularly useful when an event is cancelled or rescheduled.</rdfs:comment>
     <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
+    <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+    <rdfs:range rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
     <rdfs:label xml:lang="en">The events status is</rdfs:label>
+    <rdfs:comment xml:lang="en">An eventStatus of an event represents its status; particularly useful when an event is cancelled or rescheduled.</rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventStatusType">
-    <rdfs:subClassOf rdf:resource="https://schema.org/EventStatusType"/>
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
-    <rdfs:comment xml:lang="en">EventStatusType is an enumeration type whose instances represent several states that an Event may be in.</rdfs:comment>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventMovedOnline">
+    <rdfs:comment xml:lang="en">Indicates that the event was changed to allow online participation.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:label xml:lang="en">8a8e</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:label xml:lang="en">The event moved online.</rdfs:label>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/fep/8a8e">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
@@ -94,56 +83,29 @@
     <dc:creator>les &lt;lesion@autistici.org&gt;</dc:creator>
     <dcterms:dateSubmitted rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2025-04-23</dcterms:dateSubmitted>
   </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/displayEndTime">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:label xml:lang="en">Whether to display the endTime</rdfs:label>
-    <rdfs:comment xml:lang="en">A property that defines whether the end time of an event should be displayed.</rdfs:comment>
-    <rdfs:domain rdf:resource="https://w3id.org/fep/8a8e/displayEndTime"/>
-    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventRescheduled">
-    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:label xml:lang="en">The event has been rescheduled.</rdfs:label>
-    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
-    <rdfs:comment xml:lang="en">The event's previousStartTime should be set to the old date and the startTime should be set to the event's new start date.</rdfs:comment>
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/requiredJoinVisibility">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:label xml:lang="en">Required Join Visibility</rdfs:label>
-    <rdfs:comment xml:lang="en">
-      Specifies the minimum audience that must be addressed in a valid Join activity related to the event. This can include individual actors, groups, the as:Public collection, or any other URI. The Join activity must be addressed accordingly (e.g., using to, cc, bto, or audience).
-    </rdfs:comment>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/previousStartTime">
-    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-    <rdfs:label xml:lang="en">The event previous start time.</rdfs:label>
-    <rdfs:comment xml:lang="en">The events previous start time is the old start time before an event got postponed or rescheduled.</rdfs:comment>
-    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventRescheduled"/>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventCancelled">
     <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventPostponed"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/category">
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    <rdfs:comment xml:lang="en">Recommended event categories include: ARTS, AUTO_BOAT_AIR, BOOK_CLUBS, BUSINESS, CAUSES, CLIMATE_ENVIRONMENT, COMMUNITY, COMEDY, CRAFTS, CREATIVE_JAM, DIY_MAKER_SPACES, FAMILY_EDUCATION, FASHION_BEAUTY, FESTIVALS, FILM_MEDIA, FOOD_DRINK, GAMES, INCLUSIVE_SPACES, LANGUAGE_CULTURE, LEARNING, LGBTQ, MEETING, MEDITATION_WELLBEING, MOVEMENTS_POLITICS, MUSIC, NETWORKING, OUTDOORS_ADVENTURE, PARTY, PERFORMING_VISUAL_ARTS, PETS, PHOTOGRAPHY, SCIENCE_TECH, SPIRITUALITY_RELIGION_BELIEFS, SPORTS, THEATRE, WORKSHOPS_SKILL_SHARING
-</rdfs:comment>
-    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
-    <rdfs:label xml:lang="en">The category of an Event</rdfs:label>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventRescheduled"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
     <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+    <rdfs:label xml:lang="en">The event has been cancelled.</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
+    <rdfs:comment xml:lang="en">The event has been cancelled.</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventTentative">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:comment xml:lang="en">The event is currently being planned but not confirmed.</rdfs:comment>
+    <rdfs:label xml:lang="en">The event is tentative</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/fep/8a8e/AttendeesCollection">
-    <rdfs:label xml:lang="en">A Collection of the Event's attendees</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
     <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/attendees"/>
+    <rdfs:label xml:lang="en">A Collection of the Event's attendees</rdfs:label>
+    <rdfs:subClassOf rdf:resource="https://www.w3.org/ns/activitystreams#OrderedCollection"/>
     <rdfs:comment xml:lang="en">
       Inherits all properties from https://www.w3.org/ns/activitystreams#Collection with the addition that the items may also include https://schema.org/Person or https://schema.org/Organization.
       The items of the AttendeesCollection are entities that are confirmed attendees by an Events organizer(s). It contains all ActivityPub actors that meet one or more of the following conditions, added as a side effect.
@@ -153,56 +115,102 @@ The actor has responded to an Invite activity from the Event's owner (where the 
 
       The items MAY be filtered on privileges of an authenticated user or as appropriate when no authentication is given. This collection *SHOULD* have the totalItems set in any case.
     </rdfs:comment>
-    <rdfs:subClassOf rdf:resource="https://www.w3.org/ns/activitystreams#OrderedCollection"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/organizers">
-    <rdfs:label xml:lang="en">Organizers Collection</rdfs:label>
-    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:range rdf:resource="https://w3id.org/fep/8a8e/OrganizersCollection"/>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/timezone">
+    <rdfs:label xml:lang="en">The timezone of an Event</rdfs:label>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:comment xml:lang="en">An ActivityStreams Collection collection that lists the entities that are disclosed to as organizers of an event. If set to null this explicitly indicates a deliberate choice to withhold organizer information.</rdfs:comment>
+    <rdfs:comment xml:lang="en">Indicates the timezone for which the time(s) indicated in the event are given. The value provided should be among those listed in the IANA Time Zone Database.</rdfs:comment>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/joinMode">
+    <rdfs:label xml:lang="en">Join mode</rdfs:label>
+    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e/"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:comment xml:lang="en">
+      Indicator of how new members may be able to join an event.
+      Accepted values: free, restricted, external, none, invite.
+      If external, you must also set externalParticipationUrl.
+    </rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventPostponed">
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
+    <rdfs:comment xml:lang="en">The event has been postponed and no new date has been set. The event's previousStartTime should be set.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+    <rdfs:label xml:lang="en">The event has been postponed.</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/previousStartTime">
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+    <rdfs:comment xml:lang="en">The events previous start time is the old start time before an event got postponed or rescheduled.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
+    <rdfs:label xml:lang="en">The event previous start time.</rdfs:label>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventPostponed"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventRescheduled"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/category">
+    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="en">The category of an Event</rdfs:label>
+    <rdfs:comment xml:lang="en">Recommended event categories include: ARTS, AUTO_BOAT_AIR, BOOK_CLUBS, BUSINESS, CAUSES, CLIMATE_ENVIRONMENT, COMMUNITY, COMEDY, CRAFTS, CREATIVE_JAM, DIY_MAKER_SPACES, FAMILY_EDUCATION, FASHION_BEAUTY, FESTIVALS, FILM_MEDIA, FOOD_DRINK, GAMES, INCLUSIVE_SPACES, LANGUAGE_CULTURE, LEARNING, LGBTQ, MEETING, MEDITATION_WELLBEING, MOVEMENTS_POLITICS, MUSIC, NETWORKING, OUTDOORS_ADVENTURE, PARTY, PERFORMING_VISUAL_ARTS, PETS, PHOTOGRAPHY, SCIENCE_TECH, SPIRITUALITY_RELIGION_BELIEFS, SPORTS, THEATRE, WORKSHOPS_SKILL_SHARING
+</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventStatusType">
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+    <rdfs:comment xml:lang="en">EventStatusType is an enumeration type whose instances represent several states that an Event may be in.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="https://schema.org/EventStatusType"/>
+    <rdfs:label xml:lang="en">8a8e</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/requiredJoinVisibility">
+    <rdfs:label xml:lang="en">Required Join Visibility</rdfs:label>
+    <rdfs:comment xml:lang="en">
+      Specifies the minimum audience that must be addressed in a valid Join activity related to the event. This can include individual actors, groups, the as:Public collection, or any other URI. The Join activity must be addressed accordingly (e.g., using to, cc, bto, or audience).
+    </rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/displayEndTime">
+    <rdfs:label xml:lang="en">Whether to display the endTime</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+    <rdfs:domain rdf:resource="https://w3id.org/fep/8a8e/displayEndTime"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="en">A property that defines whether the end time of an event should be displayed.</rdfs:comment>
   </rdf:Description>
   <rdf:Description rdf:about="https://w3id.org/fep/8a8e/externalParticipationUrl">
-    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
-    <rdfs:label xml:lang="en">External participation URL</rdfs:label>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+    <rdfs:domain rdf:resource="https://www.w3.org/ns/activitystreams#Event"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
+    <rdfs:label xml:lang="en">External participation URL</rdfs:label>
     <rdfs:comment xml:lang="en">
       A URL that points to an external platform where people can join the event or where they can buy tickets for the event. Required if joinMode is set to external.
     </rdfs:comment>
   </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventTentative">
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
-    <rdfs:comment xml:lang="en">The event is currently being planned but not confirmed.</rdfs:comment>
-    <rdfs:label xml:lang="en">The event is tentative</rdfs:label>
-    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/upcomingEvents">
+    <rdfs:comment xml:lang="en">An ActivityStreams OrderedCollection of Event objects that have a startTime property in the future, sorted by startTime with the earliest first.</rdfs:comment>
+    <rdfs:range rdf:resource="https://www.w3.org/ns/activitystreams#OrderedCollection"/>
+    <rdfs:label xml:lang="en">Ordered collection of upcoming Events</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/EventCancelled">
-    <rdfs:comment xml:lang="en">The event has been cancelled.</rdfs:comment>
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventPostponed"/>
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/EventRescheduled"/>
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/eventStatus"/>
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
-    <rdfs:subClassOf rdf:resource="https://w3id.org/fep/8a8e/EventStatusType"/>
-    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdfs:label xml:lang="en">The event has been cancelled.</rdfs:label>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/OrganizersCollection">
-    <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
-    <rdfs:subClassOf rdf:resource="https://www.w3.org/ns/activitystreams#Collection"/>
-    <rdfs:comment xml:lang="en">Inherits all properties from https://www.w3.org/ns/activitystreams#Collection with the addition that the items may also include https://schema.org/Person or https://schema.org/Organization.</rdfs:comment>
-    <rdfs:label xml:lang="en">An Event's Organizer Collection</rdfs:label>
-    <rdfs:seeAlso rdf:resource="https://w3id.org/fep/8a8e/organizers"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/timezone">
-    <rdfs:label xml:lang="en">The timezone of an Event</rdfs:label>
-    <rdfs:comment xml:lang="en">Indicates the timezone for which the time(s) indicated in the event are given. The value provided should be among those listed in the IANA Time Zone Database.</rdfs:comment>
-    <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://w3id.org/fep/8a8e/organizers">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment xml:lang="en">An ActivityStreams Collection collection that lists the entities that are disclosed to as organizers of an event. If set to null this explicitly indicates a deliberate choice to withhold organizer information.</rdfs:comment>
+    <rdfs:range rdf:resource="https://w3id.org/fep/8a8e/OrganizersCollection"/>
+    <rdfs:label xml:lang="en">Organizers Collection</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="https://w3id.org/fep/8a8e"/>
   </rdf:Description>
 </rdf:RDF>

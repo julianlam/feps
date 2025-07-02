@@ -32,18 +32,19 @@
     <code>
     {
       "@context": [
+        "https://schema.org",
         "https://w3id.org/fep/8a8e",
         "https://www.w3.org/ns/activitystreams",
         {
-          "sc": "https://schema.org#"
+          "sc": "https://schema.org/"
         }
-      ]
+      ],
       "type": "AttendeesCollection",
       "totalItems": 2,
-      "context": "https://example.org/events/alice-birthday-party"
+      "id": "https://example.org/events/alice-birthday-party"
       "items": [
         { "type": "Person", "name": "Bob", "id": "https://example.org/actors/bob"},
-        { "type": "sc:Person", "name": "Alice", "email": "alice@example.org"},
+        { "type": "sc:Person", "name": "Alice", "email": "alice@example.org"}
       ]
     }
     </code>

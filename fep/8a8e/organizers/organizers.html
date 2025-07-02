@@ -26,10 +26,11 @@
     <code>
     {
       "@context": [
+        "https://schema.org",
         "https://w3id.org/fep/8a8e",
         "https://www.w3.org/ns/activitystreams",
         {
-          "sc": "http://schema.org#",
+          "sc": "http://schema.org/"
         }
       ],
       "type": "Event",
@@ -37,7 +38,7 @@
         "type": "OrganizersCollection",
         "totalItems": 4,
         "items": [
-          { "type": "Actor", "name": "ActivityPub Group Actor", "id": "https://example.org/actors/group1"},
+          { "type": "Person", "name": "ActivityPub Person Actor", "id": "https://example.org/actors/1"},
           { "type": "Link", "href": "https://organizer1.example.org"},
           { "type": "sc:Person", "name": "Alice" },
           { "type": "sc:Organization", "name": "Event Co." }

@@ -26,7 +26,14 @@
 <code>{
   "@context": [
     "https://w3id.org/fep/8a8e",
-    "https://www.w3.org/ns/activitystreams"
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "toot": "http://joinmastodon.org/ns#",
+      "focalPoint": {
+        "@container": "@list",
+        "@id": "toot:focalPoint"
+      }
+    }
   ],
   "type": "Event",
   "id": "https://example.org/new-year-party",
@@ -48,7 +55,7 @@
       "type": "Image",
       "mediaType": "image/jpeg",
       "url": "https://example.com/images/new-year-party-banner.png",
-      "witdh": 1000,
+      "width": 1000,
       "height": 500,
       "isBannerImage": true
     }

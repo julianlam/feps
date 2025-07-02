@@ -31,13 +31,13 @@ Example usage of timezone
       "@context": [
         "https://w3id.org/fep/8a8e",
         "https://www.w3.org/ns/activitystreams"
-      ]
+      ],
       "type": "Event",
       "id": "https://example.org/events/new-years-party",
       "name": "New years party",
       "startTime": "2014-12-31T23:00:00Z",
       "endTime": "2015-01-01T06:00:00Z",
       "timezone": "Europe/Vienna",
-      "organizers": null,
+      "organizers": null
     }
     ```
