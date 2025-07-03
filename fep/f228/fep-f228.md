@@ -31,6 +31,9 @@ When `context` property is present on a post, it MUST resolve to a collection of
 
 There is a difference between contents of this collection and a reply tree defined by `inReplyTo` and `replies` relationships, because conversation owner might choose to not include certain replies.
 
+>[!NOTE]
+>ActivityPub [requires][ActivityPub-Collections] ordered collections to be presented in reverse chronological order. However, an [erratum][ActivityPub-Errata] was proposed to relax this requirement.
+
 ## Collection of activities
 
 This collection contains all activities related to posts in a conversation, including but not limited to:
@@ -75,6 +78,7 @@ Collection of posts:
 - WordPress
 - Discourse
 - Mitra
+- Decodon ([PR](https://github.com/jesseplusplus/decodon/pull/188))
 
 Collection of activities:
 
@@ -83,11 +87,15 @@ Collection of activities:
 
 ## References
 
+- Christine Lemmer-Webber, Jessica Tallon, Erin Shepherd, Amy Guy, Evan Prodromou, [ActivityPub], 2018
 - a, [FEP-7888: Demystifying the context property][FEP-7888], 2023
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
 - silverpill, [FEP-171b: Conversation Containers][FEP-171b], 2024
 - a, [FEP-bad1: Object history collection][FEP-bad1], 2023
 
+[ActivityPub]: https://www.w3.org/TR/activitypub/
+[ActivityPub-Collections]: https://www.w3.org/TR/activitypub/#collections
+[ActivityPub-Errata]: https://www.w3.org/wiki/ActivityPub_errata
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
 [thread]: https://en.wikipedia.org/wiki/Thread_(online_communication)
 [FEP-7888]: https://codeberg.org/fediverse/fep/src/branch/main/fep/7888/fep-7888.md
