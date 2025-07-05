@@ -160,6 +160,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-82f6: Actor statuses](./fep/82f6/fep-82f6.md) | `DRAFT` | [#600](https://codeberg.org/fediverse/fep/issues/600) | 2025-05-12 | - |
 | [FEP-844e: Capability discovery](./fep/844e/fep-844e.md) | `DRAFT` | [#624](https://codeberg.org/fediverse/fep/issues/624) | 2025-06-14 | - |
 | [FEP-b06c: ActivityPoll](./fep/b06c/fep-b06c.md) | `DRAFT` | [#638](https://codeberg.org/fediverse/fep/issues/638) | 2025-06-25 | - |
+| [FEP-9098: Custom emojis](./fep/9098/fep-9098.md) | `DRAFT` | [#648](https://codeberg.org/fediverse/fep/issues/648) | 2025-07-06 | - |
 
 ## License
 

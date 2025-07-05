@@ -975,5 +975,15 @@
     "dateReceived": "2025-06-25",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/638",
     "title": "ActivityPoll"
+  },
+  {
+    "slug": "9098",
+    "authors": "silverpill <@silverpill@mitra.social>",
+    "type": "implementation",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
+    "dateReceived": "2025-07-06",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/648",
+    "title": "Custom emojis"
   }
 ]
