@@ -809,6 +809,7 @@
   {
     "slug": "9967",
     "authors": "silverpill <@silverpill@mitra.social>",
+    "type": "implementation",
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-9967-polls/4885",
     "dateReceived": "2025-01-23",
