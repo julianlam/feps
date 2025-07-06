@@ -26,9 +26,9 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 `EmojiReact` activity type is considered to be a part of [LitePub] vocabulary. Its full IRI is `http://litepub.social/ns#EmojiReact`.
 
-This activity is similar to `Like` activity. In addition to standard properties of `Like` activity, `EmojiReact` activity MUST have a `content` property. Reaction content MUST be either a single unicode grapheme, or a shortcode of a custom emoji. The shortcode MUST be enclosed in colons.
+This activity is similar to `Like` activity. In addition to standard properties of `Like` activity, `EmojiReact` activity MUST have a `content` property. Reaction content MUST be either a single unicode grapheme, or a name of a custom emoji enclosed in colons ([shortcode][Shortcode]).
 
-If custom emoji is used, `EmojiReact` activity MUST have a `tag` property containing a single `Emoji` object (which is specified in [Mastodon ActivityPub extension documentation](https://docs.joinmastodon.org/spec/activitypub/#Emoji)). The value of its `name` property MUST be a shortcode that matches the shortcode in reaction content, and it SHOULD be enclosed in colons. The embedded `Emoji` can originate from a server that is different from the actor's server.
+If custom emoji is used, `EmojiReact` activity MUST have a `tag` property containing a single [`Emoji`][FEP-9098] object. The value of its `name` property MUST contain the name of the custom emoji, and it SHOULD be enclosed in colons. The embedded `Emoji` can originate from a server that is different from the actor's server.
 
 An actor can generate multiple `EmojiReact` activities for a single `object`. However, implementers MAY choose to not allow more than one reaction with the same emoji, or more than one reaction per object.
 
@@ -140,13 +140,14 @@ A number of other projects announced support for this FEP after it was published
 
 - Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
-- LitePub contributors, [LitePub protocol suite](LitePub), 2019
-- Mastodon contributors, [Mastodon / ActivityPub][MastoPub], 2024
+- LitePub contributors, [LitePub protocol suite][LitePub], 2019
+- silverpill, [FEP-9098: Custom emojis][FEP-9098], 2025
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
 [LitePub]: https://litepub.social/
-[MastoPub]: https://docs.joinmastodon.org/spec/activitypub
+[Shortcode]: https://emojipedia.org/shortcodes
+[FEP-9098]: https://codeberg.org/fediverse/fep/src/branch/main/fep/9098/fep-9098.md
 
 ## Copyright
 
