@@ -72,10 +72,11 @@
   {
     "slug": "5624",
     "authors": "Claire <claire.fep-1d7d@sitedethib.com>",
-    "status": "DRAFT",
+    "status": "WITHDRAWN",
     "dateReceived": "2022-08-23",
+    "dateWithdrawn": "2025-06-24",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/18",
-    "discussionsTo": "https://codeberg.org/fediverse/fep/issues/18",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-5624-per-object-reply-control-policies/2723",
     "title": "Per-object reply control policies"
   },
   {
