@@ -99,6 +99,7 @@ Implementers MUST NOT use it in cases where capabilities can be inferred from pr
 - Streams
 - Forte
 - Mitra
+- [ActivityPub for WordPress](https://activitypub.blog/2025/07/09/7-0-0-i-will-follow-you/)
 
 ## References
 
