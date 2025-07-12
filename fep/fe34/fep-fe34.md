@@ -43,33 +43,50 @@ The same-origin policy determines when a relationship between objects can be tru
 
 Origin-based security model is supposed to be used when object identifiers are HTTP(S) URIs and actors are managed by servers. The model can also be used with other kinds of identifiers, but that is not covered in this document.
 
-Servers MUST NOT store invalid objects received from clients. This includes any activities representing actions that actors are not authorized to perform. Special attention needs to be paid to media uploads, because malicious actors might attempt to bypass validation by uploading ActivityPub documents as media (see [GHSA-jhrq-qvrm-qr36] for more information).
+## Authentication
 
-Servers MUST NOT allow clients to create objects representing public keys (including such objects embedded within actors and other objects).
+Authentication is the process of verifying the origin of an ActivityPub object. It is performed in order to protect an application from [spoofing](https://en.wikipedia.org/wiki/Spoofing_attack) attacks.
+
+Objects can be authenticated using the following methods:
+
+- Fetching from an origin
+- Verification of a signature
+- Authentication through embedding
+
+If an object can't be authenticated, it MUST be discarded.
+
+Fetching from an origin is the primary authentication method, and other authentication methods described in this document depend on it. Consumers SHOULD attempt to fetch the object from its origin if other authentication methods are not available.
+
+### Fetching from an origin
+
+Non-anonymous ActivityPub objects can be authenticated by making an HTTP GET request with object's ID as the target.
+
+The last URI in the chain of redirects is object's location. The location SHOULD match the ID of the retrieved object. If object's location and ID are different, they MUST have the same origin.
+
+Servers MUST validate all objects received from clients. Any activity representing an action that actor is not [authorized](#authorization) to perform MUST be rejected. Special attention needs to be paid to media uploads, because malicious actors might attempt to bypass validation by uploading ActivityPub documents as media (see [GHSA-jhrq-qvrm-qr36] for more information).
+
+Servers MUST NOT serve objects until they are validated.
+
+### Signatures
+
+Signature-based authentication can be used when:
+
+- An object is delivered to inbox and the request contained a valid [HTTP signature][HttpSig].
+- An object contains a valid [FEP-8b32] integrity proof.
+
+The ID of the public key (or the verification method) MUST have the same origin as the object's ID.
 
 Servers MUST NOT share secret keys with clients.
 
-## Authentication
+Servers MUST NOT allow clients to create objects representing public keys, including such objects embedded within actors and other objects. Embedded public keys with a different origin are permitted.
 
-Authentication is the process of verifying the origin of an object. It is performed in order to protect an application from [spoofing](https://en.wikipedia.org/wiki/Spoofing_attack) attacks.
+### Embedding
 
-ActivityPub object is considered authentic if any of the following conditions are met:
+In some cases, an embedded object can be trusted when its wrapping object is trusted:
 
-1. It was fetched by its ID from the location (the last URL in the chain of redirects) that has the same origin as its ID.
-2. It was delivered to inbox and the request contained a valid [HTTP signature][HttpSig] created using a key whose ID has the same origin as the object ID.
-3. It contains a valid [FEP-8b32] integrity proof created using a key whose ID has the same origin as the object ID.
-4. If it is embedded within another object, and its ID has the same origin as containing object ID.
-
-If none of these conditions are met, the object MUST be discarded.
-
-Consumers SHOULD attempt to fetch the object by its ID if other authentication methods are not available.
-
->[!NOTE]
->In some cases, consumers can process unauthenticated objects if the risk is deemed acceptable.
-
-### Anonymous objects
-
-An object without an ID can only exist when embedded within another object. It is considered authentic when the parent object is authentic.
+- An object is the `object` of a `Create` activity, and it has the same origin and the same [owner](#ownership) as the activity.
+- An embedded object is identified as a [fragment][Fragment] of the wrapping object.
+- An embedded object is anonymous (doesn't have an ID).
 
 ## Authorization
 
@@ -102,7 +119,7 @@ If activity modifies or deletes an object, its owner SHOULD match the object's o
 
 Examples:
 
-- `Create`, `Update` and `Delete` activities, and objects indicated by their `object` property SHOULD have the same owner.
+- `Update` and `Delete` activities, and objects indicated by their `object` property SHOULD have the same owner.
 - `Undo` activity and object indicated by its `object` property SHOULD have the same owner.
 - `Add` and `Remove` activities, and objects indicated by their `target` property SHOULD have the same owner.
 - `Announce` and `Like` activities don't modify objects indicated by their `object` property, therefore their owners can be different.
@@ -161,6 +178,7 @@ Examples:
 [FEP-2277]: https://codeberg.org/fediverse/fep/src/branch/main/fep/2277/fep-2277.md
 [HttpSig]: https://swicg.github.io/activitypub-http-signature/
 [proxyUrl]: https://www.w3.org/TR/activitypub/#actor-objects
+[Fragment]: https://en.wikipedia.org/wiki/URI_fragment
 
 ## Copyright
 
