@@ -429,7 +429,8 @@ By not adding a hash or copy of the reply in the `QuoteAuthorization` object, ma
 
 ## Implementations
 
-None so far.
+* [Smithereen](https://github.com/grishka/Smithereen) exposes always-allowed quote policies, supports authoring quote posts as well as issuing `QuoteAuthorization` in response to a `QuoteRequest`, it does not currently verify quotes nor request stamps
+* [Mastodon](https://github.com/mastodon/mastodon) 4.4 has added support for verifying and displaying remote quote posts
 
 ## References
 
