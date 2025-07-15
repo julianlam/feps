@@ -345,7 +345,10 @@ Depending on whether they already sent a `Create` activity to the quote post's i
     "https://www.w3.org/ns/activitystreams",
     {
       "quote": "https://w3id.org/fep/044f#quote",
-      "quoteAuthorization": "https://w3id.org/fep/044f#quoteAuthorization"
+      "quoteAuthorization": {
+        "@id": "https://w3id.org/fep/044f#quoteAuthorization",
+        "@type": "@id"
+      }
     }
   ],
   "type": "Note",
