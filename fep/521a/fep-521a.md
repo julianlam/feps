@@ -89,7 +89,8 @@ See [fep-521a.feature](./fep-521a.feature)
 - Mitra
 - streams
 - Hubzilla
-- Fedify
+- [Fedify](https://github.com/fedify-dev/fedify/blob/1.7.5/FEDERATION.md#supported-feps)
+- [tootik](https://github.com/dimkr/tootik/blob/0.18.0/FEDERATION.md#http-signatures)
 
 ## References
 
