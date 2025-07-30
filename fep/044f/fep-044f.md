@@ -368,7 +368,6 @@ Depending on whether they already sent a `Create` activity to the quote post's i
 
 When processing a quote post from a remote actor, a recipient MUST consider them unapproved unless any of those conditions apply:
 - the author of the quote post and that of the original post are the same (same `attributedTo`)
-- the author of the quote post is mentioned in the original post
 - `quoteAuthorization` exists, can be dereferenced and is a valid `QuoteAuthorization` activity for this object
 
 ## Revocation of a quote post
