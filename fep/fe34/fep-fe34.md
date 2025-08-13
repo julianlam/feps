@@ -71,14 +71,20 @@ Servers MUST NOT serve objects until they are validated.
 
 Signature-based authentication can be used when:
 
-- An object is delivered to inbox and the request contained a valid [HTTP signature][HttpSig].
+- An object is delivered to inbox and the HTTP request contained a valid [HTTP signature][HttpSig].
 - An object contains a valid [FEP-8b32] integrity proof.
 
 The ID of the public key (or the verification method) MUST have the same origin as the object's ID.
 
 Servers MUST NOT share secret keys with clients.
 
-Servers MUST NOT allow clients to create objects representing public keys, including such objects embedded within actors and other objects. Embedded public keys with a different origin are permitted.
+Servers MUST NOT allow clients to create objects representing public keys, including such objects embedded within actors and other objects. Public keys can be identified by their properties `publicKeyPem` and `publicKeyMultibase`. Embedded public keys with a different origin are permitted.
+
+> [!WARNING]
+> JSON-LD consumers might be tricked into processing a specially crafted JSON object without `publicKeyPem` and `publicKeyMultibase` properties as a public key. Protections against attacks of that kind are not described in this document.
+
+> [!NOTE]
+> Clients would be permitted to create public keys if the [same-owner](#ownership) policy was used instead of the same-origin policy. However, in order to prevent impersonation of other local actors, servers would still need to identify all public keys in activities submitted to outboxes and verify owners of those keys, because other servers treat any public key fetched from the origin as authentic. The same-origin policy is recommended here for simplicity.
 
 ### Embedding
 
