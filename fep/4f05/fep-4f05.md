@@ -36,15 +36,22 @@ A `Delete` activity SHOULD be published in order to propagate the soft deletion 
 
 ### Hard deletion
 
-When an object is **hard deleted**, the object MUST no longer have an ActivityPub representation. Servers MUST respond to requests for the object with a 400-level response code. A [`404 Not Found`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/404) is acceptable, although a [`410  Gone`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/410) sends a more explicit signal that the object was explicitly removed. Security or privacy considerations may affect your decision to send anything more than a 404.
+When an object is **hard deleted**, the object MUST no longer have an ActivityPub representation. Servers MUST respond to requests for the object with a 400-level response code. A [`404 Not Found`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/404) is acceptable, although a [`410 Gone`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/410) sends a more explicit signal that the object was explicitly removed. Security or privacy considerations may affect your decision to send anything more than a 404.
 
 A `Delete` activity MUST be published in order to propagate the hard deletion to other servers.
 
 ## Receivers
 
-When a `Delete` activity is encountered, the `actor` may not match the `attributedTo` of the targeted object. Follow the [origin-based security model][fe34] for verifying authenticity of the received activity.
+When a `Delete` activity is encountered, the referenced `object` MAY be either the full object or a reference to one.
 
-Handle the received activity as below based on the received response code or object `type`. In cases where the object is referenced (not embedded in the activity itself), request the object (via its `id`) from the origin server directly.
+Verifying authenticity of the embedded object is out of scope of this FEP. Follow the [origin-based security model][fe34] for verifying authenticity of any received `Delete` activity.
+
+If `object` is a reference, the server MUST **request the object** (via its `id`) from the origin server directly.
+
+Handle the received activity as below based on the received response code or object `type`.
+
+>[!NOTE]
+> The `actor` may not match the `attributedTo` of the targeted object. This is allowed as moderators or privileged users may carry out deletions.
 
 ### `Tombstone`
 
@@ -58,13 +65,31 @@ Update the object's local representation if applicable.
 
 The local object SHOULD be hard deleted as per the local implementor's standard behaviour.
 
+## Unexpected responses
+
+The section above ("Receivers") details how a received `Delete` activity is handled. If during the course of the backreference check the object type or response code differs from expectations, **the retrieved state supercedes the activity**.
+
+e.g. A `Delete` is received, but a backreference check returns a `200` with a `Note`-type object. Therefore it is "Not a `Tombstone`" even though the activity received stated otherwise.
+
+The inverse also applies.
+
+e.g. An `Undo(Delete)` is received, but a backreference check returns a `Tombstone`. There fore it is still treated as a `Tombstone` even though the activity received stated otherwise.
+
 ## Additional Considerations
+
+### Update activity
 
 An earlier implementation of two-stage object deletion published an `Update(Tombstone)`, but this approach was deemed superfluous as it signified the same effect as a `Delete`—to proceed with a cache invalidation and update.
 
+### Broad support (or lack thereof)
+
 It is safe to assume the majority of ActivityPub-enabled software does not support two-stage object deletion. Publishing a `Delete` ensures that the intended behaviour of a soft deletion—that the object's content is no longer visible—is carried through to other servers.
 
+### Implementor UX
+
 Implementors are free to handle a soft deletion in the way they prefer (e.g. NodeBB will continue to associate the post (object) with the original actor, and simply blank out the content for non-privileged users.) This FEP explicitly does not specify how individual implementors should handle local representations of remote data.
+
+### Who to address
 
 The recipients list of the published `Delete` activity is outside the scope of this document.
 
