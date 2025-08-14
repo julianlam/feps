@@ -101,12 +101,13 @@ The recipients list of the published `Delete` activity is outside the scope of t
 ## References
 
 - Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
-- kaniini, [_The Delete Activity And It's Misconceptions_][DeleteSocialHub], 2019
+- kaniini, [The Delete Activity And It's Misconceptions][DeleteSocialHub], 2019 ([archive][DeleteSocialHub-archive])
 - Julian Lam, [ForumWG Nomenclature][Nomenclature], 2024
 - silverpill, [FEP-fe34: Origin-based security model][fe34], 2024
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [DeleteSocialHub]: https://socialhub.activitypub.rocks/t/the-delete-activity-and-its-misconceptions/137
+[DeleteSocialHub-archive]: https://archive.ph/mLfCi
 [Nomenclature]: https://github.com/swicg/forums/issues/4
 [fe34]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md
 
