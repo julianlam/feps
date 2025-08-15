@@ -121,6 +121,11 @@ To signal that the `content` is FEP-c16b compliant, the implementation MAY use t
 ```
 
 
+## Implementations
+
+- [Akkoma](https://akkoma.dev/AkkomaGang/akkoma/src/branch/stable/FEDERATION.md#supported-feps)
+
+
 ## References
 
 - [data-* attributes]: Part of the [HTML Living Standard](https://html.spec.whatwg.org/multipage/dom.html#embedding-custom-non-visible-data-with-the-data-*-attributes)
