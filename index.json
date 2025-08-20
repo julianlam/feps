@@ -398,7 +398,7 @@
     "status": "DRAFT",
     "dateReceived": "2023-12-06",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/209",
-    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-ef61-portable-objects/3738",
+    "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
     "title": "Portable Objects"
   },
   {
