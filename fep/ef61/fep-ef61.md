@@ -5,7 +5,7 @@ type: implementation
 status: DRAFT
 dateReceived: 2023-12-06
 trackingIssue: https://codeberg.org/fediverse/fep/issues/209
-discussionsTo: https://socialhub.activitypub.rocks/t/fep-ef61-portable-objects/3738
+discussionsTo: https://codeberg.org/silverpill/feps/issues
 ---
 # FEP-ef61: Portable Objects
 
@@ -98,9 +98,12 @@ If object is not public, the server MUST return `404 Not Found` unless the reque
 
 ## Authentication and authorization
 
-Authentication and authorization are performed in accordance with [FEP-fe34] origin-based security model.
+Authentication and authorization are performed in accordance with [FEP-fe34] origin-based security model, but with two important differences:
 
-The [origin][RFC-6454] of an `ap://` URL is computed by the following algorithm:
+- Cryptographic origins are used. They are similar to web origins described in [RFC-6454] but computed using a different algorithm.
+- Authentication via fetching from an origin is not possible. The main authentication method is verification of a signature.
+
+The origin of an `ap://` URL is computed by the following algorithm:
 
 1. Let `uri-scheme` be the `ap` string.
 2. Let `uri-host` be the authority component of the URL.
@@ -123,7 +126,7 @@ The value of `verificationMethod` property of the proof MUST be a [DID URL][DID-
 
 ## Portable actors
 
-One identity (represented by [DID]) can control multiple actors (which are differentiated by the path component of an `ap://` URL).
+One [DID subject][DID-Subject] can control multiple actors (which are differentiated by the path component of an `ap://` URL).
 
 An actor object identified by `ap://` URL MUST have a `gateways` property containing an ordered list of gateways where the latest version of that actor object can be retrieved. Each item in the list MUST be an HTTP(S) URL with empty path, query and fragment components. The list MUST contain at least one item.
 
@@ -176,7 +179,7 @@ Implementations MUST discard query parameters when comparing `ap://` identifiers
 
 ### Inboxes and outboxes
 
-Servers and clients MUST use gateways to deliver activities to inboxes or outboxes. Servers specified in the `gateways` property of an actor object MUST accept POST requests to respective gateway URLs.
+Servers and clients use gateways to deliver activities to inboxes or outboxes. Servers specified in the `gateways` property of an actor object MUST accept POST requests targeting its inbox and outbox collections.
 
 Example:
 
@@ -184,13 +187,15 @@ Example:
 POST https://social.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox
 ```
 
-Delivered activities might be not portable. If delivered activity is portable (has `ap://` identifier), the server MUST verify its [FEP-8b32] integrity proof. If the server does not accept deliveries on behalf of an actor, it MUST return `405 Method Not Allowed`.
+Activities delivered to an inbox might be not portable. If the server does not accept deliveries on behalf of an actor, it MUST return `405 Method Not Allowed`.
 
-ActivityPub clients MAY follow [FEP-ae97][FEP-ae97] to publish activities. In this case, the client MAY deliver signed activity to multiple outboxes, located on different servers.
+Upon receiving an activity in actor's inbox, the server SHOULD forward it to inboxes located on other servers where actor's data is stored. An activity MUST NOT be forwarded from inbox more than once.
 
-Upon receiving an activity in actor's outbox, server SHOULD forward it to outboxes located on other servers where actor's data is stored. An activity MUST NOT be forwarded from outbox more than once.
+Activities delivered to an outbox are performed by a portable actor and therefore MUST be portable too. The server MUST verify them as described in section [Authentication and authorization](#authentication-and-authorization) and then process them as described in [FEP-ae97]. Clients MAY deliver activities to multiple outboxes, located on different servers.
 
-Upon receiving an activity in actor's inbox, server SHOULD forward it to inboxes located on other servers where actor's data is stored.
+Upon receiving an activity in actor's outbox, the server SHOULD forward it to outboxes located on other servers where actor's data is stored. An activity MUST NOT be forwarded from outbox more than once.
+
+Gateways SHOULD implement [FEP-ae97] actor registration API.
 
 ### Collections
 
@@ -363,6 +368,7 @@ The following alternatives to gateway-based compatible IDs are being considered:
 [RFC-2119]: https://datatracker.ietf.org/doc/html/rfc2119.html
 [RFC-3986]: https://datatracker.ietf.org/doc/html/rfc3986.html
 [DID]: https://www.w3.org/TR/did-core/
+[DID-Subject]: https://www.w3.org/TR/did-1.0/#did-subject
 [did:key]: https://w3c-ccg.github.io/did-key-spec/
 [DID-URL]: https://www.w3.org/TR/did-core/#did-url-syntax
 [DID-Services]: https://www.w3.org/TR/did-1.0/#services
