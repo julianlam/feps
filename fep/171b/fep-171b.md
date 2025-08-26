@@ -4,7 +4,7 @@ authors: silverpill <@silverpill@mitra.social>
 type: implementation
 status: DRAFT
 dateReceived: 2024-11-23
-discussionsTo: https://socialhub.activitypub.rocks/t/fep-171b-conversation-containers/4766
+discussionsTo: https://codeberg.org/silverpill/feps/issues
 trackingIssue: https://codeberg.org/fediverse/fep/issues/449
 ---
 
@@ -24,12 +24,30 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 A conversation container is implemented as a collection. Every item in that collection is an `Add` activity where `object` is another activity (such as `Create`, `Update`, `Delete`, `Like`, `Dislike`, `EmojiReact` or `Announce`). The conversation owner distributes `Add` activities to other participants, thus keeping their views of the conversation synchronized.
 
+```mermaid
+sequenceDiagram
+  actor Alice
+  actor Bob
+  actor Charlie
+  Note right of Alice: Alice starts a conversation by creating a post
+  Alice ->> Bob: Add(Create(Note))
+  Alice ->> Charlie: Add(Create(Note))
+  Note left of Bob: Bob reacts to the post
+  Bob ->> Alice: Like(Note)
+  Note right of Alice: Alice receives activity and distributes it to other participants
+  Alice ->> Charlie: Add(Like(Note))
+```
+
 ### Container collection
 
 - Collection type MUST be `OrderedCollection`.
 - Collection items MUST be in chronological order.
 - Collection MUST have an `attributedTo` property containing the `id` of the conversation owner.
 - Collection SHOULD have `collectionOf` property with value `Activity`.
+
+The audience of a conversation SHOULD be able to access the container collection. If a server forwards activities without storing them, it is permitted to not publish the collection. However, that would limit the ability of other servers to backfill conversations.
+
+Actors who are not part of the audience MUST be denied access to the collection.
 
 >[!NOTE]
 >The required collection type might be changed to a more descriptive one (such as `ConversationContainer`) in a future version of this document. That will allow identification of `Add` activities belonging to a conversation container by the value of `Add.target.type`.
@@ -65,7 +83,7 @@ The top-level post MUST have a `contextHistory` property that refers to the conv
 
 ### Interactions
 
-All activities in a conversation SHOULD only be delivered to the conversation owner.
+Regardless of their audience, all activities in a conversation SHOULD only be delivered to the conversation owner.
 
 Conversation participants SHOULD reject conversation activities that have not been added to the conversation by its owner.
 
@@ -121,6 +139,7 @@ Example of an `Add` activity for a reply to a followers-only post:
     "id": "https://bob.example/activities/create/1",
     "actor": "https://bob.example/actors/1",
     "context": "https://alice.example/contexts/1",
+    "contextHistory": "https://alice.example/contexts/1/history",
     "object": {
       "@context": [
         "https://www.w3.org/ns/activitystreams"
@@ -141,7 +160,7 @@ Example of an `Add` activity for a reply to a followers-only post:
   },
   "target": {
     "type": "OrderedCollection",
-    "id": "https://alice.example/contexts/1",
+    "id": "https://alice.example/contexts/1/history",
     "attributedTo": "https://alice.example/actors/1"
   },
   "to": [
@@ -160,7 +179,7 @@ Example of a container of a followers-only conversation:
     "https://w3id.org/fep/171b"
   ],
   "type": "OrderedCollection",
-  "id": "https://alice.example/contexts/1",
+  "id": "https://alice.example/contexts/1/history",
   "attributedTo": "https://alice.example/actors/1",
   "collectionOf": "Activity",
   "orderedItems": [
@@ -173,12 +192,14 @@ Example of a container of a followers-only conversation:
 
 - [FEP-400e]: The `object` of `Add` is an object, not an activity, and conversation collection contains added objects. `Reject(Create)` activity is generated for rejected posts. Conversation participants are expected to add a `target` property to posts.
 - [FEP-1b12](https://codeberg.org/fediverse/fep/src/branch/main/fep/1b12/fep-1b12.md): `Announce` activity is used instead of `Add`. Conversation and related activities are synchronized between participants, but conversation backfilling mechanism is not specified.
-- [GoToSocial Interaction Policy](https://docs.gotosocial.org/en/latest/federation/posts/#interaction-policy): conversation is managed separately for each post (in a conversation container the owner has authority over the entire thread). `Accept` or `Reject` activity is generated for every interaction (in a conversation container `Add` activity is generated when activity is approved, and rejected activities are ignored). Conversation is not synchronized between participants, but can be backfilled by recursively fetching `replies` collections.
+- [GoToSocial Interaction Policy][InteractionPolicy]: conversation is managed separately for each post (in a conversation container the owner has authority over the entire thread). `Accept` or `Reject` activity is generated for every interaction (in a conversation container `Add` activity is generated when activity is approved, and rejected activities are ignored). Conversation is not synchronized between participants, but can be backfilled by recursively fetching `replies` collections.
+- [Forwarding from inbox][ForwardingFromInbox]: Activites are distributed without wrapping. Conversations are synchronized between participants, but conversation backfilling mechanism is not specified.
 
 ## Implementations
 
 - [Streams](https://codeberg.org/streams/streams)
 - [Hubzilla](https://hub.somaton.com/item/0145da10-b608-4b19-b1d5-89a461e473d0)
+- [Mitra](https://codeberg.org/silverpill/mitra/src/tag/v4.8.0/FEDERATION.md#supported-feps) (only for private conversations)
 
 ## References
 
@@ -197,6 +218,8 @@ Example of a container of a followers-only conversation:
 [FEP-e232]: https://codeberg.org/fediverse/fep/src/branch/main/fep/e232/fep-e232.md
 [FEP-fe34]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md
 [FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
+[InteractionPolicy]: https://docs.gotosocial.org/en/latest/federation/interaction_policy/
+[ForwardingFromInbox]: https://www.w3.org/TR/activitypub/#inbox-forwarding
 
 ## Copyright
 
