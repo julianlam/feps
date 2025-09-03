@@ -11,9 +11,9 @@ trackingIssue: https://codeberg.org/fediverse/fep/issues/547
 
 ## Summary
 
-This is a work-in-progress document describing Mastodon's proposed way of representing quote posts, users' choices regarding whether their posts can be quoted and by whom (quote policies), and a mechanism for servers to verify compliance with such policies.
+This document proposes a representation of quote posts that allows verifying consent of the quoted user, through a revocable authorization mechanism, as well as a representation of the user's choice regarding whetheir their posts can be quoted and by whom.
 
-This document describes protocol considerations, which do not necessarily translate directly to User Experience considerations. For instance, the use of the approval mechanism described in this document does not imply that the user's approval is manual.
+The approval mechanism defined in this document is systematic and required for all quotes except self-quotes, but as with `Follow` and `Accept`, approval can be granted automatically depending on the user's choice.
 
 ## Requirements
 
@@ -418,7 +418,7 @@ Using a special class like `quote-inline` can be useful to hide redundant inform
 
 Servers that do not implementing the current FEP will still be able to quote the post without providing any dogpiling-reducing friction. There is unfortunately nothing we can do about that. However, servers which do implement the current FEP should refuse displaying those quotes, so implementing the control mechanisms of the current FEP remains worthwhile.
 
-The current FEP does not specify behavior around the visibility of quoted posts, but implementations should pay special attention to not inadvertently expose the contents of a quoted post to users who are not allowed to see it. In particular, implementations should ensure that any restriction based on user blocks, or follow relationships are still respected. Likewise, implementations should pay attention so that any discoverability, searchability or privacy setting, such as FEP-5feb, are still respected.
+The current FEP does not specify behavior around the visibility of quoted posts, but implementations should pay special attention to not inadvertently expose the contents of a quoted post to users who are not allowed to see it. In particular, implementations should ensure that any restriction based on user blocks, or follow relationships are still respected. Likewise, implementations should pay attention so that any discoverability, searchability or privacy setting, such as FEP-5feb, are still respected. To reduce risk of accidental exposure through third-party servers with insufficient visibility checks, it is recommended to not allow quoting posts with a wider allowed audience than that of the quoted post.
 
 Effectively revoking authorized quote posts relies on the participation of the quote poster's server to effectively reach the audience of the quote post. This means that an ill-intentioned server which obtained an authorization could deliberately refuse to forward the revocation. Still, the ability to revoke a quote post remains useful between well-intentioned servers, and opportunistic re-verification of quote approvals should also help with discovering that a quote authorization has been revoked, despite the potential lack of forwarding.
 
@@ -431,7 +431,7 @@ By not adding a hash or copy of the reply in the `QuoteAuthorization` object, ma
 ## Implementations
 
 * [Smithereen](https://github.com/grishka/Smithereen) exposes always-allowed quote policies, supports authoring quote posts as well as issuing `QuoteAuthorization` in response to a `QuoteRequest`, it does not currently verify quotes nor request stamps
-* [Mastodon](https://github.com/mastodon/mastodon) 4.4 has added support for verifying and displaying remote quote posts
+* [Mastodon](https://github.com/mastodon/mastodon) 4.4 has added support for verifying and displaying remote quote posts; version 4.5 will have support for authoring quote posts and setting quote policies (restricted to automatic approval, with either `as:Public`, the author's `followers` collections, or nobody)
 
 ## References
 
