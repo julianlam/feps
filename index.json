@@ -766,7 +766,7 @@
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2024-11-15",
-    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-fe34-origin-based-security-model/4292",
+    "discussionsTo": "https://codeberg.org/silverpill/feps",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/445",
     "title": "Origin-based security model"
   },
