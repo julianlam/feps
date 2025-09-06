@@ -4,7 +4,7 @@ authors: silverpill <@silverpill@mitra.social>
 type: implementation
 status: DRAFT
 dateReceived: 2024-11-15
-discussionsTo: https://socialhub.activitypub.rocks/t/fep-fe34-origin-based-security-model/4292
+discussionsTo: https://codeberg.org/silverpill/feps
 trackingIssue: https://codeberg.org/fediverse/fep/issues/445
 ---
 # FEP-fe34: Origin-based security model
@@ -63,7 +63,9 @@ Non-anonymous ActivityPub objects can be authenticated by making an HTTP GET req
 
 The last URI in the chain of redirects is object's location. The location SHOULD match the ID of the retrieved object. If object's location and ID are different, they MUST have the same origin.
 
-Servers MUST validate all objects received from clients. Any activity representing an action that actor is not [authorized](#authorization) to perform MUST be rejected. Special attention needs to be paid to media uploads, because malicious actors might attempt to bypass validation by uploading ActivityPub documents as media (see [GHSA-jhrq-qvrm-qr36] for more information).
+If the object is [protected](#access-control), the server MAY require an [HTTP signature][HttpSig].
+
+Servers MUST validate all objects received from clients. Any activity representing an action that actor is not [authorized](#authorization) to perform MUST be rejected. Special attention needs to be paid to media uploads, because malicious actors might attempt to bypass the validation by uploading ActivityPub documents as media. As an additional protection in cases where an attacker was able to bypass the validation, consumers MUST verify that the response to a GET request contains the `Content-Type` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` or `application/activity+json` media type (see [GHSA-jhrq-qvrm-qr36] for more information).
 
 Servers MUST NOT serve objects until they are validated.
 
@@ -80,11 +82,10 @@ Servers MUST NOT share secret keys with clients.
 
 Servers MUST NOT allow clients to create objects representing public keys, including such objects embedded within actors and other objects. Public keys can be identified by their properties `publicKeyPem` and `publicKeyMultibase`. Embedded public keys with a different origin are permitted.
 
+In order to minimize damage in the event of a key compromise or insufficient validation, consumers MUST verify that the signing key has the same [owner](#ownership) as the signed object. Consumers MUST also confirm the ownership of the key by verifying a [reciprocal claim](#reciprocal-claims).
+
 > [!WARNING]
 > JSON-LD consumers might be tricked into processing a specially crafted JSON object without `publicKeyPem` and `publicKeyMultibase` properties as a public key. Protections against attacks of that kind are not described in this document.
-
-> [!NOTE]
-> Clients would be permitted to create public keys if the [same-owner](#ownership) policy was used instead of the same-origin policy. However, in order to prevent impersonation of other local actors, servers would still need to identify all public keys in activities submitted to outboxes and verify owners of those keys, because other servers treat any public key fetched from the origin as authentic. The same-origin policy is recommended here for simplicity.
 
 ### Embedding
 
@@ -136,7 +137,12 @@ When ownership changes, the new owner ID MUST have the same origin as the old ow
 
 ### Access control
 
-When a protected object is retrieved, the `GET` request MUST contain a [HTTP signature][HttpSig] created using a key whose owner MUST belong to object's intended audience. The same-origin policy is not sufficient in this case because clients might use the [proxyUrl] endpoint to make requests signed with a key controlled by the server.
+When a protected object is retrieved, the `GET` request MUST contain an [HTTP signature][HttpSig] created using a key whose owner MUST belong to object's intended audience.
+
+The server MAY require a signature even if the object is public. In that case, the request can be signed with a key owned by a [server actor][HttpSig-ServerActor].
+
+> [!NOTE]
+> The same-origin policy is not sufficient in this case because clients might use the [proxyUrl] endpoint to make requests signed with a key controlled by the server.
 
 ### Implicit ownership
 
@@ -149,11 +155,12 @@ Authorization recommendations provided in this document still apply in such case
 
 ## Reciprocal claims
 
-When the same-origin policy can not be used, a trusted relationship between objects can be established with reciprocal claims. Claims are considered reciprocal when one object specifies a claim that is accompanied by a reverse claim specified in another object.
+Claims are considered reciprocal when one object specifies a claim that is accompanied by a reverse claim specified in another object.
 
-Example:
+Examples:
 
-- Any activity performed by an actor can be verified by retrieving it from the actor's outbox.
+- The ownership of an activity can be asserted by including it in the actor's outbox.
+- The ownership of a public key can be asserted by embedding it within the actor document.
 
 ## Cross-origin relationships
 
@@ -183,6 +190,7 @@ Examples:
 [FEP-8b32]: https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md
 [FEP-2277]: https://codeberg.org/fediverse/fep/src/branch/main/fep/2277/fep-2277.md
 [HttpSig]: https://swicg.github.io/activitypub-http-signature/
+[HttpSig-ServerActor]: https://swicg.github.io/activitypub-http-signature/#instance-actor
 [proxyUrl]: https://www.w3.org/TR/activitypub/#actor-objects
 [Fragment]: https://en.wikipedia.org/wiki/URI_fragment
 
