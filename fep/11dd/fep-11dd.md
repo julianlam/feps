@@ -4,6 +4,7 @@ authors: Julian Lam <julian@nodebb.org>
 status: DRAFT
 discussionsTo: https://activitypub.space/topic/22/fep-11dd-context-ownership-and-inheritance
 dateReceived: 2025-09-11
+trackingIssue: https://codeberg.org/fediverse/fep/issues/675
 ---
 # FEP-11dd: Context Ownership and Inheritance
 

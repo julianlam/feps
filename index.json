@@ -986,5 +986,14 @@
     "dateReceived": "2025-07-06",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/648",
     "title": "Custom emojis"
+  },
+  {
+    "slug": "11dd",
+    "authors": "Julian Lam <julian@nodebb.org>",
+    "status": "DRAFT",
+    "discussionsTo": "https://activitypub.space/topic/22/fep-11dd-context-ownership-and-inheritance",
+    "dateReceived": "2025-09-11",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/675",
+    "title": "Context Ownership and Inheritance"
   }
 ]
