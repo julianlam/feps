@@ -11,7 +11,7 @@ trackingIssue: https://codeberg.org/fediverse/fep/issues/500
 
 ## Summary
 
-The most common conversation backfill method is based on recursive retrieval of posts indicated by `inReplyTo` property and posts contained in `replies` collections. This is inefficient.
+The most common conversation backfill method is based on recursive retrieval of posts indicated by `inReplyTo` property and posts contained in `replies` collections. [This is inefficient and stops working if any node in the reply tree becomes inaccessible](https://community.nodebb.org/topic/18844/backfilling-conversations-two-major-approaches).
 
 [FEP-7888: Demystifying the context property][FEP-7888] suggests using the `context` property for grouping related objects (such as posts in a conversation). This property can resolve to a collection, which can be used for efficient backfilling without recursion.
 
@@ -79,6 +79,7 @@ Collection of posts:
 - Discourse
 - Mitra
 - Decodon ([PR](https://github.com/jesseplusplus/decodon/pull/188))
+- PieFed ([commit](https://codeberg.org/rimu/pyfedi/commit/8d2afe5acd6c260a9ca9a352a93730d5a7b6bcdd))
 
 Collection of activities:
 
