@@ -342,6 +342,7 @@ The following alternatives to gateway-based compatible IDs are being considered:
 - [Mitra](https://codeberg.org/silverpill/mitra) (gateway only)
 - [fep-ae97-client](https://codeberg.org/silverpill/fep-ae97-client) (client)
 - [Forte](https://codeberg.org/fortified/forte/src/commit/ade73e4ed05d0ea2b001abd8e3f2e94c856ac99f/FEDERATION.md#fediverse-feps)
+- [tootik](https://github.com/dimkr/tootik/blob/v0.19.0/FEDERATION.md#data-portability)
 
 ## References
 

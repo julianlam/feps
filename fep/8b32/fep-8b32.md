@@ -197,6 +197,7 @@ See [fep-8b32.feature](./fep-8b32.feature)
 - [Hubzilla](https://hub.somaton.com/channel/mario?mid=4214a375-3a18-4acb-b546-75c6c4818e2f)
 - [Fedify](https://todon.eu/users/hongminhee/statuses/112638238338153870)
 - [apsig](https://github.com/AmaseCocoa/apsig/blob/af7af0e106132a51356fc92ed034b1152a1caea8/docs/proof.md)
+- [tootik](https://github.com/dimkr/tootik/blob/v0.19.0/FEDERATION.md#data-portability)
 
 ## Use cases
 
