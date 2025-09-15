@@ -66,8 +66,10 @@ Example:
   "generator": {
     "type": "Application",
     "implements": [
-      "href": "https://datatracker.ietf.org/doc/html/rfc9421",
-      "name": "RFC-9421: HTTP Message Signatures"
+      {
+        "href": "https://datatracker.ietf.org/doc/html/rfc9421",
+        "name": "RFC-9421: HTTP Message Signatures"
+      }
     ]
   }
 }
@@ -100,6 +102,7 @@ Implementers MUST NOT use it in cases where capabilities can be inferred from pr
 - Forte
 - Mitra
 - [ActivityPub for WordPress](https://activitypub.blog/2025/07/09/7-0-0-i-will-follow-you/)
+- [tootik](https://github.com/dimkr/tootik/blob/0.18.0/FEDERATION.md#http-signatures)
 
 ## References
 
