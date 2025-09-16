@@ -995,5 +995,14 @@
     "dateReceived": "2025-09-11",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/675",
     "title": "Context Ownership and Inheritance"
+  },
+  {
+    "slug": "8967",
+    "authors": "a <a@trwnh.com>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-8967-generating-link-previews-for-attached-links/5598",
+    "dateReceived": "2025-09-16",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/681",
+    "title": "Generating link previews for attached links"
   }
 ]
