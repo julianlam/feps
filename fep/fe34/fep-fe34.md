@@ -65,7 +65,9 @@ The last URI in the chain of redirects is object's location. The location SHOULD
 
 If the object is [protected](#access-control), the server MAY require an [HTTP signature][HttpSig].
 
-Servers MUST validate all objects received from clients. Any activity representing an action that actor is not [authorized](#authorization) to perform MUST be rejected. Special attention needs to be paid to media uploads, because malicious actors might attempt to bypass the validation by uploading ActivityPub documents as media. As an additional protection in cases where an attacker was able to bypass the validation, consumers MUST verify that the response to a GET request contains the `Content-Type` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` or `application/activity+json` media type (see [GHSA-jhrq-qvrm-qr36] for more information).
+Servers MUST validate all objects received from clients. Any activity representing an action that actor is not [authorized](#authorization) to perform MUST be rejected. Special attention needs to be paid to media uploads, because malicious actors might attempt to bypass the validation by uploading ActivityPub documents as media. If the server allows clients to upload arbitrary files, it MUST serve media from a different origin (e.g. from a different subdomain).
+
+As an additional protection in cases where an attacker was able to bypass the validation, consumers MUST verify that the response to a GET request contains the `Content-Type` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` or `application/activity+json` media type (see [GHSA-jhrq-qvrm-qr36] for more information).
 
 Servers MUST NOT serve objects until they are validated.
 
@@ -108,6 +110,12 @@ Ownership is indicated by a property of an ActivityPub object. The name of this 
 - Public keys and verification methods have `owner` and `controller` properties.
 - Other kinds of objects might have an `attributedTo` property, which describes the actor to which the object is attributed. This actor is considered to be the owner of the object.
 
+In some cases ownership might be implicit. Examples:
+
+- Inbox and outbox collections are expected to be owned by the actor to which they are attached.
+- A `replies` collection is owned by the actor to which the post is attributed.
+- All pages of a collection are expected to be owned by the same actor.
+
 The owner of an object MUST be an actor.
 
 Identifier of an object and identifier of its owner MUST have the same origin.
@@ -122,13 +130,15 @@ Identifier of an object and identifier of its owner MUST have the same origin.
 
 The actor that creates an object MUST be its owner.
 
-If activity modifies or deletes an object, its owner SHOULD match the object's owner. If owners are different, their IDs MUST have the same origin.
+The owner of an object is permitted to modify and delete it. This permission might also be specified with [reciprocal claims](#reciprocal-claims).
+
+If the owner of an activity that modifies or deletes an object doesn't have a permission to perform the operation, the activity MUST be rejected. If such activity is received from another server and the permission can not be verified, the recipient MAY accept the activity if its actor and the owner of the affected object have the same origin.
 
 Examples:
 
-- `Update` and `Delete` activities, and objects indicated by their `object` property SHOULD have the same owner.
-- `Undo` activity and object indicated by its `object` property SHOULD have the same owner.
-- `Add` and `Remove` activities, and objects indicated by their `target` property SHOULD have the same owner.
+- `Update` and `Delete` activities, and objects indicated by their `object` property are expected to have the same owner.
+- `Undo` activity and object indicated by its `object` property are expected to have the same owner.
+- `Add` and `Remove` activities, and objects indicated by their `target` property are expected to have the same owner.
 - `Announce` and `Like` activities don't modify objects indicated by their `object` property, therefore their owners can be different.
 
 ### Ownership transfer
@@ -137,21 +147,11 @@ When ownership changes, the new owner ID MUST have the same origin as the old ow
 
 ### Access control
 
-When a protected object is retrieved, the `GET` request MUST contain an [HTTP signature][HttpSig] created using a key whose owner MUST belong to object's intended audience.
+When a protected object is retrieved, the server MUST verify that the `GET` request contains an [HTTP signature][HttpSig] created using a key whose owner belongs to object's intended audience.
 
 The server MAY require a signature even if the object is public. In that case, the request can be signed with a key owned by a [server actor][HttpSig-ServerActor].
 
-> [!NOTE]
-> The same-origin policy is not sufficient in this case because clients might use the [proxyUrl] endpoint to make requests signed with a key controlled by the server.
-
-### Implicit ownership
-
-In some cases ownership can be implicit. Examples:
-
-- Inbox and outbox collections are expected to be owned by the actor to which they are attached.
-- All pages of a collection are expected to be owned by the same actor.
-
-Authorization recommendations provided in this document still apply in such cases.
+Servers that implement [proxyUrl] endpoint MUST ensure that access to objects is restricted to actors that belong to intended audiences of these objects.
 
 ## Reciprocal claims
 
