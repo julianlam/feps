@@ -11,6 +11,7 @@ result = []
 for fep in index():
     data = fep.parsed_frontmatter
     data["title"] = fep.title
+    data["implementations"] = fep.implementations
     result.append(data)
 
 with open("index.json", "w") as index_file:

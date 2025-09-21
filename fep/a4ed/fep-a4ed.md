@@ -55,6 +55,8 @@ Fediverse Enhancement Proposals are classified into following types:
 - Informational documents
 - Implementation proposals
 
+The type is chosen by the author. If the type is not specified, the proposal is assumed to be informational.
+
 ### Metadata
 
 Proposal metadata is placed at the top of the document as key-value pairs between opening and closing ~---~.

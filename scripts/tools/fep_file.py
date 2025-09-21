@@ -55,6 +55,24 @@ class FepFile:
 
         return true_title
 
+    @property
+    def implementations(self):
+        if self.parsed_frontmatter.get("type") != "implementation":
+            return 0
+        implementations = []
+        in_section = False
+        for line in self.content:
+            if line.startswith('#') and "Implementations" in line:
+                in_section = True
+            elif in_section is True and line.startswith('#'):
+                in_section = False
+            elif (
+                in_section is True
+                and (line.startswith("-") or line.startswith("*"))
+            ):
+                implementations.append(line)
+        return len(implementations)
+
     @staticmethod
     def parsefile(f):
         lines = f.readlines()
