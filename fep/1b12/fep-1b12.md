@@ -47,7 +47,7 @@ To simplify this process, we propose to specify the group identifier in the `aud
 Each `Group` actor represents a single forum. Forums contain many user-submitted threads, which can be represented by different objects depending on the implementation. Thread objects SHOULD have a `name` property which represents the thread title.
 
 Example thread:
-```
+```json
 {
     "type": "Page",
     "id": "https://sally.example.org/p/1",
@@ -60,7 +60,7 @@ Example thread:
 Threads can have replies, which are usually represented as `Note`s. They MUST have a property `inReplyTo` referencing either the thread they belong to, or the parent reply in case of nested replies.
 
 Example reply:
-```
+```json
 {
     "type": "Note",
     "id": "https://sally.example.org/p/3",
@@ -82,7 +82,7 @@ When a group receives a activity in its inbox, it SHOULD perform some automatic 
 In case the incoming activity is deemed valid, the group MUST wrap it in an `Announce` activity, with the original activity as object. The wrapped activity MUST be preserved exactly as it was received, without changing or removing any properties. This ensures that forwarded activities can be verified with [Object Integrity Proofs]. Announce activities SHOULD get added to the group outbox. If the group exposes collections of threads and comments, relevant items should also be added to them.
 
 Example:
-```
+```json
 {
   "@context": "https://www.w3.org/ns/activitystreams",
   "type": "Announce",
@@ -112,7 +112,7 @@ This mechanism can be used to publish any possible activity type. Examples inclu
 
 Group moderators are those actors who control the group, are able to change its metadata and remove malicious content. They are listed in the group’s `attributedTo` collection. Moderation is an optional feature, implementations can safely ignore this entire section. At the moment it is only implemented by Lemmy.
 
-```
+```json
 {
   "id": "https://example.org/my-forum",
   "type": "Group",
@@ -121,7 +121,7 @@ Group moderators are those actors who control the group, are able to change its 
 }
 ```
 
-```
+```json
 {
   "type": "OrderedCollection",
   "id": "https://example.org/my-forum/moderators",
@@ -134,7 +134,7 @@ Group moderators are those actors who control the group, are able to change its 
 
 Group moderators can be changed with `Add` and `Remove` activities:
 
-```
+```json
 {
   "@context": "https://www.w3.org/ns/activitystreams",
   "type": "Announce",
