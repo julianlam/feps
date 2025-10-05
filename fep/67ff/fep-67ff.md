@@ -81,6 +81,8 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [apkit](https://github.com/fedi-libs/apkit/blob/main/FEDERATION.md)
 - [Tvmarks](https://github.com/stefanhayden/tvmarks/blob/main/FEDERATION.md)
 - [Manyfold](https://github.com/manyfold3d/manyfold/blob/main/FEDERATION.md)
+- [Cryap](https://codeberg.org/cryap/cryap/src/branch/main/FEDERATION.md)
+- [ActivityPub Fuzzer](https://github.com/berkmancenter/activitypub-fuzzer/blob/main/FEDERATION.md)
 
 ## References
 
