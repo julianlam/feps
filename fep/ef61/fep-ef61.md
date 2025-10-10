@@ -15,7 +15,7 @@ Portable [ActivityPub][ActivityPub] objects with server-independent IDs.
 
 ## Motivation
 
-Usage of HTTP(S) URLs as identifiers has a major drawback: when the server disappears, everyone who uses it loses their identities and data.
+Usage of HTTP(S) URIs as identifiers has a major drawback: when the server disappears, everyone who uses it loses their identity and data.
 
 The proposed solution should satisfy the following constraints:
 
@@ -41,9 +41,9 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 An [ActivityPub][ActivityPub] object can be made portable by using an identifier that is not tied to a single server. This proposal describes a new identifier type that has this property and is compatible with the [ActivityPub] specification.
 
-### ap:// URLs
+### 'ap' URIs
 
-`ap://` URL is constructed according to the [URI][RFC-3986] specification, but with a [Decentralized Identifier][DID] in place of the authority:
+'ap' URI is constructed according to the [RFC-3986] specification, but with a [Decentralized Identifier][DID] in place of the authority:
 
 ```text
 ap://did:example:123456/path/to/object?name=value#fragment-id
@@ -59,7 +59,7 @@ scheme   authority           path        query     fragment
 - The fragment is OPTIONAL.
 
 >[!NOTE]
->ActivityPub specification [requires][ActivityPub-ObjectIdentifiers] identifiers to have an authority "belonging to that of their originating server". The authority of 'ap' URL is a DID, which does not belong to any particular server.
+>ActivityPub specification [requires][ActivityPub-ObjectIdentifiers] identifiers to have an authority "belonging to that of their originating server". The authority of 'ap' URI is a DID, which does not belong to any particular server.
 
 >[!WARNING]
 >The URI scheme might be changed to `ap+ef61` in a future version of this document, because these identifiers are not intended to be used for all ActivityPub objects, but only for portable ones.
@@ -73,11 +73,11 @@ Implementers MUST support the [did:key] method. Other DID methods SHOULD NOT be 
 
 DID documents SHOULD contain Ed25519 public keys represented as verification methods with `Multikey` type (as defined in the [Controlled Identifiers][Multikey] specification).
 
-Any [DID URL][DID-URL] capabilities of a DID method MUST be ignored when working with `ap://` URLs.
+Any [DID URL][DID-URL] capabilities of a DID method MUST be ignored when working with 'ap' URIs.
 
-### Dereferencing ap:// URLs
+### Dereferencing 'ap' URIs
 
-To dereference an `ap://` URL, the client MUST make HTTP GET request to a gateway endpoint at [well-known] location `/.well-known/apgateway`. The `ap://` prefix MUST be removed from the URL and the rest of it appened to a gateway URL. The client MUST specify an `Accept` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` media type.
+To dereference an 'ap' URI, the client MUST make HTTP GET request to a gateway endpoint at [well-known] location `/.well-known/apgateway`. The `ap://` prefix MUST be removed from the URI and the rest of it appended to a gateway URI. The client MUST specify an `Accept` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` media type.
 
 Example of a request to a gateway:
 
@@ -85,11 +85,11 @@ Example of a request to a gateway:
 GET https://social.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object
 ```
 
-ActivityPub objects identified by `ap://` URLs can be stored on multiple servers simultaneously.
+ActivityPub objects identified by 'ap' URIs can be stored on multiple servers simultaneously.
 
-If object identified by `ap://` URL is stored on the server, it MUST return a response with status `200 OK` containing the requested object. The value of a `Content-Type` header MUST be `application/ld+json; profile="https://www.w3.org/ns/activitystreams"`.
+If object identified by 'ap' URI is stored on the server, it MUST return a response with status `200 OK` containing the requested object. The value of a `Content-Type` header MUST be `application/ld+json; profile="https://www.w3.org/ns/activitystreams"`.
 
-If object identified by `ap://` URL is not stored on the server, it MUST return `404 Not Found`.
+If object identified by 'ap' URI is not stored on the server, it MUST return `404 Not Found`.
 
 If object is not public, the server MUST return `404 Not Found` unless the request has a HTTP signature and the signer is allowed to view the object.
 
@@ -103,10 +103,10 @@ Authentication and authorization are performed in accordance with [FEP-fe34] ori
 - Cryptographic origins are used. They are similar to web origins described in [RFC-6454] but computed using a different algorithm.
 - Authentication via fetching from an origin is not possible. The main authentication method is verification of a signature.
 
-The origin of an `ap://` URL is computed by the following algorithm:
+The origin of an 'ap' URI is computed by the following algorithm:
 
 1. Let `uri-scheme` be the `ap` string.
-2. Let `uri-host` be the authority component of the URL.
+2. Let `uri-host` be the authority component of the URI.
 3. Let `uri-port` be the number 0.
 4. Return the triple `(uri-scheme, uri-host, uri-port)`.
 
@@ -117,18 +117,18 @@ And the origin of a [DID URL][DID-URL] is computed by the following algorithm:
 3. Let `uri-port` be the number 0.
 4. Return the triple `(uri-scheme, uri-host, uri-port)`.
 
-Actors, activities and objects identified by `ap://` URLs MUST contain [FEP-8b32] integrity proofs. Collections identified by `ap://` URLs MAY contain integrity proofs. If collection doesn't contain an integrity proof, [another authentication method](#collections) MUST be used.
+Actors, activities and objects identified by 'ap' URIs MUST contain [FEP-8b32] integrity proofs. Collections identified by 'ap' URIs MAY contain integrity proofs. If collection doesn't contain an integrity proof, [another authentication method](#collections) MUST be used.
 
-The value of `verificationMethod` property of the proof MUST be a [DID URL][DID-URL] where the DID matches the authority component of the `ap://` URL.
+The value of `verificationMethod` property of the proof MUST be a [DID URL][DID-URL] where the DID matches the authority component of the 'ap' URI.
 
 >[!NOTE]
 >This document uses terms "actor", "activity", "collection" and "object" according to the classification given in [FEP-2277].
 
 ## Portable actors
 
-One [DID subject][DID-Subject] can control multiple actors (which are differentiated by the path component of an `ap://` URL).
+One [DID subject][DID-Subject] can control multiple actors (which are differentiated by the path component of an 'ap' URI).
 
-An actor object identified by `ap://` URL MUST have a `gateways` property containing an ordered list of gateways where the latest version of that actor object can be retrieved. Each item in the list MUST be an HTTP(S) URL with empty path, query and fragment components. The list MUST contain at least one item.
+An actor object identified by 'ap' URI MUST have a `gateways` property containing an ordered list of gateways where the latest version of that actor object can be retrieved. Each item in the list MUST be an HTTP(S) URI with empty path, query and fragment components. The list MUST contain at least one item.
 
 Gateways are expected to be the same for all actors under a DID authority and MAY be also specified in the DID document as [services][DID-Services].
 
@@ -162,7 +162,7 @@ Example:
 
 ### Location hints
 
-When ActivityPub object containing a reference to another actor is being constructed, implementations SHOULD provide a list of gateways where specified actor object can be retrieved. This list MAY be provided using the `gateways` query parameter. Each gateway address MUST be URL-endcoded, and if multiple addresses are present they MUST be separated by commas.
+When ActivityPub object containing a reference to another actor is being constructed, implementations SHOULD provide a list of gateways where specified actor object can be retrieved. This list MAY be provided using the `gateways` query parameter. Each gateway address MUST be URI-endcoded, and if multiple addresses are present they MUST be separated by commas.
 
 Example:
 
@@ -170,12 +170,12 @@ Example:
 ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?gateways=https%3A%2F%2Fserver1.example,https%3A%2F%2Fserver2.example
 ```
 
-This URL indicates that object can be retrieved from two gateways:
+This URI indicates that object can be retrieved from two gateways:
 
 - `https://server1.example`
 - `https://server2.example`
 
-Implementations MUST discard query parameters when comparing `ap://` identifiers and treat identifiers with different query parameter values as equal.
+Implementations MUST discard query parameters when comparing 'ap' URIs and treat URIs with different query parameter values as equal.
 
 ### Inboxes and outboxes
 
@@ -258,7 +258,7 @@ Example of an `Image` attachment:
 
 After retrieving a resource, the client MUST verify its integrity by computing its digest and comparing the result with the value encoded in `digestMultibase` property.
 
-Resources attached to portable objects using hashlinks can be stored by gateways. To retrieve a resource from a gateway, the client MUST make an HTTP GET request to the gateway endpoint at [well-known] location `/.well-known/apgateway`. The value of a hashlink URI MUST be appended to the gateway base URL.
+Resources attached to portable objects using hashlinks can be stored by gateways. To retrieve a resource from a gateway, the client MUST make an HTTP GET request to the gateway endpoint at [well-known] location `/.well-known/apgateway`. The value of a hashlink URI MUST be appended to the gateway base URI.
 
 Example of a request:
 
@@ -270,13 +270,13 @@ GET https://social.example/.well-known/apgateway/hl:zQmdfTbBqBPQ7VNxZEYEj14VmRuZ
 
 ### Identifiers
 
-`ap://` URLs might not be compatible with existing [ActivityPub][ActivityPub] implementations. To provide backward compatibility, gateway-based HTTP(S) URLs of objects can be used instead of their actual `ap://` identifiers:
+'ap' URIs might not be compatible with existing [ActivityPub][ActivityPub] implementations. To provide backward compatibility, gateway-based HTTP(S) URIs of objects can be used instead of their canonical identifiers:
 
 ```
 https://social.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/path/to/object
 ```
 
-Publishers MUST use the first gateway from actor's `gateways` list when constructing compatible identifiers. Consuming implementations that support `ap://` URLs MUST remove the part of the URL preceding `did:` and re-construct the canonical `ap://` identifier. Objects with the same canonical identifier, but located on different gateways MUST be treated as different instances of the same object.
+Publishers MUST use the first gateway from actor's `gateways` list when constructing compatible identifiers. Consuming implementations that support 'ap' URIs MUST remove the part of the URI preceding `did:` and re-construct the canonical identifier. Objects with the same canonical identifier, but located on different gateways MUST be treated as different instances of the same object.
 
 Publishers MUST NOT add the `gateways` query parameter to object IDs if compatible identifiers are used.
 
@@ -290,9 +290,9 @@ WebFinger address of a portable actor can be obtained by the reverse discovery a
 
 (This section is non-normative.)
 
-### 'ap' URL syntax
+### 'ap' URI syntax
 
-'ap' URLs are not valid URIs per [RFC-3986]. To make them valid, the authority component can be percent-encoded:
+'ap' URIs are not valid per [RFC-3986]. To make them valid, the authority component can be percent-encoded:
 
 ```
 ap://did%3Akey%3Az6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor
@@ -302,7 +302,7 @@ ap://did%3Akey%3Az6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor
 
 #### Arbitrary paths
 
-The `gateways` array can contain HTTP(S) URLs with a path component, thus enabling discovery based on the ["follow your nose"](https://indieweb.org/follow_your_nose) principle, as opposed to discovery based on a [well-known] location.
+The `gateways` array can contain HTTP(S) URIs with a path component, thus enabling discovery based on the ["follow your nose"](https://indieweb.org/follow_your_nose) principle, as opposed to discovery based on a [well-known] location.
 
 Example of a compatible object ID if the gateway endpoint is `https://social.example/ap`:
 
@@ -315,7 +315,7 @@ https://social.example/ap/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbT
 This proposal makes use of the `gateways` property, but the following alternatives are being considered:
 
 - `gateways` property in actor's `endpoints` mapping
-- `aliases` and [`sameAs`](https://schema.org/sameAs) (containing HTTP(S) URLs of objects)
+- `aliases` and [`sameAs`](https://schema.org/sameAs) (containing HTTP(S) URIs of objects)
 - `alsoKnownAs` (used for account migrations, so the usage of this property may cause issues)
 - `url` (with `alternate` [relation type](https://html.spec.whatwg.org/multipage/links.html#linkTypes))
 
@@ -333,7 +333,7 @@ To work around this limitation, a different kind of identifier can be used where
 
 The following alternatives to gateway-based compatible IDs are being considered:
 
-1. Use regular HTTP(S) URLs but specify the canonical `ap://` URL using the `url` property (with `canonical` relation type, as proposed in [FEP-fffd][FEP-fffd]). For pointers to other objects such as `inReplyTo` property, an embedded object with `url` property can be used instead of a plain URL.
+1. Use regular HTTP(S) URIs but specify the canonical 'ap' URI using the `url` property (with `canonical` relation type, as proposed in [FEP-fffd][FEP-fffd]). For pointers to other objects such as `inReplyTo` property, an embedded object with `url` property can be used instead of a plain URI.
 2. Alter object ID depending on the capabilities of the peer (which can be reported by [NodeInfo][NodeInfo] or some other mechanism).
 
 ## Implementations
