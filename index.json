@@ -338,7 +338,7 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/147",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-0837-federated-marketplace/3501",
     "title": "Federated Marketplace",
-    "implementations": 0
+    "implementations": 1
   },
   {
     "slug": "67ff",
