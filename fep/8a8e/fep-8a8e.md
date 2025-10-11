@@ -79,7 +79,7 @@ If an `Event` is received with no `endTime` set, the `Event` *MUST* be treated a
 
 _This section is non-normative._
 
-The [`https://w3id.org/fep/8a8e/timezone](`https://w3id.org/fep/8a8e/timezone`) property is introduced to support time zone information for events, enabling consistent handling of local "wall times".
+The [`https://w3id.org/fep/8a8e/timezone`](https://w3id.org/fep/8a8e/timezone) property is introduced to support time zone information for events, enabling consistent handling of local "wall times".
 
 > It is important to note that the "time-offset" component in `startTime` and `endTime` property does not correlate to time-zones, and while times that include the "time-offset" component work well for timestamps, they cannot be reliably converted to and from local "wall times" without additional information and processing.  
 > [https://www.w3.org/TR/activitystreams-core/#dates](https://www.w3.org/TR/activitystreams-core/#dates)
