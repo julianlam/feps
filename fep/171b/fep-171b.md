@@ -197,7 +197,7 @@ Example of a container of a followers-only conversation:
 
 ## Implementations
 
-- [Streams](https://codeberg.org/streams/streams)
+- [Streams](https://codeberg.org/streams/streams) & [Forte](https://codeberg.org/fortified/forte)
 - [Hubzilla](https://hub.somaton.com/item/0145da10-b608-4b19-b1d5-89a461e473d0)
 - [Mitra](https://codeberg.org/silverpill/mitra/src/tag/v4.8.0/FEDERATION.md#supported-feps) (only for private conversations)
 
@@ -212,7 +212,7 @@ Example of a container of a followers-only conversation:
 - silverpill, [FEP-8b32: Object Integrity Proofs][FEP-8b32], 2022
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
-[Containers]: https://fediversity.site/help/develop/en/Containers
+[Containers]: https://codeberg.org/streams/streams/src/commit/e3c83c46376f446013cd95f97381e8a146a09810/doc/develop/en/Containers.mc
 [RFC-2119]: https://tools.ietf.org/html/rfc2119.html
 [FEP-400e]: https://codeberg.org/fediverse/fep/src/branch/main/fep/400e/fep-400e.md
 [FEP-e232]: https://codeberg.org/fediverse/fep/src/branch/main/fep/e232/fep-e232.md
