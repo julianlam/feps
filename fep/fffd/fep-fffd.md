@@ -1,8 +1,9 @@
 ---
 slug: "fffd"
 authors: Adam R. Nelson <adam@nels.onl>
-status: DRAFT
+status: WITHDRAWN
 dateReceived: 2023-04-29
+dateWithdrawn: 2025-10-13
 trackingIssue: https://codeberg.org/fediverse/fep/issues/95
 discussionsTo: https://codeberg.org/fediverse/fep/issues/95
 ---
