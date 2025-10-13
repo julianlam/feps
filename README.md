@@ -78,7 +78,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-888d: Using https://w3id.org/fep as a base for FEP-specific namespaces](./fep/888d/fep-888d.md) | `DRAFT` | [#83](https://codeberg.org/fediverse/fep/issues/83) | 2023-04-10 | - |
 | [FEP-0ea0: Payment Links](./fep/0ea0/fep-0ea0.md) | `DRAFT` | [#88](https://codeberg.org/fediverse/fep/issues/88) | 2023-04-18 | - |
 | [FEP-612d: Identifying ActivityPub Objects through DNS](./fep/612d/fep-612d.md) | `WITHDRAWN` | [#89](https://codeberg.org/fediverse/fep/issues/89) | 2023-04-18 | 2025-10-10 |
-| [FEP-fffd: Proxy Objects](./fep/fffd/fep-fffd.md) | `DRAFT` | [#95](https://codeberg.org/fediverse/fep/issues/95) | 2023-04-29 | - |
+| [FEP-fffd: Proxy Objects](./fep/fffd/fep-fffd.md) | `WITHDRAWN` | [#95](https://codeberg.org/fediverse/fep/issues/95) | 2023-04-29 | 2025-10-13 |
 | [FEP-4adb: Dereferencing identifiers with webfinger](./fep/4adb/fep-4adb.md) | `DRAFT` | [#100](https://codeberg.org/fediverse/fep/issues/100) | 2023-05-13 | - |
 | [FEP-a070: Ordered properties for plain JSON consumers](./fep/a070/fep-a070.md) | `DRAFT` | [#121](https://codeberg.org/fediverse/fep/issues/121) | 2023-06-13 | - |
 | [FEP-c648: Blocked Collection](./fep/c648/fep-c648.md) | `DRAFT` | [#123](https://codeberg.org/fediverse/fep/issues/123) | 2023-06-14 | - |
