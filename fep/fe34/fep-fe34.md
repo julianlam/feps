@@ -15,7 +15,7 @@ Developing a comprehensive [ActivityPub] security framework based on the concept
 
 ## Rationale
 
-[ActivityPub] standard does not specify authentication and authorization mechanisms. However, in some cases it hints at the importance of the web origin:
+[ActivityPub] standard does not specify authentication and authorization mechanisms. However, in some cases it hints at the importance of an object's origin:
 
 >**3. Objects**
 
@@ -38,6 +38,15 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 Object identifiers can be grouped together into protection domains called "origins". This concept is similar to the "web origin" concept described in [RFC-6454], and origins of object IDs are computed by the same algorithm.
 
 The same-origin policy determines when a relationship between objects can be trusted. Different origins are considered potentially hostile and are isolated from each other to varying degrees. Actors sharing an origin are assumed to trust each other because all their interactions are mediated by a single piece of software operated by a single person or an organization.
+
+### Comparing origins
+
+1. Let `uri-scheme` be the scheme component of the URI, converted to lowercase.
+1. Let `uri-host` be the host component of the URI, converted to lowercase.
+1. If there is no port component of the URI, let `uri-port` be the default port for the protocol given by `uri-scheme`. Otherwise, let `uri-port` be the port component of the URI.
+1. Return the triple `(uri-scheme, uri-host, uri-port)`.
+
+Origins are the same if they have identical schemes, hosts, and ports.
 
 ## Assumptions
 
@@ -82,7 +91,7 @@ The ID of the public key (or the verification method) MUST have the same origin 
 
 Servers MUST NOT share secret keys with clients.
 
-Servers MUST NOT allow clients to create objects representing public keys, including such objects embedded within actors and other objects. Public keys can be identified by their properties `publicKeyPem` and `publicKeyMultibase`. Embedded public keys with a different origin are permitted.
+Servers MUST NOT allow clients to create or update objects representing public keys, including such objects embedded within actors and other objects. Public keys can be identified by their properties `publicKeyPem` and `publicKeyMultibase` (["duck typing"][FEP-2277]). Embedded public keys with a different origin are permitted.
 
 In order to minimize damage in the event of a key compromise or insufficient validation, consumers MUST verify that the signing key has the same [owner](#ownership) as the signed object. Consumers MUST also confirm the ownership of the key by verifying a [reciprocal claim](#reciprocal-claims).
 
@@ -93,7 +102,7 @@ In order to minimize damage in the event of a key compromise or insufficient val
 
 In some cases, an embedded object can be trusted when its wrapping object is trusted:
 
-- An object is the `object` of a `Create` activity, and it has the same origin and the same [owner](#ownership) as the activity.
+- An embedded object has the same origin and the same [owner](#ownership) as the wrapping object.
 - An embedded object is identified as a [fragment][Fragment] of the wrapping object.
 - An embedded object is anonymous (doesn't have an ID).
 
@@ -116,6 +125,8 @@ In some cases ownership might be implicit. Examples:
 - A `replies` collection is owned by the actor to which the post is attributed.
 - All pages of a collection are expected to be owned by the same actor.
 
+Anonymous objects are not supposed to have an owner.
+
 The owner of an object MUST be an actor.
 
 Identifier of an object and identifier of its owner MUST have the same origin.
@@ -125,6 +136,10 @@ Identifier of an object and identifier of its owner MUST have the same origin.
 
 >[!WARNING]
 >According to [Activity Vocabulary][ActivityVocabulary], `actor` and `attributedTo` properties can contain references to multiple actors. These scenarios are not covered by this document and implementers are expected to determine the appropriate authorization procedures on a case-by-case basis.
+
+### Comparing owners
+
+Owners are the same if their identifiers are identical after conversion of their schemes and hosts to lowercase.
 
 ### Create, update and delete
 
@@ -141,10 +156,6 @@ Examples:
 - `Add` and `Remove` activities, and objects indicated by their `target` property are expected to have the same owner.
 - `Announce` and `Like` activities don't modify objects indicated by their `object` property, therefore their owners can be different.
 
-### Ownership transfer
-
-When ownership changes, the new owner ID MUST have the same origin as the old owner ID.
-
 ### Access control
 
 When a protected object is retrieved, the server MUST verify that the `GET` request contains an [HTTP signature][HttpSig] created using a key whose owner belongs to object's intended audience.
@@ -152,6 +163,10 @@ When a protected object is retrieved, the server MUST verify that the `GET` requ
 The server MAY require a signature even if the object is public. In that case, the request can be signed with a key owned by a [server actor][HttpSig-ServerActor].
 
 Servers that implement [proxyUrl] endpoint MUST ensure that access to objects is restricted to actors that belong to intended audiences of these objects.
+
+### Ownership transfer
+
+When ownership changes, the new owner ID MUST have the same origin as the old owner ID.
 
 ## Reciprocal claims
 
