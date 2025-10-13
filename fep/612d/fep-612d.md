@@ -1,8 +1,9 @@
 ---
 slug: "612d"
 authors: Helge <helge.krueger@gmail.com>
-status: DRAFT
+status: WITHDRAWN
 dateReceived: 2023-04-18
+dateWithdrawn: 2025-10-10
 trackingIssue: https://codeberg.org/fediverse/fep/issues/89
 discussionsTo: https://codeberg.org/fediverse/fep/issues/89
 ---
