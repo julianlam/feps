@@ -163,6 +163,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-9098: Custom emojis](./fep/9098/fep-9098.md) | `DRAFT` | [#648](https://codeberg.org/fediverse/fep/issues/648) | 2025-07-06 | - |
 | [FEP-11dd: Context Ownership and Inheritance](./fep/11dd/fep-11dd.md) | `DRAFT` | [#675](https://codeberg.org/fediverse/fep/issues/675) | 2025-09-11 | - |
 | [FEP-8967: Generating link previews for attached links](./fep/8967/fep-8967.md) | `DRAFT` | [#681](https://codeberg.org/fediverse/fep/issues/681) | 2025-09-16 | - |
+| [FEP-1580: Move Actor Objects with a `migration` Collection](./fep/1580/fep-1580.md) | `DRAFT` | [#702](https://codeberg.org/fediverse/fep/issues/702) | 2025-10-09 | - |
 
 ## License
 

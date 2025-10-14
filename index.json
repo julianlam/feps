@@ -1112,5 +1112,17 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/681",
     "title": "Generating link previews for attached links",
     "implementations": 0
+  },
+  {
+    "slug": "1580",
+    "authors": "Jonny Saunders <j@nny.fyi>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-1580-move-actor-objects-with-a-migration-collection/8111",
+    "type": "implementation",
+    "relatedFeps": "FEP-7628, FEP-73cd, FEP-e965, FEP-888d, FEP-8b32, FEP-fe34",
+    "dateReceived": "2025-10-09",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/702",
+    "title": "Move Actor Objects with a `migration` Collection",
+    "implementations": 0
   }
 ]
