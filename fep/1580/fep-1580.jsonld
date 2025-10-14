@@ -1,0 +1,29 @@
+{
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "actors": {
+      "@type": "@id",
+      "@id": "https://w3id.org/fep/1580#actors"
+    },
+    "migratedAt": {
+      "@type": "xsd:dateTime",
+      "@id": "https://w3id.org/fep/1580#migratedAt"
+    },
+    "migratedFrom": {
+      "@type": "@id",
+      "@id": "https://w3id.org/fep/1580#migratedFrom"
+    },
+    "migration": {
+      "@type": "@id",
+      "@id": "https://w3id.org/fep/1580#migration"
+    },
+    "migrationComplete": {
+      "@type": "@id",
+      "@id": "https://w3id.org/fep/1580#migrationComplete"
+    },
+    "moves": {
+      "@type": "@id",
+      "@id": "https://w3id.org/fep/1580#moves"
+    }
+  }
+}

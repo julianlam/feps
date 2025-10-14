@@ -1,0 +1,230 @@
+id: https://w3id.org/fep/1580#
+name: migration
+description: |
+  Migrating account objects using an `OrderedCollection` of `Move` objects.
+
+  All subclasses of activitystreams objects should be considered "partial" extensions of the class they inherit from:
+  e.g. though the Actor only describes the slots relevant for this FEP, 
+  it should be considered as having all the other properties of the Actor object.
+
+  Slots/Properties are overridden in order to refine them, 
+  e.g. the `ActorMove` class refines the `object` and `target` properties to specify that their range
+  must be an Actor.
+license: https://creativecommons.org/publicdomain/zero/1.0/
+imports:
+  - linkml:types
+prefixes:
+  as: https://www.w3.org/ns/activitystreams#
+  linkml: https://w3id.org/linkml/
+  sec: https://w3id.org/security#
+  migration: https://w3id.org/fep/1580/fep/
+default_prefix: migration
+
+classes:
+  Actor:
+    description: |
+      A generic form of the ActivityStreams [actor types](https://www.w3.org/TR/activitystreams-vocabulary/#actor-types)
+      intended as a mixin to illustrate the added properties.
+    class_uri: as:Actor
+    slots:
+      - migration
+      - moves
+
+  Object:
+    class_uri: as:Object
+    slots:
+      - migratedAt
+      - migratedFrom
+
+  ActorMove:
+    class_uri: as:Move
+    description: |
+      A refinement of the base ActivityPub Move action that specifies an actor moving to a new id,
+      as described in [fep-7628](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md),
+      with an accompanying [fep-8b32](https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md)
+      integrity proof signed by the source (object) actor.
+    attributes:
+      actor:
+        slot_uri: as:actor
+        range: Actor
+        required: true
+      object:
+        slot_uri: as:object
+        range: Actor
+        required: true
+      target:
+        slot_uri: as:target
+        range: Actor
+        required: true
+      proof:
+        slot_uri: sec:proof
+        range: DataIntegrityProof
+        required: true
+
+  ObjectMove:
+    class_uri: as:Move
+    description: |
+      A mapping between objects on the source server and the target server.
+      Each property should be a URI reference, rather than an inlined object.
+    attributes:
+      object:
+        slot_uri: as:object
+        range: Object
+        required: true
+        inlined: false
+      target:
+        slot_uri: as:object
+        range: Object
+        required: true
+        inlined: false
+
+  MigrationCollection:
+    class_uri: as:OrderedCollection
+    description: |
+      An ordered collection of objects to move from the source actor to the target actor.
+      The collection must reference a `moves` Collection of signed Move activities
+      that can be used for validation in the case the origin server is inactive/uncooperative.
+      Items within pages should be ordered in reverse chronological order by when the target server
+      has imported them to facilitate gradual migration by 3rd-party instances.
+    slots:
+      - moves
+      - migrationComplete
+    attributes:
+      first:
+        slot_uri: as:first
+        range: MigrationCollectionPage
+        required: true
+
+  MigrationCollectionPage:
+    class_uri: as:OrderedCollectionPage
+    attributes:
+      partOf:
+        slot_uri: as:partOf
+        range: MigrationCollection
+        required: true
+      next:
+        slot_uri: as:next
+        range: MigrationCollectionPage
+        required: false
+      prev:
+        slot_uri: as:prev
+        range: MigrationCollectionPage
+        required: false
+      orderedItems:
+        slot_uri: as:orderedItems
+        range: ObjectMove
+        multivalued: true
+        required: true
+
+  MoveCollection:
+    class_uri: as:OrderedCollection
+    description: |
+      A collection of Actor Move actions signed by the source Actor.
+      Move actions MUST be inlined and MUST NOT be paginated.
+    attributes:
+      actors:
+        description: |
+          A collection of inlined Actor objects that include public key used for validating signed objects.
+          Source Actors that are not inlined in the signed `Move` activity must be present.
+        range: ActorCollection
+      proof:
+        description: |
+          An object integrity proof signed by the actor on the target instance for the entire `OrderedCollection` object
+          and its items.
+        range: DataIntegrityProof
+      orderedItems:
+        slot_uri: as:orderedItems
+        range: ActorMove
+        multivalued: true
+        inlined_as_list: true
+
+  ActorCollection:
+    class_uri: as:OrderedCollection
+    attributes:
+      orderedItems:
+        description: Inlined actor objects, ordered in lexicographic order according to their `id`.
+        slot_uri: as:items
+        range: Actor
+        inlined_as_list: true
+
+  ProposedMove:
+    description: |
+      A proposed move sent from the source instance and addressed to the target instance's shared inbox, and NOT as:Public.
+      It may include an attached collection of object URIs that are to be considered the set of items that the actor proposes to move with.
+    class_uri: as:Offer
+    attributes:
+      object:
+        slot_uri: as:object
+        range: ActorMove
+        required: true
+      attachment:
+        slot_uri: as:attachment
+        range: ProposedMigrationCollection
+        required: false
+
+  ProposedMigrationCollection:
+    class_uri: as:Collection
+    attributes:
+      items:
+        slot_uri: as:items
+        range: Object
+        multivalued: true
+        inlined: false
+
+  TentativeAcceptMove:
+    description: |
+      After moderation, a response to a ProposedMove that includes some attachment of modifications to make to the proposed migration items
+    attributes:
+      object:
+        range: ActorMove
+        required: true
+      attachment:
+        slot_uri: as:attachment
+        range: TentativeAcceptCollection
+        required: true
+
+  TentativeAcceptCollection:
+    class_uri: as:Collection
+    attributes:
+      items:
+        slot_uri: as:items
+        multivalued: true
+        any_of:
+          - range: Reject
+          - range: Update
+
+  # Unchanged aliases
+
+  Reject:
+    class_uri: as:Reject
+
+  Update:
+    class_uri: as:Update
+
+  DataIntegrityProof:
+    class_uri: sec:DataIntegrityProof
+
+
+slots:
+  migratedAt:
+    description: |
+      A timestamp indicating when an object was migrated.
+    range: datetime
+    required: false
+  migrationComplete:
+    description: |
+      A boolean that indicates whether the target instance has completed its migration ingestion process.
+    range: boolean
+    ifabsent: false
+    required: true
+  migratedFrom:
+    description: |
+      The URI of the object that this object was migrated migrated from.
+    range: uri
+    required: false
+  migration:
+    range: MigrationCollection
+    required: false
+    multivalued: false
+  moves:
+    range: MoveCollection

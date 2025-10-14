@@ -1,0 +1,439 @@
+@prefix as: <https://www.w3.org/ns/activitystreams#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix migration: <https://w3id.org/fep/1580/fep/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sec: <https://w3id.org/security#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/fep/1580#.owl.ttl> a owl:Ontology ;
+    rdfs:label "migration" ;
+    dcterms:license "https://creativecommons.org/publicdomain/zero/1.0/" ;
+    skos:definition """Migrating account objects using an `OrderedCollection` of `Move` objects.
+
+All subclasses of activitystreams objects should be considered "partial" extensions of the class they inherit from:
+e.g. though the Actor only describes the slots relevant for this FEP, 
+it should be considered as having all the other properties of the Actor object.
+
+Slots/Properties are overridden in order to refine them, 
+e.g. the `ActorMove` class refines the `object` and `target` properties to specify that their range
+must be an Actor.
+""" .
+
+migration:ProposedMove a owl:Class ;
+    rdfs:label "ProposedMove" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:attachment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:attachment ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:object ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:object ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:ProposedMigrationCollection ;
+            owl:onProperty migration:attachment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:ActorMove ;
+            owl:onProperty migration:object ] ;
+    skos:definition """A proposed move sent from the source instance and addressed to the target instance's shared inbox, and NOT as:Public.
+It may include an attached collection of object URIs that are to be considered the set of items that the actor proposes to move with.
+""" ;
+    skos:exactMatch as:Offer ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:TentativeAcceptMove a owl:Class ;
+    rdfs:label "TentativeAcceptMove" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:object ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:object ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:attachment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:TentativeAcceptCollection ;
+            owl:onProperty migration:attachment ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:attachment ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:ActorMove ;
+            owl:onProperty migration:object ] ;
+    skos:definition """After moderation, a response to a ProposedMove that includes some attachment of modifications to make to the proposed migration items
+""" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:ActorCollection a owl:Class ;
+    rdfs:label "ActorCollection" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom migration:Actor ;
+            owl:onProperty migration:orderedItems ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:orderedItems ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:orderedItems ] ;
+    skos:exactMatch as:OrderedCollection ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:ObjectMove a owl:Class ;
+    rdfs:label "ObjectMove" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom migration:Object ;
+            owl:onProperty migration:object ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:target ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:target ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:object ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:object ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:Object ;
+            owl:onProperty migration:target ] ;
+    skos:definition """A mapping between objects on the source server and the target server.
+Each property should be a URI reference, rather than an inlined object.
+""" ;
+    skos:exactMatch as:Move ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:ProposedMigrationCollection a owl:Class ;
+    rdfs:label "ProposedMigrationCollection" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:items ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:Object ;
+            owl:onProperty migration:items ] ;
+    skos:exactMatch as:Collection ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:Reject a owl:Class ;
+    rdfs:label "Reject" ;
+    skos:exactMatch as:Reject ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:TentativeAcceptCollection a owl:Class ;
+    rdfs:label "TentativeAcceptCollection" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom [ owl:unionOf ( migration:Reject migration:Update ) ] ;
+            owl:onProperty migration:items ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:items ] ;
+    skos:exactMatch as:Collection ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:Update a owl:Class ;
+    rdfs:label "Update" ;
+    skos:exactMatch as:Update ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:DataIntegrityProof a owl:Class ;
+    rdfs:label "DataIntegrityProof" ;
+    skos:exactMatch sec:DataIntegrityProof ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:ActorMove a owl:Class ;
+    rdfs:label "ActorMove" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:object ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:Actor ;
+            owl:onProperty migration:target ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:object ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:proof ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:target ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:actor ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:proof ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:Actor ;
+            owl:onProperty migration:object ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:Actor ;
+            owl:onProperty migration:actor ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:target ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:actor ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:DataIntegrityProof ;
+            owl:onProperty migration:proof ] ;
+    skos:definition """A refinement of the base ActivityPub Move action that specifies an actor moving to a new id,
+as described in [fep-7628](https://codeberg.org/fediverse/fep/src/branch/main/fep/7628/fep-7628.md),
+with an accompanying [fep-8b32](https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md)
+integrity proof signed by the source (object) actor.
+""" ;
+    skos:exactMatch as:Move ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:MigrationCollection a owl:Class ;
+    rdfs:label "MigrationCollection" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:moves ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:MigrationCollectionPage ;
+            owl:onProperty migration:first ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:first ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:boolean ;
+            owl:onProperty migration:migrationComplete ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:migrationComplete ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:migrationComplete ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:first ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:moves ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:MoveCollection ;
+            owl:onProperty migration:moves ] ;
+    skos:definition """An ordered collection of objects to move from the source actor to the target actor.
+The collection must reference a `moves` Collection of signed Move activities
+that can be used for validation in the case the origin server is inactive/uncooperative.
+Items within pages should be ordered in reverse chronological order by when the target server
+has imported them to facilitate gradual migration by 3rd-party instances.
+""" ;
+    skos:exactMatch as:OrderedCollection ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:MigrationCollectionPage a owl:Class ;
+    rdfs:label "MigrationCollectionPage" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:partOf ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:prev ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:orderedItems ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:ObjectMove ;
+            owl:onProperty migration:orderedItems ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:MigrationCollectionPage ;
+            owl:onProperty migration:prev ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:MigrationCollectionPage ;
+            owl:onProperty migration:next ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty migration:partOf ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:next ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:MigrationCollection ;
+            owl:onProperty migration:partOf ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:prev ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:next ] ;
+    skos:exactMatch as:OrderedCollectionPage ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:MoveCollection a owl:Class ;
+    rdfs:label "MoveCollection" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:actors ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:DataIntegrityProof ;
+            owl:onProperty migration:proof ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:ActorCollection ;
+            owl:onProperty migration:actors ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:proof ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:orderedItems ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:ActorMove ;
+            owl:onProperty migration:orderedItems ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:actors ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:proof ] ;
+    skos:definition """A collection of Actor Move actions signed by the source Actor.
+Move actions MUST be inlined and MUST NOT be paginated.
+""" ;
+    skos:exactMatch as:OrderedCollection ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:Object a owl:Class ;
+    rdfs:label "Object" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:anyURI ;
+            owl:onProperty migration:migratedFrom ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:migratedAt ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:migratedAt ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:dateTime ;
+            owl:onProperty migration:migratedAt ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:migratedFrom ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:migratedFrom ] ;
+    skos:exactMatch as:Object ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:actor a owl:ObjectProperty ;
+    rdfs:label "actor" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:actors a owl:ObjectProperty ;
+    rdfs:label "actors" ;
+    skos:definition """A collection of inlined Actor objects that include public key used for validating signed objects.
+Source Actors that are not inlined in the signed `Move` activity must be present.
+""" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:first a owl:ObjectProperty ;
+    rdfs:label "first" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:migratedAt a owl:DatatypeProperty ;
+    rdfs:label "migratedAt" ;
+    rdfs:range xsd:dateTime ;
+    skos:definition """A timestamp indicating when an object was migrated.
+""" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:migratedFrom a owl:DatatypeProperty ;
+    rdfs:label "migratedFrom" ;
+    rdfs:range xsd:anyURI ;
+    skos:definition """The URI of the object that this object was migrated migrated from.
+""" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:migration a owl:ObjectProperty ;
+    rdfs:label "migration" ;
+    rdfs:range migration:MigrationCollection ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:migrationComplete a owl:DatatypeProperty ;
+    rdfs:label "migrationComplete" ;
+    rdfs:range xsd:boolean ;
+    skos:definition """A boolean that indicates whether the target instance has completed its migration ingestion process.
+""" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:next a owl:ObjectProperty ;
+    rdfs:label "next" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:partOf a owl:ObjectProperty ;
+    rdfs:label "partOf" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:prev a owl:ObjectProperty ;
+    rdfs:label "prev" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:Actor a owl:Class ;
+    rdfs:label "Actor" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:moves ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:moves ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:MoveCollection ;
+            owl:onProperty migration:moves ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty migration:migration ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom migration:MigrationCollection ;
+            owl:onProperty migration:migration ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty migration:migration ] ;
+    skos:definition """A generic form of the ActivityStreams [actor types](https://www.w3.org/TR/activitystreams-vocabulary/#actor-types)
+intended as a mixin to illustrate the added properties.
+""" ;
+    skos:exactMatch as:Actor ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:items a owl:ObjectProperty .
+
+migration:attachment a owl:ObjectProperty ;
+    rdfs:label "attachment" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:moves a owl:ObjectProperty ;
+    rdfs:label "moves" ;
+    rdfs:range migration:MoveCollection ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:proof a owl:ObjectProperty ;
+    rdfs:label "proof" ;
+    skos:definition """An object integrity proof signed by the actor on the target instance for the entire `OrderedCollection` object
+and its items.
+""" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:target a owl:ObjectProperty ;
+    rdfs:label "target" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:orderedItems a owl:ObjectProperty ;
+    rdfs:label "orderedItems" ;
+    skos:definition "Inlined actor objects, ordered in lexicographic order according to their `id`." ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+migration:object a owl:ObjectProperty ;
+    rdfs:label "object" ;
+    skos:inScheme <https://w3id.org/fep/1580#> .
+
+
