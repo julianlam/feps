@@ -107,7 +107,7 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/29",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-8b32-object-integrity-proofs/2725",
     "title": "Object Integrity Proofs",
-    "implementations": 7
+    "implementations": 8
   },
   {
     "slug": "c390",
