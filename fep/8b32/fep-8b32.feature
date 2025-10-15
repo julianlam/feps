@@ -7,7 +7,7 @@ Feature: FEP-8b32: Object Integrity Proofs
             {
                 "@context": [
                     "https://www.w3.org/ns/activitystreams",
-                    "https://w3id.org/security/data-integrity/v1"
+                    "https://w3id.org/security/data-integrity/v2"
                 ],
                 "id": "https://server.example/activities/1",
                 "type": "Create",
@@ -33,7 +33,7 @@ Feature: FEP-8b32: Object Integrity Proofs
             {
                 "@context": [
                     "https://www.w3.org/ns/activitystreams",
-                    "https://w3id.org/security/data-integrity/v1"
+                    "https://w3id.org/security/data-integrity/v2"
                 ],
                 "id": "https://server.example/activities/1",
                 "type": "Create",
@@ -52,13 +52,13 @@ Feature: FEP-8b32: Object Integrity Proofs
                 "proof": {
                     "@context": [
                         "https://www.w3.org/ns/activitystreams",
-                        "https://w3id.org/security/data-integrity/v1"
+                        "https://w3id.org/security/data-integrity/v2"
                     ],
                     "type": "DataIntegrityProof",
                     "cryptosuite": "eddsa-jcs-2022",
                     "verificationMethod": "https://server.example/users/alice#ed25519-key",
                     "proofPurpose": "assertionMethod",
-                    "proofValue": "zLaewdp4H9kqtwyrLatK4cjY5oRHwVcw4gibPSUDYDMhi4M49v8pcYk3ZB6D69dNpAPbUmY8ocuJ3m9KhKJEEg7z",
+                    "proofValue": "z42ffGu6AUKPCFcFPiabmUvnGLPJzC7e4DGWC52NUasSSH37UMa9c58tdgVszUcZfytxa4fQ5TYHaJENCxUDe9SdL",
                     "created": "2023-02-24T23:36:38Z"
                 }
             }
@@ -71,7 +71,7 @@ Feature: FEP-8b32: Object Integrity Proofs
             {
                 "@context": [
                     "https://www.w3.org/ns/activitystreams",
-                    "https://w3id.org/security/data-integrity/v1"
+                    "https://w3id.org/security/data-integrity/v2"
                 ],
                 "id": "https://server.example/activities/1",
                 "type": "Create",
@@ -90,13 +90,13 @@ Feature: FEP-8b32: Object Integrity Proofs
                 "proof": {
                     "@context": [
                         "https://www.w3.org/ns/activitystreams",
-                        "https://w3id.org/security/data-integrity/v1"
+                        "https://w3id.org/security/data-integrity/v2"
                     ],
                     "type": "DataIntegrityProof",
                     "cryptosuite": "eddsa-jcs-2022",
                     "verificationMethod": "https://server.example/users/alice#ed25519-key",
                     "proofPurpose": "assertionMethod",
-                    "proofValue": "zLaewdp4H9kqtwyrLatK4cjY5oRHwVcw4gibPSUDYDMhi4M49v8pcYk3ZB6D69dNpAPbUmY8ocuJ3m9KhKJEEg7z",
+                    "proofValue": "z42ffGu6AUKPCFcFPiabmUvnGLPJzC7e4DGWC52NUasSSH37UMa9c58tdgVszUcZfytxa4fQ5TYHaJENCxUDe9SdL",
                     "created": "2023-02-24T23:36:38Z"
                 }
             }
@@ -106,7 +106,7 @@ Feature: FEP-8b32: Object Integrity Proofs
             {
                 "@context": [
                     "https://www.w3.org/ns/activitystreams",
-                    "https://w3id.org/security/data-integrity/v1",
+                    "https://w3id.org/security/data-integrity/v2",
                     "https://w3id.org/security/multikey/v1"
                 ],
                 "type": "Person",

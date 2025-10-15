@@ -39,17 +39,19 @@ The process of proof generation consists of the following steps:
 - **Hashing** is a process that calculates an identifier for the transformed data using a cryptographic hash function.
 - **Signature generation** is a process that calculates a value that protects the integrity of the input data from modification.
 
-The resulting proof is added to the original JSON object under the key `proof`. Objects MAY contain multiple proofs.
+The resulting proof is added to the original JSON object under the key `proof`. Objects SHOULD NOT contain more than one integrity proof.
 
 The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [2.1 Proofs][DI-Proofs]. The proof type SHOULD be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof][DI-DataIntegrityProof]. The value of `proofPurpose` attribute MUST be `assertionMethod`.
 
-The value of the `verificationMethod` attribute of the proof can be an HTTP(S) URL of a public key or a [DID URL][DID-URL]. The identifier of the verification method MUST have the [same origin][FEP-fe34-SameOrigin] as the identifier of the secured document, or have a different origin, but with an established [cross-origin trust relationship][FEP-fe34-CrossOrigin] to the identifier of the secured document.
+The value of the `verificationMethod` attribute of the proof can be an HTTP(S) URI or a [DID URL][DID-URL].
 
-The [controlled identifier document][ControlledIdentifiers] where verification method is expressed MUST be an actor object or another document that can be provably associated with an [ActivityPub] actor (e.g. a [DID][DIDs] document). The verification method MUST be associated with the `assertionMethod` property of the controlled identifier document. If controlled identifier document is an actor object, implementers SHOULD use `assertionMethod` property as described in [FEP-521a].
+The [controlled identifier document][ControlledIdentifiers] where the verification method is expressed MUST be an actor object or a [DID][DIDs] document that is provably associated with an [ActivityPub] actor (e.g. using a mechanism described in [FEP-c390] or [FEP-ef61]). The verification method MUST be associated with the `assertionMethod` property of the controlled identifier document. If controlled identifier document is an actor object, implementers SHOULD use `assertionMethod` property as described in [FEP-521a].
 
 ### Proof verification
 
 Recipients of an object SHOULD perform proof verification if it contains integrity proofs. Verification process MUST follow the *Data Integrity* specification, section [4.4 Verify Proof][DI-VerifyProof]. It starts with the removal of the `proof` value from the JSON object. Then verification method is retrieved from the controlled identifier document as described in *Controlled Identifiers* specification, section [3.3 Retrieve Verification Method][CI-RetrieveMethod]. Then the object is canonicalized, hashed and signature verification is performed according to the parameters specified in the proof.
+
+The subject of the controlled identifier document where the verification method is expressed MUST be the [owner][FEP-fe34-Owner] of the signed object, or a [DID][DIDs] that is provably associated with that actor (e.g. using a mechanism described in [FEP-c390] or [FEP-ef61]).
 
 If both HTTP signature and integrity proof are used, the integrity proof MUST be given precedence over HTTP signature. The HTTP signature MAY be dismissed.
 
@@ -63,9 +65,6 @@ Implementers are expected to pursue broad interoperability when choosing algorit
 - Hashing: SHA-256
 - Signatures: EdDSA
 
->[!WARNING]
->`eddsa-jcs-2022` cryptosuite specification is not stable and may change before it becomes a W3C Recommendation.
-
 ### Backward compatibility
 
 Integrity proofs and linked data signatures can be used together, as they rely on different properties (`proof` and `signature`, respectively).
@@ -73,6 +72,14 @@ Integrity proofs and linked data signatures can be used together, as they rely o
 If compatiblity with legacy systems is desired, the integrity proof MUST be created and inserted before the generation of the linked data signature.
 
 If both `proof` and `signature` are present in a received object, the linked data signature MUST be removed before the verification of the integrity proof.
+
+### Security considerations
+
+Implementers using integrity proofs as an authentication mechanism are advised to follow the recommendations given in [FEP-fe34: Origin-based security model][FEP-fe34].
+
+### Privacy considerations
+
+If a private object is signed, its authenticity can be proven if it is distributed beyond the intended recipients. This risk can be mitigated by encrypting private content.
 
 ## Examples
 
@@ -82,7 +89,7 @@ If both `proof` and `signature` are present in a received object, the linked dat
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/security/data-integrity/v1"
+    "https://w3id.org/security/data-integrity/v2"
   ],
   "id": "https://server.example/objects/1",
   "type": "Note",
@@ -91,7 +98,7 @@ If both `proof` and `signature` are present in a received object, the linked dat
   "proof": {
     "@context": [
       "https://www.w3.org/ns/activitystreams",
-      "https://w3id.org/security/data-integrity/v1"
+      "https://w3id.org/security/data-integrity/v2"
     ],
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
@@ -109,7 +116,7 @@ If both `proof` and `signature` are present in a received object, the linked dat
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/security/data-integrity/v1"
+    "https://w3id.org/security/data-integrity/v2"
   ],
   "id": "https://server.example/activities/1",
   "type": "Create",
@@ -123,7 +130,7 @@ If both `proof` and `signature` are present in a received object, the linked dat
   "proof": {
     "@context": [
       "https://www.w3.org/ns/activitystreams",
-      "https://w3id.org/security/data-integrity/v1"
+      "https://w3id.org/security/data-integrity/v2"
     ],
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
@@ -141,7 +148,7 @@ If both `proof` and `signature` are present in a received object, the linked dat
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/security/data-integrity/v1"
+    "https://w3id.org/security/data-integrity/v2"
   ],
   "id": "https://server.example/activities/1",
   "type": "Create",
@@ -149,7 +156,7 @@ If both `proof` and `signature` are present in a received object, the linked dat
   "object": {
     "@context": [
       "https://www.w3.org/ns/activitystreams",
-      "https://w3id.org/security/data-integrity/v1"
+      "https://w3id.org/security/data-integrity/v2"
     ],
     "id": "https://server.example/objects/1",
     "type": "Note",
@@ -158,7 +165,7 @@ If both `proof` and `signature` are present in a received object, the linked dat
     "proof": {
       "@context": [
         "https://www.w3.org/ns/activitystreams",
-        "https://w3id.org/security/data-integrity/v1"
+        "https://w3id.org/security/data-integrity/v2"
       ],
       "type": "DataIntegrityProof",
       "cryptosuite": "eddsa-jcs-2022",
@@ -171,7 +178,7 @@ If both `proof` and `signature` are present in a received object, the linked dat
   "proof": {
     "@context": [
       "https://www.w3.org/ns/activitystreams",
-      "https://w3id.org/security/data-integrity/v1"
+      "https://w3id.org/security/data-integrity/v2"
     ],
     "type": "DataIntegrityProof",
     "cryptosuite": "eddsa-jcs-2022",
@@ -185,7 +192,8 @@ If both `proof` and `signature` are present in a received object, the linked dat
 
 ## Test vectors
 
-See [fep-8b32.feature](./fep-8b32.feature)
+- [fep-8b32.feature](./fep-8b32.feature)
+- [eddsa-jcs-2022 test vectors][eddsa-jcs-2022-test]
 
 ## Implementations
 
@@ -198,11 +206,12 @@ See [fep-8b32.feature](./fep-8b32.feature)
 - [Fedify](https://todon.eu/users/hongminhee/statuses/112638238338153870)
 - [apsig](https://github.com/AmaseCocoa/apsig/blob/af7af0e106132a51356fc92ed034b1152a1caea8/docs/proof.md)
 - [tootik](https://github.com/dimkr/tootik/blob/v0.19.0/FEDERATION.md#data-portability)
+- Gush! ([commit](https://codeberg.org/gush/gush/commit/98c04c8d5cb3528b01eaf6949ec76584c9798ccb))
 
 ## Use cases
 
 - [Forwarding from inbox](https://www.w3.org/TR/activitypub/#inbox-forwarding)
-- [Conversation Containers](https://fediversity.site/help/develop/en/Containers)
+- [Conversation Containers](https://codeberg.org/streams/streams/src/commit/e3c83c46376f446013cd95f97381e8a146a09810/doc/develop/en/Containers.mc)
 - [FEP-ef61: Portable Objects](https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md)
 - [FEP-ae97: Client-side activity signing](https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md)
 
@@ -214,6 +223,8 @@ See [fep-8b32.feature](./fep-8b32.feature)
 - Manu Sporny, Dave Longley, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DIDs], 2022
 - Dave Longley, Manu Sporny, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Controlled Identifiers v1.0][ControlledIdentifiers], 2025
 - silverpill, [FEP-521a: Representing actor's public keys][FEP-521a], 2023
+- silverpill, [FEP-c390: Identity Proofs][FEP-c390], 2022
+- silverpill, [FEP-ef61: Portable Objects][FEP-ef61], 2023
 - Dave Longley, Manu Sporny, [Data Integrity EdDSA Cryptosuites v1.0][eddsa-jcs-2022], 2025
 - A. Rundgren, B. Jordan, S. Erdtman, [JSON Canonicalization Scheme (JCS)][JCS], 2020
 - silverpill, [FEP-fe34: Origin-based security model][FEP-fe34], 2024
@@ -230,11 +241,13 @@ See [fep-8b32.feature](./fep-8b32.feature)
 [ControlledIdentifiers]: https://www.w3.org/TR/cid/
 [CI-RetrieveMethod]: https://www.w3.org/TR/cid/#retrieve-verification-method
 [FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
+[FEP-c390]: https://codeberg.org/fediverse/fep/src/branch/main/fep/c390/fep-c390.md
+[FEP-ef61]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md
 [eddsa-jcs-2022]: https://www.w3.org/TR/vc-di-eddsa/#eddsa-jcs-2022
+[eddsa-jcs-2022-test]: https://www.w3.org/TR/vc-di-eddsa/#representation-eddsa-jcs-2022
 [JCS]: https://www.rfc-editor.org/rfc/rfc8785
 [FEP-fe34]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md
-[FEP-fe34-SameOrigin]: https://codeberg.org/silverpill/feps/src/branch/main/fe34/fep-fe34.md#origin
-[FEP-fe34-CrossOrigin]: https://codeberg.org/silverpill/feps/src/branch/main/fe34/fep-fe34.md#cross-origin-relationships
+[FEP-fe34-Owner]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md#ownership
 
 ## Copyright
 
