@@ -1,7 +1,7 @@
 ---
 slug: "fffd"
-authors: Adam R. Nelson <adam@nels.onl>
-status: WITHDRAWN
+authors: Adam R. Nelson <adam@nels.onl>, Ryan Barrett <snarfed.org> (administrative only)
+status: DRAFT
 dateReceived: 2023-04-29
 dateWithdrawn: 2025-10-13
 trackingIssue: https://codeberg.org/fediverse/fep/issues/95
