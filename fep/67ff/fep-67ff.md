@@ -83,6 +83,7 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Manyfold](https://github.com/manyfold3d/manyfold/blob/main/FEDERATION.md)
 - [Cryap](https://codeberg.org/cryap/cryap/src/branch/main/FEDERATION.md)
 - [ActivityPub Fuzzer](https://github.com/berkmancenter/activitypub-fuzzer/blob/main/FEDERATION.md)
+- [Comments](https://codeberg.org/bovine/comments/src/branch/main/FEDERATION.md) ([Raw](https://codeberg.org/bovine/comments/raw/branch/main/FEDERATION.md))
 
 ## References
 
