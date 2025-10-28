@@ -42,7 +42,7 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 
 ## Supported FEPs
 
-- [FEP-f1d5: NodeInfo in Fediverse Software](https://codeberg.org/fediverse/fep/src/branch/main/fep/f1d5/fep-f1d5.md)
+- [FEP-67ff: FEDERATION.md](https://codeberg.org/fediverse/fep/src/branch/main/fep/67ff/fep-67ff.md)
 
 ## ActivityPub
 
@@ -84,6 +84,8 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Cryap](https://codeberg.org/cryap/cryap/src/branch/main/FEDERATION.md)
 - [ActivityPub Fuzzer](https://github.com/berkmancenter/activitypub-fuzzer/blob/main/FEDERATION.md)
 - [Comments](https://codeberg.org/bovine/comments/src/branch/main/FEDERATION.md) ([Raw](https://codeberg.org/bovine/comments/raw/branch/main/FEDERATION.md))
+- [Loops](https://github.com/joinloops/loops-server/blob/main/FEDERATION.md)
+- [snac](https://codeberg.org/grunfink/snac2/src/branch/master/FEDERATION.md)
 
 ## References
 
