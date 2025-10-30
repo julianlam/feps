@@ -33,6 +33,12 @@ This proposal attempts to formalize existing practices and provide guidance for 
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC-2119].
 
+## Assumptions
+
+The origin-based security model is designed for use in a network where a server is resposible for enforcing security boundaries between the hosted actors. Servers that publish objects without validation are not supported.
+
+Object identifiers are assumed to be HTTP(S) URIs. The model can also be used with other kinds of identifiers, but that is not covered in this document.
+
 ## Origin
 
 Object identifiers can be grouped together into protection domains called "origins". This concept is similar to the "web origin" concept described in [RFC-6454], and origins of object IDs are computed by the same algorithm.
@@ -47,10 +53,6 @@ The same-origin policy determines when a relationship between objects can be tru
 1. Return the triple `(uri-scheme, uri-host, uri-port)`.
 
 Origins are the same if they have identical schemes, hosts, and ports.
-
-## Assumptions
-
-Origin-based security model is supposed to be used when object identifiers are HTTP(S) URIs and actors are managed by servers. The model can also be used with other kinds of identifiers, but that is not covered in this document.
 
 ## Authentication
 
@@ -91,7 +93,7 @@ The ID of the public key (or the verification method) MUST have the same origin 
 
 Servers MUST NOT share secret keys with clients.
 
-Servers MUST NOT allow clients to create or update objects representing public keys, including such objects embedded within actors and other objects. Public keys can be identified by their properties `publicKeyPem` and `publicKeyMultibase` (["duck typing"][FEP-2277]). Embedded public keys with a different origin are permitted.
+Servers MUST NOT allow clients to create or update objects representing public keys, including such objects embedded within actors and other objects. Public keys can be identified by their properties `publicKeyPem` and `publicKeyMultibase`. Embedded public keys with a different origin are permitted.
 
 In order to minimize damage in the event of a key compromise or insufficient validation, consumers MUST verify that the signing key has the same [owner](#ownership) as the signed object. Consumers MUST also confirm the ownership of the key by verifying a [reciprocal claim](#reciprocal-claims).
 
@@ -127,12 +129,20 @@ In some cases ownership might be implicit. Examples:
 
 Anonymous objects are not supposed to have an owner.
 
+Applications SHOULD use the following algorithm to determine the owner of an object:
+
+1. Run the duck typing algorithm specified in [FEP-2277].
+2. If the type is `Link`, return error.
+3. If the type is neither `Object` nor `Collection`, and the object has an `attributedTo` property, return error.
+4. If the type is `Actor`, return the value of the `id` property.
+5. If the type is `VerificationMethod`, return the value of the `controller` property.
+6. If the type is `PublicKey`, return the value of the `owner` property.
+7. If the type is `Activity`, return the value of the `actor` property.
+8. If the type is `Object` or `Collection`, return the value of the `attributedTo` property.
+
 The owner of an object MUST be an actor.
 
 Identifier of an object and identifier of its owner MUST have the same origin.
-
->[!NOTE]
->This document uses terms such as "actor" and "activity" in accordance with the object classification given in [FEP-2277].
 
 >[!WARNING]
 >According to [Activity Vocabulary][ActivityVocabulary], `actor` and `attributedTo` properties can contain references to multiple actors. These scenarios are not covered by this document and implementers are expected to determine the appropriate authorization procedures on a case-by-case basis.
@@ -195,6 +205,7 @@ Examples:
 - A. Barth, [The Web Origin Concept][RFC-6454], 2011
 - silverpill, [FEP-8b32: Object Integrity Proofs][FEP-8b32], 2022
 - Ryan Barrett, nightpool, [ActivityPub and HTTP Signatures][HttpSig], 2024
+- silverpill, [FEP-2277: ActivityPub core types][FEP-2277], 2025
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [ActivityVocabulary]: https://www.w3.org/TR/activitystreams-vocabulary/
