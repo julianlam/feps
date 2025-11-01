@@ -1,0 +1,18 @@
+when:
+  - branch: [main]
+    event: push
+
+steps:
+  build:
+    image: python:3.13-alpine
+    commands:
+      - pip install ./scripts
+      - pytest
+      - ./scripts/create_site_pages.py
+      - mkdocs build --config-file scripts/mkdocs.yml
+  deploy_pages:
+    image: codeberg.org/xfix/plugin-codeberg-pages-deploy:1
+    settings:
+      folder: scripts/site
+      ssh_key:
+        from_secret: deploy_key

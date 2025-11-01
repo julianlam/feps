@@ -1,1 +1,10 @@
 config*.json
+site
+docs/fep
+docs/withdrawn.md
+docs/final.md
+docs/draft.md
+docs/index.md
+build
+fep.egg-info
+uv.lock

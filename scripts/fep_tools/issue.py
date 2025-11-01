@@ -72,7 +72,7 @@ def update_fep_file_with_date_received(fep_file: FepFile, date_received: date):
     fep_file.frontmatter.append(f"dateReceived: {date_received.isoformat()}")
 
 
-def create_issue(owner, repo, token, slug):
+def create_issue(owner: str, repo: str, token: str, slug: str):
     fep_file = FepFile(slug)
 
     if "trackingIssue" in fep_file.parsed_frontmatter:

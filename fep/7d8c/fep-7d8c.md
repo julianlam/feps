@@ -39,15 +39,22 @@ Automation for the FEP repository uses the [codeberg woodpecker](https://ci.code
 
 - test runs basic checks on the contained FEPs
 - readme updates the `README.md` file and creates the tracking issue
+- create a static website
 
 Automation code is written in python and is contained in the [script folder](https://codeberg.org/fediverse/fep/src/branch/main/scripts).
+
+### Scripts and tests
+
+FEP uses python scripts to manage some aspects of it. These should be runnable
+without installing packages. In order to ensure these scripts stay working,
+include them in [.woodpecker/test.yml](https://codeberg.org/fediverse/fep/src/branch/main/.woodpecker/test.yml)
 
 ## Configuration variables
 
 To be able to do these configuration tasks, you need to be in the __admin__ group. See the
 first discussion [here](https://socialhub.activitypub.rocks/t/fep-repo-rights/4797/2).
 
-The configuration [.woodpecker/readme.yml](https://codeberg.org/fediverse/fep/src/branch/main/.woodpecker/woodpecker.yml) uses two secrets:
+The configuration [.woodpecker/readme.yml](https://codeberg.org/fediverse/fep/src/branch/main/.woodpecker/readme.yml) uses two secrets:
 
 - codeberg_api_token, a codeberg API token used to create the tracking issues.
 - deploy_key, an SSH private key used to push to the codeberg repository.
@@ -74,7 +81,7 @@ ssh-keygen -t ed25519 -f deploy_key
 
 Do not specify a passphrase. Examples:
 
-``` bash
+```bash
 $ cat deploy_key
 -----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
@@ -97,9 +104,56 @@ One can add these secrets on [woodpecker](https://ci.codeberg.org/repos/12388), 
 
 The deploy_key needs to be end with a new line when pasting into the woodpecker ui.
 
+## Development
+
+The tools are located in the `scripts` folder, with the `scripts/fep_tools` folder containing the python package `fep_tools`. Most of this tooling only uses python, e.g.
+`scripts/new_proposal.py` and `scripts/create_readme.md`, so they can be run from any
+environment.
+
+### Running tests
+
+To run the tests, one needs [pytest](https://docs.pytest.org/). We note that the
+tests run from the base folder. The following commands demonstrate how to setup
+a virtual environment, install the dependencies, and run the tests.
+
+```bash
+python -mvenv .venv
+pip install ./scripts
+pytest
+```
+
+One can leave the venv, by running `deactivate`.
+
+
+### Building the website
+
+To build the website, first install the dependencies
+
+```bash
+python -mvenv .venv
+pip install ./scripts
+./scripts/create_site_pages.py
+```
+
+Then run mkdocs via
+
+```bash
+mkdocs serve --config-file scripts/mkdocs.yml
+```
+
+References:
+
+- The website is build with [mkdocs](https://www.mkdocs.org/)
+- and uses [mkdocs-material](https://squidfunk.github.io/mkdocs-material/) for its many plugins
+
+### Automatic deployment
+
+See [website.yml](https://codeberg.org/fediverse/fep/src/branch/main/.woodpecker/website.yml).
+
 ## Changes
 
 - Added discussion link to tracking issue, use table to format (@helge, 2025-03-07)
+- Added static website stuff [fep#673](https://codeberg.org/fediverse/fep/pulls/673)
 
 ## References
 

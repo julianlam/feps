@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 import os
 import shutil
 
-from tools import title_to_slug, FepFile
+from fep_tools import title_to_slug, FepFile
 
 
 def build_parser():

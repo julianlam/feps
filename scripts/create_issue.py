@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from argparse import ArgumentParser
-from tools.issue import create_issue
+from fep_tools.issue import create_issue
 
 import json
 
@@ -12,5 +12,4 @@ args = parser.parse_args()
 with open("scripts/config.json") as f:
     config = json.load(f)
 
-create_issue(config['owner'], config['repo'], config['token'], args.fep)
-
+create_issue(config["owner"], config["repo"], config["token"], args.fep)

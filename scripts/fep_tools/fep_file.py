@@ -1,22 +1,38 @@
-def unquote(value):
+from dataclasses import dataclass, field
+
+
+def unquote(value: str) -> str:
     if value.startswith('"') and value.endswith('"'):
         return value[1:-1]
     else:
         return value
 
 
+@dataclass
 class FepFile:
-    def __init__(self, fep):
-        self.fep = fep
+    fep: str
+    frontmatter: list[str] = field(default_factory=list)
+    content: list[str] = field(default_factory=list)
+
+    def __post_init__(self):
         with open(self.filename) as f:
-            self.frontmatter, self.content = FepFile.parsefile(f)
+            lines = f.readlines()
+
+        status = 0
+
+        for line in lines:
+            if line == "---\n" and status <= 2:
+                status += 1
+            elif status == 1:
+                self.frontmatter.append(line.removesuffix("\n"))
+            elif status >= 2:
+                self.content.append(line.removesuffix("\n"))
 
     @property
-    def filename(self):
+    def filename(self) -> str:
         return f"fep/{self.fep}/fep-{self.fep}.md"
 
-    @property
-    def summary(self):
+    def find_section_by_name(self, name):
         result = []
         is_summary = False
         for x in self.content:
@@ -24,8 +40,12 @@ class FepFile:
                 if x.startswith("##"):
                     return "\n".join(result)
                 result.append(x)
-            elif x == "## Summary":
+            elif x == f"## {name}":
                 is_summary = True
+
+    @property
+    def summary(self):
+        return self.find_section_by_name("Summary")
 
     def write(self):
         with open(self.filename, "w") as f:
@@ -42,7 +62,11 @@ class FepFile:
         return {a: unquote(b.strip()) for a, b in split}
 
     @property
-    def title(self):
+    def status(self):
+        return self.parsed_frontmatter["status"]
+
+    @property
+    def title(self) -> str:
         titles = [x for x in self.content if x.startswith("# ")]
         assert len(titles) > 0
 
@@ -56,25 +80,23 @@ class FepFile:
         return true_title
 
     @property
-    def implementations(self):
+    def implementation_count(self):
         if self.parsed_frontmatter.get("type") != "implementation":
             return 0
         implementations = []
         in_section = False
         for line in self.content:
-            if line.startswith('#') and "Implementations" in line:
+            if line.startswith("#") and "Implementations" in line:
                 in_section = True
-            elif in_section is True and line.startswith('#'):
+            elif in_section is True and line.startswith("#"):
                 in_section = False
-            elif (
-                in_section is True
-                and (line.startswith("-") or line.startswith("*"))
-            ):
+            elif in_section is True and (line.startswith("-") or line.startswith("*")):
                 implementations.append(line)
+
         return len(implementations)
 
     @staticmethod
-    def parsefile(f):
+    def parsefile(f) -> tuple[list[str], list[str]]:
         lines = f.readlines()
 
         status = 0
@@ -90,3 +112,21 @@ class FepFile:
                 content.append(line.removesuffix("\n"))
 
         return frontmatter, content
+
+    def frontmatter_table(self) -> str:
+        keys = " | ".join(self.parsed_frontmatter.keys())
+        values = " | ".join(self.parsed_frontmatter.values())
+        divider = " | ".join(["---"] * len(self.parsed_frontmatter))
+
+        return f"""
+| {keys} |
+| {divider} |
+| {values} |
+"""
+
+    def content_and_title(self) -> tuple[str, str]:
+        for j, line in enumerate(self.content):
+            if line.startswith("# "):
+                return line, "\n".join(self.content[j + 1 :])
+
+        raise Exception("Could not determine title and content")

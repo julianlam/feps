@@ -1,10 +1,11 @@
 when:
   - branch: [main]
     event: push
+    repo: fediverse/fep
 
 steps:
   build:
-    image: python:3.11-alpine
+    image: python:3.13-alpine
     commands:
       - ./scripts/update_issues.py
       - ./scripts/create_readme.py

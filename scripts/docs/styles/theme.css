@@ -1,0 +1,9 @@
+[data-md-color-primary="indigo"] {
+    --md-primary-fg-color:        #2185d0;
+}
+
+tbody tr:nth-of-type(odd) {
+    /* Lighter than --md-typeset-table-color--light */
+    background-color: hsla(0, 0%, 0%, 0.025);
+}
+

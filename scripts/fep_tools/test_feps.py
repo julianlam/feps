@@ -3,7 +3,7 @@ import pytest
 
 from urllib.parse import urlparse
 
-from scripts.tools import get_fep_ids, FepFile, title_to_slug
+from scripts.fep_tools import get_fep_ids, FepFile, title_to_slug
 
 
 @pytest.mark.parametrize("fep", get_fep_ids())
@@ -20,9 +20,9 @@ def test_fep_front_matter(fep):
 
     discussions_to = parsed_frontmatter["discussionsTo"]
 
-    assert not urlparse(discussions_to).netloc.endswith(
-        ".example"
-    ), "Update discussionsTo to a valid URL for a discussion topic"
+    assert not urlparse(discussions_to).netloc.endswith(".example"), (
+        "Update discussionsTo to a valid URL for a discussion topic"
+    )
 
     if parsed_frontmatter["status"] == "FINAL":
         assert "dateFinalized" in parsed_frontmatter
@@ -35,6 +35,7 @@ def test_fep_front_matter(fep):
 
     if "type" in parsed_frontmatter:
         assert parsed_frontmatter["type"] in ["informational", "implementation"]
+
 
 @pytest.mark.parametrize("fep", get_fep_ids())
 def test_fep_content(fep):
