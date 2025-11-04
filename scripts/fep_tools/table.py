@@ -29,7 +29,9 @@ class TableLineBuilder:
 
     @property
     def tracking_issue(self):
-        url = self.parsed["trackingIssue"]
+        url = self.parsed.get("trackingIssue")
+        if url is None:
+            return "-"
         url_number = url.split("/")[-1]
         return f"[#{url_number}]({url})"
 
@@ -62,7 +64,7 @@ class TableLineBuilder:
     def discussions(self):
         discussions = self.parsed["discussionsTo"]
 
-        if discussions == self.parsed["trackingIssue"]:
+        if discussions == self.parsed.get("trackingIssue"):
             return "-"
 
         return f"[Discussions]({discussions})"
