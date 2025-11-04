@@ -2,7 +2,7 @@
 
 <!-- DO NOT EDIT! File automatically generated with `./scripts/create_readme.py`. -->
 
-This is the Git repository containing Fediverse Enhancment Proposals (FEPs).
+This is the Git repository containing Fediverse Enhancement Proposals (FEPs).
 
 A Fediverse Enhancement Proposal (FEP) is a document that provides information to the Fediverse community. The goal of a FEP is to improve interoperability and well-being of diverse services, applications and communities that form the Fediverse.
 
