@@ -2,8 +2,9 @@
 slug: "19b3"
 authors: Helge
 status: DRAFT
-dateReceived: 2025-11-04
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-19b3-specifying-properties-of-a-service/8311
+dateReceived: 2025-11-04
+trackingIssue: https://codeberg.org/fediverse/fep/issues/719
 ---
 
 # FEP-19b3: Specifying Properties of a Service

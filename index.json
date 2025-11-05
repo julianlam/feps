@@ -1123,5 +1123,15 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/702",
     "title": "Move Actor Objects with a `migration` Collection",
     "implementations": 0
+  },
+  {
+    "slug": "19b3",
+    "authors": "Helge",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-19b3-specifying-properties-of-a-service/8311",
+    "dateReceived": "2025-11-04",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/719",
+    "title": "Specifying Properties of a Service",
+    "implementations": 0
   }
 ]
