@@ -46,23 +46,36 @@ An [ActivityPub][ActivityPub] object can be made portable by using an identifier
 'ap' URI is constructed according to the [RFC-3986] specification, but with a [Decentralized Identifier][DID] in place of the authority:
 
 ```text
-ap://did:example:123456/path/to/object?name=value#fragment-id
+ap://did:example:abcdef/path/to/object?name=value#fragment-id
 \_/  \________________/ \____________/ \________/ \_________/
  |           |                |            |           |
 scheme   authority           path        query     fragment
 ```
 
 - The URI scheme MUST be `ap`.
-- The authority component MUST be a valid [DID].
+- The authority component MUST be a valid [DID]. Colons and other reserved characters MAY be [percent-encoded][RFC-3986-PercentEncoding].
 - The path is REQUIRED. It MUST be treated as an opaque string.
 - The query is OPTIONAL. To avoid future conflicts, implementers SHOULD NOT use parameter names that are not defined in this proposal.
 - The fragment is OPTIONAL.
+
+> [!WARNING]
+> An 'ap' URI is not a valid [RFC-3986] URI if reserved characters in the authority component are not percent-encoded. Nevertheless, this form is considered canonical.
 
 >[!NOTE]
 >ActivityPub specification [requires][ActivityPub-ObjectIdentifiers] identifiers to have an authority "belonging to that of their originating server". The authority of 'ap' URI is a DID, which does not belong to any particular server.
 
 >[!WARNING]
 >The URI scheme might be changed to `ap+ef61` in a future version of this document, because these identifiers are not intended to be used for all ActivityPub objects, but only for portable ones.
+
+### Comparing 'ap' URIs
+
+Two 'ap' URIs are equivalent when their canonical forms are identical.
+
+To produce a canonical 'ap' URI, the following operations MUST be performed:
+
+- If the URI is a [compatible identifier](#compatible-ids), convert it into an 'ap' URI.
+- If the authority component is percent-encoded, decode it.
+- Remove query component.
 
 ### DID methods
 
@@ -103,19 +116,9 @@ Authentication and authorization are performed in accordance with [FEP-fe34] ori
 - Cryptographic origins are used. They are similar to web origins described in [RFC-6454] but computed using a different algorithm.
 - Authentication via fetching from an origin is not possible. The main authentication method is verification of a signature.
 
-The origin of an 'ap' URI is computed by the following algorithm:
+The origin of an 'ap' URI is identical to the authority component of its canonical form (i.e. it is a DID without percent encoding).
 
-1. Let `uri-scheme` be the `ap` string.
-2. Let `uri-host` be the authority component of the URI.
-3. Let `uri-port` be the number 0.
-4. Return the triple `(uri-scheme, uri-host, uri-port)`.
-
-And the origin of a [DID URL][DID-URL] is computed by the following algorithm:
-
-1. Let `uri-scheme` be the `ap` string.
-2. Let `uri-host` be the DID component of the DID URL.
-3. Let `uri-port` be the number 0.
-4. Return the triple `(uri-scheme, uri-host, uri-port)`.
+The origin of a [DID URL][DID-URL] is identical to its `did` component.
 
 Actors, activities and objects identified by 'ap' URIs MUST contain [FEP-8b32] integrity proofs. Collections identified by 'ap' URIs MAY contain integrity proofs. If collection doesn't contain an integrity proof, [another authentication method](#collections) MUST be used.
 
@@ -175,11 +178,14 @@ This URI indicates that object can be retrieved from two gateways:
 - `https://server1.example`
 - `https://server2.example`
 
-Implementations MUST discard query parameters when comparing 'ap' URIs and treat URIs with different query parameter values as equal.
+> [!IMPORTANT]
+> When comparing 'ap' URIs, query parameters are discarded and canonical URIs are used.
 
 ### Inboxes and outboxes
 
-Servers and clients use gateways to deliver activities to inboxes or outboxes. Servers specified in the `gateways` property of an actor object MUST accept POST requests targeting its inbox and outbox collections.
+Portable inboxes and outboxes function as described in the [ActivityPub] specification. These endpoints are also used to synchronize activities between gateways used by an actor.
+
+Servers specified in the `gateways` property of an actor object MUST accept POST requests targeting its inbox collection.
 
 Example:
 
@@ -187,15 +193,15 @@ Example:
 POST https://social.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor/inbox
 ```
 
-Activities delivered to an inbox might be not portable. If the server does not accept deliveries on behalf of an actor, it MUST return `405 Method Not Allowed`.
+Activities delivered to an inbox might be not portable. If the server does not accept deliveries on behalf of an actor, it MUST return `404 Not Found`.
 
 Upon receiving an activity in actor's inbox, the server SHOULD forward it to inboxes located on other servers where actor's data is stored. An activity MUST NOT be forwarded from inbox more than once.
+
+Servers specified in the `gateways` property of an actor object MAY accept POST requests targeting its outbox collection. Such servers MUST implement [FEP-ae97].
 
 Activities delivered to an outbox are performed by a portable actor and therefore MUST be portable too. The server MUST verify them as described in section [Authentication and authorization](#authentication-and-authorization) and then process them as described in [FEP-ae97]. Clients MAY deliver activities to multiple outboxes, located on different servers.
 
 Upon receiving an activity in actor's outbox, the server SHOULD forward it to outboxes located on other servers where actor's data is stored. An activity MUST NOT be forwarded from outbox more than once.
-
-Gateways SHOULD implement [FEP-ae97] actor registration API.
 
 ### Collections
 
@@ -268,6 +274,7 @@ GET https://social.example/.well-known/apgateway/hl:zQmdfTbBqBPQ7VNxZEYEj14VmRuZ
 
 ## Compatibility
 
+<a name="compatible-ids"></a>
 ### Identifiers
 
 'ap' URIs might not be compatible with existing [ActivityPub][ActivityPub] implementations. To provide backward compatibility, gateway-based HTTP(S) URIs of objects can be used instead of their canonical identifiers:
@@ -289,14 +296,6 @@ WebFinger address of a portable actor can be obtained by the reverse discovery a
 ## Discussion
 
 (This section is non-normative.)
-
-### 'ap' URI syntax
-
-'ap' URIs are not valid per [RFC-3986]. To make them valid, the authority component can be percent-encoded:
-
-```
-ap://did%3Akey%3Az6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor
-```
 
 ### Discovering locations
 
@@ -368,6 +367,7 @@ The following alternatives to gateway-based compatible IDs are being considered:
 [ActivityPub-ObjectIdentifiers]: https://www.w3.org/TR/activitypub/#obj-id
 [RFC-2119]: https://datatracker.ietf.org/doc/html/rfc2119.html
 [RFC-3986]: https://datatracker.ietf.org/doc/html/rfc3986.html
+[RFC-3986-PercentEncoding]: https://datatracker.ietf.org/doc/html/rfc3986#section-2.1
 [DID]: https://www.w3.org/TR/did-core/
 [DID-Subject]: https://www.w3.org/TR/did-1.0/#did-subject
 [did:key]: https://w3c-ccg.github.io/did-key-spec/
