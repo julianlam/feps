@@ -18,4 +18,4 @@ steps:
     image: python:3.13-alpine
     commands:
       - pip install pytest
-      - pytest
+      - pytest scripts
