@@ -2,8 +2,9 @@
 slug: "d8c8"
 authors: Jonny Saunders <j@nny.fyi>
 status: DRAFT
-dateReceived: 2025-11-03
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-d8c8-bittorrent-torrent-objects/8309
+dateReceived: 2025-11-03
+trackingIssue: https://codeberg.org/fediverse/fep/issues/722
 ---
 
 # FEP-d8c8: BitTorrent `Torrent` Objects
