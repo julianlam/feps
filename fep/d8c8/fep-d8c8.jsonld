@@ -1,0 +1,9 @@
+{
+	"@context": {
+    "Torrent": "https://w3id.org/fep/d8c8#Torrent",
+    "infohash_v1": "https://w3id.org/fep/d8c8#infohash_v1",
+    "infohash_v2: "https://w3id.org/fep/d8c8#infohash_v2",
+    "magnet": "https://w3id.org/fep/d8c8#magnet",
+    "bencoded": "https://w3id.org/fep/d8c8#bencoded",
+  }
+}
