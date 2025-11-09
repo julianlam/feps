@@ -82,6 +82,9 @@ Note that the `content` includes the `RE: <url>` microsyntax but consuming imple
 - Bridgy Fed
 - [Hollo](https://hollo.social/@hollo/01920132-739e-7eff-9f5f-424282884eee)
 - [Iceshrimp.NET](https://iceshrimp.dev/iceshrimp/Iceshrimp.NET/src/commit/bdfd3a8d4e788ef3bdec06f32f444ed7fcffc3c7/FEDERATION.md#supported-feps)
+- [Sharkey](https://sharkey.team/notes/a97if45g455p000m)
+- [dotmakeup](https://git.sr.ht/~cloutier/bird.makeup/commit/94365859269880bba38a10025866bca02971ebbc#src/BirdsiteLive.Domain/StatusService.cs)
+- [Hubzilla](https://hub.somaton.com/item/2a9fed0a-b080-458a-963d-66bbdd2ef421)
 
 ## References
 
