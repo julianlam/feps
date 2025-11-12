@@ -164,6 +164,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-1580: Move Actor Objects with a `migration` Collection](./fep/1580/fep-1580.md) | `DRAFT` | [#702](https://codeberg.org/fediverse/fep/issues/702) | 2025-10-09 | - |
 | [FEP-d8c8: BitTorrent `Torrent` Objects](./fep/d8c8/fep-d8c8.md) | `DRAFT` | [#722](https://codeberg.org/fediverse/fep/issues/722) | 2025-11-03 | - |
 | [FEP-19b3: Specifying Properties of a Service](./fep/19b3/fep-19b3.md) | `DRAFT` | [#719](https://codeberg.org/fediverse/fep/issues/719) | 2025-11-04 | - |
+| [FEP-22b6: Linking an ActivityPub Object to a HTML page and back](./fep/22b6/fep-22b6.md) | `DRAFT` | [#730](https://codeberg.org/fediverse/fep/issues/730) | 2025-11-12 | - |
 
 ## License
 

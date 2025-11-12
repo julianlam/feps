@@ -2,8 +2,9 @@
 slug: "22b6"
 authors: Helge <@helge@mymath.rocks>
 status: DRAFT
-dateReceived: 2025-11-12
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-22b6-linking-an-activitypub-object-to-a-html-page-and-back/8369
+dateReceived: 2025-11-12
+trackingIssue: https://codeberg.org/fediverse/fep/issues/730
 ---
 # FEP-22b6: Linking an ActivityPub Object to a HTML page and back
 
