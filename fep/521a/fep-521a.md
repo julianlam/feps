@@ -80,6 +80,15 @@ An actor MAY have no associated public keys.
 }
 ```
 
+## Security considerations
+
+Each actor is expected to have a different secret key.
+
+To prevent [side-channel attacks](https://en.wikipedia.org/wiki/Side-channel_attack), secret keys need to be stored in binary form. If stored as text, they need to be decoded using a constant-time algorithm.
+
+> [!WARNING]
+> [Controlled Identifiers][Multikey] specification requires implementers to use the `base-58-btc` alphabet for multibase-encoded secret keys. This practice is discouraged because available implementations of Base58 decode algorithm [may not be constant-time](https://github.com/w3c/cid/issues/162).
+
 ## Test vectors
 
 See [fep-521a.feature](./fep-521a.feature)
