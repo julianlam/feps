@@ -84,6 +84,8 @@ Implementers MUST support the [did:key] method. Other DID methods SHOULD NOT be 
 >[!NOTE]
 >The following additional DID methods are being considered: [did:web](https://w3c-ccg.github.io/did-method-web/), [did:dns](https://danubetech.github.io/did-method-dns/), [did:webvh](https://identity.foundation/didwebvh/) (formerly `did:tdw`) and [did:fedi](https://arcanican.is/excerpts/did-method-fedi.html).
 
+To maintain backward compatibility with existing [ActivityPub][ActivityPub] implementations that rely on an origin-based security model and do not canonicalize IDs before comparison, implementers MUST generate DIDs using the base58-btc alphabet, even though the specification [allows both base58-btc and base64url][did:key-syntax]. Using both alphabets in practice could prevent such servers from recognizing that a post whose `attributedTo` value is `https://base64url.example/.well-known/apgateway/did:key:u7QGwDY2Tjn93PVFWWq02piP1NE9_XRlg-c8-jhJiDqKBDw/actor` belongs to `https://base58.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor`.
+
 DID documents SHOULD contain Ed25519 public keys represented as verification methods with `Multikey` type (as defined in the [Controlled Identifiers][Multikey] specification).
 
 Any [DID URL][DID-URL] capabilities of a DID method MUST be ignored when working with 'ap' URIs.
@@ -371,6 +373,7 @@ The following alternatives to gateway-based compatible IDs are being considered:
 [DID]: https://www.w3.org/TR/did-core/
 [DID-Subject]: https://www.w3.org/TR/did-1.0/#did-subject
 [did:key]: https://w3c-ccg.github.io/did-key-spec/
+[did:key-syntax]: https://w3c-ccg.github.io/did-key-spec/#did-key-identifier-syntax
 [DID-URL]: https://www.w3.org/TR/did-core/#did-url-syntax
 [DID-Services]: https://www.w3.org/TR/did-1.0/#services
 [ControlledIdentifiers]: https://www.w3.org/TR/cid/
