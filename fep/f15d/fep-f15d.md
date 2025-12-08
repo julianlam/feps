@@ -1,6 +1,6 @@
 ---
 slug: "f15d"
-authors: Julian Lam <julian@nodebb.org>
+authors: Julian Lam <julian@nodebb.org>, Felix Ableitner <me@nutomic.com>, Rimu Atkinson <rimu@rimu.geek.nz>
 status: DRAFT
 dateReceived: 2025-11-10
 discussionsTo: *TBD*
@@ -78,12 +78,21 @@ Note the following properties:
 * `target` is the incoming audience
 * Additional recipients can and should be added as necessary (e.g. originating author, announcers, etc.)
 
+### `Audience` wrapper
+
+Implementations MAY wrap the `Move` activity in an `Announce` activity. Receivers are recommended to support both types.
+
 
 ## Removal
 
-When a publisher removes a context from an audience, a `Remove` activity is published to the audience's followers.
+There are two ways to signal that a context is removed from an audience.
 
-This is identical in shape to relocation, except for the change in `type` and the lack of an `origin`.
+>[!NOTE]
+> A **removal** is functionally different from a **deletion**. You cannot delete content that is originally from another server, as you are not the owner, but you _are_ able to remove it from yours.
+
+### Resolvable context variant
+
+When a publisher removes a context from an audience, a `Remove` activity is published to the audience's followers.
 
 
 ``` json
@@ -99,13 +108,11 @@ This is identical in shape to relocation, except for the change in `type` and th
 }
 ```
 
-### Backwards compatibility
+### Group federation variant
 
-_This section is non-normative_
+_This sub-section is non-normative_
 
 Implementations may also handle the federated removal of objects by federating out a `Delete` referencing the root-level object. This activity is further wrapped in an `Announce` activity per [FEP 1b12][1b12].
-
-Implementors are encouraged to support this method for compatibility with existing implementations and/or older versions.
 
 ``` json
 {
