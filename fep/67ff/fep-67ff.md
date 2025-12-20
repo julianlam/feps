@@ -86,6 +86,7 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Comments](https://codeberg.org/bovine/comments/src/branch/main/FEDERATION.md) ([Raw](https://codeberg.org/bovine/comments/raw/branch/main/FEDERATION.md))
 - [Loops](https://github.com/joinloops/loops-server/blob/main/FEDERATION.md)
 - [snac](https://codeberg.org/grunfink/snac2/src/branch/master/FEDERATION.md)
+- [squidcity](https://code.lag.net/robey/squidcity/src/branch/main/FEDERATION.md)
 
 ## References
 
