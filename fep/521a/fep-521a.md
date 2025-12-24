@@ -100,6 +100,7 @@ See [fep-521a.feature](./fep-521a.feature)
 - Hubzilla
 - [Fedify](https://github.com/fedify-dev/fedify/blob/1.7.5/FEDERATION.md#supported-feps)
 - [tootik](https://github.com/dimkr/tootik/blob/0.18.0/FEDERATION.md#http-signatures)
+- [squidcity](https://code.lag.net/robey/squidcity/src/commit/485299c2306c7c3d359185728e8f9eff08cb9d90/FEDERATION.md#supported-feps)
 
 ## References
 
