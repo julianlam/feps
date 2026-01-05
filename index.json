@@ -374,11 +374,11 @@
   },
   {
     "slug": "d8c2",
-    "authors": "Evan Prodromou <evan@prodromou.name>",
+    "authors": "Evan Prodromou <evanp@socialwebfoundation.org>",
     "status": "DRAFT",
     "dateReceived": "2023-09-17",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/165",
-    "discussionsTo": "https://codeberg.org/fediverse/fep/issues/165",
+    "discussionsTo": "https://codeberg.org/evanp/fep/issues",
     "title": "OAuth 2.0 Profile for the ActivityPub API",
     "implementations": 0
   },
