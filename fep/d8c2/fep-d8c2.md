@@ -1,51 +1,42 @@
 ---
 slug: "d8c2"
-authors: Evan Prodromou <evan@prodromou.name>
+authors: Evan Prodromou <evanp@socialwebfoundation.org>
 status: DRAFT
 dateReceived: 2023-09-17
 trackingIssue: https://codeberg.org/fediverse/fep/issues/165
-discussionsTo: https://codeberg.org/fediverse/fep/issues/165
+discussionsTo: https://codeberg.org/evanp/fep/issues
 ---
 # FEP-d8c2: OAuth 2.0 Profile for the ActivityPub API
 
 ## Summary
 
-This FEP defines a profile of OAuth 2.0 for use with the ActivityPub API.
+This FEP defines a mechanism for using an ActivityPub object ID as the `client_id` in the OAuth 2.0 authorization code flow.
+
+(An earlier version defined a full profile for using OAuth 2.0 with the
+ActivityPub API, but this version has been abbreviated to focus only on the
+client ID mechanism. The title has been retained to accommodate FEP tooling.)
 
 ## Motivation
 
-[ActivityPub] defines the ActivityPub API, a RESTful HTTP API for stream-oriented social software. Also called "client to server" or "c2s", this API allows clients to create new `Activity` objects by posting to an actor's `outbox` collection.
+[ActivityPub] defines the ActivityPub API, a RESTful HTTP API for stream-oriented social software. This API allows client software to read ActivityPub objects, including actors, collections, activities, and content objects. Client software can also create new `Activity` objects by posting to an actor's `outbox` collection (also called "client-to-server" or "c2s").
 
-The ActivityPub specification does not define an authorization mechanism for the API, although the [ActivityPubAuth] recommendations include some suggestions. Although there are many ways to implement client authorization for an API, OAuth 2.0 is a popular and well-understood framework.
+The ActivityPub specification does not define an authorization mechanism for the API, although the [ActivityPub Primer Authorization and Authentication][ActivityPubAuth] recommendations include some suggestions. Although there are many ways to implement client authorization for an API, OAuth 2.0 is a popular and well-understood framework.
 
-OAuth 2.0 is very broad and encompasses a number of different techniques and use cases. [OAuth20Simplified] documents the most common profile of OAuth 2.0: authorization code flow and bearer tokens. Many OAuth 2.0 client libraries implement this profile.
+OAuth 2.0 is broad and encompasses a number of different techniques and use cases. [OAuth 2.0 Simplified][OAuth20Simplified] documents the most common profile of OAuth 2.0: [authorization code flow](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1) and bearer tokens. Many OAuth 2.0 client libraries implement this profile.
 
-The most common case for OAuth 2.0 is an API supplied by a single provider.
-There are three main issues with using OAuth 2.0 for a standard API implemented by many providers.
+The OAuth 2.0 authorization code flow requires two main endpoints for a client to initiate the flow: an authorization endpoint and a token endpoint. These can be discovered using the `endpoints` property of the ActivityPub actor or the [Authorization Server Metadata][AuthorizationServerMetadata] endpoint from RFC 8414.
 
-1. *Client identifiers*. The OAuth 2.0 flow uses the client identifier to show important information about the client software to the user, and to avoid certain classes of spoofing attacks. With a single provider, the client developer can register a client ID out of band using the provider's developer Web site or other tools. Client developers cannot manually register client IDs with each provider of the ActivityPub API.
-2. *Client metadata*. To make authorization decisions, the user needs to
-having information about the client software such as its name, description,
-icon, and publisher. With a single provider, the API service can require
-client metadata through its registration interface and store it in a database. A client developer cannot manually register client metadata with each provider of the ActivityPub API.
-3. *Scopes*. The OAuth 2.0 flow uses scopes to indicate the permissions that the client is requesting. With a single provider, the provider can define and document a set of scopes that are appropriate for the API. It would be difficult for client developers had to use different scopes for each different ActivityPub API implementer.
+The OAuth 2.0 flow uses a *client identifier* to show important information about the client software to the user, and to avoid certain classes of spoofing attacks.
 
-This profile addresses these issues by using the ActivityPub API itself to identify and describe the client software. It also provides a simple set of scopes appropriate for social software using ActivityPub.
+A common use case for OAuth 2.0 is an API supplied by a single provider. With a single provider, the client developer can register a client ID out of band using the provider's developer Web site or other tools.
 
-## Specification
+With multiple providers, as with the Fediverse, out-of-band registration becomes untenable. With tens of thousands of known ActivityPub servers on the Internet, client developers cannot manually register client IDs with each provider of the ActivityPub API.
 
-- Servers MUST provide the `oauthAuthorizationEndpoint` and `oauthTokenEndpoint` properties in the actor's `endpoints` collection.
-- Clients MUST use the `oauthAuthorizationEndpoint` and `oauthTokenEndpoint` properties of the actor's `endpoints` collection.
-- Clients MUST use the Authorization Code flow.
-- Clients MUST use [PKCE] with the `S256` method.
-- Clients MUST provide a `client_id` as the ActivityPub ID of the `Application`, `Service`, or other ActivityPub object representing the client (see [Client identifier](#client-identifier) below).
-- The Activity Object resource at the `client_id` URI MUST have a `redirectURI` property with the redirect URI for the client (see [Redirect URI](#redirect-uri) below).
-- Clients SHOULD NOT provide a `client_secret`.
-- Servers MUST ignore the `client_secret` parameter, if provided.
-- The `scope` parameter SHOULD be a space-separated list of scope values (see [Scopes](#scopes) below) as defined by this specification.
-- The `scope` parameter MAY include extended scopes defined by the server or client.
-- Servers MUST support [Bearer tokens](https://tools.ietf.org/html/rfc6750).
-- Servers MAY add an `instrument` property for `Activity` objects created by the client, with the value of the `client_id` parameter.
+One option is to use [Dynamic Client Registration][DynamicClientRegistration] protocol from RFC 7591. This defines a standard HTTP endpoint used for registering an application with an authorization server and receiving a unique client identifier.
+
+Dynamic client registration adds some extra complexity on the client side. In particular, client software has to maintain a record of the correct client ID for each authorization server used.
+
+This profile addresses these issues by using a single, well-defined ActivityPub object to identify and describe the client software.
 
 ## Client identifier
 
@@ -53,7 +44,7 @@ ActivityPub provides a rich vocabulary for describing objects in the social spac
 
 This allows a distributed description of ActivityPub API clients that doesn't require out-of-band registration.
 
-Objects dereferenced at the SHOULD be of type `Application` or `Service`. They MUST have an `id` property with the same value as the `client_id` parameter. They MUST have a `redirectURI` property with the redirect URI for the client (see [Context document](#context-document) below).
+Objects dereferenced at the id SHOULD be of type `Application` or `Service`. They MUST have an `id` property with the same value as the `client_id` parameter. They MUST have a `redirectURI` property with the redirect URI for the client (see [Context document](#context-document) below).
 
 Clients SHOULD provide metadata to help users make authorization decisions, including:
 
@@ -63,19 +54,21 @@ Clients SHOULD provide metadata to help users make authorization decisions, incl
 - `attributedTo`: The `name`, `id`, `icon` and `summary` properties of
   the actor responsible for the client software.
 
-## Scopes
+## Discovery
 
-The `scope` parameter is a space-separated list of scope values. The following scope values are defined:
+Support for using ActivityPub object IDs as OAuth 2.0 client IDs can be declared in two ways.
 
-- `read`: The client is requesting permission to read the actor's ActivityPub data, including the `inbox`, `outbox`, `liked`, `followers`, and `following` collections, and any other ActivityPub resources on the server, with the actor's authorization. The client is also requesting to use the `proxyURL` property of the actor, if it exists, to request resources from other servers with the actor's authorization.
-- `write`: The client is requesting permission to create `Activity` objects by posting to the actor's `outbox` collection. This includes `Create`, `Update`, `Delete`, `Follow`, `Undo`, and other Activity types.
-- `write:sameorigin`: The client is requesting permission to create `Activity` objects by posting to the actor's `outbox` collection, but only if the `Activity`'s `object`, `target` and/or `origin` properties have IDs with the same origin as the client ID. This allows the user to grant a limited scope to an application or service to interact with other resources controlled by the client, but not to interact with resources from other sources. "Same origin" is defined as a URI with the same scheme, host, and port as the client ID.
+### Actor discovery
 
-Extended scopes MAY be defined by the server or client. Servers SHOULD ignore scopes that they do not recognize. Extended scopes SHOULD use the "primary:restriction" pattern for naming the scope.
+An ActivityPub actor can include the `objectIDAsClientID` property. If `true`, client software can use the client ID format in this specification to identify themselves to authorization servers.
+
+### Authorization Server Metadata
+
+An authorization server can declare its support for ActivityPub object IDs as client IDs by adding the `activitypub_object_id_as_client_id` flag to its [Authorization Server Metadata][AuthorizationServerMetadata].
 
 ## Context document
 
-The context document for this specification is at `https://purl.archive.org/socialweb/oauth`. Its contents are as follows:
+The context document for this specification is at `https://purl.archive.org/socialweb/oauth/2.0`. Its contents are as follows:
 
 ```json
 {
@@ -83,13 +76,91 @@ The context document for this specification is at `https://purl.archive.org/soci
     "oauth": "https://purl.archive.org/socialweb/oauth#",
     "redirectURI": {
       "@id": "oauth:redirectURI",
-      "@type": "@id"
+      "@type": "xsd:anyURI"
+    },
+    "objectIDAsClientID": {
+      "@id": "oauth:objectIDAsClientID",
+      "@type": "xsd:boolean"
     }
   }
 }
 ```
 
+### Context URL aliases
+
+Aliases are provided for the context URL to allow change over time with backwards compatibility, using a [semantic versioning](https://semver.org/) strategy.
+
+- `https://purl.archive.org/socialweb/oauth/2.0.0` This URL will be bytewise stable, and can be used for clients that use digital signatures or hashes to validate context URLs.
+- `https://purl.archive.org/socialweb/oauth/2.0` The preferred URL. Backwards-compatible changes, such as whitespace and formatting, may be made, but no new terms will be added and none will be removed or modified. Will be kept up to date with the latest 2.0.x version.
+- `https://purl.archive.org/socialweb/oauth/2` New terms may be added, but none will be removed or modified. Will be kept up to date with the latest 2.x.x version.
+- `https://purl.archive.org/socialweb/oauth` The latest version of the context document; backwards-incompatible changes may be applied, such as removing or modifying terms.
+
+New versions of the context document will increment the major, minor and patch version as needed.
+
+## Properties
+
+### redirectURI
+
+The `redirectURI` property is an IRI that the client uses to receive the authorization code after the user authorizes the client. The server MUST verify that the `redirect_uri` parameter in the authorization request matches the `redirectURI` property of the client object.
+
+### objectIDAsClientID
+
+This flag has a boolean value, `true` or `false`. If true, the authorization server for the actor with this property supports using ActivityPub object IDs
+as client IDs, as described in this document.
+
 ## Examples
+
+### Actor flag
+
+The following actor description declares that the actor's authorization server supports ActivityPub object IDs as OAuth 2.0 client IDs using the `objectIDAsClientID` flag.
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://purl.archive.org/socialweb/oauth/2.0"
+  ],
+  "id": "https://social.example/user/evan",
+  "inbox": "https://social.example/user/evan/inbox",
+  "outbox": "https://social.example/user/evan/outbox",
+  "endpoints": {
+    "oauthAuthorizationEndpoint": "https://social.example/authorize",
+    "oauthTokenEndpoint": "https://social.example/token"
+  },
+  "objectIDAsClientID": true
+}
+```
+
+### Authorization Server Metadata flag
+
+An authorization server can declare its support for using ActivityPub object IDs as client IDs with the `activitypub_object_id_as_client_id` flag.
+
+```json
+{
+  "issuer": "https://social.example",
+  "authorization_endpoint": "https://social.example/authorize",
+  "token_endpoint": "https://social.example/token",
+  "registration_endpoint": "https://social.example/registration",
+  "scopes_supported": [
+    "read",
+    "write"
+  ],
+  "response_types_supported": [
+    "code"
+  ],
+  "grant_types_supported": [
+    "authorization_code",
+    "refresh_token"
+  ],
+  "code_challenge_methods_supported": [
+    "S256"
+  ],
+  "token_endpoint_auth_methods_supported": [
+    "none"
+  ],
+  "activitypub_object_id_as_client_id": true
+}
+```
 
 ### Follower recommender
 
@@ -99,7 +170,7 @@ A Web service that wants to use the ActivityPub API would define an ActivityPub 
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://purl.archive.org/socialweb/oauth"
+    "https://purl.archive.org/socialweb/oauth/2.0"
   ],
   "id": "https:/followrec.example/apps/myapp",
   "name": "Follow Recommender",
@@ -131,53 +202,6 @@ A Web service that wants to use the ActivityPub API would define an ActivityPub 
 }
 ```
 
-A person who wants to use this application can provide their ActivityPub actor ID either directly (`https://home.example/evanp`) or via a Webfinger lookup (`evanp@home.example`).
-
-The Web application discovers the `oauthAuthorizationEndpoint` to be `https://home.example/oauth/authorize`, and uses it to construct an URI for the authorization request, including scopes and PKCE parameters.
-
-```
-https://home.example/oauth/authorize?response_type=code&client_id=https%3A%2F%2Ffollowrec.example%2Fclient&redirect_uri=https%3A%2F%2Ffollowrec.example%2Foauth%2Fcallback&scope=read+write&state=1234zyx&code_challenge=1234&code_challenge_method=S256
-```
-
-The user is redirected to the authorization endpoint, where they are prompted to authorize the application. The server at `home.example` retrieves the `Service` object at `https://followrec.example/client` and, at a minimum, verifies that the `redirectURI` property matches the `redirect_uri` parameter.
-
-The `home.example` server then prompts the user to authorize the application. If the user authorizes the application, the server redirects the user to the `redirect_uri` parameter with a `code` parameter.
-
-The Web application then uses the `oauthTokenEndpoint` to exchange the authorization code for an access token and optional refresh token.
-
-```
-POST /oauth/token HTTP/1.1
-Host: home.example
-Content-Type: application/x-www-form-urlencoded
-
-grant_type=authorization_code&code=1234zyx&client_id=https%3A%2F%2Ffollowrec.example%2Fclient&redirect_uri=https%3A%2F%2Ffollowrec.example%2Foauth%2Fcallback&code_verifier=1234
-```
-
-It can use these access tokens to read the user's `following` collections and use [triadic closure](https://en.wikipedia.org/wiki/Triadic_closure) to recommend new people to follow. It can also use the access token to post `Follow` activities to the user's `outbox` collection.
-
-```json
-{
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Follow",
-    "object": "https://otherserver.example/otheruser"
-}
-```
-
-The server at `home.example` may add the `instrument` property to the resulting `Activity` to identify the responsible service.
-
-```json
-{
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "id": "https://home.example/activities/1234",
-    "actor": "https://home.example/evanp",
-    "type": "Follow",
-    "object": "https://otherserver.example/otheruser",
-    "instrument": "https://followrec.example/client",
-    "published": "2021-09-01T12:34:56Z",
-    "updated": "2021-09-01T12:34:56Z"
-}
-```
-
 ### Mobile checkin app
 
 An iOS app uses the ActivityPub API to post location updates for a user. Because the app is a native program, it uses a static site provided by its version control system to host the client object at `https://developer.git.example/kfc/client.json`.
@@ -186,9 +210,9 @@ An iOS app uses the ActivityPub API to post location updates for a user. Because
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
-    "https://purl.archive.org/socialweb/oauth"
+    "https://purl.archive.org/socialweb/oauth/2.0"
   ],
-  "id": "https:/mobile.example/app",
+  "id": "https://developer.git.example/kfc/client.json",
   "name": "Kentucky Fried Checkin",
   "type": "Application",
   "icon": {
@@ -220,125 +244,38 @@ An iOS app uses the ActivityPub API to post location updates for a user. Because
 
 Note that the `redirectURI` property is a custom URI scheme for the mobile app.
 
-A person who wants to use this application can provide their ActivityPub actor ID either directly (`https://home.example/evanp`) or via a Webfinger lookup (`evanp@home.example`).
-
-The checkin discovers the `oauthAuthorizationEndpoint` to be `https://home.example/oauth/authorize`, and uses it to construct an URI for the authorization request, including scopes and PKCE parameters.
-
-```
-https://home.example/oauth/authorize?response_type=code&client_id=https%3A%2F%2Ffollowrec.example%2Fclient&redirect_uri=https%3A%2F%2Ffollowrec.example%2Foauth%2Fcallback&scope=write&state=1234zyx&code_challenge=1234&code_challenge_method=S256
-```
-
-Note that the `scope` parameter only includes the `write` scope, because the app only needs to post to the user's `outbox` collection.
-
-The authorization flow continues as with the [Follower recommender](#follower-recommender) example, until the mobile app has a valid access token.
-
-The mobile app can then post `Arrive` activities to the user's `outbox` collection.
-
-```json
-{
-    "@context": "https://www.w3.org/ns/activitystreams",
-    "type": "Arrive",
-    "summaryMap": {
-      "en": "evanp arrived at the Empire State Building."
-    },
-    "location": {
-      "id": "https://places.example/empire-state-building",
-      "type": "Place",
-      "name": "Empire State Building",
-      "latitude": 40.7484,
-      "longitude": -73.9857
-    }
-}
-```
-
-### Open Farm Game
-
-A Web game at `openfarmgame.example` lets its users construct imaginary farms with crops, livestock, and buildings. It uses the ActivityPub API to post game events to a user's `outbox` collection. It defines its client object at `https://openfarmgame.example/client`.
-
-```json
-{
-  "@context": [
-    "https://www.w3.org/ns/activitystreams",
-    "https://purl.archive.org/socialweb/oauth"
-  ],
-  "id": "https://openfarmgame.example/client",
-  "name": "Open Farm Game",
-  "type": "Service",
-  "icon": {
-    "type": "Image",
-    "url": "https://openfarmgame.example/client/icon.png",
-    "width": 256,
-    "height": 256
-  },
-  "summaryMap": {
-    "en": "Raise crops, grow livestock, and build your farming empire! Open Farm Game is the social farming application you can play with friends and family."
-  },
-  "attributedTo": {
-    "name": "FarmGamer Inc.",
-    "id": "https://openfarmgame.example/organization",
-    "type": "Organization",
-    "icon": {
-      "type": "Image",
-      "url": "https://openfarmgame.example/organization/logo.png",
-      "width": 256,
-      "height": 256
-    },
-    "summaryMap": {
-      "en": "We help players become farmers."
-    }
-  },
-  "redirectURI": "https://openfarmgame.example/oauth/callback"
-}
-```
-
-The authorization flow works as with the [follow recommender](#follower-recommender) above. Because the actor primarily interacts with objects on the game server, the game only needs to request `write:sameorigin` scope.
-
-When the user plants a new crop in their imaginary farm, the game posts a `Create` activity to the user's `outbox` collection.
-
-```json
-{
-  "@context": [
-    "https://www.w3.org/ns/activitystreams",
-    {"farm": "https://openfarmgame.example/ns#"}
-  ],
-  "type": ["farm:Plant", "Create"],
-  "summaryMap": {
-    "en": "evanp planted corn."
-  },
-  "object": {
-    "id": "https://openfarmgame.example/crops/1234",
-    "type": ["farm:Crop", "Object"],
-    "nameMap": {
-      "en": "Corn"
-    },
-    "image": {
-      "type": "Image",
-      "url": "https://openfarmgame.example/crops/corn.png",
-      "width": 256,
-      "height": 256
-    }
-  }
-}
-```
-
-Note that the `object` property of the `Create` activity has an `id` property with the same origin as the client ID. This allows the actor's home server to verify that the client is only creating objects on the game server.
-
 ## Security considerations
 
 - [OAuth 2.0 Security Best Current Practice](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-security-topics) provides a number of best practices for implementing OAuth 2.0.
-- One risk of implementing OAuth 2.0 is that the user is redirected to the `redirect_uri` parameter after authorization is complete. This can be used as an attack to treat the authorization server as an open redirector. The API server should check that the `redirect_uri` parameter matches the `redirectURI` property of the client object.
-- A valid `redirectURI` property should not change often.
+- One risk of implementing OAuth 2.0 is that the user is redirected to the `redirect_uri` parameter after authorization is complete. This can be used as an attack to treat the authorization server as an open redirector. An app using an OAuth 2.0 authorization endpoint as an open redirector could change the client description document to have a different `redirectURI` for each request. One mitigation would be to archive the `redirectURI` value for each client, and cancel the flow if the value has changed too often.
 - As with any protocol that requires fetching a client-provided URI, the server should take care in dereferencing the `client_id` parameter to avoid attacks such as very large responses, responses that take a long time to generate, or responses with poorly-formatted content.
-- The ActivityPub object used to define the client includes metadata that can be spoofed, like the `name` or `icon`. An attacker could use the name, icon, or publisher of a popular application to trick users into authorizing the attacker's application. Tools such as shared blocklists, reputation systems, and user education can help mitigate this risk.
+- The ActivityPub object used to define the client includes metadata that can be spoofed, like the `name` or `icon`. An attacker could use the name, icon, or publisher of a popular application to trick users into authorizing the attacker's application. Tools such as shared blocklists, reputation systems, and user education can mitigate this risk.
+
+## IANA Considerations
+
+### OAuth Authorization Server Metadata Registry
+
+The following authorization server metadata value is defined by this
+specification and registered in the IANA "OAuth Authorization Server
+Metadata" registry established in OAuth 2.0 Authorization Server
+Metadata [RFC8414][AuthorizationServerMetadata].
+
+- Metadata Name: activitypub_object_id_as_client_id
+- Metadata Description: Boolean value specifying whether the authorization server supports using ActivityPub object IDs as client IDs.
+- Change Controller: W3C Social Web Incubator Community Group
+- Specification Document: https://fediverse.codeberg.page/fep/fep/d8c2/
 
 ## References
 
-- [OAuth2] Dick Hardt, [The OAuth 2.0 Authorization Framework](https://www.ietf.org/rfc/rfc6749.txt), 2012
-- [OAuth20Simplified], Aaron Parecki, [OAuth 2.0 Simplified](https://www.oauth.com/), 2016
-- [PKCE], N. Sakimura, J. Bradley, N. Agarwal, [Proof Key for Code Exchange by OAuth Public Clients](https://datatracker.ietf.org/doc/html/rfc7636), 2015.
-- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
-- [ActivityPubAuth] Various authors. [SocialCG/ActivityPub/Authentication Authorization](https://www.w3.org/wiki/SocialCG/ActivityPub/Authentication_Authorization), 2017
+- Dick Hardt, [The OAuth 2.0 Authorization Framework][OAuth2], 2012
+- Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
 
+[OAuth2]: https://www.ietf.org/rfc/rfc6749.txt
+[AuthorizationServerMetadata]: https://www.ietf.org/rfc/rfc8414.txt
+[DynamicClientRegistration]: https://datatracker.ietf.org/doc/html/rfc7591
+[OAuth20Simplified]: https://www.oauth.com/
+[ActivityPub]: https://www.w3.org/TR/activitypub/
+[ActivityPubAuth]: https://www.w3.org/wiki/SocialCG/ActivityPub/Authentication_Authorization
 
 ## Copyright
 
