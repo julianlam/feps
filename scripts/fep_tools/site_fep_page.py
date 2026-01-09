@@ -77,7 +77,7 @@ hide:
     return f"""---
 hide:
   - navigation
-description: {description}
+description: "{description}"
 ---
 
 """
