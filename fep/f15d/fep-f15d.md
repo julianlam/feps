@@ -2,8 +2,8 @@
 slug: "f15d"
 authors: Julian Lam <julian@nodebb.org>, Felix Ableitner <me@nutomic.com>, Rimu Atkinson <rimu@rimu.geek.nz>
 status: DRAFT
-dateReceived: 2025-11-10
-discussionsTo: *TBD*
+dateReceived: 2026-01-12
+discussionsTo: https://activitypub.space/topic/86/fep-f15d-context-relocation-and-removal
 ---
 # FEP-f15d: Context Relocation and Removal
 
@@ -145,7 +145,8 @@ If the actor of the `Move` or `Remove` activities is not same-origin to the audi
 
 ## Implementors
 
-* NodeBB
+* NodeBB (as of v4.7.0)
+* Piefed (as of v1.5)
 
 
 ## References
