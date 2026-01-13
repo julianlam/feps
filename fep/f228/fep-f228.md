@@ -29,7 +29,7 @@ It is an `OrderedCollection`, and the order of items is chronological. It MUST c
 
 When `context` property is present on a post, it MUST resolve to a collection of posts.
 
-There is a difference between contents of this collection and a reply tree defined by `inReplyTo` and `replies` relationships, because conversation owner might choose to not include certain replies.
+There is a difference between contents of this collection and a reply tree defined by `inReplyTo` and `replies` relationships, because conversation owner might choose to not include certain replies. When a reply is deleted by its author, the sub-replies MAY remain in the thread collection.
 
 >[!NOTE]
 >ActivityPub [requires][ActivityPub-Collections] ordered collections to be presented in reverse chronological order. However, an [erratum][ActivityPub-Errata] was proposed to relax this requirement.
@@ -80,6 +80,7 @@ Collection of posts:
 - Mitra
 - Decodon ([PR](https://github.com/jesseplusplus/decodon/pull/188))
 - PieFed ([commit](https://codeberg.org/rimu/pyfedi/commit/8d2afe5acd6c260a9ca9a352a93730d5a7b6bcdd))
+- [Mastodon](https://github.com/mastodon/mastodon/releases/tag/v4.5.4)
 
 Collection of activities:
 
