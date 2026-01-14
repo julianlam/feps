@@ -166,6 +166,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-19b3: Specifying Properties of a Service](./fep/19b3/fep-19b3.md) | `DRAFT` | [#719](https://codeberg.org/fediverse/fep/issues/719) | 2025-11-04 | - |
 | [FEP-22b6: Linking an ActivityPub Object to a HTML page and back](./fep/22b6/fep-22b6.md) | `DRAFT` | [#730](https://codeberg.org/fediverse/fep/issues/730) | 2025-11-12 | - |
 | [FEP-f15d: Context Relocation and Removal](./fep/f15d/fep-f15d.md) | `DRAFT` | [#751](https://codeberg.org/fediverse/fep/issues/751) | 2026-01-12 | - |
+| [FEP-ee3a: Exif metadata support](./fep/ee3a/fep-ee3a.md) | `DRAFT` | [#752](https://codeberg.org/fediverse/fep/issues/752) | 2026-01-13 | - |
 
 ## License
 

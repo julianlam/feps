@@ -1164,5 +1164,15 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/751",
     "title": "Context Relocation and Removal",
     "implementations": 0
+  },
+  {
+    "slug": "ee3a",
+    "authors": "Marcin Czachurski <mczachurski@icloud.com>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-ee3a-exif-metadata-support/8439",
+    "dateReceived": "2026-01-13",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/752",
+    "title": "Exif metadata support",
+    "implementations": 0
   }
 ]

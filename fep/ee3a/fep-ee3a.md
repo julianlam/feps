@@ -2,8 +2,9 @@
 slug: "ee3a"
 authors: Marcin Czachurski <mczachurski@icloud.com>
 status: DRAFT
-dateReceived: 2026-01-13
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-ee3a-exif-metadata-support/8439
+dateReceived: 2026-01-13
+trackingIssue: https://codeberg.org/fediverse/fep/issues/752
 ---
 # FEP-ee3a: Exif metadata support
 
