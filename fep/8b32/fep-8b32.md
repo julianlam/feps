@@ -207,6 +207,7 @@ If a private object is signed, its authenticity can be proven if it is distribut
 - [apsig](https://github.com/AmaseCocoa/apsig/blob/af7af0e106132a51356fc92ed034b1152a1caea8/docs/proof.md)
 - [tootik](https://github.com/dimkr/tootik/blob/v0.19.0/FEDERATION.md#data-portability)
 - Gush! ([commit](https://codeberg.org/gush/gush/commit/98c04c8d5cb3528b01eaf6949ec76584c9798ccb))
+- [squidcity](https://code.lag.net/robey/squidcity/src/branch/main/FEDERATION.md) 
 
 ## Use cases
 
