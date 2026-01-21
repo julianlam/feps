@@ -87,6 +87,7 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Loops](https://github.com/joinloops/loops-server/blob/main/FEDERATION.md)
 - [snac](https://codeberg.org/grunfink/snac2/src/branch/master/FEDERATION.md)
 - [squidcity](https://code.lag.net/robey/squidcity/src/branch/main/FEDERATION.md)
+- [badgefed](https://github.com/tryvocalcat/badgefed/blob/main/FEDERATION.md)
 
 ## References
 
