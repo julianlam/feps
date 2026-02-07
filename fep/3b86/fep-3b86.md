@@ -710,8 +710,22 @@ Here is a brief example of the workflow as implemented by a remote server:
 Remote servers MAY also account for applications that do not publish Activity Intents, but whose endpoints are still well known.  In this case, remote servers SHOULD use Activity Intents links if they are present, then fall back to older links (such as the oStatus `/authorize_interaction` endpoint) if they are present, then fall back to hard-coded values (such as the Mastodon `/share` endpoint) if no other values exist.
 
 ## 8.0. Implementations
-* [Emissary](https://emissary.dev) will support this FEP once its syntax is finalized.
+
+### 8.1 Home Servers
+This is a list of "home servers" that publish Activity Intent endpoints.
+
+* [Emissary](https://emissary.dev) publishes `Create`, `Follow`, and `Like` intents.
+* [Loops](https://joinloops.org) publishes `Follow` intents.
+* [PieFed](https://piefed.social) publishes `Create` intents.
+* [WordPress](https://wordpress.org/plugins/activitypub/) publishes `Create` and `Follow` intents
 * Add your name to this list and win a cookie 🍪
+
+### 8.2 Clients
+This is a list of client tools that allow end-users to use Activity Intents on remote websites.
+
+* [Emissary](https://emissary.dev) publishes "share" and "like" buttons
+* Web Intents library (in progress)
+
 
 ## References
 * [Activity Vocabulary](https://www.w3.org/TR/activitystreams-vocabulary/#activity-types)
