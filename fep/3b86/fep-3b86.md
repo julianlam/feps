@@ -715,8 +715,10 @@ Remote servers MAY also account for applications that do not publish Activity In
 This is a list of "home servers" that publish Activity Intent endpoints.
 
 * [Emissary](https://emissary.dev) publishes `Create`, `Follow`, and `Like` intents.
+* [Forte](https://codeberg.org/fortified/forte) publishes `Create` intents.
 * [Loops](https://joinloops.org) publishes `Follow` intents.
 * [PieFed](https://piefed.social) publishes `Create` intents.
+* [the "streams" repository](https://codeberg.org/streams/streams) publishes `Create` intents.
 * [WordPress](https://wordpress.org/plugins/activitypub/) publishes `Create` and `Follow` intents
 * Add your name to this list and win a cookie 🍪
 
@@ -724,6 +726,7 @@ This is a list of "home servers" that publish Activity Intent endpoints.
 This is a list of client tools that allow end-users to use Activity Intents on remote websites.
 
 * [Emissary](https://emissary.dev) publishes "share" and "like" buttons
+* [Forte](https://codeberg.org/fortified/forte) and also [the "streams" repository](https://codeberg.org/streams/streams) publish "wall-to-wall" post/reply buttons, as an alternative to carrying out these same operations directly on the home server using OpenWebAuth (FEP-61cf). Other interactions in progress. 
 * Web Intents library (in progress)
 
 
