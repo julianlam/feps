@@ -1049,7 +1049,7 @@
     "dateReceived": "2025-05-12",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/599",
     "title": "NodeInfo in Fediverse Software (2025 edition)",
-    "implementations": 3
+    "implementations": 4
   },
   {
     "slug": "82f6",
