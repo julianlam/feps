@@ -1,0 +1,42 @@
+# FEP-34c1: Collection Filtering using TREE Hypermedia Vocabulary
+#
+# RDFS/OWL ontology for the FEP-34c1 vocabulary terms.
+# This is a reference artefact — NOT loaded at runtime.
+# It documents the classes and properties defined by FEP-34c1
+# and their relationships to the TREE Hypermedia vocabulary.
+#
+# See: https://w3id.org/fep/34c1
+
+@prefix fep34c1: <https://w3id.org/fep/34c1#> .
+@prefix tree:    <https://w3id.org/tree#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+# ── Ontology metadata ────────────────────────────────────────────────
+
+<https://w3id.org/fep/34c1#>
+  a owl:Ontology ;
+  rdfs:label "FEP-34c1 Collection Filtering Vocabulary" ;
+  rdfs:comment "Defines filter request types for ActivityPub collection filtering using TREE Hypermedia." .
+
+# ── Classes ──────────────────────────────────────────────────────────
+
+fep34c1:FilterRequest
+  a rdfs:Class ;
+  rdfs:label "FilterRequest" ;
+  rdfs:comment "Container for a filter query using TREE relations. Sent by a client to a collection's filter endpoint." .
+
+fep34c1:FilterEndpoint
+  a rdfs:Class ;
+  rdfs:label "FilterEndpoint" ;
+  rdfs:comment "Describes a filter endpoint for a collection, discoverable via tree:search." .
+
+# ── Properties ───────────────────────────────────────────────────────
+
+fep34c1:pageSize
+  a owl:DatatypeProperty ;
+  rdfs:label "pageSize" ;
+  rdfs:comment "Number of items per page in filter response." ;
+  rdfs:domain fep34c1:FilterRequest ;
+  rdfs:range xsd:nonNegativeInteger .

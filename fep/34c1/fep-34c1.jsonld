@@ -1,0 +1,40 @@
+{
+  "_comment": [
+    "JSON-LD Context for FEP-34c1: Collection Filtering using TREE Hypermedia Vocabulary.",
+    "",
+    "This context bundles both FEP-34c1 extensions AND TREE vocabulary terms.",
+    "Servers SHOULD include this single context URL in outgoing documents that use",
+    "filter-related terms, instead of requiring clients to load both contexts separately.",
+    "",
+    "The tree.jsonld context file still exists separately because incoming documents",
+    "from other servers may reference https://w3id.org/tree directly."
+  ],
+  "@context": {
+    "fep34c1": "https://w3id.org/fep/34c1#",
+    "tree": "https://w3id.org/tree#",
+
+    "FilterRequest": "fep34c1:FilterRequest",
+    "FilterEndpoint": "fep34c1:FilterEndpoint",
+    "pageSize": "fep34c1:pageSize",
+
+    "relation": {"@id": "tree:relation", "@type": "@id"},
+    "path": {"@id": "tree:path", "@type": "@id"},
+    "value": {"@id": "tree:value"},
+    "node": {"@id": "tree:node", "@type": "@id"},
+    "search": {"@id": "tree:search", "@type": "@id"},
+    "member": {"@id": "tree:member", "@type": "@id"},
+    "remainingItems": {"@id": "tree:remainingItems"},
+    "template": {"@id": "tree:template", "@type": "@id"},
+    "EqualToRelation": "tree:EqualToRelation",
+    "NotEqualToRelation": "tree:NotEqualToRelation",
+    "GreaterThanRelation": "tree:GreaterThanRelation",
+    "GreaterThanOrEqualToRelation": "tree:GreaterThanOrEqualToRelation",
+    "LessThanRelation": "tree:LessThanRelation",
+    "LessThanOrEqualToRelation": "tree:LessThanOrEqualToRelation",
+    "PrefixRelation": "tree:PrefixRelation",
+    "SubstringRelation": "tree:SubstringRelation",
+    "SuffixRelation": "tree:SuffixRelation",
+    "GeospatiallyContainsRelation": "tree:GeospatiallyContainsRelation",
+    "InBetweenRelation": "tree:InBetweenRelation"
+  }
+}
