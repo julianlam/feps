@@ -2,8 +2,9 @@
 slug: "34c1"
 authors: Fred Hauschel <@naturzukunft2026@mastodon.social>
 status: DRAFT
-dateReceived: 2026-02-19
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-34c1-collection-filtering-using-tree-hypermedia-vocabulary/8494
+dateReceived: 2026-02-19
+trackingIssue: https://codeberg.org/fediverse/fep/issues/763
 ---
 
 # FEP-34c1: Collection Filtering using TREE Hypermedia Vocabulary
@@ -18,7 +19,6 @@ This enables use cases such as:
 - **Private Messages**: Activities not addressed to `as:Public` (DMs, followers-only, group messages)
 - **Media Filter**: Only activities with images or videos
 
----
 
 ## Context
 

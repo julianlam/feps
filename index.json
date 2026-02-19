@@ -1174,5 +1174,15 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/752",
     "title": "Exif metadata support",
     "implementations": 0
+  },
+  {
+    "slug": "34c1",
+    "authors": "Fred Hauschel <@naturzukunft2026@mastodon.social>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-34c1-collection-filtering-using-tree-hypermedia-vocabulary/8494",
+    "dateReceived": "2026-02-19",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/763",
+    "title": "Collection Filtering using TREE Hypermedia Vocabulary",
+    "implementations": 0
   }
 ]
