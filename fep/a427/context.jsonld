@@ -1,0 +1,24 @@
+{
+  "@context": {
+    "fep-a427": "https://w3id.org/fep/a427#",
+    "ServerMigration": "fep-a427:ServerMigration",
+    "ServerMigrationAcceptance": "fep-a427:ServerMigrationAcceptance",
+    "ServerMove": "fep-a427:ServerMove",
+    "OriginReplace": "fep-a427:OriginReplace",
+    "PrefixReplace": "fep-a427:PrefixReplace",
+    "RegexReplace": "fep-a427:RegexReplace",
+    "source": { "@id": "fep-a427:source", "@type": "@id" },
+    "target": { "@id": "fep-a427:target", "@type": "@id" },
+    "mapping": "fep-a427:mapping",
+    "state": "fep-a427:state",
+    "acceptance": { "@id": "fep-a427:acceptance", "@type": "@id" },
+    "migration": { "@id": "fep-a427:migration", "@type": "@id" },
+    "fromOrigin": "fep-a427:fromOrigin",
+    "toOrigin": "fep-a427:toOrigin",
+    "rules": { "@id": "fep-a427:rules", "@container": "@list" },
+    "fromPrefix": "fep-a427:fromPrefix",
+    "toPrefix": "fep-a427:toPrefix",
+    "pattern": "fep-a427:pattern",
+    "replacement": "fep-a427:replacement"
+  }
+}
