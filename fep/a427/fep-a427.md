@@ -2,9 +2,10 @@
 slug: "a427"
 authors: Dmitry Skavish <skavish@gmail.com>
 status: DRAFT
-dateReceived: 2026-02-25
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-a427-server-domain-move/8517
 relatedFeps: FEP-8b32, FEP-d556
+dateReceived: 2026-02-25
+trackingIssue: https://codeberg.org/fediverse/fep/issues/767
 ---
 # FEP-a427: Server Domain Migration
 
@@ -32,7 +33,6 @@ This FEP is explicitly best-effort. It does not guarantee preservation of all fo
 
 This FEP addresses **server domain renaming**: one source server migrating to one destination server with a one-to-one mapping of all identifiers. It does not cover merging multiple source servers into a single destination.
 
----
 
 ## Motivation
 

@@ -168,6 +168,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-f15d: Context Relocation and Removal](./fep/f15d/fep-f15d.md) | `DRAFT` | [#751](https://codeberg.org/fediverse/fep/issues/751) | 2026-01-12 | - |
 | [FEP-ee3a: Exif metadata support](./fep/ee3a/fep-ee3a.md) | `DRAFT` | [#752](https://codeberg.org/fediverse/fep/issues/752) | 2026-01-13 | - |
 | [FEP-34c1: Collection Filtering using TREE Hypermedia Vocabulary](./fep/34c1/fep-34c1.md) | `DRAFT` | [#763](https://codeberg.org/fediverse/fep/issues/763) | 2026-02-19 | - |
+| [FEP-a427: Server Domain Migration](./fep/a427/fep-a427.md) | `DRAFT` | [#767](https://codeberg.org/fediverse/fep/issues/767) | 2026-02-25 | - |
 
 ## License
 
