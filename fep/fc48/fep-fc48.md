@@ -5,6 +5,7 @@ type: implementation
 status: DRAFT
 discussionsTo: https://codeberg.org/silverpill/feps/issues
 dateReceived: 2026-02-27
+trackingIssue: https://codeberg.org/fediverse/fep/issues/769
 ---
 # FEP-fc48: Generic ActivityPub server
 

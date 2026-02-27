@@ -1195,5 +1195,16 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/767",
     "title": "Server Domain Migration",
     "implementations": 0
+  },
+  {
+    "slug": "fc48",
+    "authors": "silverpill <@silverpill@mitra.social>",
+    "type": "implementation",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
+    "dateReceived": "2026-02-27",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/769",
+    "title": "Generic ActivityPub server",
+    "implementations": 0
   }
 ]

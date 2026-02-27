@@ -169,6 +169,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-ee3a: Exif metadata support](./fep/ee3a/fep-ee3a.md) | `DRAFT` | [#752](https://codeberg.org/fediverse/fep/issues/752) | 2026-01-13 | - |
 | [FEP-34c1: Collection Filtering using TREE Hypermedia Vocabulary](./fep/34c1/fep-34c1.md) | `DRAFT` | [#763](https://codeberg.org/fediverse/fep/issues/763) | 2026-02-19 | - |
 | [FEP-a427: Server Domain Migration](./fep/a427/fep-a427.md) | `DRAFT` | [#767](https://codeberg.org/fediverse/fep/issues/767) | 2026-02-25 | - |
+| [FEP-fc48: Generic ActivityPub server](./fep/fc48/fep-fc48.md) | `DRAFT` | [#769](https://codeberg.org/fediverse/fep/issues/769) | 2026-02-27 | - |
 
 ## License
 
