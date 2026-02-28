@@ -36,13 +36,13 @@ A generic server MUST support the following basic activities:
 
 A generic server SHOULD support other activity types defined in the [ActivityPub] specification.
 
-Other activities MUST NOT have side-effects. Any additional operations, such as collection updates, MUST be specified using the `result` property or sent as separate activities.
+Other activities MUST NOT have implicit side-effects. Any side-effects, such as collection updates, MUST be specified by clients as additional activities. Clients can embed them into an activity using the `result` property, or send them as separate activities.
 
 ## Managing collections
 
 A generic server MUST automatically create `inbox`, `outbox` and other actor collections defined in the ActivityPub specification after registering an actor.
 
-A generic server MUST create the collection specified in `target` property when a client publishes `Add` or `Move` activity. To create an empty collection, clients can publish an `Add` activity without `object`.
+Other collections MUST be created by clients using `Create` activities where `object` is an empty collection.
 
 ## References
 
