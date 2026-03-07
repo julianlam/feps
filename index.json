@@ -1044,12 +1044,13 @@
     "slug": "0151",
     "authors": "silverpill <@silverpill@mitra.social>",
     "type": "implementation",
-    "status": "DRAFT",
+    "status": "FINAL",
     "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
     "dateReceived": "2025-05-12",
+    "dateFinalized": "2026-03-07",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/599",
     "title": "NodeInfo in Fediverse Software (2025 edition)",
-    "implementations": 4
+    "implementations": 5
   },
   {
     "slug": "82f6",
