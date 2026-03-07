@@ -3,7 +3,7 @@
     "implements": {
       "@id": "https://w3id.org/fep/844e/implements",
       "@type": "@id",
-      "@container": "@list"
+      "@container": "@set"
     }
   }
 }

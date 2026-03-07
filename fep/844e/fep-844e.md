@@ -23,10 +23,12 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 An application can advertise its capabilities using the `implements` property on an `Application` object.
 
-This object might not be an actor. The value of `implements` property MUST be an array of `Link` objects, each containing the following properties:
+This object might not be an actor. The value of `implements` property MUST be an array of objects, each containing the following properties:
 
 - `href` (REQUIRED): the unique identifier of the capability. The value MUST be an URI.
 - `name` (RECOMMENDED): the short description of the capability.
+
+The order of objects in the array is not important.
 
 Example:
 
