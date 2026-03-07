@@ -74,6 +74,18 @@ class TableLineBuilder:
         url = f"{repo_base}fep/{self.fep.fep}/fep-{self.fep.fep}.md"
         return f"[codeberg]({url})"
 
+    @property
+    def fep_type(self) -> str:
+        fep_type = self.parsed.get("type") or "informational"
+        return fep_type.capitalize()
+
+    @property
+    def implementation_count(self) -> str:
+        if self.parsed.get("type") == "implementation" and self.fep.implementation_count > 0:
+            return str(self.fep.implementation_count)
+        else:
+            return ""
+
     def get_attribute(self, column: str):
         try:
             return self.__getattribute__(column)
@@ -93,6 +105,7 @@ class TableTitle:
 
     column_to_title = {
         "title": "Title",
+        "fep_type": "Type",
         "status": "Status",
         "tracking_issue": "Tracking issue",
         "discussions": "Discussions",

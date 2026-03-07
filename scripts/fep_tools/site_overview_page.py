@@ -12,6 +12,8 @@ def columns_for_status(status: str) -> list[str]:
     columns = [
         "title",
         "repo_link_image",
+        "fep_type",
+        "implementation_count",
         "tracking_issue",
         "discussions",
         "date_received",
