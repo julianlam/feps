@@ -106,7 +106,7 @@ If object identified by 'ap' URI is stored on the server, it MUST return a respo
 
 If object identified by 'ap' URI is not stored on the server, it MUST return `404 Not Found`.
 
-If object is not public, the server MUST return `404 Not Found` unless the request has a HTTP signature and the signer is allowed to view the object.
+If an object is not public, the server MUST NOT serve it unless the request is signed by an actor who belongs to object's intended audience.
 
 >[!NOTE]
 >This document describes web gateways, which use HTTP transport. However, the data model and authentication mechanism are transport-agnostic and other types of gateways could exist.
@@ -205,9 +205,11 @@ Activities delivered to an outbox are performed by a portable actor and therefor
 
 Upon receiving an activity in actor's outbox, the server SHOULD forward it to outboxes located on other servers where actor's data is stored. An activity MUST NOT be forwarded from outbox more than once.
 
-### Collections
+## Collections
 
-Collections associated with portable actors (such as inbox and outbox collections) MAY not have [FEP-8b32] integrity proofs. Consuming implementations MUST NOT process unsecured collections retrieved from servers that are not listed in the `gateways` array of the actor document.
+Collections identified by 'ap' URIs (including inbox and outbox collections) MAY be served without [FEP-8b32] integrity proofs. Consuming implementations MUST NOT process unsecured collections attributed to a portable actor if they were retrieved from a server that is not listed in the `gateways` array of the actor document.
+
+Portable collections can be filtered and paginated in a same way as non-portable collections. A gateway MUST remove the integrity proof when generating a view of a collection created by a [FEP-ae97] client.
 
 ## Portable objects
 
