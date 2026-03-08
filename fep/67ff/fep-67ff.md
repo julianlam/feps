@@ -88,6 +88,8 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [snac](https://codeberg.org/grunfink/snac2/src/branch/master/FEDERATION.md)
 - [squidcity](https://code.lag.net/robey/squidcity/src/branch/main/FEDERATION.md)
 - [badgefed](https://github.com/tryvocalcat/badgefed/blob/main/FEDERATION.md)
+- [Agora](https://github.com/flancian/agora-server/blob/main/FEDERATION.md)
+- [Ktistec](https://github.com/toddsundsted/ktistec/blob/main/FEDERATION.md)
 
 ## References
 
