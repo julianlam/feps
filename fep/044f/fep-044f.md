@@ -430,8 +430,21 @@ By not adding a hash or copy of the reply in the `QuoteAuthorization` object, ma
 
 ## Implementations
 
+* [ActivityBot](https://gitlab.com/edent/activity-bot) can always be quoted, but does not itself create quote posts
+* [Almost Static ActivityPub](https://github.com/mahomedalid/almost-static-activitypub) can always be quoted, but does not itself create quote posts
+* [BadgeFed](github.com/tryvocalcat/badgefed) can always be quoted, but does not itself create quote posts
+* [Bonfire](https://github.com/bonfire-networks/bonfire-app) can quote and be quoted, customize quote policies, and revoke quotes
+* [Daily Rucks](https://fietkau.software/DailyRucks.git) can always be quoted, but does not itself create quote posts
+* [dotmakeup](https://git.sr.ht/~cloutier/bird.makeup) can always be quoted and issues verifications for quotes between local accounts
+* [Friendica](https://github.com/friendica/friendica) can quote and be quoted, with a non-modifiable automatic public quote permission
+* [Iceshrimp.NET](https://iceshrimp.dev/iceshrimp/iceshrimp.net) can quote and be quoted, with a non-modifiable automatic public quote permission
+* [ktistec](https://github.com/toddsundsted/ktistec) can quote and be quoted, customize quote policies, and revoke quotes
+* [Loops](https://github.com/joinloops/loops-server) can always be quoted, with a non-modifiable automatic public quote permission
+* [Mastodon](https://github.com/mastodon/mastodon) 4.4 has added support for verifying and displaying remote quote posts; version 4.5 introduced support for authoring quote posts and setting quote policies (restricted to automatic approval, with either `as:Public`, the author's `followers` collections, or nobody)
+* [Micro.blog](https://micro.blog/) can always be quoted, but allows users to revoke specific quotes
+* [PieFed](https://codeberg.org/rimu/pyfedi) can always be quoted, with a non-modifiable automatic public quote permission
 * [Smithereen](https://github.com/grishka/Smithereen) exposes always-allowed quote policies, supports authoring quote posts as well as issuing `QuoteAuthorization` in response to a `QuoteRequest`, it does not currently verify quotes nor request stamps
-* [Mastodon](https://github.com/mastodon/mastodon) 4.4 has added support for verifying and displaying remote quote posts; version 4.5 will have support for authoring quote posts and setting quote policies (restricted to automatic approval, with either `as:Public`, the author's `followers` collections, or nobody)
+* [WordPress ActivityPub](https://github.com/Automattic/wordpress-activitypub) can quote and be quoted, interaction policies can be customized during post authoring
 
 ## References
 
