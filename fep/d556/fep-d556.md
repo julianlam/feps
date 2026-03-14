@@ -178,6 +178,9 @@ Known implementations include:
 * [Mastodon] implements something similar to this proposal.
 * Streams
 * Mitra
+* [squidcity](https://code.lag.net/robey/squidcity/src/commit/2c153c5ef484ebb2ee85d5a1ef787137ebd6d655/FEDERATION.md)
+* ActivityPub for WordPress
+* tootik
 
 ## Mastodon Example
 
