@@ -475,7 +475,7 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/243",
     "discussionsTo": "https://codeberg.org/fediverse/fep/issues/243",
     "title": "Server-Level Actor Discovery Using WebFinger",
-    "implementations": 4
+    "implementations": 7
   },
   {
     "slug": "3264",
