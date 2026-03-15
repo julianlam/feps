@@ -170,6 +170,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-34c1: Collection Filtering using TREE Hypermedia Vocabulary](./fep/34c1/fep-34c1.md) | `DRAFT` | [#763](https://codeberg.org/fediverse/fep/issues/763) | 2026-02-19 | - |
 | [FEP-a427: Server Domain Migration](./fep/a427/fep-a427.md) | `DRAFT` | [#767](https://codeberg.org/fediverse/fep/issues/767) | 2026-02-25 | - |
 | [FEP-fc48: Generic ActivityPub server](./fep/fc48/fep-fc48.md) | `DRAFT` | [#769](https://codeberg.org/fediverse/fep/issues/769) | 2026-02-27 | - |
+| [FEP-3ab2: ActivityPub Event Streaming API](./fep/3ab2/fep-3ab2.md) | `DRAFT` | [#778](https://codeberg.org/fediverse/fep/issues/778) | 2026-03-14 | - |
 
 ## License
 

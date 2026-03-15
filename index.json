@@ -1207,5 +1207,15 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/769",
     "title": "Generic ActivityPub server",
     "implementations": 0
+  },
+  {
+    "slug": "3ab2",
+    "authors": "Steve Bate <svc-fep@stevebate.net>",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/steve-bate/fep/issues",
+    "dateReceived": "2026-03-14",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/778",
+    "title": "ActivityPub Event Streaming API",
+    "implementations": 0
   }
 ]

@@ -4,6 +4,7 @@ authors: Steve Bate <svc-fep@stevebate.net>
 status: DRAFT
 discussionsTo: https://codeberg.org/steve-bate/fep/issues
 dateReceived: 2026-03-14
+trackingIssue: https://codeberg.org/fediverse/fep/issues/778
 ---
 
 # FEP-3ab2: ActivityPub Event Streaming API
