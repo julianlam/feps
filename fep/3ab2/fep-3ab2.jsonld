@@ -1,0 +1,17 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    {
+      "fep3ab2": "https://w3id.org/fep/3ab2#",
+      "endpoints": {
+        "@id": "https://www.w3.org/ns/activitypub#endpoints",
+        "@context": {
+          "streamingControl": {
+            "@id": "fep3ab2:streamingControl",
+            "@type": "@id"
+          }
+        }
+      }
+    }
+  ]
+}
