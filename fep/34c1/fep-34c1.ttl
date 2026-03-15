@@ -40,3 +40,15 @@ fep34c1:pageSize
   rdfs:comment "Number of items per page in filter response." ;
   rdfs:domain fep34c1:FilterRequest ;
   rdfs:range xsd:nonNegativeInteger .
+
+# ── Placeholder Properties ──────────────────────────────────────────
+
+fep34c1:myFollowees
+  a owl:ObjectProperty ;
+  rdfs:label "myFollowees" ;
+  rdfs:comment "Server-resolved placeholder. Replaced at query time with the set of actor IRIs from the authenticated actor's following collection." .
+
+fep34c1:myAudience
+  a owl:ObjectProperty ;
+  rdfs:label "myAudience" ;
+  rdfs:comment "Server-resolved placeholder. Replaced at query time with all collection IRIs in which the authenticated actor is known to be a member (at minimum the followers collections of followed actors)." .

@@ -32,7 +32,9 @@ The context document for this ActivityPub extension is at `https://w3id.org/fep/
     "pageSize": {
       "@id": "fep34c1:pageSize",
       "@type": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-    }
+    },
+    "myFollowees": { "@id": "fep34c1:myFollowees", "@type": "@id" },
+    "myAudience": { "@id": "fep34c1:myAudience", "@type": "@id" }
   }
 }
 ```
@@ -57,6 +59,20 @@ The context document for this ActivityPub extension is at `https://w3id.org/fep/
 | Domain | `fep34c1:FilterRequest` |
 | Range | `xsd:nonNegativeInteger` |
 | Functional | Yes |
+
+### `fep34c1:myFollowees`
+
+| | |
+|---|---|
+| URI | `https://w3id.org/fep/34c1#myFollowees` |
+| Notes | Server-resolved placeholder. When used as `tree:value`, the server MUST replace it with the set of actor IRIs from the `following` collection of the authenticated (requesting) actor. |
+
+### `fep34c1:myAudience`
+
+| | |
+|---|---|
+| URI | `https://w3id.org/fep/34c1#myAudience` |
+| Notes | Server-resolved placeholder. When used as `tree:value`, the server MUST resolve it to all collection IRIs in which the authenticated actor is known to be a member. This includes at minimum the `followers` collections of followed actors, and MAY include group memberships, lists, or other collections as the server discovers them. |
 
 ---
 
@@ -148,14 +164,14 @@ A filter request is a JSON-LD object of type `fep34c1:FilterRequest`:
     {
       "@type": "tree:EqualToRelation",
       "tree:path": { "@id": "as:actor" },
-      "tree:value": { "@id": "as:following" }
+      "tree:value": { "@id": "fep34c1:myFollowees" }
     },
     {
       "@type": "tree:EqualToRelation",
       "tree:path": [{ "@id": "as:to" }, { "@id": "as:cc" }],
       "tree:value": [
         { "@id": "https://www.w3.org/ns/activitystreams#Public" },
-        { "@id": "as:followers" }
+        { "@id": "fep34c1:myAudience" }
       ]
     }
   ],
@@ -186,9 +202,9 @@ A filter request is a JSON-LD object of type `fep34c1:FilterRequest`:
 
 ### 4. Special Values
 
-#### 4.1 `as:following` - Dynamic Followee List
+#### 4.1 `fep34c1:myFollowees` - Dynamic Followee List
 
-The value `as:following` is a special placeholder that the server MUST resolve at query time. When used as `tree:value`, the server replaces it with the set of actor IRIs from the `following` collection of the **authenticated (requesting) actor**.
+The value `fep34c1:myFollowees` is a server-resolved placeholder. When used as `tree:value`, the server MUST replace it with the set of actor IRIs from the `following` collection of the **authenticated (requesting) actor**.
 
 This means a relation like:
 
@@ -196,17 +212,19 @@ This means a relation like:
 {
   "@type": "tree:EqualToRelation",
   "tree:path": { "@id": "as:actor" },
-  "tree:value": { "@id": "as:following" }
+  "tree:value": { "@id": "fep34c1:myFollowees" }
 }
 ```
 
 is equivalent to: "Return only activities where the `as:actor` property matches one of the actor IRIs in the requesting actor's `following` collection." In other words, only activities authored by actors that the requesting user follows will be included in the result.
 
-#### 4.2 `as:followers` - Dynamic Followers Collection IRI
+#### 4.2 `fep34c1:myAudience` - Dynamic Audience Collections
 
-The value `as:followers` is a special placeholder that the server MUST resolve at query time. When used as `tree:value`, the server replaces it with the IRI of the `followers` collection of the **authenticated (requesting) actor**.
+The value `fep34c1:myAudience` is a server-resolved placeholder. When used as `tree:value`, the server MUST resolve it to all collection IRIs in which the authenticated actor is known to be a member. This includes at minimum the `followers` collections of followed actors, and MAY include group memberships, lists, or other collections.
 
 This is useful for audience filtering: Fediverse servers typically address followers-only posts with the actor's followers collection IRI in `as:to` or `as:cc`.
+
+> **Note:** These are explicit FEP-34c1 placeholder properties rather than reused ActivityStreams terms. An earlier version of this spec used `as:following` and `as:followers` as placeholders, but this was semantically incorrect — `as:followers` denotes the collection itself, not its items (see [discussion](https://socialhub.activitypub.rocks/t/fep-34c1-collection-filtering-using-tree-hypermedia-vocabulary/8494/10)). Using dedicated FEP-34c1 properties makes the server-resolved semantics explicit and avoids overloading AS2 vocabulary. An alternative approach using SHACL Property Paths was considered but rejected due to the complexity of expressing pagination traversal in SHACL path expressions.
 
 #### 4.3 Multiple Values (OR Conjunction)
 
@@ -249,17 +267,17 @@ Multiple `tree:relation` entries are combined with AND:
 {
   "tree:relation": [
     { "@type": "tree:EqualToRelation", "tree:path": {"@id": "rdf:type"}, "tree:value": {"@id": "as:Create"} },
-    { "@type": "tree:EqualToRelation", "tree:path": {"@id": "as:actor"}, "tree:value": {"@id": "as:following"} },
+    { "@type": "tree:EqualToRelation", "tree:path": {"@id": "as:actor"}, "tree:value": {"@id": "fep34c1:myFollowees"} },
     { "@type": "tree:EqualToRelation", "tree:path": [{"@id": "as:to"}, {"@id": "as:cc"}], "tree:value": {"@id": "https://www.w3.org/ns/activitystreams#Public"} }
   ]
 }
 ```
 
-**Semantics:** `rdf:type = as:Create AND as:actor IN following AND (as:to = as:Public OR as:cc = as:Public)`
+**Semantics:** `rdf:type = as:Create AND as:actor IN myFollowees AND (as:to = as:Public OR as:cc = as:Public)`
 
 ### 7. Response Format
 
-The response is an `OrderedCollectionPage` with the filtered items:
+The response is an `OrderedCollectionPage` with the filtered items. Pagination MUST use `as:next` and `as:prev` (standard ActivityStreams pagination). Servers MAY additionally include `tree:relation` entries to provide boundary values for TREE-aware clients.
 
 ```json
 {
@@ -270,6 +288,8 @@ The response is an `OrderedCollectionPage` with the filtered items:
   ],
   "@type": "OrderedCollectionPage",
   "partOf": "https://example.com/ap/actors/alice/inbox",
+  "next": "https://example.com/ap/actors/alice/inbox/filter?cursor=abc123",
+  "prev": "https://example.com/ap/actors/alice/inbox/filter?cursor=def456",
   "orderedItems": [
     { /* Activity 1 */ },
     { /* Activity 2 */ }
@@ -288,7 +308,9 @@ The response is an `OrderedCollectionPage` with the filtered items:
 
 ### 8. Pagination
 
-Cursor-based pagination is signaled via `tree:relation` in the response. Each pagination relation uses three properties from the TREE vocabulary:
+Servers MUST provide `as:next` and `as:prev` links on `OrderedCollectionPage` responses for standard ActivityStreams pagination. This ensures compatibility with existing ActivityPub clients.
+
+Servers MAY additionally include `tree:relation` entries to provide boundary values for TREE-aware clients. Each pagination relation uses three properties from the TREE vocabulary:
 
 - `tree:value` — the boundary value (e.g., a timestamp) that delimits the current page
 - `tree:node` — the URL to fetch to retrieve the **next page** of results beyond that boundary
@@ -371,14 +393,14 @@ Shows content lifecycle activities from followed actors, visible to public or fo
     {
       "@type": "tree:EqualToRelation",
       "tree:path": { "@id": "as:actor" },
-      "tree:value": { "@id": "as:following" }
+      "tree:value": { "@id": "fep34c1:myFollowees" }
     },
     {
       "@type": "tree:EqualToRelation",
       "tree:path": [{ "@id": "as:to" }, { "@id": "as:cc" }],
       "tree:value": [
         { "@id": "https://www.w3.org/ns/activitystreams#Public" },
-        { "@id": "as:followers" }
+        { "@id": "fep34c1:myAudience" }
       ]
     }
   ],
@@ -502,7 +524,7 @@ Shows activities not addressed to `as:Public` (neither in `as:to` nor `as:cc`). 
 
 ### For Servers
 
-1. Special placeholder values (`as:following`, `as:followers`) MUST be resolved at query time before evaluating the filter (see Section 4).
+1. Special placeholder values (`fep34c1:myFollowees`, `fep34c1:myAudience`) MUST be resolved at query time before evaluating the filter (see Section 4).
 
 2. Allowed `tree:path` values SHOULD be restricted to a known set of ActivityStreams properties (see Security Considerations).
 

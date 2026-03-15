@@ -16,6 +16,8 @@
     "FilterRequest": "fep34c1:FilterRequest",
     "FilterEndpoint": "fep34c1:FilterEndpoint",
     "pageSize": "fep34c1:pageSize",
+    "myFollowees": {"@id": "fep34c1:myFollowees", "@type": "@id"},
+    "myAudience": {"@id": "fep34c1:myAudience", "@type": "@id"},
 
     "relation": {"@id": "tree:relation", "@type": "@id"},
     "path": {"@id": "tree:path", "@type": "@id"},
