@@ -2,8 +2,9 @@
 slug: "db70"
 authors: Fred Hauschel <@naturzukunft2026@mastodon.social>
 status: DRAFT
-dateReceived: 2026-03-15
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-db70-removeall-collection-activity/8569
+dateReceived: 2026-03-15
+trackingIssue: https://codeberg.org/fediverse/fep/issues/784
 ---
 # FEP-db70: RemoveAll Collection Activity
 

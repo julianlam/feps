@@ -1227,5 +1227,15 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/782",
     "title": "Notification Collection Endpoint",
     "implementations": 0
+  },
+  {
+    "slug": "db70",
+    "authors": "Fred Hauschel <@naturzukunft2026@mastodon.social>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-db70-removeall-collection-activity/8569",
+    "dateReceived": "2026-03-15",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/784",
+    "title": "RemoveAll Collection Activity",
+    "implementations": 0
   }
 ]
