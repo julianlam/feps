@@ -1229,11 +1229,22 @@
     "implementations": 0
   },
   {
+    "slug": "c07e",
+    "authors": "potato <@potatomeow@fosstodon.org>",
+    "type": "implementation",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-c07e-add-product-type-to-object/8544",
+    "dateReceived": "2026-03-15",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/786",
+    "title": "add product type to object",
+    "implementations": 0
+  },
+  {
     "slug": "db70",
     "authors": "Fred Hauschel <@naturzukunft2026@mastodon.social>",
     "status": "DRAFT",
-    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-db70-removeall-collection-activity/8569",
     "dateReceived": "2026-03-15",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-db70-removeall-collection-activity/8569",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/784",
     "title": "RemoveAll Collection Activity",
     "implementations": 0

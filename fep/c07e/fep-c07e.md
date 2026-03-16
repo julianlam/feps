@@ -3,8 +3,9 @@ slug: "c07e"
 authors: potato <@potatomeow@fosstodon.org>
 type: implementation
 status: DRAFT
-dateReceived: 2026-03-15
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-c07e-add-product-type-to-object/8544
+dateReceived: 2026-03-15
+trackingIssue: https://codeberg.org/fediverse/fep/issues/786
 ---
 
 # FEP-c07e: add product type to object
