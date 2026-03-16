@@ -1,0 +1,17 @@
+{
+  "_comment": [
+    "JSON-LD Context for FEP-34ec: Notification Collection Endpoint.",
+    "",
+    "This context defines the FEP-34ec vocabulary terms for notification",
+    "collections on ActivityPub actors.",
+    "",
+    "See: https://w3id.org/fep/34ec"
+  ],
+  "@context": {
+    "fep34ec": "https://w3id.org/fep/34ec#",
+
+    "Notification": "fep34ec:Notification",
+    "notifications": {"@id": "fep34ec:notifications", "@type": "@id"},
+    "notificationType": {"@id": "fep34ec:notificationType", "@type": "@id"}
+  }
+}
