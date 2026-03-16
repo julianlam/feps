@@ -5,7 +5,6 @@ type: implementation
 status: DRAFT
 dateReceived: 2026-03-15
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-c07e-add-product-type-to-object/8544
-trackingIssue:
 ---
 
 # FEP-c07e: add product type to object
