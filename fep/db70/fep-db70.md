@@ -2,19 +2,19 @@
 slug: "db70"
 authors: Fred Hauschel <@naturzukunft2026@mastodon.social>
 status: DRAFT
-discussionsTo: https://socialhub.activitypub.rocks/t/fep-db70-removeall-collection-activity/8569
 dateReceived: 2026-03-15
+discussionsTo: https://socialhub.activitypub.rocks/t/fep-db70-removeall-collection-activity/8569
 trackingIssue: https://codeberg.org/fediverse/fep/issues/784
 ---
 # FEP-db70: RemoveAll Collection Activity
 
 ## Summary
 
-This FEP defines a `RemoveAll` activity for batch-removing items from an ActivityPub collection. While the [ActivityPub] specification defines `Remove` for removing a single item from a collection, there is no mechanism for removing multiple or all items at once. `RemoveAll` fills this gap. It supports an optional [FEP-34c1] filter to selectively remove items matching specific criteria (e.g. by type, by date, or by actor). Without a filter, all items are removed. `RemoveAll` is a generic collection operation — it can be used with any collection type, not just inboxes or notification collections.
+This FEP defines a `RemoveAll` activity for batch-removing items from an ActivityPub collection. While the [ActivityPub] specification defines `Remove` for removing items from a collection, it requires the client to know the identity of every item to remove. `RemoveAll` fills this gap. It supports an optional [FEP-34c1] filter to selectively remove items matching specific criteria (e.g. by type, by date, or by actor). Without a filter, all items are removed. `RemoveAll` is a generic collection operation — it can be used with any collection type, not just inboxes or notification collections.
 
 ## Motivation
 
-ActivityPub's `Remove` activity targets a single `object` within a `target` collection. For collections that can grow large, clients need a way to batch-remove items without sending individual `Remove` activities for each item. Common use cases include:
+ActivityPub's `Remove` activity requires the client to know the identity of every object to remove from a `target` collection. For collections that can grow large, clients need a way to batch-remove items without sending individual `Remove` activities for each item. Common use cases include:
 
 - "Mark all as read" in a notification collection ([FEP-34ec])
 - Clearing old items from a collection
