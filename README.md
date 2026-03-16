@@ -171,6 +171,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-a427: Server Domain Migration](./fep/a427/fep-a427.md) | `DRAFT` | [#767](https://codeberg.org/fediverse/fep/issues/767) | 2026-02-25 | - |
 | [FEP-fc48: Generic ActivityPub server](./fep/fc48/fep-fc48.md) | `DRAFT` | [#769](https://codeberg.org/fediverse/fep/issues/769) | 2026-02-27 | - |
 | [FEP-3ab2: ActivityPub Event Streaming API](./fep/3ab2/fep-3ab2.md) | `DRAFT` | [#778](https://codeberg.org/fediverse/fep/issues/778) | 2026-03-14 | - |
+| [FEP-34ec: Notification Collection Endpoint](./fep/34ec/fep-34ec.md) | `DRAFT` | [#782](https://codeberg.org/fediverse/fep/issues/782) | 2026-03-15 | - |
 
 ## License
 

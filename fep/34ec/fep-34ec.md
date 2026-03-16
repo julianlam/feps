@@ -2,8 +2,9 @@
 slug: "34ec"
 authors: Fred Hauschel <@naturzukunft2026@mastodon.social>
 status: DRAFT
-dateReceived: 2026-03-15
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-34ec-notification-collection-endpoint/8568
+dateReceived: 2026-03-15
+trackingIssue: https://codeberg.org/fediverse/fep/issues/782
 ---
 # FEP-34ec: Notification Collection Endpoint
 

@@ -1217,5 +1217,15 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/778",
     "title": "ActivityPub Event Streaming API",
     "implementations": 0
+  },
+  {
+    "slug": "34ec",
+    "authors": "Fred Hauschel <@naturzukunft2026@mastodon.social>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-34ec-notification-collection-endpoint/8568",
+    "dateReceived": "2026-03-15",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/782",
+    "title": "Notification Collection Endpoint",
+    "implementations": 0
   }
 ]
