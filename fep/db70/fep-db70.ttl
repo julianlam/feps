@@ -1,0 +1,37 @@
+# FEP-db70: RemoveAll Collection Activity
+#
+# RDFS/OWL ontology for the FEP-db70 vocabulary terms.
+# This is a reference artefact — NOT loaded at runtime.
+# It documents the classes and properties defined by FEP-db70.
+#
+# See: https://w3id.org/fep/db70
+
+@prefix fepdb70: <https://w3id.org/fep/db70#> .
+@prefix fep34c1: <https://w3id.org/fep/34c1#> .
+@prefix as:      <https://www.w3.org/ns/activitystreams#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+
+# ── Ontology metadata ────────────────────────────────────────────────
+
+<https://w3id.org/fep/db70#>
+  a owl:Ontology ;
+  rdfs:label "FEP-db70 RemoveAll Collection Activity Vocabulary" ;
+  rdfs:comment "Defines the RemoveAll activity for batch-removing items from ActivityPub collections." .
+
+# ── Classes ──────────────────────────────────────────────────────────
+
+fepdb70:RemoveAll
+  a rdfs:Class ;
+  rdfs:subClassOf as:Activity ;
+  rdfs:label "RemoveAll" ;
+  rdfs:comment "Removes all (or filtered) items from a target collection. Supports optional FEP-34c1 filtering." .
+
+# ── Properties ───────────────────────────────────────────────────────
+
+fepdb70:filter
+  a owl:ObjectProperty ;
+  rdfs:label "filter" ;
+  rdfs:comment "An optional FEP-34c1 FilterRequest that selects which items to remove. Without a filter, all items are removed." ;
+  rdfs:domain fepdb70:RemoveAll ;
+  rdfs:range fep34c1:FilterRequest .

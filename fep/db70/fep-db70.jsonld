@@ -1,0 +1,16 @@
+{
+  "_comment": [
+    "JSON-LD Context for FEP-db70: RemoveAll Collection Activity.",
+    "",
+    "Defines the RemoveAll activity type and the filter property",
+    "for batch-removing items from ActivityPub collections.",
+    "",
+    "See: https://w3id.org/fep/db70"
+  ],
+  "@context": {
+    "fepdb70": "https://w3id.org/fep/db70#",
+
+    "RemoveAll": "fepdb70:RemoveAll",
+    "filter": {"@id": "fepdb70:filter", "@type": "@id"}
+  }
+}
