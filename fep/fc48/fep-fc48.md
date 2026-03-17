@@ -13,7 +13,15 @@ trackingIssue: https://codeberg.org/fediverse/fep/issues/769
 
 Generic ActivityPub server is a server that implements standard ActivityPub client API or [FEP-ae97] client API, and can process any activity (including activities those behavior is not defined in the ActivityPub specification).
 
-## Classification
+## Motivation
+
+Most of existing ActivityPub servers are designed for a specific type of application: a micro-blog, a forum, a video sharing service. This leads to a situation where users are expected to have separate accounts for each application type.
+
+Even a server that implements the entirety of [ActivityPub] specification is limited because it doesn't support custom activities.
+
+A truly generic server does not have these limitations and can work with any type of client application.
+
+## Object classification
 
 A generic server MUST determine the class of an object before processing it. The classification of ActivityPub objects is covered in [FEP-2277: ActivityPub core types][FEP-2277].
 
@@ -30,9 +38,8 @@ A generic server MUST support the following basic activities:
 - `Delete`
 - `Add`
 - `Remove`
-- `Offer`
-- `Accept`
-- `Reject`
+
+The side effects of these activities are implicit and are defined in the [ActivityPub] specification.
 
 A generic server SHOULD support other activity types defined in the [ActivityPub] specification.
 
