@@ -1,0 +1,100 @@
+// Tested with: http://lab.antlr.org/
+
+grammar Query;
+
+// ================== Parser rules ==================
+
+// New explicit start rule
+query
+    : expr EOF
+    ;
+
+expr
+    : or_expr
+    ;
+
+
+or_expr
+    : and_expr (OR and_expr)*
+    ;
+
+and_expr
+    : unary ((AND unary) | unary)*
+    ;
+
+unary
+    : NOT unary
+    | primary
+    ;
+
+primary
+    : term
+    | phrase
+    | regex
+    | range
+    | facet_expr
+    | LPAREN expr RPAREN
+    ;
+
+facet_expr
+    : WORD COLON (primary | LPAREN expr RPAREN)
+    ;
+
+range
+    : (LBRACK | LBRACE) bound TO bound (RBRACK | RBRACE)
+    ;
+
+bound
+    : WORD
+    | phrase
+    ;
+
+term
+    : WORD
+    ;
+
+// Parser-level wrappers for PHRASE and REGEX tokens
+phrase
+    : PHRASE
+    ;
+
+regex
+    : REGEX
+    ;
+
+// ================== Lexer rules ==================
+
+// Keywords
+AND     : 'AND';
+OR      : 'OR';
+NOT     : 'NOT';
+TO      : 'TO';
+
+// Delimiters / punctuation
+COLON   : ':';
+LPAREN  : '(';
+RPAREN  : ')';
+LBRACK  : '[';
+RBRACK  : ']';
+LBRACE  : '{';
+RBRACE  : '}';
+
+// WORD: run of non-space, non-delimiter, non-quote, non-slash characters.
+WORD
+    : ~[ \t\r\n"/:(){}[\]]+
+    ;
+
+// phrase := '"' <any-char-except-quote>* '"'
+PHRASE
+    : '"' (~["\r\n])+ '"'
+    ;
+
+// regex := '/' <regex-body> '/'
+REGEX
+    : '/' (~[/\r\n])+ '/'
+    ;
+
+// All whitespace skipped
+WS
+    : [ \t\r\n]+ -> skip
+    ;
