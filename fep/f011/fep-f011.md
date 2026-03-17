@@ -2,8 +2,9 @@
 slug: "f011"
 authors: Steve Bate <svc-fep@stevebate.net>
 status: DRAFT
-dateReceived: 2026-03-17
 discussionsTo: https://codeberg.org/steve-bate/fep/issues
+dateReceived: 2026-03-17
+trackingIssue: https://codeberg.org/fediverse/fep/issues/791
 ---
 # FEP-f011: Full-Text Search Query Syntax for ActivityPub
 
