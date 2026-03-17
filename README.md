@@ -174,6 +174,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-34ec: Notification Collection Endpoint](./fep/34ec/fep-34ec.md) | `DRAFT` | [#782](https://codeberg.org/fediverse/fep/issues/782) | 2026-03-15 | - |
 | [FEP-c07e: add product type to object](./fep/c07e/fep-c07e.md) | `DRAFT` | [#786](https://codeberg.org/fediverse/fep/issues/786) | 2026-03-15 | - |
 | [FEP-db70: RemoveAll Collection Activity](./fep/db70/fep-db70.md) | `DRAFT` | [#784](https://codeberg.org/fediverse/fep/issues/784) | 2026-03-15 | - |
+| [FEP-c195: JSONPath Filtering for ActivityPub Collection Retrieval](./fep/c195/fep-c195.md) | `DRAFT` | [#790](https://codeberg.org/fediverse/fep/issues/790) | 2026-03-17 | - |
 
 ## License
 
