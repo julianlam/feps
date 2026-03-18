@@ -1251,22 +1251,24 @@
   },
   {
     "slug": "c195",
+    "type": "implementation",
     "authors": "Steve Bate <svc-fep@stevebate.net>",
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/steve-bate/fep/issues",
     "dateReceived": "2026-03-17",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/790",
     "title": "JSONPath Filtering for ActivityPub Collection Retrieval",
-    "implementations": 0
+    "implementations": 1
   },
   {
     "slug": "f011",
+    "type": "implementation",
     "authors": "Steve Bate <svc-fep@stevebate.net>",
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/steve-bate/fep/issues",
     "dateReceived": "2026-03-17",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/791",
     "title": "Full-Text Search Query Syntax for ActivityPub",
-    "implementations": 0
+    "implementations": 1
   }
 ]
