@@ -1,5 +1,6 @@
 ---
 slug: "c195"
+type: implementation
 authors: Steve Bate <svc-fep@stevebate.net>
 status: DRAFT
 discussionsTo: https://codeberg.org/steve-bate/fep/issues
