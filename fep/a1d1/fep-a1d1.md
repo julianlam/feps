@@ -5,6 +5,7 @@ authors: Steve Bate <svc-fep@stevebate.net>
 status: DRAFT
 discussionsTo: https://codeberg.org/steve-bate/fep/issues
 dateReceived: 2026-03-19
+trackingIssue: https://codeberg.org/fediverse/fep/issues/796
 ---
 # FEP-a1d1: ActivityPub Patch
 

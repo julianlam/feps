@@ -1270,5 +1270,16 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/791",
     "title": "Full-Text Search Query Syntax for ActivityPub",
     "implementations": 1
+  },
+  {
+    "slug": "a1d1",
+    "type": "implementation",
+    "authors": "Steve Bate <svc-fep@stevebate.net>",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/steve-bate/fep/issues",
+    "dateReceived": "2026-03-19",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/796",
+    "title": "ActivityPub Patch",
+    "implementations": 1
   }
 ]
