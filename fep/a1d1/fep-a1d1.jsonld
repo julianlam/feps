@@ -1,0 +1,33 @@
+{
+    "@context": [
+        {
+            "@version": 1.1,
+            "fep-a1d1": "https://w3id.org/fep/a1d1#",
+            "Patch": "fep-a1d1:Patch",
+            "PatchOperations": {
+                "@id": "fep-a1d1:PatchOperations",
+                "@context": {
+                    "operations": {
+                        "@id": "fep-a1d1:operations",
+                        "@container": "@list",
+                        "@context": {
+                            "op": "fep-a1d1:op",
+                            "path": "fep-a1d1:path",
+                            "value": { 
+                                "@id": "fep-a1d1:value", 
+                                "@type": "@json"
+                            },
+                            "from": "fep-a1d1:from",
+                            "add": "fep-a1d1:add",
+                            "remove": "fep-a1d1:remove",
+                            "replace": "fep-a1d1:replace",
+                            "move": "fep-a1d1:move",
+                            "copy": "fep-a1d1:copy",
+                            "test": "fep-a1d1:test"
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
