@@ -2,7 +2,7 @@
 #
 # RDFS/OWL ontology for the FEP-34ec vocabulary terms.
 # This is a reference artefact — NOT loaded at runtime.
-# It documents the classes and properties defined by FEP-34ec.
+# It documents the property defined by FEP-34ec.
 #
 # See: https://w3id.org/fep/34ec
 
@@ -16,14 +16,7 @@
 <https://w3id.org/fep/34ec#>
   a owl:Ontology ;
   rdfs:label "FEP-34ec Notification Collection Vocabulary" ;
-  rdfs:comment "Defines notification types and operations for ActivityPub notification collections." .
-
-# ── Classes ──────────────────────────────────────────────────────────
-
-fep34ec:Notification
-  a rdfs:Class ;
-  rdfs:label "Notification" ;
-  rdfs:comment "A notification informing an actor about a relevant activity. Not the activity itself." .
+  rdfs:comment "Defines the notifications endpoint property for ActivityPub actors." .
 
 # ── Properties ───────────────────────────────────────────────────────
 
@@ -32,9 +25,3 @@ fep34ec:notifications
   rdfs:label "notifications" ;
   rdfs:comment "The notification collection endpoint for an actor. Used under endpoints in the actor object." ;
   rdfs:range as:OrderedCollection .
-
-fep34ec:notificationType
-  a owl:ObjectProperty ;
-  rdfs:label "notificationType" ;
-  rdfs:comment "The type of activity this notification is about. The value MUST be a subclass of as:Activity." ;
-  rdfs:domain fep34ec:Notification .

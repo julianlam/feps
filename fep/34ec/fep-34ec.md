@@ -5,24 +5,28 @@ status: DRAFT
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-34ec-notification-collection-endpoint/8568
 dateReceived: 2026-03-15
 trackingIssue: https://codeberg.org/fediverse/fep/issues/782
+categories: ["Collections & Filtering", "Social Features"]
+protocols: ["C2S"]
 ---
 # FEP-34ec: Notification Collection Endpoint
 
 ## Summary
 
-This FEP defines a standardized notification collection for ActivityPub actors. A new `notifications` property under `endpoints` ([ActivityPub] §5.7) provides an `OrderedCollection` containing `Notification` objects that inform the actor about relevant activities. Unlike the inbox, which receives raw activities, the notification collection holds server-generated notification objects. Notifications only exist within the collection — read notifications are removed. Batch removal is supported via [FEP-db70] (`RemoveAll`) with optional [FEP-34c1] filtering.
+This FEP defines a standardized notification collection for ActivityPub actors. A new `notifications` property under `endpoints` ([ActivityPub] §5.7) provides an `OrderedCollection` containing references to activities that the server deems notification-worthy. Unlike the inbox, which serves as the delivery channel for all incoming activities, the notification collection is a curated subset — engagement-oriented events such as likes, mentions, and boosts. Dismissal of notifications uses the standard `Remove` activity ([ActivityPub] §7.5). Batch dismissal is supported via [FEP-db70] (`RemoveAll`) with optional [FEP-34c1] filtering.
 
 ## Motivation
 
 ActivityPub defines an inbox as the primary collection for incoming activities. However, clients need to distinguish between content-oriented activities (home feed) and engagement-oriented events (notifications) — a separation that [SWICG #21] has long called for.
 
-Today, every Fediverse software (Mastodon, Pleroma, GoToSocial, Misskey) implements notifications as a proprietary REST API without interoperability. There is no standardized ActivityPub endpoint for notifications and no vocabulary for notification objects.
+Today, every Fediverse software (Mastodon, Pleroma, GoToSocial, Misskey) implements notifications as a proprietary REST API without interoperability. There is no standardized ActivityPub endpoint for notifications.
 
 This FEP closes this gap by defining:
 - A standardized endpoint under `endpoints.notifications`
-- A new type `Notification` as a notification *about* an activity
-- C2S operations for managing notifications (Remove, Add, [FEP-db70] RemoveAll)
-- Integration with [FEP-34c1] for filtering and filtered batch operations
+- A server-curated `OrderedCollection` of notification-worthy activities
+- Dismissal via standard `Remove` ([ActivityPub] §7.5), batch dismissal via [FEP-db70]
+- Optional filtering via [FEP-34c1]
+
+No new types or vocabulary beyond the `notifications` endpoint property are introduced. The collection holds references to existing activities — the activity types themselves provide categorization.
 
 ## Specification
 
@@ -45,61 +49,29 @@ A conforming server MUST provide the `notifications` property under `endpoints` 
 }
 ```
 
-The `notifications` property points to an `OrderedCollection` sorted by `published` in descending order (newest first).
+The `notifications` property points to an `OrderedCollection` sorted by server receive time in descending order (newest first).
 
-### 2. The `Notification` Type
+### 2. Collection Contents
 
-A notification is a distinct object that informs the actor about an activity. It is **not** the activity itself — a `Like` is an activity, the notification about it is a notification.
+The notification collection contains references to activities that the server considers notification-worthy for the actor. These are typically engagement-oriented events:
 
-```json
-{
-  "@context": [
-    "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/fep/34ec"
-  ],
-  "type": "Notification",
-  "object": "https://alice.example/activities/like-123",
-  "actor": "https://alice.example/actors/alice",
-  "notificationType": "as:Like",
-  "published": "2026-02-24T10:00:00Z"
-}
-```
+| Activity Type | Typical Condition |
+|---------------|-------------------|
+| `Like` | Object is owned by the actor |
+| `Announce` | Object is owned by the actor |
+| `Create` | Actor is mentioned (to/cc/tag) |
+| `Follow` | Actor is the follow target |
+| `Update` | Object is owned by or observed by the actor |
 
-#### Properties
+This table is non-normative. Servers MAY include any activity type and SHOULD apply their own criteria for what constitutes a notification.
 
-| Property | Type | Required | Description |
-|----------|------|----------|-------------|
-| `type` | String | MUST | `Notification` |
-| `object` | IRI or Object | MUST | The activity being notified about |
-| `actor` | IRI | MUST | The actor who triggered the activity |
-| `notificationType` | IRI | MUST | An [Activity Streams 2.0 Activity Type][AS2-Vocab]. The value MUST be a subclass of `as:Activity`. |
-| `published` | xsd:dateTime | MUST | Timestamp of the notification |
-
-The `notificationType` property is defined with `@type: @id` in the [JSON-LD context](fep-34ec.jsonld), so string values like `"as:Like"` are automatically resolved to IRIs.
-
-#### Notification Types
-
-The value of `notificationType` MUST be an [Activity Streams 2.0 Activity Type][AS2-Vocab]. The following types are recommended as core vocabulary (SHOULD). Since `notificationType` can reference any AS2 Activity Type, the vocabulary is inherently extensible.
-
-| notificationType | Triggering Activity | Description |
-|------------------|---------------------|-------------|
-| `as:Create` | `Create` addressed to the actor | New content (Note, Article, etc.) |
-| `as:Like` | `Like` on an object owned by the actor | Like |
-| `as:Announce` | `Announce` of an object owned by the actor | Boost/reshare |
-| `as:Update` | `Update` of an object the actor is observing | Update |
+The activities referenced in the notification collection also remain in the actor's inbox. The notification collection is a view, not a separate delivery mechanism.
 
 ### 3. Collection Semantics
 
-The notification collection contains exclusively unread notifications:
-
-- **Presence in the collection = unread** — there is no separate read/unread flag
-- **Removal from the collection = read/dismissed** — the notification is deleted
-- Notifications only exist within the collection — after removal, the object does not persist
-- The server MUST create notifications when relevant activities arrive in the inbox
-
-### 4. Pagination
-
-The collection SHOULD support `OrderedCollectionPage` pagination. Since the collection only contains unread notifications, it typically remains small. Pagination becomes relevant only with larger volumes.
+- **Presence in the collection = pending notification** — there is no separate read/unread flag
+- **Removal from the collection = dismissed** — the activity itself is not deleted, only the reference in the notification collection is removed
+- The server MUST add activities to the notification collection when relevant activities arrive in the inbox
 
 ```json
 {
@@ -111,32 +83,45 @@ The collection SHOULD support `OrderedCollectionPage` pagination. Since the coll
   "id": "https://example.com/actors/bob/notifications",
   "totalItems": 3,
   "orderedItems": [
+    "https://alice.example/activities/like-123",
+    "https://carol.example/activities/create-456",
+    "https://dave.example/activities/announce-789"
+  ]
+}
+```
+
+Servers MAY inline the full activity objects instead of providing only IRIs. When inlining, the standard Activity Streams representation is used — no wrapper type is needed:
+
+```json
+{
+  "type": "OrderedCollection",
+  "id": "https://example.com/actors/bob/notifications",
+  "totalItems": 2,
+  "orderedItems": [
     {
-      "type": "Notification",
-      "object": "https://alice.example/activities/like-123",
+      "type": "Like",
+      "id": "https://alice.example/activities/like-123",
       "actor": "https://alice.example/actors/alice",
-      "notificationType": "as:Like",
+      "object": "https://example.com/posts/post-1",
       "published": "2026-02-24T10:00:00Z"
     },
     {
-      "type": "Notification",
-      "object": "https://carol.example/activities/create-456",
+      "type": "Create",
+      "id": "https://carol.example/activities/create-456",
       "actor": "https://carol.example/actors/carol",
-      "notificationType": "as:Create",
+      "object": {
+        "type": "Note",
+        "content": "Hey @bob, check this out!"
+      },
       "published": "2026-02-24T09:30:00Z"
-    },
-    {
-      "type": "Notification",
-      "object": "https://dave.example/activities/announce-789",
-      "actor": "https://dave.example/actors/dave",
-      "notificationType": "as:Announce",
-      "published": "2026-02-24T09:00:00Z"
     }
   ]
 }
 ```
 
-For larger volumes, the server SHOULD switch to pagination:
+### 4. Pagination
+
+The collection SHOULD support `OrderedCollectionPage` pagination. Since the collection only contains pending notifications, it typically remains small. Pagination becomes relevant only with larger volumes.
 
 ```json
 {
@@ -149,57 +134,27 @@ For larger volumes, the server SHOULD switch to pagination:
 
 ### 5. C2S Operations
 
-#### 5.1 Remove a Single Notification (Remove)
+#### 5.1 Dismiss a Single Notification (Remove)
 
-A client removes a single notification using the AS2 `Remove` activity:
+A client dismisses a notification by posting a `Remove` activity to the actor's outbox, as defined in [ActivityPub] §6.11:
 
 ```json
 {
-  "@context": [
-    "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/fep/34ec"
-  ],
+  "@context": "https://www.w3.org/ns/activitystreams",
   "type": "Remove",
   "actor": "https://example.com/actors/bob",
-  "object": {
-    "type": "Notification",
-    "object": "https://alice.example/activities/like-123"
-  },
+  "object": "https://alice.example/activities/like-123",
   "target": "https://example.com/actors/bob/notifications"
 }
 ```
 
-The server MUST remove the notification from the collection and delete the notification object.
+The server MUST remove the activity reference from the notification collection. The activity itself MUST NOT be deleted from the inbox.
 
-#### 5.2 Mark as Unread (Add)
+#### 5.2 Batch Dismiss (RemoveAll)
 
-A client can mark a previously removed notification as unread by adding a new notification to the collection:
+Batch dismissal is supported via [FEP-db70] (`RemoveAll`). An optional [FEP-34c1] filter can be provided to dismiss only matching notifications.
 
-```json
-{
-  "@context": [
-    "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/fep/34ec"
-  ],
-  "type": "Add",
-  "actor": "https://example.com/actors/bob",
-  "object": {
-    "type": "Notification",
-    "object": "https://alice.example/activities/like-123",
-    "actor": "https://alice.example/actors/alice",
-    "notificationType": "as:Like"
-  },
-  "target": "https://example.com/actors/bob/notifications"
-}
-```
-
-The server creates a new notification and adds it to the collection. Since the original notification was deleted upon removal, this is a new object — not a restoration.
-
-#### 5.3 Batch Remove (RemoveAll)
-
-Batch removal of notifications is supported via [FEP-db70] (`RemoveAll`). An optional [FEP-34c1] filter can be provided to remove only matching notifications.
-
-**Remove all notifications ("mark all as read"):**
+**Dismiss all notifications ("mark all as read"):**
 
 ```json
 {
@@ -213,14 +168,13 @@ Batch removal of notifications is supported via [FEP-db70] (`RemoveAll`). An opt
 }
 ```
 
-**Remove all notifications of a specific type (with FEP-34c1 filter):**
+**Dismiss all notifications of a specific type (with FEP-34c1 filter):**
 
 ```json
 {
   "@context": [
     "https://www.w3.org/ns/activitystreams",
     "https://w3id.org/fep/db70",
-    "https://w3id.org/fep/34ec",
     "https://w3id.org/fep/34c1",
     "https://w3id.org/tree"
   ],
@@ -232,15 +186,15 @@ Batch removal of notifications is supported via [FEP-db70] (`RemoveAll`). An opt
     "relation": [
       {
         "type": "EqualToRelation",
-        "path": { "@id": "notificationType" },
-        "value": "as:Create"
+        "path": { "@id": "as:type" },
+        "value": { "@id": "as:Like" }
       }
     ]
   }
 }
 ```
 
-**Remove all notifications older than a given date:**
+**Dismiss all notifications older than a given date:**
 
 ```json
 {
@@ -260,11 +214,11 @@ Batch removal of notifications is supported via [FEP-db70] (`RemoveAll`). An opt
 }
 ```
 
-The server MUST remove and delete all notifications matching the filter. Without a filter, the server MUST remove all notifications.
+The server MUST remove all activity references matching the filter from the notification collection. Without a filter, the server MUST remove all activity references.
 
 ### 6. Collection Filtering (Read)
 
-Conforming servers SHOULD support [FEP-34c1] filtering for the notification collection. Servers MUST accept `notificationType` as an additional allowed `tree:path`.
+Conforming servers SHOULD support [FEP-34c1] filtering for the notification collection. The activity `type` SHOULD be accepted as a `tree:path` for filtering.
 
 The server signals filter support via `tree:search` in the collection:
 
@@ -286,14 +240,13 @@ The server signals filter support via `tree:search` in the collection:
 }
 ```
 
-A client that wants to retrieve only Create notifications sends a POST to the filter endpoint:
+A client retrieving only Like notifications sends a POST to the filter endpoint:
 
 **Request:** `POST https://example.com/actors/bob/notifications/filter`
 
 ```json
 {
   "@context": [
-    "https://w3id.org/fep/34ec",
     "https://w3id.org/fep/34c1",
     "https://w3id.org/tree"
   ],
@@ -301,8 +254,8 @@ A client that wants to retrieve only Create notifications sends a POST to the fi
   "relation": [
     {
       "type": "EqualToRelation",
-      "path": { "@id": "notificationType" },
-      "value": "as:Create"
+      "path": { "@id": "as:type" },
+      "value": { "@id": "as:Like" }
     }
   ],
   "pageSize": 20
@@ -313,63 +266,44 @@ A client that wants to retrieve only Create notifications sends a POST to the fi
 
 ```json
 {
-  "@context": [
-    "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/fep/34ec"
-  ],
+  "@context": "https://www.w3.org/ns/activitystreams",
   "type": "OrderedCollectionPage",
   "partOf": "https://example.com/actors/bob/notifications",
   "totalItems": 5,
   "orderedItems": [
     {
-      "type": "Notification",
-      "object": "https://carol.example/activities/create-456",
-      "actor": "https://carol.example/actors/carol",
-      "notificationType": "as:Create",
-      "published": "2026-02-24T09:30:00Z"
+      "type": "Like",
+      "id": "https://alice.example/activities/like-123",
+      "actor": "https://alice.example/actors/alice",
+      "object": "https://example.com/posts/post-1",
+      "published": "2026-02-24T10:00:00Z"
     }
   ]
 }
 ```
 
-### 7. Server Behavior
-
-#### 7.1 Notification Generation
-
-When the server receives an activity in the actor's inbox, it MUST check whether the activity triggers a notification:
-
-| Incoming Activity | Condition | notificationType |
-|-------------------|-----------|-----------------|
-| `Create` | Addressed to the actor (to/cc) | `as:Create` |
-| `Like` | Object is owned by the actor | `as:Like` |
-| `Announce` | Object is owned by the actor | `as:Announce` |
-| `Update` | Object is being observed by the actor | `as:Update` |
-
-Servers MAY generate notifications for additional activity types.
-
-#### 7.2 Authorization
+### 7. Authorization
 
 The notification collection MUST only be accessible to the authenticated actor. Unauthenticated requests MUST be rejected with `401 Unauthorized`.
 
 ## Security Considerations
 
 - The notification collection contains potentially sensitive information (who interacts with whom). Access MUST be strictly limited to the owner.
-- Servers SHOULD implement rate limiting for C2S operations, especially for `Add` and `RemoveAll`.
+- Servers SHOULD implement rate limiting for C2S operations, especially for `RemoveAll`.
 
 ## Conformance
 
 A conforming server MUST:
 - Provide `notifications` under `endpoints` in the actor object
-- Generate `Notification` objects in the collection
-- Process `Remove` activities targeting the notification collection
-- Delete removed notifications (not retain them)
+- Populate the notification collection with references to notification-worthy activities
+- Process `Remove` activities targeting the notification collection by removing the reference
+- NOT delete the underlying activity from the inbox when removing from the notification collection
 
 A conforming server SHOULD:
 - Support `OrderedCollectionPage` pagination for larger volumes
 - Support [FEP-34c1] filtering for the notification collection
-- Accept `notificationType` as a `tree:path` in filters
-- Support `Add` activities for "mark as unread"
-- Support [FEP-db70] `RemoveAll` for batch removal
+- Accept activity `type` as a `tree:path` in filters
+- Support [FEP-db70] `RemoveAll` for batch dismissal
 
 ## Implementations
 
@@ -383,7 +317,6 @@ A conforming server SHOULD:
 - naturzukunft, [FEP-34c1: Collection Filtering using TREE Hypermedia], 2025
 - naturzukunft, [FEP-db70: RemoveAll Collection Activity], 2026
 - [SWICG #21: Separation of home feed vs. notifications][SWICG #21]
-- [SWICG #60: Server-local metadata under endpoints][SWICG #60]
 - Sarven Capadisli, Amy Guy, [Linked Data Notifications], 2017
 - [TREE Hypermedia Vocabulary][TREE]
 
@@ -394,7 +327,6 @@ A conforming server SHOULD:
 [FEP-34ec]: https://codeberg.org/fediverse/fep/src/branch/main/fep/34ec/fep-34ec.md
 [FEP-db70]: https://codeberg.org/fediverse/fep/src/branch/main/fep/db70/fep-db70.md
 [SWICG #21]: https://github.com/swicg/activitypub-api/issues/21
-[SWICG #60]: https://github.com/swicg/activitypub-api/issues/60
 [Linked Data Notifications]: https://www.w3.org/TR/ldn/
 [TREE]: https://treecg.github.io/specification/
 
