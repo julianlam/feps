@@ -1274,6 +1274,17 @@
     "implementations": 1
   },
   {
+    "slug": "c81b",
+    "authors": "Aron Price <aron@lessersoul.ai>",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/fediverse/fep/pulls/794",
+    "relatedFeps": "FEP-c390, FEP-2677",
+    "dateReceived": "2026-03-18",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/798",
+    "title": "Agent Social Attribution for ActivityPub",
+    "implementations": 0
+  },
+  {
     "slug": "a1d1",
     "type": "implementation",
     "authors": "Steve Bate <svc-fep@stevebate.net>",

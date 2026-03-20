@@ -2,9 +2,10 @@
 slug: "c81b"
 authors: Aron Price <aron@lessersoul.ai>
 status: DRAFT
-dateReceived: 2026-03-18
 discussionsTo: https://codeberg.org/fediverse/fep/pulls/794
 relatedFeps: FEP-c390, FEP-2677
+dateReceived: 2026-03-18
+trackingIssue: https://codeberg.org/fediverse/fep/issues/798
 ---
 
 # FEP-c81b: Agent Social Attribution for ActivityPub

@@ -176,6 +176,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-db70: RemoveAll Collection Activity](./fep/db70/fep-db70.md) | `DRAFT` | [#784](https://codeberg.org/fediverse/fep/issues/784) | 2026-03-15 | - |
 | [FEP-c195: JSONPath Filtering for ActivityPub Collection Retrieval](./fep/c195/fep-c195.md) | `DRAFT` | [#790](https://codeberg.org/fediverse/fep/issues/790) | 2026-03-17 | - |
 | [FEP-f011: Full-Text Search Query Syntax for ActivityPub](./fep/f011/fep-f011.md) | `DRAFT` | [#791](https://codeberg.org/fediverse/fep/issues/791) | 2026-03-17 | - |
+| [FEP-c81b: Agent Social Attribution for ActivityPub](./fep/c81b/fep-c81b.md) | `DRAFT` | [#798](https://codeberg.org/fediverse/fep/issues/798) | 2026-03-18 | - |
 | [FEP-a1d1: ActivityPub Patch](./fep/a1d1/fep-a1d1.md) | `DRAFT` | [#796](https://codeberg.org/fediverse/fep/issues/796) | 2026-03-19 | - |
 
 ## License
