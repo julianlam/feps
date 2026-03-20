@@ -1225,6 +1225,8 @@
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-34ec-notification-collection-endpoint/8568",
     "dateReceived": "2026-03-15",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/782",
+    "categories": "[\"Collections & Filtering\", \"Social Features\"]",
+    "protocols": "[\"C2S\"]",
     "title": "Notification Collection Endpoint",
     "implementations": 0
   },
