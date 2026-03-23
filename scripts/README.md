@@ -47,5 +47,5 @@ pip install pytest
 Check validity
 
 ```bash
-pytest
+pytest scripts/
 ```
