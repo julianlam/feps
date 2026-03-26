@@ -160,6 +160,7 @@ server, the receiving end:
 - [Implemented by Mastodon](https://github.com/tootsuite/mastodon/pull/14510) since v3.3.0
 - [Implemented by Fedify](https://fedify.dev/manual/send#followers-collection-synchronization) since Fedify 0.8.0, made optional in Fedify 1.5.0
 - [Implemented by Tootik](https://github.com/dimkr/tootik/blob/0.18.0/FEDERATION.md#followers-synchronization)
+- [Implemented by WordPress](https://wordpress.org/plugins/activitypub/) ([PR](https://github.com/Automattic/wordpress-activitypub/pull/2297))
 
 ## References
 

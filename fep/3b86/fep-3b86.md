@@ -727,6 +727,7 @@ This is a list of client tools that allow end-users to use Activity Intents on r
 
 * [Emissary](https://emissary.dev) publishes "share" and "like" buttons
 * [Forte](https://codeberg.org/fortified/forte) and also [the "streams" repository](https://codeberg.org/streams/streams) publish "wall-to-wall" post/reply buttons, as an alternative to carrying out these same operations directly on the home server using OpenWebAuth (FEP-61cf). Other interactions in progress. 
+* [WordPress](https://wordpress.org/plugins/activitypub/) publishes "like" and "announce" buttons ([PR #2988](https://github.com/Automattic/wordpress-activitypub/pull/2988), [PR #2256](https://github.com/Automattic/wordpress-activitypub/pull/2256))
 * Web Intents library (in progress)
 
 

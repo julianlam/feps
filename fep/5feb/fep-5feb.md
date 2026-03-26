@@ -63,6 +63,7 @@ Considering this attribute is purely advisory, special care SHOULD be given to t
 ## Implementations
 
 - Mastodon, as of v4.2.0
+- [WordPress](https://wordpress.org/plugins/activitypub/) ([PR](https://github.com/Automattic/wordpress-activitypub/pull/1824))
 
 ## References
 

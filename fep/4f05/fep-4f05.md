@@ -97,6 +97,7 @@ The recipients list of the published `Delete` activity is outside the scope of t
 
 * NodeBB
 * Discourse
+* [WordPress](https://wordpress.org/plugins/activitypub/) ([PR](https://github.com/Automattic/wordpress-activitypub/pull/2824))
 
 ## References
 
