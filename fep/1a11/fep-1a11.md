@@ -143,7 +143,7 @@ Digest: asdfasdfasdf
 }
 ```
 
-#### New and improved fep-4248-style POST
+#### New and improved fep-1a11-style POST
 
 ```
 POST server.tld/inbox
