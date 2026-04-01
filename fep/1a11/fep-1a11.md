@@ -2,8 +2,9 @@
 slug: "1a11"
 authors: Rimu Atkinson <contact@piefed.social>
 status: DRAFT
-dateReceived: 2026-04-01
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-1a11-send-announces-containing-many-activities/8629
+dateReceived: 2026-04-01
+trackingIssue: https://codeberg.org/fediverse/fep/issues/807
 ---
 # FEP-1a11: Send Announces Containing Many Activities
 
