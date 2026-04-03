@@ -5,6 +5,7 @@ type: informational
 status: DRAFT
 discussionsTo: https://codeberg.org/silverpill/feps/issues
 dateReceived: 2026-04-03
+trackingIssue: https://codeberg.org/fediverse/fep/issues/810
 ---
 # FEP-9f9f: Collections
 

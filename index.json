@@ -1304,5 +1304,16 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/807",
     "title": "Send Announces Containing Many Activities",
     "implementations": 0
+  },
+  {
+    "slug": "9f9f",
+    "authors": "silverpill <@silverpill@mitra.social>",
+    "type": "informational",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
+    "dateReceived": "2026-04-03",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/810",
+    "title": "Collections",
+    "implementations": 0
   }
 ]
