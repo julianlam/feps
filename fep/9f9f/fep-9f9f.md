@@ -41,13 +41,13 @@ Some special collections, such as `inbox` and `outbox` are created automatically
 
 Servers MAY create collections automatically when the `object` of `Create` activity contains a property that points to a collection, such as `likes`, `shares` or `replies`. When the specified collection ID is local, the server MUST verify that the ID is valid, and MAY assign a different ID.
 
-Clients MUST NOT embed non-anonymous collections in objects.
+Clients MUST NOT attempt to create new collections by embedding non-anonymous collections in objects.
 
 Collection IDs SHOULD NOT contain query parameters.
 
 ## Updating collections
 
-The contents of a collection are modified either directly by `Add`, `Remove` and `Move` activities, or indirectly by side-effects of other activities.
+The contents of a collection (its items) are modified either directly by `Add`, `Remove` and `Move` activities, or indirectly by side-effects of other activities.
 
 A client can update other properties of a collection by generating an `Update` activity. The server MUST NOT overwrite reserved collection properties such as `items`, `totalItems` and pagination properties.
 
@@ -76,9 +76,9 @@ Collection page IDs are usually created by appending query parameters to a colle
 
 ## Access control
 
-Collections SHOULD be filtered based on the permissions of a user.
+Collection items MUST be filtered based on the permissions of an actor that tries to access the collection. If the actor is not authorized, only public items are returned.
 
-However, a collection itself usually doesn't have an audience and is treated as public by default.
+A collection itself often doesn't have an audience and is treated as public by default. However, if the audience is specified, regular access control procedures MUST be used.
 
 ## Addressing
 
