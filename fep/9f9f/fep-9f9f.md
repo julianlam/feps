@@ -47,7 +47,7 @@ Collection IDs SHOULD NOT contain query parameters.
 
 ## Updating collections
 
-The contents of a collection (its items) are modified either directly by `Add`, `Remove` and `Move` activities, or indirectly by side-effects of other activities.
+The contents of a collection (its items) are modified either directly by `Add`, `Remove` and `Move` activities, or indirectly by side-effects of other activities. If a collection has an `updated` property, its value SHOULD be changed whenever the contents are modified.
 
 A client can update other properties of a collection by generating an `Update` activity. The server MUST NOT overwrite reserved collection properties such as `items`, `totalItems` and pagination properties.
 
@@ -56,7 +56,7 @@ A client can update other properties of a collection by generating an `Update` a
 
 ## Ordering
 
-ActivityPub requires `OrderedCollection` to be presented in [reverse chronological order][AP-Collections], though in practice some ordered collections are presented in forward chronological order.
+ActivityPub states that an `OrderedCollection` MUST be presented in [reverse chronological order][AP-Collections]. In practice, however, some ordered collections are presented in forward chronological order, and an erratum was proposed that limits this requirement to collections defined in the ActivityPub specification (`inbox`, `outbox`, `followers`, `following`, `liked`, `likes` and `shares`).
 
 ## Filtering
 
@@ -82,7 +82,7 @@ A collection itself often doesn't have an audience and is treated as public by d
 
 ## Addressing
 
-An object can be addressed to a collection. When determining delivery targets and regulating access to an object, the server SHOULD expand collections by replacing them with actors they contain (if any).
+An object can be addressed to a collection. When determining [delivery targets][AP-Delivery] and regulating access to an object, the server SHOULD expand collections by replacing them with actors they contain (if any).
 
 ### `Public` collection
 
@@ -103,6 +103,7 @@ An object can be addressed to a collection. When determining delivery targets an
 [FEP-6606]: https://codeberg.org/fediverse/fep/src/branch/main/fep/6606/fep-6606.md
 [AS-Paging]: https://www.w3.org/TR/activitystreams-core/#paging
 [AP-Collections]: https://www.w3.org/TR/activitypub/#collections
+[AP-Delivery]: https://www.w3.org/TR/activitypub/#delivery
 [AP-Public]: https://www.w3.org/TR/activitypub/#public-addressing
 
 ## Copyright
