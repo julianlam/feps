@@ -1,8 +1,9 @@
 ---
 slug: "a070"
 authors: a <a@trwnh.com>
-status: DRAFT
+status: WITHDRAWN
 dateReceived: 2023-06-13
+dateWithdrawn: 2026-04-10
 trackingIssue: https://codeberg.org/fediverse/fep/issues/121
 discussionsTo: https://codeberg.org/fediverse/fep/issues/121
 ---
