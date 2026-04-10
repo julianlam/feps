@@ -903,7 +903,7 @@
     "dateReceived": "2025-01-23",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/478",
     "title": "Polls",
-    "implementations": 0
+    "implementations": 2
   },
   {
     "slug": "2277",
