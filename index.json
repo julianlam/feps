@@ -328,7 +328,7 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/148",
     "discussionsTo": "https://codeberg.org/silverpill/feps",
     "title": "Client-side activity signing",
-    "implementations": 2
+    "implementations": 4
   },
   {
     "slug": "0837",
