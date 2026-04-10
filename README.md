@@ -78,7 +78,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-612d: Identifying ActivityPub Objects through DNS](./fep/612d/fep-612d.md) | `WITHDRAWN` | [#89](https://codeberg.org/fediverse/fep/issues/89) | 2023-04-18 | 2025-10-10 |
 | [FEP-fffd: Proxy Objects](./fep/fffd/fep-fffd.md) | `DRAFT` | [#95](https://codeberg.org/fediverse/fep/issues/95) | 2023-04-29 | - |
 | [FEP-4adb: Dereferencing identifiers with webfinger](./fep/4adb/fep-4adb.md) | `DRAFT` | [#100](https://codeberg.org/fediverse/fep/issues/100) | 2023-05-13 | - |
-| [FEP-a070: Ordered properties for plain JSON consumers](./fep/a070/fep-a070.md) | `DRAFT` | [#121](https://codeberg.org/fediverse/fep/issues/121) | 2023-06-13 | - |
+| [FEP-a070: Ordered properties for plain JSON consumers](./fep/a070/fep-a070.md) | `WITHDRAWN` | [#121](https://codeberg.org/fediverse/fep/issues/121) | 2023-06-13 | 2026-04-10 |
 | [FEP-c648: Blocked Collection](./fep/c648/fep-c648.md) | `DRAFT` | [#123](https://codeberg.org/fediverse/fep/issues/123) | 2023-06-14 | - |
 | [FEP-bad1: Object history collection](./fep/bad1/fep-bad1.md) | `DRAFT` | [#124](https://codeberg.org/fediverse/fep/issues/124) | 2023-06-15 | - |
 | [FEP-4ccd: Pending Followers Collection and Pending Following Collection](./fep/4ccd/fep-4ccd.md) | `DRAFT` | [#129](https://codeberg.org/fediverse/fep/issues/129) | 2023-06-21 | - |
