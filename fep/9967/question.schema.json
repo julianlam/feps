@@ -1,0 +1,109 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Poll",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "Poll ID",
+            "type": "string",
+            "format": "uri"
+        },
+        "type": {
+            "const": "Question"
+        },
+        "attributedTo": {
+            "description": "ID of the actor who created this poll",
+            "type": "string",
+            "format": "uri"
+        },
+        "content": {
+            "description": "Description of this poll (HTML)",
+            "type": "string"
+        },
+        "endTime": {
+            "description": "The end date of the poll",
+            "type": "string",
+            "format": "date-time"
+        },
+        "oneOf": {
+            "description": "Poll options",
+            "type": "array",
+            "items": {"$ref": "#/$defs/PollOption"}
+        },
+        "anyOf": {
+            "description": "Poll options",
+            "type": "array",
+            "items": {"$ref": "#/$defs/PollOption"}
+        },
+        "to": {
+            "description": "Poll's intended audience",
+            "oneOf": [
+                {
+                    "type": "string",
+                    "format": "uri"
+                },
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "format": "uri"
+                    }
+                }
+            ]
+
+        },
+        "updated": {
+            "description": "The date when the last vote was received",
+            "type": "string",
+            "format": "date-time"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "id",
+                "type",
+                "attributedTo",
+                "content",
+                "oneOf",
+                "to"
+            ]
+        },
+        {
+            "required": [
+                "id",
+                "type",
+                "attributedTo",
+                "content",
+                "anyOf",
+                "to"
+            ]
+        }
+    ],
+    "$defs": {
+        "PollOption": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "constant": "Note"
+                },
+                "name": {
+                    "description": "The name of the poll option",
+                    "type": "string"
+                },
+                "replies": {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "const": "Collection"
+                        },
+                        "totalItems": {
+                            "description": "Total number of votes towards this option",
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
