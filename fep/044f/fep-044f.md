@@ -296,7 +296,7 @@ If the quote post is considered unacceptable, the authority SHOULD reply with a 
   "@context": [
     "https://www.w3.org/ns/activitystreams",
     {
-      "Quote": "https://w3id.org/fep/044f#QuoteRequest"
+      "QuoteRequest": "https://w3id.org/fep/044f#QuoteRequest"
     }
   ],
   "type": "Reject",
