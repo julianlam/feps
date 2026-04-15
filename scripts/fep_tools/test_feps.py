@@ -6,6 +6,15 @@ from urllib.parse import urlparse
 from scripts.fep_tools import get_fep_ids, FepFile, title_to_slug
 
 
+def is_valid_url(url: str):
+    result = urlparse(url)
+    if result.netloc == '':
+        return False
+    elif result.netloc.endswith(".example"):
+        return False
+    return True
+
+
 @pytest.mark.parametrize("fep", get_fep_ids())
 def test_fep_front_matter(fep):
     fep_file = FepFile(fep)
@@ -19,10 +28,12 @@ def test_fep_front_matter(fep):
     assert "discussionsTo" in parsed_frontmatter
 
     discussions_to = parsed_frontmatter["discussionsTo"]
-
-    assert not urlparse(discussions_to).netloc.endswith(".example"), (
+    assert is_valid_url(discussions_to), (
         "Update discussionsTo to a valid URL for a discussion topic"
     )
+
+    if "trackingIssue" in parsed_frontmatter:
+        assert is_valid_url(parsed_frontmatter["trackingIssue"])
 
     if parsed_frontmatter["status"] == "FINAL":
         assert "dateFinalized" in parsed_frontmatter
