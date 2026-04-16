@@ -2,9 +2,10 @@
 slug: "7b29"
 authors: Ben Pate \<@benpate@mastodon.social\>, Dan Supernault \<@dansup@mastodon.social\>
 status: DRAFT
-dateReceived: 2026-03-26
 relatedFeps: FEP-3b86
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-7b29-federated-signup-requests/8649
+dateReceived: 2026-03-26
+trackingIssue: https://codeberg.org/fediverse/fep/issues/822
 ---
 
 # FEP-7b29: Federated Signup Requests

@@ -178,6 +178,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-f011: Full-Text Search Query Syntax for ActivityPub](./fep/f011/fep-f011.md) | `DRAFT` | [#791](https://codeberg.org/fediverse/fep/issues/791) | 2026-03-17 | - |
 | [FEP-c81b: Agent Social Attribution for ActivityPub](./fep/c81b/fep-c81b.md) | `DRAFT` | [#798](https://codeberg.org/fediverse/fep/issues/798) | 2026-03-18 | - |
 | [FEP-a1d1: ActivityPub Patch](./fep/a1d1/fep-a1d1.md) | `DRAFT` | [#796](https://codeberg.org/fediverse/fep/issues/796) | 2026-03-19 | - |
+| [FEP-7b29: Federated Signup Requests](./fep/7b29/fep-7b29.md) | `DRAFT` | [#822](https://codeberg.org/fediverse/fep/issues/822) | 2026-03-26 | - |
 | [FEP-1a11: Send Announces Containing Many Activities](./fep/1a11/fep-1a11.md) | `DRAFT` | [#807](https://codeberg.org/fediverse/fep/issues/807) | 2026-04-01 | - |
 | [FEP-9f9f: Collections](./fep/9f9f/fep-9f9f.md) | `DRAFT` | [#810](https://codeberg.org/fediverse/fep/issues/810) | 2026-04-03 | - |
 
