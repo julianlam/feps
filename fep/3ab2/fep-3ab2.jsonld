@@ -4,7 +4,7 @@
     {
       "fep3ab2": "https://w3id.org/fep/3ab2#",
       "endpoints": {
-        "@id": "https://www.w3.org/ns/activitypub#endpoints",
+        "@id": "https://www.w3.org/ns/activitystreams#endpoints",
         "@context": {
           "streamingControl": {
             "@id": "fep3ab2:streamingControl",
