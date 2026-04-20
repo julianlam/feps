@@ -200,6 +200,14 @@ Implementations MAY include additional tags and MUST ignore tags they do not und
 }
 ```
 
+## Implementations
+
+### Servers
+
+This list is not comprehensive:
+
+* Vernissage
+
 ## References
 
 - [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018

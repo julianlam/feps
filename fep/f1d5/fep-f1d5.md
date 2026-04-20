@@ -113,6 +113,7 @@ This list is not comprehensive:
 * apcore
 * FIRM
 * [WordPress](https://wordpress.org/plugins/activitypub/) ([PRs](https://github.com/search?q=repo%3AAutomattic%2Fwordpress-activitypub+NodeInfo&type=pullrequests))
+* Vernissage
 
 ### Clients
 
