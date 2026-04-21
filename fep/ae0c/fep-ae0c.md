@@ -12,11 +12,11 @@ discussionsTo: https://socialhub.activitypub.rocks/t/fediverse-relays/4626
 
 ## Summary
 
-Relays are important components within the decentralized Fediverse architecture. They act as intermediary servers that facilitate communication between different instances, enabling users on Fediverse platforms to share public content without requiring actor following relationships.
+Relays are important components in the decentralized Fediverse architecture. They act as intermediary servers that facilitate communication between different instances, enabling users on Fediverse platforms to share public content without requiring actor `following` relationships.
 
-These relays benefit small instances by enabling them to effectively participate in the federated social network, both as consumers and producers of Fediverse content. 
+These relays benefit small instances by enabling them to effectively participate in the wider federated social network, both as consumers and producers of Fediverse content. 
 
-Several styles of relays existing in the Activity Fediverse. This FEP describe two popular styles of relays:
+Several styles of relays exist in the Activity Fediverse. This FEP describes two popular styles of relays:
 
 * [Mastodon-style relays](#mastodon-relay-protocol)
 * [LitePub-style relays](#litepub-relay-protocol)
@@ -43,7 +43,7 @@ The Mastodon relay protocol relies on LD Signatures to verify relayed messages. 
 
 ### Relay Client Actor
 
-A Relay Client Actor establishes following relationship with a relay server actor and then processes relayed messages sent to the actor's [ActivityPub] inbox. The relay client server will add the relay inboxes to the delivery target for content with public visibility.
+A Relay Client Actor establishes a `following` relationship with a relay server actor and then processes relayed messages sent to the actor's [ActivityPub] inbox. The relay client server will add the relay inboxes to the delivery target for content with public visibility.
 
 #### Relay Subscription
 
@@ -93,7 +93,7 @@ To unsubscribe from a relay send an `Undo` with the original `Follow` activity (
 
 ```json
 {
-    "@context": "https: //www.w3.org/ns/activitystreams",
+    "@context": "https://www.w3.org/ns/activitystreams",
     "id": "https://client.example/3f5ebd6d",
     "type": "Undo",
     "actor": "https://client.example/actor",
@@ -172,7 +172,7 @@ An activity signed with a Mastodon LD Signature will have a signature document i
 
 The `https://w3id.org/security/v1` JSON-LD context defines the `signature` and related properties, but is not used by Mastodon for LD Signature processing.
 
-When performing signature operations the signature document and the activity (without the signature document) are initially processed (hashed) separately. The SHA256 hash digests are concatenated that string is then signed.
+When performing signature operations the signature document and the activity (without the signature document) are initially processed (hashed) separately. The SHA256 hash digests are concatenated and that string is then signed.
 
 #### Signing a JSON-LD Activity
 
@@ -199,7 +199,7 @@ The [LitePub][litepub] protocol is based on [ActivityPub] and is used in Pleroma
 
 ### Relay Client
 
-A LitePub relay client actor must have a type of `Application` and an actor ID ending with `/relay`. For best interoperability, it should be compatible with Mastodon actor documents and have WebFinger support. Other implementations may use different actor ID structures (e.g., AodeRelay apparently uses `/actor` and works with Pleroma). General relay interoperability of these LitePub variants is not known.
+A LitePub relay client actor MUST have a type of `Application` and an actor ID ending with `/relay`. For best interoperability, it should be compatible with Mastodon actor documents and have WebFinger support. Other implementations may use different actor ID structures (e.g., AodeRelay apparently uses `/actor` and works with Pleroma). General relay interoperability of these LitePub variants is not known.
 
 #### Relay Subscription
 
@@ -281,7 +281,7 @@ To unsubscribe from a relay send an `Undo` with the original `Follow` activity a
 
 A LitePub relay client actor will send an `Announce` for a relayed object (like a `Note`). For best interoperability `Announce` should refer to the announced object using an URI (instead of embedding the object).
 
-The `Announce` activity MUST be address to the relay server actor's followers collection. (TODO it's not known if the admin addressing is also required). The `published` property should be included since some relay server will reject activities without it.
+The `Announce` activity MUST be addressed to the relay server actor's followers collection. (TODO it's not known if the admin addressing is also required). The `published` property should be included since some relay servers will reject activities without it.
 
 ```json
 {
@@ -309,11 +309,11 @@ The `Announce` activity MUST be address to the relay server actor's followers co
 
 #### Receiving Messages from a Relay
 
-Messages received from a relay are typically wrapped in an `Announce` activity. AFter the `object` of the announce is fetched and validated, it is displayed on the federated timeline. It appears that `Pleroma` will accept a relayed `Create` activity (for Mastodon compatibility), but will refetch the `Create` `object` since the LD Signature isn't processed. (TODO verify this behavior.)
+Messages received from a relay are typically wrapped in an `Announce` activity. After the `object` of the announce is fetched and validated, it is displayed on the federated timeline. It appears that `Pleroma` will accept a relayed `Create` activity (for Mastodon compatibility), but will refetch the `Create` `object` since the LD Signature isn't processed.
 
 ## Other Relay Server Considerations
 
-The relay server hosting relay actors will have other functionality other than activity relaying.
+The relay server hosting relay actors will have functionality other than activity relaying.
 
 ### WebFinger
 
@@ -329,7 +329,7 @@ A relay server MAY support multiple relay protocols. However, there is no standa
 
 A relay server often hosts a single actor, but any number of relay actors may be hosted. For example, a relay server may have a relay actor for specific topics, hashtags, or moderation categories. A relay client can subscribe to any number of relay actors in a given server.
 
-Some servers implement dynamic relay actor creation. A relay actor's `inbox` URI might be based on a hashtag or a topic name. When a client actor subscribes to this kind of inbox URI, the relay actor is created automatically. Obviously, there are risks to this approach when used by misbehaved clients.
+Some servers implement dynamic relay actor creation. A relay actor's `inbox` URI might be based on a hashtag or a topic name. When a client actor subscribes to this kind of inbox URI, the relay actor is created automatically. Obviously, there are risks to this approach when used by misbehaving clients.
 
 ## References
 
