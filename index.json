@@ -481,6 +481,7 @@
   {
     "slug": "3264",
     "authors": "Lynn Foster <lynn@mikorizal.org>",
+    "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2024-01-31",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/255",
@@ -491,6 +492,7 @@
   {
     "slug": "c5a1",
     "authors": "Lynn Foster <lynn@mikorizal.org>",
+    "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2024-01-31",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/256",
