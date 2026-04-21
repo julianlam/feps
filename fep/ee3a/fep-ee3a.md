@@ -207,6 +207,7 @@ Implementations MAY include additional tags and MUST ignore tags they do not und
 This list is not comprehensive:
 
 * Vernissage
+* [WordPress ActivityPub](https://github.com/Automattic/wordpress-activitypub/pull/2751)
 
 ## References
 
