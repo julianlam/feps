@@ -1,6 +1,7 @@
 ---
 slug: "c5a1"
 authors: Lynn Foster <lynn@mikorizal.org>
+type: implementation
 status: DRAFT
 dateReceived: 2024-01-31
 trackingIssue: https://codeberg.org/fediverse/fep/issues/256
@@ -34,13 +35,14 @@ Valueflows defines a commitment is defined as **A planned economic flow that has
 - `type` (REQUIRED): the type of the object MUST be `Commitment`.
 - `attributedTo` (REQUIRED): the actor who published the commitment.
 - `published` (RECOMMENDED): the date and time at which the commitment was published.
-- `resourceConformsTo` (OPTIONAL): the skill or type of work involved. Could be any URI.
-- `effortQuantity` (OPTIONAL): the estimated or expected amount and unit of the work. This is an object with two properties:
-  - `hasUnit` (REQUIRED): name of the unit, according to [Ontology of units of Measure](http://www.ontology-of-units-of-measure.org/) classification.
-  - `hasNumericalValue` (REQUIRED): amount of the resource.
+- `effortQuantity` (OPTIONAL): the estimated or expected amount and unit of the work, usually a time quantity. This is an object with two properties:
+  - `hasUnit` (REQUIRED): name of the unit, according to [Ontology of units of Measure](http://www.ontology-of-units-of-measure.org/) classification.  This will usually be a time unit such as `hour`.
+  - `hasNumericalValue` (REQUIRED): estimated amount of the effort.
+- `action` (RECOMMENDED): the type of economic transaction. The value of this property will usually be `work` for to-do's.  If the `action` is not included, `work` is assumed.
 - `provider` (RECOMMENDED): the actor who commits to providing the resource, including doing the work.  If not included, it is assumed to be the `to` actor.
 - `receiver` (RECOMMENDED): the actor who will be receiving the resource.  If not included, it is assumed to be the `attributedTo` actor.
-- `content` (RECOMMENDED): the description of what is to be done. The type of content SHOULD be `text/html`.
+- `content` (REQUIRED): the description of what is to be done. The type of content SHOULD be `text/html`.
+- `due` (OPTIONAL): the due date/time.
 - `to` (REQUIRED): the audience of the commitment.
 
 Example:
@@ -50,15 +52,15 @@ Example:
   "@context": [
     "https://www.w3.org/ns/activitystreams",
     {
-      "om2": "http://www.ontology-of-units-of-measure.org/resource/om-2/",
       "vf": "https://w3id.org/valueflows/ont/vf#",
       "Commitment": "vf:Commitment",
       "receiver": "vf:receiver",
       "provider": "vf:provider",
       "resourceConformsTo": "vf:resourceConformsTo",
       "effortQuantity": "vf:effortQuantity",
-      "hasUnit": "om2:hasUnit",
-      "hasNumericalValue": "om2:hasNumericalValue"
+      "hasUnit": "vf:hasUnit",
+      "hasNumericalValue": "vf:hasNumericalValue",
+      "action": "vf:action"
     }
   ],
   "type": "Create",
@@ -70,7 +72,8 @@ Example:
     "attributedTo": "https://project.example/actors/alice",
     "content": "Please proofread the document at https://project.example/docs/45, and let me know what you think could be improved.",
     "published": "2024-05-18T19:22:03.918737Z",
-    "resourceConformsTo": "https://www.wikidata.org/wiki/Q834191",
+    "due": "2024-05-23T17:00:00.000000Z",
+    "action": "work",
     "effortQuantity": {
       "hasUnit": "hour",
       "hasNumericalValue": "2"
@@ -135,17 +138,17 @@ Actual economic activity is represented with an `EconomicEvent` in Valueflows.  
 The representation of an economic event is a JSON document with the following properties:
 
 - `id` (REQUIRED): the economic event's unique global identifier.
-- `type` (REQUIRED): the type of the object SHOULD be `EconomicEvent`. If interoperability with other ActivityPub services is desirable, implementers MAY also use object types from [Activity Vocabulary](https://www.w3.org/TR/activitystreams-vocabulary/#object-types), such as `Note`.
+- `type` (REQUIRED): the type of the object MUST include `EconomicEvent`. If interoperability with other ActivityPub services is desirable, implementers MAY also use object types from [Activity Vocabulary](https://www.w3.org/TR/activitystreams-vocabulary/#object-types), such as `Note`.
 - `attributedTo` (REQUIRED): the actor who published the economic event.
 - `content` (OPTIONAL): the description of the economic event or communication about the economic event. The type of content SHOULD be `text/html`.
 - `published` (RECOMMENDED): the date and time at which the economic event was published.
 - `to` (REQUIRED): the audience of the economic event.
 - `fulfills` (REQUIRED): the commitment the economic event is completely or partially fulfilling.
-- `resourceConformsTo` (OPTIONAL): the type of an economic resource (for to-do's, can be a skill or type of work). Could be any URI.  It does not have to match the commitment, but if not included, can be assumed it is the same.
 - `effortQuantity` (OPTIONAL): the amount and unit of the work done (for to-do's, usually a time quantity). This is an object with two properties:
   - `hasUnit` (REQUIRED): name of the unit, according to [Ontology of units of Measure](http://www.ontology-of-units-of-measure.org/) classification.
-  - `hasNumericalValue` (REQUIRED): amount of the resource.
-- `provider` (RECOMMENDED): the actor who commits to doing the work.  If not included, it is assumed to be the `attributedTo` actor.
+  - `hasNumericalValue` (REQUIRED): amount of the effort.
+- `action` (RECOMMENDED): the type of economic transaction. The value of this property will usually be `work` for to-do's.  If the `action` is not included, the action is assumed to be the same as the commitment action.
+- `provider` (RECOMMENDED): the actor who did the work.  If not included, it is assumed to be the `attributedTo` actor.
 - `receiver` (RECOMMENDED): the actor who will be receiving the benefit.  If not included, it is assumed to be the `to` actor.
 - `finished` (OPTIONAL): set to true if this economic event completes the commitment, or the commitment is no longer open for some reason.
 
@@ -164,6 +167,7 @@ The representation of an economic event is a JSON document with the following pr
       "effortQuantity": "vf:effortQuantity",
       "hasUnit": "om2:hasUnit",
       "hasNumericalValue": "om2:hasNumericalValue",
+      "action": "vf:action",
       "finished": "vf:finished"
     }
   ],
@@ -176,13 +180,13 @@ The representation of an economic event is a JSON document with the following pr
     "attributedTo": "https://project.example/actors/bob",
     "published": "2024-10-21T14:16:41.843794Z",
     "fulfills": "https://project.example/todos/ddde9d6f-6f3b-4770-a966-4dkjh8w32e59",
-    "resourceConformsTo": "https://www.wikidata.org/wiki/Q3485549",
     "effortQuantity": {
       "hasUnit": "hour",
       "hasNumericalValue": "1.5"
     },
     "provider": "https://project.example/actors/bob",
     "receiver": "https://project.example/actors/alice",
+    "content": "Looks great, I left a few comments.",
     "finished": true
   },
   "to": "https://project.example/actors/alice"
@@ -218,11 +222,17 @@ The `Commitment` can alternatively be marked as `finished`, without recording an
 
 ## References
 
-- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
-- [Valueflows] Lynn Foster, elf Pavlik, Bob Haugen [Valueflows](https://valueflo.ws/), 2024
-- [RFC-2119] S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels](https://tools.ietf.org/html/rfc2119.html), 1997
-- [Activity Vocabulary] James M Snell, Evan Prodromou, [Activity Vocabulary](https://www.w3.org/TR/activitystreams-vocabulary/), 2017
-- [Ontology of units of Measure] Hajo Rijgersberg, Don Willems, Xin-Ying Ren, Mari Wigham, Jan Top, [Ontology of units of Measure](http://www.ontology-of-units-of-measure.org/), 2017
+- Christine Lemmer-Webber, Jessica Tallon, Erin Shepherd, Amy Guy, Evan Prodromou, [ActivityPub], 2018
+- Lynn Foster, elf Pavlik, Bob Haugen, [Valueflows][Valueflows], 2026
+- S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
+- James M Snell, Evan Prodromou, [Activity Vocabulary][ActivityVocabulary], 2017
+- Hajo Rijgersberg, Don Willems, Xin-Ying Ren, Mari Wigham, Jan Top, [Ontology of units of Measure][OntologyOfUnits], 2017
+
+[ActivityPub]: https://www.w3.org/TR/activitypub/
+[Valueflows]: https://valueflo.ws/
+[RFC-2119]: https://tools.ietf.org/html/rfc2119.html
+[ActivityVocabulary]: https://www.w3.org/TR/activitystreams-vocabulary/
+[OntologyOfUnits]: http://www.ontology-of-units-of-measure.org/
 
 ## Copyright
 
