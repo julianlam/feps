@@ -5,6 +5,7 @@ type: informational
 status: DRAFT
 discussionsTo: https://codeberg.org/steve-bate/fep/issues
 dateReceived: 2026-04-22
+trackingIssue: https://codeberg.org/fediverse/fep/issues/832
 ---
 # FEP-35b7: Fediverse Servers, Instances, and Tenants
 

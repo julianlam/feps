@@ -181,6 +181,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-7b29: Federated Signup Requests](./fep/7b29/fep-7b29.md) | `DRAFT` | [#822](https://codeberg.org/fediverse/fep/issues/822) | 2026-03-26 | - |
 | [FEP-1a11: Send Announces Containing Many Activities](./fep/1a11/fep-1a11.md) | `DRAFT` | [#807](https://codeberg.org/fediverse/fep/issues/807) | 2026-04-01 | - |
 | [FEP-9f9f: Collections](./fep/9f9f/fep-9f9f.md) | `DRAFT` | [#810](https://codeberg.org/fediverse/fep/issues/810) | 2026-04-03 | - |
+| [FEP-35b7: Fediverse Servers, Instances, and Tenants](./fep/35b7/fep-35b7.md) | `DRAFT` | [#832](https://codeberg.org/fediverse/fep/issues/832) | 2026-04-22 | - |
 
 ## License
 

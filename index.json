@@ -1329,5 +1329,16 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/810",
     "title": "Collections",
     "implementations": 0
+  },
+  {
+    "slug": "35b7",
+    "authors": "Steve Bate <svc-fep@stevebate.net>",
+    "type": "informational",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/steve-bate/fep/issues",
+    "dateReceived": "2026-04-22",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/832",
+    "title": "Fediverse Servers, Instances, and Tenants",
+    "implementations": 0
   }
 ]
