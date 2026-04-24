@@ -320,6 +320,20 @@ The SSE stream may carry sensitive information (notifications, timeline events).
 
 - [FIRM](https://github.com/steve-bate/firm)
 
+## Alternative Approaches
+
+Another common technique for implementing event stream is to use [Websockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API). SSE has several advantages over WebSockets for streaming purposes.
+
+- **Native unidirectional model**: SSE is designed exactly for server→client event streams (logs, notifications, token streaming, dashboards), so you are not paying for a full‑duplex channel you don’t need.
+
+- **Runs over plain HTTP**: Messages are just a long‑lived HTTP response using text/event-stream, so it works naturally with existing HTTP infrastructure (proxies, load balancers, CDNs) without special ws upgrade handling.
+
+- **Simpler implementation and debugging**: On the server you just write to the response stream; on the client you use the EventSource API, no custom framing or libraries needed, which reduces code size and potential bugs.
+
+- **Better proxy/firewall compatibility**: Because it is just HTTP, SSE usually passes through corporate firewalls and middleboxes more reliably than WebSocket upgrades, which some environments still block or interfere with.
+
+- **HTTP/2 friendliness**: With HTTP/2 you can multiplex multiple SSE streams over a single TCP connection, leveraging the same optimizations as the rest of your HTTP traffic, whereas WebSockets use a separate protocol and do not get the same native multiplexing.
+
 [ActivityPub]: https://www.w3.org/TR/activitypub/ "The ActivityPub protocol is a decentralized social networking protocol based upon the ActivityStreams 2.0 data format. It provides a client to server API for creating, updating and deleting content, as well as a federated server to server API for delivering notifications and content."
 [SSE]: https://html.spec.whatwg.org/multipage/server-sent-events.html "This specification enables servers to push data to web pages over HTTP or using dedicated server-push protocols."
 [ActivityVocabulary]: https://www.w3.org/TR/activitystreams-core/ "This specification describes the Activity vocabulary. It is intended to be used in the context of the ActivityStreams 2.0 format and provides a foundational vocabulary for activity structures, and specific activity types."
