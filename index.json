@@ -1340,5 +1340,16 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/832",
     "title": "Fediverse Servers, Instances, and Tenants",
     "implementations": 0
+  },
+  {
+    "slug": "ae49",
+    "authors": "Steve Bate <svc-fep@stevebate.net>",
+    "type": "implementation",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/steve-bate/fep/issues",
+    "dateReceived": "2026-04-24",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/836",
+    "title": "Semantic Routing for ActivityPub",
+    "implementations": 2
   }
 ]
