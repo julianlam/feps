@@ -84,6 +84,12 @@ Examples:
 - A multi-tenant deployment where a single server instance hosts per-user domains (`https://alice.example/` and `https://bob.example/`).
 - A deployment where multiple communities are modeled as separate tenants with separate administrative control.
 
+Related concepts:
+
+* "Bring your own domain" (BYOD): In general, this does not require a multi-tenant instance although multi-tenant support will typically provide the feature. A user-registered domain can also be used with a single-tenant self-hosted server, for example.
+
+* Reverse-proxied cluster: An architecture with multiple single-tenant server instances with a reverse proxy is not considered a multi-tenant *instance* given the definitions in this proposal. However, more broadly, it could be considered a multi-tenant *cluster architecture*.
+
 ## Relationship Between Terms
 
 - One server implementation can be deployed as many server instances.
