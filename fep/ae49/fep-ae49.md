@@ -276,12 +276,13 @@ the motivation for semantic routing in ActivityPub.
   in this document.
 - [**Vocata**][VOCATA] implements semantic routing as described
   in this document and was the inspiration for the FIRM implementation.
+- [**Mitra**][MITRA] implements semantic routing for [portable object][PORTABLE-OBJECTS] GET requests.
 
 [URI-OPACITY]: https://www.w3.org/DesignIssues/Axioms.html#opaque
 
 
 ## References
-- @caesar@indieweb.social, [Switching AP server software on the same domain][SWITCHING], 2024
+- @caesar@indieweb.social, [Switching AP server software on the same domain][SWITCHING], SocialHub, 2024
 - Christine Lemmer-Webber, Jessica Tallon, Erin Shepherd, Amy Guy, Evan Prodromou, [ActivityPub][ACTIVITYPUB], World Wide Web Consortium (W3C), 2018
 - Dominik George, [Vocata][VOCATA] \[Software\], Codeberg
 - Sarven Capadisli, Tim Berners-Lee, Dmitri Zagidulin, [Solid Protocol][SOLID], World Wide Web Consortium (W3C), 2024
@@ -289,9 +290,11 @@ the motivation for semantic routing in ActivityPub.
 - Snell James M., Evan Prodromou, [Activity Streams 2.0][ACTIVITYSTREAMS], World Wide Web Consortium (W3C), 2017
 - Snell James M., Evan Prodromou, [Activity Vocabulary][ACTIVITYSTREAMS-VOCAB], World Wide Web Consortium (W3C), 2017
 - Steve Bate, [FIRM][FIRM] \[Software\], GitHub
-- Steve Bate, [Flexible URI structure in AP Server Implementations][FLEXIBLE-URI], 2024
+- Steve Bate, [Flexible URI structure in AP Server Implementations][FLEXIBLE-URI], SocialHub, 2024
 - Tim Berners-Lee, Roy T. Fielding, Larry M. Masinter, [Uniform Resource Identifier (URI): Generic Syntax][RFC3986], Internet Engineering Task Force, IETF, 2005
-- Tim Berners-Lee, [Univeral Resource Identifiers -- Axioms of Web architecture][URI-AXIOMS], World Wide Web Consortium (W3C), 1996
+- Tim Berners-Lee, [Univeral Resource Identifiers -- Axioms of Web architecture][URI-AXIOMS], World Wide Web Consortium (W3C), W3C, 1996
+- silverpill, [FEP-EF61 Portable Objects][PORTABLE-OBJECTS], GitHub, 2023
+- silverpill, [Mitra][MITRA] \[Software\], Codeberg
 
 [ACTIVITYPUB]: https://www.w3.org/TR/activitypub/ "ActivityPub"
 [RFC2119]: https://datatracker.ietf.org/doc/rfc2119 "Key words for use in RFCs to Indicate Requirement Levels"
@@ -304,6 +307,8 @@ the motivation for semantic routing in ActivityPub.
 [SWITCHING]: https://socialhub.activitypub.rocks/t/switching-ap-server-software-on-the-same-domain/4508 "Switching AP server software on the same domain"
 [SOLID]: https://solidproject.org/TR/protocol "Solid Protocol"
 [URI-AXIOMS]: https://www.w3.org/DesignIssues/Axioms.html "Univeral Resource Identifiers -- Axioms of Web architecture"
+[MITRA]: https://codeberg.org/silverpill/mitra "Mitra"
+[PORTABLE-OBJECTS]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md "FEP-EF61 Portable Objects"
 
 ## Copyright
 
