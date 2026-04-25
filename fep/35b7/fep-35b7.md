@@ -30,7 +30,7 @@ This document proposes terminology that other FEPs and implementations may refer
 
 ### Server implementation
 
-A **server implementation** is a software codebase that implements one or more Fediverse-related protocols (such as ActivityPub). This software must be deployed on computational infrastructure to participate in the Fediverse.
+A **server implementation** is a software codebase that implements one or more Fediverse-related protocols (such as [ActivityPub][ACTIVITYPUB]). This software must be deployed on computational infrastructure to participate in the Fediverse.
 
 Characteristics:
 
@@ -94,7 +94,7 @@ Related concepts:
 
 - One server implementation can be deployed as many server instances.
 - Each server instance runs exactly one version of a server implementation at a given point in time.
-- A server instance may serve one tenant (single-tenant) or multiple tenants (multi-tenant). Current server implementations are predominately server a single tenant. Known multitenant-capable server implementations include [Takahē](https://jointakahe.org/), [Vocata](https://codeberg.org/Vocata/vocata), and [FIRM](https://github.com/steve-bate/firm).
+- A server instance may serve one tenant (single-tenant) or multiple tenants (multi-tenant). Current server implementations are predominately server a single tenant. Known multitenant-capable server implementations include [Takahē][TAKAHE], [Vocata][VOCATA], and [FIRM], and [Oni][ONI] (single user tenants).
 
 ```text
 +-----------------------+
@@ -143,15 +143,23 @@ This document:
 - Does not prescribe any particular multitenancy model, request routing strategy, database layout, or deployment topology.
 - Does not define how tenants are discovered, migrated, or addressed at the protocol level; those topics are expected to be covered by other FEPs.
 
-## References
 
-- Christine Lemmer-Webber, Jessica Tallon, Erin Shepherd, Amy Guy, Evan Prodromou, [ActivityPub][ACTIVITYPUB], World Wide Web Consortium (W3C), 2018
-- [Multitenancy][MULTITENANT], Wikipedia Foundation, 2026
-- [Fediverse][FEDIVERSE], Wikipedia Foundation, 2026
+## References
+- Christine Lemmer-Webber, Jessica Tallon, Erin Shepherd, Amy Guy, Evan Prodromou, [ActivityPub][ACTIVITYPUB], World Wide Web Consortium (W3C)
+- Dominik George, [Vocata][VOCATA] \[Software\], Codeberg
+- Marius Orcsik, [Oni][ONI] \[Software\], SourceHut
+- Steve Bate, [FIRM][FIRM] \[Software\], GitHub
+- [Fediverse][FEDIVERSE], Wikipedia Foundation, Wikipedia
+- [Multitenancy][MULTITENANT], Wikipedia
+- [Takahē][TAKAHE] \[Software\], GitHub
 
 [ACTIVITYPUB]: https://www.w3.org/TR/activitypub/ "ActivityPub"
 [MULTITENANT]: https://en.wikipedia.org/w/index.php?title=Multitenancy&oldid=1338248635 "Multitenancy"
-[FEDIVERSE]: https://en.wikipedia.org/w/index.php?title=Fediverse&oldid=1349081668 "Fediverse"
+[FEDIVERSE]: https://en.wikipedia.org/w/index.php?title=Fediverse "Fediverse"
+[VOCATA]: https://codeberg.org/Vocata/vocata "Vocata"
+[FIRM]: https://github.com/steve-bate/firm "FIRM"
+[ONI]: https://sr.ht/~mariusor/Oni/ "Oni"
+[TAKAHE]: https://github.com/jointakahe/takahe "Takahē"
 
 ## Copyright
 
