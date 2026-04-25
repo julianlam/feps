@@ -1350,6 +1350,6 @@
     "dateReceived": "2026-04-24",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/836",
     "title": "Semantic Routing for ActivityPub",
-    "implementations": 2
+    "implementations": 3
   }
 ]
