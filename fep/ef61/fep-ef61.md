@@ -90,7 +90,45 @@ DID documents SHOULD contain Ed25519 public keys represented as verification met
 
 Any [DID URL][DID-URL] capabilities of a DID method MUST be ignored when working with 'ap' URIs.
 
-### Dereferencing 'ap' URIs
+## Portable objects
+
+Example of a portable object:
+
+```json
+{
+  "@context": [
+    "https://www.w3.org/ns/activitystreams",
+    "https://w3id.org/security/data-integrity/v1",
+    "https://w3id.org/fep/ef61"
+  ],
+  "type": "Note",
+  "id": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/objects/dc505858-08ec-4a80-81dd-e6670fd8c55f",
+  "attributedTo": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?gateways=https%3A%2F%2Fserver1.example,https%3A%2F%2Fserver2.example",
+  "inReplyTo": "ap://did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/objects/f66a006b-fe66-4ca6-9a4c-b292e33712ec",
+  "content": "Hello!",
+  "attachment": [
+    {
+      "type": "Image",
+      "url": "hl:zQmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n",
+      "mediaType": "image/png",
+      "digestMultibase": "zQmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n"
+    }
+  ],
+  "to": [
+    "ap://did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/actor"
+  ],
+  "proof": {
+    "type": "DataIntegrityProof",
+    "cryptosuite": "eddsa-jcs-2022",
+    "created": "2023-02-24T23:36:38Z",
+    "verificationMethod": "did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
+    "proofPurpose": "assertionMethod",
+    "proofValue": "..."
+  }
+}
+```
+
+### Retrieving objects
 
 To dereference an 'ap' URI, the client MUST make HTTP GET request to a gateway endpoint at [well-known] location `/.well-known/apgateway`. The `ap://` prefix MUST be removed from the URI and the rest of it appended to a gateway URI. The client MUST specify an `Accept` header with the `application/ld+json; profile="https://www.w3.org/ns/activitystreams"` media type.
 
@@ -108,10 +146,12 @@ If object identified by 'ap' URI is not stored on the server, it MUST return `40
 
 If an object is not public, the server MUST NOT serve it unless the request is signed by an actor who belongs to object's intended audience.
 
+When working with portable objects, the server SHOULD treat 'ap' URIs as opaque identifiers ([semantic routing][FEP-ae49]).
+
 >[!NOTE]
 >This document describes web gateways, which use HTTP transport. However, the data model and authentication mechanism are transport-agnostic and other types of gateways could exist.
 
-## Authentication and authorization
+### Authentication and authorization
 
 Authentication and authorization are performed in accordance with [FEP-fe34] origin-based security model, but with two important differences:
 
@@ -210,44 +250,6 @@ Upon receiving an activity in actor's outbox, the server SHOULD forward it to ou
 Collections identified by 'ap' URIs (including inbox and outbox collections) MAY be served without [FEP-8b32] integrity proofs. Consuming implementations MUST NOT process unsecured collections attributed to a portable actor if they were retrieved from a server that is not listed in the `gateways` array of the actor document.
 
 Portable collections can be filtered and paginated in a same way as non-portable collections. A gateway MUST remove the integrity proof when generating a view of a collection created by a [FEP-ae97] client.
-
-## Portable objects
-
-Example:
-
-```json
-{
-  "@context": [
-    "https://www.w3.org/ns/activitystreams",
-    "https://w3id.org/security/data-integrity/v1",
-    "https://w3id.org/fep/ef61"
-  ],
-  "type": "Note",
-  "id": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/objects/dc505858-08ec-4a80-81dd-e6670fd8c55f",
-  "attributedTo": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?gateways=https%3A%2F%2Fserver1.example,https%3A%2F%2Fserver2.example",
-  "inReplyTo": "ap://did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/objects/f66a006b-fe66-4ca6-9a4c-b292e33712ec",
-  "content": "Hello!",
-  "attachment": [
-    {
-      "type": "Image",
-      "url": "hl:zQmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n",
-      "mediaType": "image/png",
-      "digestMultibase": "zQmdfTbBqBPQ7VNxZEYEj14VmRuZBkqFbiwReogJgS1zR1n"
-    }
-  ],
-  "to": [
-    "ap://did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/actor"
-  ],
-  "proof": {
-    "type": "DataIntegrityProof",
-    "cryptosuite": "eddsa-jcs-2022",
-    "created": "2023-02-24T23:36:38Z",
-    "verificationMethod": "did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2#z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2",
-    "proofPurpose": "assertionMethod",
-    "proofValue": "..."
-  }
-}
-```
 
 ## Media
 
@@ -360,6 +362,7 @@ The following alternatives to gateway-based compatible IDs are being considered:
 - silverpill, [FEP-ae97: Client-side activity signing][FEP-ae97], 2023
 - silverpill, [FEP-fe34: Origin-based security model][FEP-fe34], 2024
 - A. Barth, [The Web Origin Concept][RFC-6454], 2011
+- Steve Bate, [FEP-ae49: Semantic Routing for ActivityPub][FEP-ae49], 2026
 - silverpill, [FEP-2277: ActivityPub core types][FEP-2277], 2025
 - M. Sporny, L. Rosenthol, [Cryptographic Hyperlinks][Hashlinks], 2021
 - silverpill, [FEP-521a: Representing actor's public keys][FEP-521a], 2023
@@ -385,6 +388,7 @@ The following alternatives to gateway-based compatible IDs are being considered:
 [FEP-ae97]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md
 [FEP-fe34]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md
 [RFC-6454]: https://www.rfc-editor.org/rfc/rfc6454.html
+[FEP-ae49]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ae49/fep-ae49.md
 [FEP-2277]: https://codeberg.org/fediverse/fep/src/branch/main/fep/2277/fep-2277.md
 [Hashlinks]: https://datatracker.ietf.org/doc/html/draft-sporny-hashlink-07
 [FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
