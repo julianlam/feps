@@ -15,7 +15,7 @@ This proposal describes how [ActivityPub][ActivityPub] servers and clients could
 
 HTTP signatures are often used for authentication during server-to-server interactions. However, this ties authentication to activity delivery, and limits the flexibility of the protocol.
 
-Integrity proofs are sets of attributes that represent digital signatures and parameters required to verify them. These proofs can be added to any activity or object, allowing recipients to verify the identity of the actor and integrity of the data. That decouples authentication from the transport, and enables various protocol improvements such as activity relaying, embedded objects and client-side signing.
+Integrity proofs are sets of attributes that represent digital signatures and parameters required to verify them. These proofs can be added to any activity or object, allowing recipients to verify the identity of the actor and integrity of the data. That decouples authentication from the transport, and enables various protocol improvements such as offline verification and client-side signing.
 
 ## History
 
@@ -39,7 +39,7 @@ The process of proof generation consists of the following steps:
 - **Hashing** is a process that calculates an identifier for the transformed data using a cryptographic hash function.
 - **Signature generation** is a process that calculates a value that protects the integrity of the input data from modification.
 
-The resulting proof is added to the original JSON object under the key `proof`. Objects SHOULD NOT contain more than one integrity proof.
+The resulting proof is added to the original JSON object under the key `proof`.
 
 The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [2.1 Proofs][DI-Proofs]. The proof type SHOULD be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof][DI-DataIntegrityProof]. The value of `proofPurpose` attribute MUST be `assertionMethod`.
 
@@ -47,11 +47,17 @@ The value of the `verificationMethod` attribute of the proof can be an HTTP(S) U
 
 The [controlled identifier document][ControlledIdentifiers] where the verification method is expressed MUST be an actor object or a [DID][DIDs] document that is provably associated with an [ActivityPub] actor (e.g. using a mechanism described in [FEP-c390] or [FEP-ef61]). The verification method MUST be associated with the `assertionMethod` property of the controlled identifier document. If controlled identifier document is an actor object, implementers SHOULD use `assertionMethod` property as described in [FEP-521a].
 
+Objects identified using [fragment identifiers][Fragment] SHOULD NOT contain integrity proofs.
+
+Objects SHOULD NOT contain more than one integrity proof.
+
 ### Proof verification
 
 Recipients of an object SHOULD perform proof verification if it contains integrity proofs. Verification process MUST follow the *Data Integrity* specification, section [4.4 Verify Proof][DI-VerifyProof]. It starts with the removal of the `proof` value from the JSON object. Then verification method is retrieved from the controlled identifier document as described in *Controlled Identifiers* specification, section [3.3 Retrieve Verification Method][CI-RetrieveMethod]. Then the object is canonicalized, hashed and signature verification is performed according to the parameters specified in the proof.
 
 The subject of the controlled identifier document where the verification method is expressed MUST be the [owner][FEP-fe34-Owner] of the signed object, or a [DID][DIDs] that is provably associated with that actor (e.g. using a mechanism described in [FEP-c390] or [FEP-ef61]).
+
+If a verifier encounters an integrity proof that uses a verification method or cryptosuite that it doesn't support, it SHOULD ignore the proof and try other authentication methods.
 
 If both HTTP signature and integrity proof are used, the integrity proof MUST be given precedence over HTTP signature. The HTTP signature MAY be dismissed.
 
@@ -80,6 +86,8 @@ Implementers using integrity proofs as an authentication mechanism are advised t
 ### Privacy considerations
 
 If a private object is signed, its authenticity can be proven if it is distributed beyond the intended recipients. This risk can be mitigated by encrypting private content.
+
+Integrity proofs can be repudiated by rotating the verification method.
 
 ## Examples
 
@@ -207,7 +215,7 @@ If a private object is signed, its authenticity can be proven if it is distribut
 - [apsig](https://github.com/AmaseCocoa/apsig/blob/af7af0e106132a51356fc92ed034b1152a1caea8/docs/proof.md)
 - [tootik](https://github.com/dimkr/tootik/blob/v0.19.0/FEDERATION.md#data-portability)
 - Gush! ([commit](https://codeberg.org/gush/gush/commit/98c04c8d5cb3528b01eaf6949ec76584c9798ccb))
-- [squidcity](https://code.lag.net/robey/squidcity/src/branch/main/FEDERATION.md) 
+- [squidcity](https://code.lag.net/robey/squidcity/src/commit/485299c2306c7c3d359185728e8f9eff08cb9d90/FEDERATION.md#supported-feps)
 
 ## Use cases
 
@@ -249,6 +257,7 @@ If a private object is signed, its authenticity can be proven if it is distribut
 [JCS]: https://www.rfc-editor.org/rfc/rfc8785
 [FEP-fe34]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md
 [FEP-fe34-Owner]: https://codeberg.org/fediverse/fep/src/branch/main/fep/fe34/fep-fe34.md#ownership
+[Fragment]: https://en.wikipedia.org/wiki/URI_fragment
 
 ## Copyright
 
