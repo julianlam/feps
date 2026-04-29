@@ -13,4 +13,8 @@ FEP Facilitators ensure that the procedures outlined in [FEP-a4ed: The Fediverse
 
 ### Past facilitators
 
-- [@circlebuilder](https://codeberg.org/circlebuilder) (2020-2024), [@aschrijver](https://socialhub.activitypub.rocks/u/aschrijver/summary) at SocialHub
+Our gratitude goes out to the following people who helped the FEP process be where it is today.
+
+- pukkamustard: [@pukkamustard](https://socialhub.activitypub.rocks/u/pukkamustard) at SocialHub
+- Cory Slep: [@cjs](https://socialhub.activitypub.rocks/u/cjs/summary) at SocialHub
+- Arnold Schrijver: [@aschrijver](https://socialhub.activitypub.rocks/u/aschrijver/summary) at SocialHub
