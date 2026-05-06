@@ -122,6 +122,13 @@ Remote servers MAY open Activity Intent links in many different environments, su
 
 Home servers SHOULD build their UI with minimal assumptions so that the endpoint will fit well into as many environments as possible.  Home servers may not be aware if the remote server opens the Activity Intent link in a separate popup window or not, so remote servers SHOULD include `on-success` and `on-cancel` parameters that redirect back to its own pages so that it can close the pop-up itself.
 
+### 3.6 Publishing Intents for @application Actors
+For most implementations, Activity Intent endpoints will be identical for every user account on the server. For instance, Mastodon's `/share` endpoint works for every account, and only varies based on the authentication headers passed to the server.
+
+If a home server uses the same intent locations for every actor, home servers SHOULD include these values in the WebFinger results for the `@application` actor, in addition to each individual actor.
+
+Doing this improves compatibility across the Fediverse, and enables remote servers to only request a visitor's server name (example.social) instead of their full WebFinger handle (@username@example.social)
+
 ## 4. Standard Intent Definitions
 
 ### 4.1. Accept Intent
@@ -714,21 +721,25 @@ Remote servers MAY also account for applications that do not publish Activity In
 ### 8.1 Home Servers
 This is a list of "home servers" that publish Activity Intent endpoints.
 
+* [Mastodon](https://joinmastodon.org) publishes `Create` and `Object` intents.
+* [WordPress](https://wordpress.org/plugins/activitypub/) publishes `Create` and `Follow` intents
+* [Loops](https://joinloops.org) publishes `Follow` intents.
+* [Friendica](https://friendi.ca) publishes  `Create` and `Follow` intents
 * [Emissary](https://emissary.dev) publishes `Create`, `Follow`, and `Like` intents.
 * [Forte](https://codeberg.org/fortified/forte) publishes `Create` intents.
-* [Loops](https://joinloops.org) publishes `Follow` intents.
+* [Mitra](https://codeberg.org/silverpill/mitra) publishes `Object` intents.
 * [PieFed](https://piefed.social) publishes `Create` intents.
 * [the "streams" repository](https://codeberg.org/streams/streams) publishes `Create` intents.
-* [WordPress](https://wordpress.org/plugins/activitypub/) publishes `Create` and `Follow` intents
 * Add your name to this list and win a cookie 🍪
 
 ### 8.2 Clients
 This is a list of client tools that allow end-users to use Activity Intents on remote websites.
 
+* [Mastodon](https://joinmastodon.org) publishes remote interaction buttons that listen to `Follow`, `Announce`, `Like`, and `Object` intents
+* [WordPress](https://wordpress.org/plugins/activitypub/) publishes "like" and "announce" buttons ([PR #2988](https://github.com/Automattic/wordpress-activitypub/pull/2988), [PR #2256](https://github.com/Automattic/wordpress-activitypub/pull/2256))
 * [Emissary](https://emissary.dev) publishes "share" and "like" buttons
 * [Forte](https://codeberg.org/fortified/forte) and also [the "streams" repository](https://codeberg.org/streams/streams) publish "wall-to-wall" post/reply buttons, as an alternative to carrying out these same operations directly on the home server using OpenWebAuth (FEP-61cf). Other interactions in progress. 
-* [WordPress](https://wordpress.org/plugins/activitypub/) publishes "like" and "announce" buttons ([PR #2988](https://github.com/Automattic/wordpress-activitypub/pull/2988), [PR #2256](https://github.com/Automattic/wordpress-activitypub/pull/2256))
-* Web Intents library (in progress)
+* [Web Intents library](https://webintents.net) (in progress)
 
 
 ## References
