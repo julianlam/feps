@@ -227,8 +227,6 @@ This intent corresponds to the ActivityStreams [Create activity](https://www.w3.
 
 The Create intent publishes the API endpoint where the current user can create a new post in their own outbox.
 
-This is similar to the existing "share" endpoints supported by several Fediverse apps, where the user can create a new post in their inbox starting with some pre-populated content.
-
 This Intent differs slightly from others in that it does not take an object ID as a parameter because it expects a the user's home server to create a new object.  Instead, the parameters for this Intent are meant to pre-populate into the new object that the user will create.  
 
 #### 4.6.1. Parameters
@@ -236,22 +234,62 @@ This Intent differs slightly from others in that it does not take an object ID a
 * `{name}` - (optional) Name to pre-populate into the created object.
 * `{summary}` - (optional) Summary to pre-populate into the created object.
 * `{content}` - (optional) Text content to pre-populate into the created object.
-* `{inReplyTo}` - (optional)The ID of the ActivityStreams Document that the user is replying to.
 * `{attachment}` - (optional) ID of an object (such as a link or an image) that should be included in the created object.
 * `{tag}` - (optional) ID of an object (such as a tag definition) that should be referenced by the created object
 * `{startTime}` - (optional) a [date-time](https://www.w3.org/TR/activitystreams-core/#dates) that identifies the actual or expected starting time of the created object. [RFC3339 format](https://tools.ietf.org/html/rfc3339) 
 * `{endTime}` - (optional) a [date-time](https://www.w3.org/TR/activitystreams-core/#dates) that identifies the actual or expected ending time of the created object. [RFC3339 format](https://tools.ietf.org/html/rfc3339)
 * `{describes}` (optional) the ID of an object to be described, when creating a [Profile](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-profile) object.
+
+**Discussion and Threading**
+* `{audience}` - (optional) The ID of the [audience](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-audience) to pre-populate into the created object.
+* `{context}` - (optional) The ID of the [context](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-context) that this object belongs to. 
+* `{inReplyTo}` - (optional)The ID of the ActivityStreams Document that this object is [inReplyTo](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-inreplyto).
+
+**Other Workflow**
 * `{on-success}` - (optional) Workflow action to perform after the workflow completes.
 * `{on-cancel}` - (optional) Workflow action to perform if the user aborts the workflow.
 
-#### 4.6.2. Example
+#### 4.6.2 Recommendations
+In ActivityPub, the `Create` activity has many uses, such as creating new posts, replying to existing posts, and even sharing external web content back into the Fediverse. All of these actions can all be done using various tokens present in the `Create` intent template.
+
+To maximize compatibility, home servers SHOULD include the following tokens in their `Create` template strings.
+
+* The `{content}` token is is commonly used as a "share" link, allowing remote servers to pre-populate the content of a post with the URL of the web page being shared.
+* The `{inReplyTo}` token allows posts to be marked as replies to other Fediverse content.
+* The  `{audience}` and `{context}` tokens are used by threaded discussions to locate objects correctly within a message board.
+
+Clients (and client libraries) can determine if a home server supports any of these use cases by inspecting the template strings for the corresponding tokens.  For instance, a remote server can confirm that the `{inReplyTo}` token is present in the `Create` intent template. If it is present, then the remote server can display or activate a "reply to" link on its content page.
+
+#### 4.6.3. Share Example
 ```json
 {
 	"rel": "https://w3id.org/fep/3b86/Create",
 	"template": "https://mastodon.social/share?text={content}"
 }
 ```
+
+Several servers implement "share" buttons that let users share web page content back into the Fediverse.  To do this, they pre-populate the `{content}` token of the Activity Intent with the URL of the web page to be shared.
+
+#### 4.6.4 Reply Example
+```json
+{
+	"rel": "https://w3id.org/fep/3b86/Create",
+	"template": "https://server.social/@me/create?inReplyTo={inReplyTo}"
+}
+```
+
+Remote servers can inspect the template string to determine if replies are supported or not.  If the template string includes an {inReplyTo} token, then the home server can accept posts that are direct replies to other ActivityPub objects.
+
+#### 4.6.5 Threaded Discussion Example
+```json
+{
+	"rel": "https://w3id.org/fep/3b86/Create",
+	"template": "https://server.social/@me/create?audience={audience}&context={context}"
+}
+```
+
+Threaded discussions such as forums and bulletin boards typically use `{audience}` and `{context}` tokens to place content into the correct part of a discussion.  Home servers that want their users to participate in threaded discussions SHOULD publish these tokens in the template string. Endpoints can then pre-populate the values into the resulting activity.
+
 
 ### 4.7. Delete Intent
 This intent corresponds to the ActivityStreams [Delete activity](https://www.w3.org/TR/activitystreams-vocabulary/#dfn-delete) and is defined using the link relation  `https://w3id.org/fep/3b86/Delete`.
@@ -719,26 +757,32 @@ Remote servers MAY also account for applications that do not publish Activity In
 ## 8.0. Implementations
 
 ### 8.1 Home Servers
-This is a list of "home servers" that publish Activity Intent endpoints.
+This is a list of "home servers" that publish Activity Intent endpoints for users' profiles.
 
-* [Mastodon](https://joinmastodon.org) publishes `Create` and `Object` intents.
-* [WordPress](https://wordpress.org/plugins/activitypub/) publishes `Create` and `Follow` intents
-* [Loops](https://joinloops.org) publishes `Follow` intents.
-* [Friendica](https://friendi.ca) publishes  `Create` and `Follow` intents
 * [Emissary](https://emissary.dev) publishes `Create`, `Follow`, and `Like` intents.
 * [Forte](https://codeberg.org/fortified/forte) publishes `Create` intents.
+* [Friendica](https://friendi.ca) publishes  `Create` and `Follow` intents
+* [Loops](https://joinloops.org) publishes `Follow` intents.
+* [Mastodon](https://joinmastodon.org) publishes `Create` and `Object` intents.
 * [Mitra](https://codeberg.org/silverpill/mitra) publishes `Object` intents.
+* [NodeBB](https://nodebb.org) publishes `Object`, `Create`, `Like`, `Dislike`, and `Follow` intents.
 * [PieFed](https://piefed.social) publishes `Create` intents.
-* [the "streams" repository](https://codeberg.org/streams/streams) publishes `Create` intents.
+* [(streams)](https://codeberg.org/streams/streams) publishes `Create` intents.
+* [WordPress](https://wordpress.org/plugins/activitypub/) publishes `Create` and `Follow` intents
+
 * Add your name to this list and win a cookie 🍪
 
-### 8.2 Clients
-This is a list of client tools that allow end-users to use Activity Intents on remote websites.
+### 8.2 Remote Servers
+Applications that use Activity Intents to create interactive links and buttons that pull users from remote websites back to their home servers.
 
-* [Mastodon](https://joinmastodon.org) publishes remote interaction buttons that listen to `Follow`, `Announce`, `Like`, and `Object` intents
-* [WordPress](https://wordpress.org/plugins/activitypub/) publishes "like" and "announce" buttons ([PR #2988](https://github.com/Automattic/wordpress-activitypub/pull/2988), [PR #2256](https://github.com/Automattic/wordpress-activitypub/pull/2256))
-* [Emissary](https://emissary.dev) publishes "share" and "like" buttons
-* [Forte](https://codeberg.org/fortified/forte) and also [the "streams" repository](https://codeberg.org/streams/streams) publish "wall-to-wall" post/reply buttons, as an alternative to carrying out these same operations directly on the home server using OpenWebAuth (FEP-61cf). Other interactions in progress. 
+* [Emissary](https://emissary.dev) publishes `Follow`, `Create`  and `Like` buttons
+* [Forte](https://codeberg.org/fortified/forte) and also [(streams)](https://codeberg.org/streams/streams) publish "wall-to-wall" post/reply buttons, as an alternative to carrying out these same operations directly on the home server using OpenWebAuth (FEP-61cf). Other interactions in progress. 
+* [Mastodon](https://joinmastodon.org) publishes remote interaction buttons that use to `Follow`, `Announce`, `Like`, and `Object` intents
+* [NodeBB](https://nodebb.org) publishes buttons for `Create` (topic creation and reply), `Like`/`Dislike` (upvote and downvote), and `Follow`.
+* [WordPress](https://wordpress.org/plugins/activitypub/) publishes `Like` and `Announce` buttons ([PR #2988](https://github.com/Automattic/wordpress-activitypub/pull/2988), [PR #2256](https://github.com/Automattic/wordpress-activitypub/pull/2256))
+
+### 8.3 Libraries
+* [CamperJS](https://github.com/EmissarySocial/camperjs) (in progress)
 * [Web Intents library](https://webintents.net) (in progress)
 
 
