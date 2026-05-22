@@ -2,7 +2,7 @@
 slug: "baf5"
 authors: Julian Lam <julian@nodebb.org>
 status: DRAFT
-discussionsTo:
+discussionsTo: https://activitypub.space/topic/178/fep-baf5-administrator-collection
 dateReceived: 2026-05-22
 trackingIssue:
 ---
