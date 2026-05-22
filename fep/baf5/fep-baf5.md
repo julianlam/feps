@@ -11,7 +11,7 @@ trackingIssue:
 
 ## Summary
 
-This FEP introduces a mechanism for discovering the administrators of an ActivityPub instance. It extends the "Group Moderator" pattern from [FEP 1b12][1b12] and the "Application Actor" concept from [FEP 2677][2677] by defining an `OrderedCollection` of administrators referenced from the instance's application actor.
+This FEP introduces a mechanism for discovering the administrators of an ActivityPub instance. It extends the "Group Moderator" pattern from [FEP 1b12][1b12] and the "Application Actor" concept from [FEP d556][d556] by defining an `OrderedCollection` of administrators referenced from the instance's application actor.
 
 ### What is an administrator?
 
@@ -139,7 +139,7 @@ If the sending instance does not support the Administrator Collection (this FEP)
 
 - Christine Lemmer-Webber, Jessica Tallon, Erin Shepherd, Amy Guy, Evan Prodromou, [ActivityPub], 2018
 - Julian Lam, [FEP-1b12: Group federation][1b12], 2022
-- silverpill, [FEP 2677: Identifying the Application Actor][2677], 2025
+- Steve Bate, [FEP-d556: Server-Level Actor Discovery Using WebFinger][d556], 2024
 - silverpill, [FEP-844e: Capability discovery][844e], 2025
 - silverpill, [FEP fe34: Origin-based security model][fe34], 2024
 
@@ -147,7 +147,7 @@ If the sending instance does not support the Administrator Collection (this FEP)
 [ActivityPubActor]: https://www.w3.org/TR/activitypub/#actor-objects
 [ActivityPubUser]: https://www.w3.org/TR/activitystreams-vocabulary/#dfn-person
 [1b12]: https://w3id.org/fep/1b12
-[2677]: https://w3id.org/fep/2677
+[d556]: https://w3id.org/fep/d556
 [844e]: https://w3id.org/fep/844e
 [fe34]: https://w3id.org/fep/fe34
 
