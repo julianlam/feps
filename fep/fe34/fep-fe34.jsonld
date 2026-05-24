@@ -1,0 +1,8 @@
+{
+  "@context": {
+    "partialObject": {
+      "@id": "https://w3id.org/fep/fe34#partialObject",
+      "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+    }
+  }
+}

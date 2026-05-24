@@ -35,7 +35,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Assumptions
 
-The origin-based security model is designed for use in a network where a server is resposible for enforcing security boundaries between the hosted actors. Servers that publish objects without validation are not supported.
+The origin-based security model is designed for use in a network where a server is responsible for enforcing security boundaries between the hosted actors. This assumption is based on the general consensus that served objects can be trusted and that their ownership doesn't require verification. Servers that publish objects without validation are not supported.
 
 Object identifiers are assumed to be HTTP(S) URIs. The model can also be used with other kinds of identifiers, but that is not covered in this document.
 
@@ -43,7 +43,7 @@ Object identifiers are assumed to be HTTP(S) URIs. The model can also be used wi
 
 Object identifiers can be grouped together into protection domains called "origins". This concept is similar to the "web origin" concept described in [RFC-6454], and origins of object IDs are computed by the same algorithm.
 
-The same-origin policy determines when a relationship between objects can be trusted. Different origins are considered potentially hostile and are isolated from each other to varying degrees. Actors sharing an origin are assumed to trust each other because all their interactions are mediated by a single piece of software operated by a single person or an organization.
+The same-origin policy determines when a relationship between objects can be trusted. Different origins are considered potentially hostile and are isolated from each other to varying degrees. Actors sharing an origin are assumed to trust each other because the server enforces boundaries between them.
 
 ### Comparing origins
 
@@ -108,6 +108,13 @@ In some cases, an embedded object can be trusted when its wrapping object is tru
 - An embedded object is identified as a [fragment][Fragment] of the wrapping object.
 - An embedded object is anonymous (doesn't have an ID).
 
+Servers MUST NOT allow clients to publish activities where embedded objects are owned by another local actor.
+
+Embedded non-anonymous objects SHOULD NOT be partial representations. A server that relies on embedding for authentication might save a partial representation of an object to the cache, replacing the full object.
+
+> [!NOTE]
+> Partial representations could be marked to prevent caching. Potential methods for achieving this are discussed in the issue <https://codeberg.org/silverpill/feps/issues/21>.
+
 ## Authorization
 
 Authorization is the process of verifying permission to [create, read, update or delete](https://en.wikipedia.org/wiki/Create%2C_read%2C_update_and_delete) an object.
@@ -129,7 +136,7 @@ In some cases ownership might be implicit. Examples:
 
 Anonymous objects are not supposed to have an owner.
 
-Applications SHOULD use the following algorithm to determine the owner of an object:
+Applications can use the following algorithm to determine the owner of an object:
 
 1. Run the duck typing algorithm specified in [FEP-2277].
 2. If the type is `Link`, return error.
@@ -166,13 +173,20 @@ Examples:
 - `Add` and `Remove` activities, and objects indicated by their `target` property are expected to have the same owner.
 - `Announce` and `Like` activities don't modify objects indicated by their `object` property, therefore their owners can be different.
 
+Servers MUST ensure that activities published by a client do not represent unauthorized actions. This includes activities embedded within other activities and objects.
+
 ### Access control
 
-When a protected object is retrieved, the server MUST verify that the `GET` request contains an [HTTP signature][HttpSig] created using a key whose owner belongs to object's intended audience.
+The intended audience of an object is specified using the following properties: `to`, `cc`, `bto`, `bcc` and `audience`.
+
+An object addressed to `https://www.w3.org/ns/activitystreams#Public` can be retrieved by anyone. When an object is not addressed to public, the server MUST verify that the `GET` request contains an [HTTP signature][HttpSig] created using a key whose owner belongs to the object's intended audience.
 
 The server MAY require a signature even if the object is public. In that case, the request can be signed with a key owned by a [server actor][HttpSig-ServerActor].
 
 Servers that implement [proxyUrl] endpoint MUST ensure that access to objects is restricted to actors that belong to intended audiences of these objects.
+
+> [!NOTE]
+> Some servers always require signed requests in an attempt to limit access to public objects. However, this measure is often ineffective and can be circumvented by using a different domain name to serve the public key.
 
 ### Ownership transfer
 
