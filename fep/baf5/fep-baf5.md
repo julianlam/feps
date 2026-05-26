@@ -114,7 +114,7 @@ Support for this FEP is indicated by the implementation of [FEP 844e][844e], whe
 
 This FEP supersedes the same-origin assumption described in [FEP fe34][fe34]. The administrators collection (in conjunction with the [FEP 1b12][1b12] moderator collection if applicable) determines whether a same-origin or cross-origin actor has administrative privilege.
 
-When verifying the authenticity of a moderation action (such as `Update`, `Delete`, or other object mutations), a receiver SHOULD:
+When verifying the whether a moderation action (such as `Update`, `Delete`, or other object mutations) is authorized, a receiver SHOULD:
 
 1. Resolve the actor of the activity.
 1. Verify that the sending instance supports the Administrator Collection (this FEP), as indicated by [FEP 844e][844e]. If the FEP is not advertised, fall back to the standard origin-based security model as defined in [FEP fe34][fe34].
