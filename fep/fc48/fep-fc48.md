@@ -25,10 +25,6 @@ A truly generic server does not have these limitations and can work with any typ
 
 A generic server MUST determine the class of an object before processing it. The classification of ActivityPub objects is covered in [FEP-2277: ActivityPub core types][FEP-2277].
 
-## Authentication and authorization
-
-A generic server MUST verify all objects according to the universal authentication and authorization procedures described in [FEP-fe34: Origin-based security model][FEP-fe34].
-
 ## Activities and side effects
 
 A generic server MUST support the following basic activities:
@@ -41,9 +37,15 @@ A generic server MUST support the following basic activities:
 
 The side effects of these activities are implicit and are defined in the [ActivityPub] specification.
 
-A generic server SHOULD support other activity types defined in the [ActivityPub] specification.
+A generic server can only carry out the side effects of basic activities. Therefore, clients MUST specify the side effects of all other activities as additional activities. Clients can embed them into an activity using the `result` property, or send them separately.
 
-Other activities MUST NOT have implicit side-effects. Any side-effects, such as collection updates, MUST be specified by clients as additional activities. Clients can embed them into an activity using the `result` property, or send them as separate activities.
+A generic server MAY support other activity types defined in the [ActivityPub] specification.
+
+## Authentication and authorization
+
+A generic server MUST verify all objects according to the universal authentication and authorization procedures described in [FEP-fe34: Origin-based security model][FEP-fe34].
+
+When processing activities submitted by a client, the server can only check permissions for basic activities. Therefore, recipients SHOULD NOT use the same-origin policy to verify permissions.
 
 ## Managing collections
 
