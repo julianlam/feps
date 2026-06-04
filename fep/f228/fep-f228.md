@@ -47,19 +47,10 @@ It is an `OrderedCollection`, and the order of items is chronological. It MUST c
 
 When `context` property is present on an activity, it MUST resolve to a collection of activities.
 
-### Compatibility with Conversation Containers
+`contextHistory` property is used to make a reference from a top-level post to related collection of activities.
 
-In [Conversation Containers][FEP-171b] this collection would coincide with the conversation container. It will contain `Add` activities in addition to other activities.
-
-### `history` property
-
-Collections described in this document can be implemented separately.
-
-If both of them are implemented, the `history` property can be added to a collection of posts, indicating a corresponding collection of activities. This property is defined in [FEP-bad1: Object history collection][FEP-bad1], although the use case here differs from the one described in that proposal.
-
-### `contextHistory` property
-
-`contextHistory` property can be used to make a reference from a post to a collection of activities.
+> [!NOTE]
+> The collection of conversation activities was originally a part of [Conversation Containers][FEP-171b] proposal.
 
 ## Reading collections
 
@@ -81,6 +72,8 @@ Collection of posts:
 - Decodon ([PR](https://github.com/jesseplusplus/decodon/pull/188))
 - PieFed ([commit](https://codeberg.org/rimu/pyfedi/commit/8d2afe5acd6c260a9ca9a352a93730d5a7b6bcdd))
 - [Mastodon](https://github.com/mastodon/mastodon/releases/tag/v4.5.4)
+- [tootik](https://github.com/dimkr/tootik/releases/tag/v0.21.2)
+- [Lemmy](https://github.com/LemmyNet/lemmy/pull/5856)
 
 Collection of activities:
 
@@ -93,7 +86,6 @@ Collection of activities:
 - a, [FEP-7888: Demystifying the context property][FEP-7888], 2023
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
 - silverpill, [FEP-171b: Conversation Containers][FEP-171b], 2024
-- a, [FEP-bad1: Object history collection][FEP-bad1], 2023
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [ActivityPub-Collections]: https://www.w3.org/TR/activitypub/#collections
@@ -102,7 +94,6 @@ Collection of activities:
 [thread]: https://en.wikipedia.org/wiki/Thread_(online_communication)
 [FEP-7888]: https://codeberg.org/fediverse/fep/src/branch/main/fep/7888/fep-7888.md
 [FEP-171b]: https://codeberg.org/fediverse/fep/src/branch/main/fep/171b/fep-171b.md
-[FEP-bad1]: https://codeberg.org/fediverse/fep/src/branch/main/fep/bad1/fep-bad1.md
 
 ## Copyright
 
