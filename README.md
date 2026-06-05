@@ -184,6 +184,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-35b7: Fediverse Servers, Instances, and Tenants](./fep/35b7/fep-35b7.md) | `DRAFT` | [#832](https://codeberg.org/fediverse/fep/issues/832) | 2026-04-22 | - |
 | [FEP-ae49: Semantic Routing for ActivityPub](./fep/ae49/fep-ae49.md) | `DRAFT` | [#836](https://codeberg.org/fediverse/fep/issues/836) | 2026-04-24 | - |
 | [FEP-baf5: Administrator Collection](./fep/baf5/fep-baf5.md) | `DRAFT` | [#848](https://codeberg.org/fediverse/fep/issues/848) | 2026-05-22 | - |
+| [FEP-bebd: Follow Invites](./fep/bebd/fep-bebd.md) | `DRAFT` | [#854](https://codeberg.org/fediverse/fep/issues/854) | 2026-06-05 | - |
 
 ## License
 

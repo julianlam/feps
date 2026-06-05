@@ -2,8 +2,9 @@
 slug: "bebd"
 authors: MaddyUnderStars <maddyunderstars@aus.social>
 status: DRAFT
-dateReceived: 2026-04-06
 discussionsTo: https://activitypub.space/topic/28f8ab19-d074-4494-9e72-3aabdf1606ab/fep-bebd-follow-invites
+dateReceived: 2026-06-05
+trackingIssue: https://codeberg.org/fediverse/fep/issues/854
 ---
 
 # FEP-bebd: Follow Invites

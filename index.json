@@ -1361,5 +1361,15 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/848",
     "title": "Administrator Collection",
     "implementations": 0
+  },
+  {
+    "slug": "bebd",
+    "authors": "MaddyUnderStars <maddyunderstars@aus.social>",
+    "status": "DRAFT",
+    "discussionsTo": "https://activitypub.space/topic/28f8ab19-d074-4494-9e72-3aabdf1606ab/fep-bebd-follow-invites",
+    "dateReceived": "2026-06-05",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/854",
+    "title": "Follow Invites",
+    "implementations": 0
   }
 ]
