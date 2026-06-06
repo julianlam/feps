@@ -90,6 +90,8 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [badgefed](https://github.com/tryvocalcat/badgefed/blob/main/FEDERATION.md)
 - [Agora](https://github.com/flancian/agora-server/blob/main/FEDERATION.md)
 - [Ktistec](https://github.com/toddsundsted/ktistec/blob/main/FEDERATION.md)
+- [Harmony](https://github.com/y4my4my4m/harmony/blob/master/FEDERATION.md)
+- [LAUTI](https://codeberg.org/Klasse-Methode/lauti/src/branch/main/FEDERATION.md)
 
 ## References
 
