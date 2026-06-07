@@ -23,7 +23,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## Collection of posts
 
-This collection represents a [thread] and contains all posts in a conversation, from the perspective of the conversation owner.
+The items of this collection are attributed objects, such as `Note` or `Article` objects. It represents a [thread], as seen from the perspective of the conversation owner.
 
 It is an `OrderedCollection`, and the order of items is chronological. It MUST contain at least one item, the top-level post. This post MUST have a `context` property referring to the collection. Other posts might not have this property.
 
@@ -31,8 +31,8 @@ When `context` property is present on a post, it MUST resolve to a collection of
 
 There is a difference between contents of this collection and a reply tree defined by `inReplyTo` and `replies` relationships, because conversation owner might choose to not include certain replies. When a reply is deleted by its author, the sub-replies MAY remain in the thread collection.
 
->[!NOTE]
->ActivityPub [requires][ActivityPub-Collections] ordered collections to be presented in reverse chronological order. However, an [erratum][ActivityPub-Errata] was proposed to relax this requirement.
+> [!NOTE]
+> ActivityPub [requires][ActivityPub-Collections] ordered collections to be presented in reverse chronological order. However, an [erratum][ActivityPub-Errata] was proposed to relax this requirement.
 
 ## Collection of activities
 
@@ -79,6 +79,7 @@ Collection of activities:
 
 - Streams
 - Hubzilla
+- Forte
 
 ## References
 
