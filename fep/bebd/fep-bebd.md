@@ -40,6 +40,7 @@ It MUST contain the following properties:
 The document MAY contain additional properties.
 
 The InviteCode `name` MAY be user-defined. It is RECOMMENDED that the `name` is a short, alphanumeric string.
+If InviteCodes are to be dereferenceable via Webfinger as described below, the `name` MUST be able to form a valid URL.
 
 As InviteCodes can be dereferenced via Webfinger, they MUST be unique per instance.
 
@@ -63,7 +64,7 @@ When an Actor receives a Follow activity containing an InviteCode:
 3. The Actor MAY impose any additional restrictions to the InviteCodes use
 4. If the InviteCode has been deemed valid, an Accept activity is automatically sent for the Follow as would be normal for an Actor not gated by an InviteCode.
 
-If the InviteCode is not valid, a Reject activity MUST be sent.
+If the InviteCode is not valid, a Reject activity SHOULD be sent.
 
 #### Example Restrictions
 
@@ -88,7 +89,7 @@ When an Add, Update, or Remove activity is received by an Actor from an unauthor
 
 ### `invites` Collection
 
-Actors that accept InviteCodes MAY include an `invites` field that resolves to a Collection containing valid InviteCodes for this Actor.
+Actors that accept InviteCodes SHOULD include an `invites` field that resolves to a Collection containing valid InviteCodes for this Actor.
 If present, the `invites` Collection MUST be private and only accessible to authorised Actors.
 
 ## InviteCode Dereferencing via Webfinger
