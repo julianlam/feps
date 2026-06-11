@@ -1371,5 +1371,16 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/854",
     "title": "Follow Invites",
     "implementations": 0
+  },
+  {
+    "slug": "5219",
+    "authors": "silverpill <@silverpill@mitra.social>",
+    "type": "implementation",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
+    "dateReceived": "2026-06-11",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/860",
+    "title": "Groups and permissions",
+    "implementations": 0
   }
 ]
