@@ -186,6 +186,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-baf5: Administrator Collection](./fep/baf5/fep-baf5.md) | `DRAFT` | [#848](https://codeberg.org/fediverse/fep/issues/848) | 2026-05-22 | - |
 | [FEP-bebd: Follow Invites](./fep/bebd/fep-bebd.md) | `DRAFT` | [#854](https://codeberg.org/fediverse/fep/issues/854) | 2026-06-05 | - |
 | [FEP-5219: Groups and permissions](./fep/5219/fep-5219.md) | `DRAFT` | [#860](https://codeberg.org/fediverse/fep/issues/860) | 2026-06-11 | - |
+| [FEP-7aa9: Featuring recommendations using a dedicated collection](./fep/7aa9/fep-7aa9.md) | `DRAFT` | [#862](https://codeberg.org/fediverse/fep/issues/862) | 2026-06-12 | - |
 
 ## License
 

@@ -1382,5 +1382,15 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/860",
     "title": "Groups and permissions",
     "implementations": 0
+  },
+  {
+    "slug": "7aa9",
+    "authors": "David Roetzel <david@joinmastodon.org>",
+    "status": "DRAFT",
+    "discussionsTo": "https://github.com/mastodon/featured_collections/pull/1",
+    "dateReceived": "2026-06-12",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/862",
+    "title": "Featuring recommendations using a dedicated collection",
+    "implementations": 0
   }
 ]
