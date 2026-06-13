@@ -733,6 +733,21 @@ To avoid a potential security vulnerability when handling `on-success` and `on-c
 
 There is another good description of this issue [OAuth 2.0 Security Best Current Practice § 4.11. Open Redirection](https://www.ietf.org/archive/id/draft-ietf-oauth-security-topics-27.html#name-open-redirection)
 
+### 6.3 Malicious Template Strings
+When generating redirect URLs from Activity Intent template strings, remote clients MUST apply the following validations to the generated URL before allowing users to use that Activity Intent. 
+
+If the generated URL fails any of the tests below, the client MUST erase the result and treat the result as if no template URL was provided for that Activity Intent.  This prevents malicious servers from accessing data on the user's local machine or local network.
+
+#### 6.3.1. HTTPS Only
+URLs MUST use HTTPS protocol, i.e. URLs MUST begin with the string `https://`.  All other protocols MUST be rejected.
+
+If a URL fails any of this test, the client MUST treat it as if no template URL was provided by the server. This prevents a malicious server from using Activity Intents to execute code (via a `javascript:` protocol), access data from the user's local machine (via the `file://` protocol), an unsecured device (via the `http://` protocol), or another unexpected resource.
+
+#### 6.3.2. Public Network Only
+URLs MUST point to a public-facing server location, i.e. URLs MUST NOT allow local network addresses.  This includes private IPv4 network addresses, private IPv6 network addresses, loopback addresses, localhost, and \*local domains.
+
+If a URL fails this test, the client MUST treat it as if no template URL was provided by the server. This prevents malicious home servers from using Activity Intents to access data on a user's local machine (via `localhost` and loopback addresses) or using the user as a proxy into their local network (via  `192.168.X.X` and similar local network addresses).
+
 ## 7.0. Remote Servers: The Rest of the Equation
 This FEP provides the prerequisite information required for a "Home Server" publish Activity Intents for its Actors.  It does not specify how "Remote Servers" will use this information - i.e., how they implement "share" and "like" buttons in their content.
 
@@ -801,6 +816,7 @@ Applications that use Activity Intents to create interactive links and buttons t
 * [IEFT RFC-6570](https://datatracker.ietf.org/doc/html/rfc6570) - URI Template
 * [Unvalidated Redirects and Forwards Cheat Sheet - owasp.org](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html#preventing-unvalidated-redirects-and-forwards))
 * [OAuth 2.0 Security Best Current Practice](https://www.ietf.org/archive/id/draft-ietf-oauth-security-topics-27.html)
+* [Wikipedia: Private Network](https://en.wikipedia.org/wiki/Private_network)
 
 ## Copyright
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
