@@ -182,7 +182,7 @@ Actors not specifically mentioned or included in one of the collections are neve
 
 The absence of an `interactionPolicy` MUST be treated as missing consent and the affected actors MUST NOT be added to featured collections ever.
 
-To make a policy of never wanting to be featured explicit, `interactionPolicy.canQuote.automaticApproval` SHOULD contain the actor's `id` as its single value. This is because an empty array is equivalent to a missing property under JSON-LD canonicalization. 
+To make a policy of never wanting to be featured explicit, `interactionPolicy.canFeature.automaticApproval` SHOULD contain the actor's `id` as its single value. This is because an empty array is equivalent to a missing property under JSON-LD canonicalization.
 
 In any case this general policy is just that, a general policy, and MUST NOT be confused with actual consent. This means that one can use this policy to determine which actors may be added to featured collections, but one always has to check if the approval for a specific featured collection was really given. See the next section for details.
 
