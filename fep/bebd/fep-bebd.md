@@ -46,7 +46,7 @@ As InviteCodes can be dereferenced via Webfinger, they MUST be unique per instan
 
 ### Follow Activities using an InviteCode
 
-A Follow activity MAY include the ID of an InviteCode OR its Webfinger mention in the `instrument` field.
+A Follow activity MAY include the ID of an InviteCode in the `instrument` field.
 
 ```json
 {
@@ -54,7 +54,7 @@ A Follow activity MAY include the ID of an InviteCode OR its Webfinger mention i
 	"type": "Follow",
 	"actor": "https://example.com/myActor",
 	"object": "https://remote.example/remoteActor",
-	"instrument": "ABCDE@remote.example",
+	"instrument": "https://remote.example/remoteInvite",
 }
 ```
 
