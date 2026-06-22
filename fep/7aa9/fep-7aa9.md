@@ -109,7 +109,6 @@ Example featured collection:
       "id": "https://fedi.example.com/users/alice/featured/23/items/1",
       "type": "FeaturedItem",
       "featuredObject": "https://fedi.example.com/users/jennifer",
-      "featuredObjectType": "Person",
       "featureAuthorization": "https://fedi.example.com/users/jennifer/stamps/12",
       "published": "2025-08-14T12:13:22Z"
     },
@@ -117,7 +116,6 @@ Example featured collection:
       "id": "https://fedi.example.com/users/alice/featured/23/items/2",
       "type": "FeaturedItem",
       "featuredObject": "https://other.example.com/users/jim",
-      "featuredObjectType": "Person",
       "featureAuthorization": "https://other.example.com/users/jim/stamps/21",
       "published": "2025-08-14T12:14:51Z"
     }
@@ -260,7 +258,6 @@ Example `FeaturedItem` resulting from the `Accept` above:
   "id": "https://fedi.example.com/users/alice/featured/23/items/2",
   "type": "FeaturedItem",
   "object": "https://other.example.com/users/bob",
-  "featuredObjectType": "Person",
   "featureAuthorization": "https://other.example.com/users/bob/stamps/1024",
   "published": "2025-08-14T12:13:22Z"
 }
