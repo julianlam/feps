@@ -57,9 +57,8 @@ def clean_markdown(text: str) -> str:
     """Transforms markdown to a plain text string. To be used in the frontmatter"""
     transformed = nh3.clean(markdown(text), tags=set())
     transformed = re.sub(r"\[(.+?)\]\[(.+?)\]", r"\1", transformed)
-    transformed = transformed.replace(
-        ":", " "
-    )  # See https://codeberg.org/fediverse/fep/pulls/673/files#issuecomment-7514311
+    # Escape double quotes (FEP-db0e, FEP-7b29)
+    transformed = transformed.replace('"', '\\"')
     return transformed.replace("\n", " ")
 
 
