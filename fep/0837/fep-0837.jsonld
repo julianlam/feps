@@ -19,6 +19,18 @@
     "satisfies": "vf:satisfies",
     "stipulates": "vf:stipulates",
     "stipulatesReciprocal": "vf:stipulatesReciprocal",
-    "unitBased": "vf:unitBased"
+    "unitBased": "vf:unitBased",
+    "OfferAgreement": {
+      "@id": "https://w3id.org/fep/0837/OfferAgreement",
+      "@type": "@id"
+    },
+    "AcceptAgreement": {
+      "@id": "https://w3id.org/fep/0837/AcceptAgreement",
+      "@type": "@id"
+    },
+    "RejectAgreement": {
+      "@id": "https://w3id.org/fep/0837/RejectAgreement",
+      "@type": "@id"
+    }
   }
 }
