@@ -1,3 +1,4 @@
+import html
 import re
 import shutil
 from pathlib import Path
@@ -57,8 +58,8 @@ def clean_markdown(text: str) -> str:
     """Transforms markdown to a plain text string. To be used in the frontmatter"""
     transformed = nh3.clean(markdown(text), tags=set())
     transformed = re.sub(r"\[(.+?)\]\[(.+?)\]", r"\1", transformed)
-    # Escape double quotes (FEP-db0e, FEP-7b29)
-    transformed = transformed.replace('"', '\\"')
+    # Escape HTML special characters (FEP-db0e, FEP-7b29)
+    transformed = html.escape(transformed)
     return transformed.replace("\n", " ")
 
 
