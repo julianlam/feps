@@ -187,6 +187,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-bebd: Follow Invites](./fep/bebd/fep-bebd.md) | `DRAFT` | [#854](https://codeberg.org/fediverse/fep/issues/854) | 2026-06-05 | - |
 | [FEP-5219: Groups and permissions](./fep/5219/fep-5219.md) | `DRAFT` | [#860](https://codeberg.org/fediverse/fep/issues/860) | 2026-06-11 | - |
 | [FEP-7aa9: Featuring recommendations using a dedicated collection](./fep/7aa9/fep-7aa9.md) | `DRAFT` | [#862](https://codeberg.org/fediverse/fep/issues/862) | 2026-06-12 | - |
+| [FEP-8c13: Context-Authority Routing with Object Integrity Proofs for Restricted Threads](./fep/8c13/fep-8c13.md) | `DRAFT` | [#870](https://codeberg.org/fediverse/fep/issues/870) | 2026-06-27 | - |
 
 ## License
 

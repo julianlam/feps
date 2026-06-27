@@ -2,9 +2,10 @@
 slug: "8c13"
 authors: Dmitry Skavish <skavish@gmail.com>
 status: DRAFT
-dateReceived: 2026-01-16
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-8c13-context-authority-routing-with-object-integrity-proofs-for-restricted-threads/8446
 relatedFeps: FEP-7888, FEP-8b32, FEP-1b12, FEP-171b
+dateReceived: 2026-06-27
+trackingIssue: https://codeberg.org/fediverse/fep/issues/870
 ---
 
 # FEP-8c13: Context-Authority Routing with Object Integrity Proofs for Restricted Threads
