@@ -1,7 +1,7 @@
 Feature: FEP-8b32: Object Integrity Proofs
 
     @fep-8b32
-    Scenario: Signing document
+    Scenario: Signing a document
         Given document
             """
             {
@@ -27,8 +27,17 @@ Feature: FEP-8b32: Object Integrity Proofs
             """
         And Ed25519 secret key "z3u2en7t5LR2WtQH5PfFqMqwVHBeXouLzo6haApm8XHqvjxq"
         And current time "2023-02-24T23:36:38Z"
-        When Signing the document for key "https://server.example/users/alice#ed25519-key"
-        Then The signed document is
+        When signing the document for key "https://server.example/users/alice#ed25519-key"
+        Then the canonicalized document is
+            """
+            {"@context":["https://www.w3.org/ns/activitystreams","https://w3id.org/security/data-integrity/v2"],"actor":"https://server.example/users/alice","id":"https://server.example/activities/1","object":{"attributedTo":"https://server.example/users/alice","content":"Hello world","id":"https://server.example/objects/1","location":{"latitude":25.273962,"longitude":-71.184902,"type":"Place"},"type":"Note"},"type":"Create"}
+            """
+        Then the canonicalized proof configuration is
+            """
+            {"@context":["https://www.w3.org/ns/activitystreams","https://w3id.org/security/data-integrity/v2"],"created":"2023-02-24T23:36:38Z","cryptosuite":"eddsa-jcs-2022","proofPurpose":"assertionMethod","type":"DataIntegrityProof","verificationMethod":"https://server.example/users/alice#ed25519-key"}
+            """
+        Then the combined hash is "cf63e2308ce7d1137667192c5c5e751ba7b1c6e3d5e746a7b717d309654ad1980793e8d97e2de4b989b2b2d7a5fae8cf941f102a03c0ecab00f03eaa2330c650"
+        Then the signed document is
             """
             {
                 "@context": [
@@ -66,7 +75,7 @@ Feature: FEP-8b32: Object Integrity Proofs
 
     @fep-8b32
     Scenario: Verifying a signature
-        Given The signed document is
+        Given the signed document is
             """
             {
                 "@context": [
@@ -101,7 +110,7 @@ Feature: FEP-8b32: Object Integrity Proofs
                 }
             }
             """
-        And The actor
+        And the actor
             """
             {
                 "@context": [

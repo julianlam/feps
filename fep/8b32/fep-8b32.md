@@ -53,7 +53,9 @@ Objects SHOULD NOT contain more than one integrity proof.
 
 ### Proof verification
 
-Recipients of an object SHOULD perform proof verification if it contains integrity proofs. Verification process MUST follow the *Data Integrity* specification, section [4.4 Verify Proof][DI-VerifyProof]. It starts with the removal of the `proof` value from the JSON object. Then verification method is retrieved from the controlled identifier document as described in *Controlled Identifiers* specification, section [3.3 Retrieve Verification Method][CI-RetrieveMethod]. Then the object is canonicalized, hashed and signature verification is performed according to the parameters specified in the proof.
+Recipients of an object SHOULD perform proof verification if it contains integrity proofs.
+
+Verification process MUST follow the *Data Integrity* specification, section [4.4 Verify Proof][DI-VerifyProof]. It starts with the removal of the `proof` value from the JSON object. Then verification method is retrieved from the controlled identifier document as described in *Controlled Identifiers* specification, section [3.3 Retrieve Verification Method][CI-RetrieveMethod]. Then the object is canonicalized, hashed and signature verification is performed according to the parameters specified in the proof.
 
 The subject of the controlled identifier document where the verification method is expressed MUST be the [owner][FEP-fe34-Owner] of the signed object, or a [DID][DIDs] that is provably associated with that actor (e.g. using a mechanism described in [FEP-c390] or [FEP-ef61]).
 
@@ -75,7 +77,7 @@ Implementers are expected to pursue broad interoperability when choosing algorit
 
 Integrity proofs and linked data signatures can be used together, as they rely on different properties (`proof` and `signature`, respectively).
 
-If compatiblity with legacy systems is desired, the integrity proof MUST be created and inserted before the generation of the linked data signature.
+If compatibility with legacy systems is desired, the integrity proof MUST be created and inserted before the generation of the linked data signature.
 
 If both `proof` and `signature` are present in a received object, the linked data signature MUST be removed before the verification of the integrity proof.
 
