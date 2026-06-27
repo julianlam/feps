@@ -37,7 +37,7 @@ def test_format_metatable():
         ("[link](http://test.example)", "link"),
         ("[link][link]", "link"),
         ("[a][a] [b][b]", "a b"),
-        ('a "b"', r'a \"b\"'),
+        ('a "b"', r'a &quot;b&quot;'),
     ],
 )
 def test_clean_markdown(text: str, expected: str):
