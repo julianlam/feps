@@ -52,7 +52,7 @@ ap://did:example:abcdef/path/to/object?name=value#fragment-id
 scheme   authority           path        query     fragment
 ```
 
-- The URI scheme MUST be `ap`.
+- The URI scheme MUST be either `ap` or `ap+ef61`. The `ap` scheme is RECOMMENDED.
 - The authority component MUST be a valid [DID]. Colons and other reserved characters MAY be [percent-encoded][RFC-3986-PercentEncoding].
 - The path is REQUIRED. It MUST be treated as an opaque string.
 - The query is OPTIONAL. To avoid future conflicts, implementers SHOULD NOT use parameter names that are not defined in this proposal.
@@ -61,11 +61,11 @@ scheme   authority           path        query     fragment
 > [!WARNING]
 > An 'ap' URI is not a valid [RFC-3986] URI if reserved characters in the authority component are not percent-encoded. Nevertheless, this form is considered canonical.
 
+> [!WARNING]
+> The recommended URI scheme might be changed to `ap+ef61` in a future version of this document, because these identifiers are not intended to be used for all ActivityPub objects, but only for portable ones.
+
 >[!NOTE]
 >ActivityPub specification [requires][ActivityPub-ObjectIdentifiers] identifiers to have an authority "belonging to that of their originating server". The authority of 'ap' URI is a DID, which does not belong to any particular server.
-
->[!WARNING]
->The URI scheme might be changed to `ap+ef61` in a future version of this document, because these identifiers are not intended to be used for all ActivityPub objects, but only for portable ones.
 
 ### Comparing 'ap' URIs
 
@@ -74,6 +74,7 @@ Two 'ap' URIs are equivalent when their canonical forms are identical.
 To produce a canonical 'ap' URI, the following operations MUST be performed:
 
 - If the URI is a [compatible identifier](#compatible-ids), convert it into an 'ap' URI.
+- If the scheme component is `ap+ef61`, replace it with `ap`.
 - If the authority component is percent-encoded, decode it.
 - Remove query component.
 
@@ -164,7 +165,7 @@ The origin of a [DID URL][DID-URL] is identical to its `did` component.
 
 Actors, activities and objects identified by 'ap' URIs MUST contain [FEP-8b32] integrity proofs. Collections identified by 'ap' URIs MAY contain integrity proofs. If collection doesn't contain an integrity proof, [another authentication method](#collections) MUST be used.
 
-The value of `verificationMethod` property of the proof MUST be a [DID URL][DID-URL] where the DID matches the authority component of the 'ap' URI.
+The value of `verificationMethod` property of the proof MUST be a [DID URL][DID-URL] where the DID matches the authority component of the object's canonical identifier.
 
 >[!NOTE]
 >This document uses terms "actor", "activity", "collection" and "object" according to the classification given in [FEP-2277].
@@ -207,7 +208,7 @@ Example:
 
 ### Location hints
 
-When ActivityPub object containing a reference to another actor is being constructed, implementations SHOULD provide a list of gateways where specified actor object can be retrieved. This list MAY be provided using the `gateways` query parameter. Each gateway address MUST be URI-endcoded, and if multiple addresses are present they MUST be separated by commas.
+When ActivityPub object containing a reference to another actor is being constructed, implementations SHOULD provide a list of gateways where specified actor object can be retrieved. This list MAY be provided using the `gateways` query parameter. Each gateway address MUST be URI-encoded, and if multiple addresses are present they MUST be separated by commas.
 
 Example:
 
@@ -249,7 +250,7 @@ Upon receiving an activity in actor's outbox, the server SHOULD forward it to ou
 
 Collections identified by 'ap' URIs (including inbox and outbox collections) MAY be served without [FEP-8b32] integrity proofs. Consuming implementations MUST NOT process unsecured collections attributed to a portable actor if they were retrieved from a server that is not listed in the `gateways` array of the actor document.
 
-Portable collections can be filtered and paginated in a same way as non-portable collections. A gateway MUST remove the integrity proof when generating a view of a collection created by a [FEP-ae97] client.
+Portable collections can be filtered and paginated in a same way as non-portable [collections][FEP-9f9f]. A gateway MUST remove the integrity proof when generating a view of a collection created by a [FEP-ae97] client.
 
 ## Media
 
@@ -295,6 +296,9 @@ Publishers MUST NOT add the `gateways` query parameter to object IDs if compatib
 
 When HTTP signatures are necessary for communicating with other servers, each gateway that makes requests on behalf of an actor SHOULD use a separate secret key. The corresponding public keys MUST be added to actor document using the `assertionMethod` property as described in [FEP-521a].
 
+> [!WARNING]
+> If compatible identifiers are used, objects served by the same gateway will appear to have the same origin to implementations that do not support 'ap' URIs.
+
 ### WebFinger addresses
 
 WebFinger address of a portable actor can be obtained by the reverse discovery algorithm described in section 2.2 of [ActivityPub and WebFinger][WebFinger] report, but instead of taking the hostname from the identifier, it MUST be taken from the first gateway in actor's `gateways` array.
@@ -334,13 +338,6 @@ The proposed approach to referencing media with hashlinks does not support acces
 
 To work around this limitation, a different kind of identifier can be used where digest is combined with the `ap://` identifier of its parent document. The gateway will not serve media unless parent document ID is provided, and will check whether request signer has permission to view the document and therefore the attached media.
 
-### Compatibility
-
-The following alternatives to gateway-based compatible IDs are being considered:
-
-1. Use regular HTTP(S) URIs but specify the canonical 'ap' URI using the `url` property (with `canonical` relation type, as proposed in [FEP-fffd][FEP-fffd]). For pointers to other objects such as `inReplyTo` property, an embedded object with `url` property can be used instead of a plain URI.
-2. Alter object ID depending on the capabilities of the peer (which can be reported by [NodeInfo][NodeInfo] or some other mechanism).
-
 ## Implementations
 
 - [Streams](https://codeberg.org/streams/streams/src/commit/6ec6780c7515a638b1ff818559af646fc8e21d94/FEDERATION.md#fediverse-feps)
@@ -364,6 +361,7 @@ The following alternatives to gateway-based compatible IDs are being considered:
 - A. Barth, [The Web Origin Concept][RFC-6454], 2011
 - Steve Bate, [FEP-ae49: Semantic Routing for ActivityPub][FEP-ae49], 2026
 - silverpill, [FEP-2277: ActivityPub core types][FEP-2277], 2025
+- silverpill, [FEP-9f9f: Collections][FEP-9f9f], 2026
 - M. Sporny, L. Rosenthol, [Cryptographic Hyperlinks][Hashlinks], 2021
 - silverpill, [FEP-521a: Representing actor's public keys][FEP-521a], 2023
 - a, Evan Prodromou, [ActivityPub and WebFinger][WebFinger], 2024
@@ -390,6 +388,7 @@ The following alternatives to gateway-based compatible IDs are being considered:
 [RFC-6454]: https://www.rfc-editor.org/rfc/rfc6454.html
 [FEP-ae49]: https://codeberg.org/fediverse/fep/src/branch/main/fep/ae49/fep-ae49.md
 [FEP-2277]: https://codeberg.org/fediverse/fep/src/branch/main/fep/2277/fep-2277.md
+[FEP-9f9f]: https://codeberg.org/fediverse/fep/src/branch/main/fep/9f9f/fep-9f9f.md
 [Hashlinks]: https://datatracker.ietf.org/doc/html/draft-sporny-hashlink-07
 [FEP-521a]: https://codeberg.org/fediverse/fep/src/branch/main/fep/521a/fep-521a.md
 [WebFinger]: https://swicg.github.io/activitypub-webfinger/
