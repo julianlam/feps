@@ -59,7 +59,7 @@ Verification process MUST follow the *Data Integrity* specification, section [4.
 
 The subject of the controlled identifier document where the verification method is expressed MUST be the [owner][FEP-fe34-Owner] of the signed object, or a [DID][DIDs] that is provably associated with that actor (e.g. using a mechanism described in [FEP-c390] or [FEP-ef61]).
 
-If a verifier encounters an integrity proof that uses a verification method or cryptosuite that it doesn't support, it SHOULD ignore the proof and try other authentication methods.
+If a verifier encounters an integrity proof that uses a verification method that it can't resolve, or uses a cryptosuite that is not supported, or the proof has expired (as indicated by the `expires` property), the verifier SHOULD ignore the proof and try other authentication methods.
 
 If both HTTP signature and integrity proof are used, the integrity proof MUST be given precedence over HTTP signature. The HTTP signature MAY be dismissed.
 
@@ -218,17 +218,25 @@ Integrity proofs can be repudiated by rotating the verification method.
 - [tootik](https://github.com/dimkr/tootik/blob/v0.19.0/FEDERATION.md#data-portability)
 - Gush! ([commit](https://codeberg.org/gush/gush/commit/98c04c8d5cb3528b01eaf6949ec76584c9798ccb))
 - [squidcity](https://code.lag.net/robey/squidcity/src/commit/485299c2306c7c3d359185728e8f9eff08cb9d90/FEDERATION.md#supported-feps)
+- Mastodon ([verification](https://github.com/mastodon/mastodon/pull/39530))
 
-## Use cases
+## Future work
+
+### Use cases
 
 - [Forwarding from inbox](https://www.w3.org/TR/activitypub/#inbox-forwarding)
 - [Conversation Containers](https://codeberg.org/streams/streams/src/commit/e3c83c46376f446013cd95f97381e8a146a09810/doc/develop/en/Containers.mc)
 - [FEP-ef61: Portable Objects](https://codeberg.org/fediverse/fep/src/branch/main/fep/ef61/fep-ef61.md)
 - [FEP-ae97: Client-side activity signing](https://codeberg.org/fediverse/fep/src/branch/main/fep/ae97/fep-ae97.md)
+- [FEP-1580: Move Actor Objects with a migration Collection](https://codeberg.org/fediverse/fep/src/branch/main/fep/1580/fep-1580.md)
+
+### Quantum-resistant cryptosuites
+
+This document recommends the [eddsa-jcs-2022] cryptosuite, which is not secure against attacks by quantum computers. At the time of writing, the cryptosuites for quantum-resistant integrity proofs are being standardized in [Quantum-Resistant Cryptosuites v1.0](https://www.w3.org/TR/2026/WD-vc-di-quantum-resistant-1.0-20260616/) specification.
 
 ## References
 
-- Christine Lemmer Webber, Jessica Tallon, [ActivityPub][ActivityPub], 2018
+- Christine Lemmer-Webber, Jessica Tallon, Erin Shepherd, Amy Guy, Evan Prodromou, [ActivityPub], 2018
 - S. Bradner, [Key words for use in RFCs to Indicate Requirement Levels][RFC-2119], 1997
 - Dave Longley, Manu Sporny, [Verifiable Credential Data Integrity 1.0][DataIntegrity], 2024
 - Manu Sporny, Dave Longley, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen, [Decentralized Identifiers (DIDs) v1.0][DIDs], 2022
