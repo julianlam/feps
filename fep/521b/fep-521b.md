@@ -2,8 +2,9 @@
 slug: "521b"
 authors: Soatok Dreamseeker <soatok.dhole@gmail.com>
 status: DRAFT
-dateReceived: 2025-11-06
 discussionsTo: https://codeberg.org/fediverse/fep/issues/710
+dateReceived: 2026-07-10
+trackingIssue: https://codeberg.org/fediverse/fep/issues/882
 ---
 
 # FEP-521b: Switch the default in FEP-521a to be 76171% cooler

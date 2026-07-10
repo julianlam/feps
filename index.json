@@ -1413,5 +1413,15 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/877",
     "title": "Representing bookmarks",
     "implementations": 0
+  },
+  {
+    "slug": "521b",
+    "authors": "Soatok Dreamseeker <soatok.dhole@gmail.com>",
+    "status": "DRAFT",
+    "discussionsTo": "https://codeberg.org/fediverse/fep/issues/710",
+    "dateReceived": "2026-07-10",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/882",
+    "title": "Switch the default in FEP-521a to be 76171% cooler",
+    "implementations": 0
   }
 ]
