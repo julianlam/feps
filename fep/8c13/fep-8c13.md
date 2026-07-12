@@ -3,7 +3,7 @@ slug: "8c13"
 authors: Dmitry Skavish <skavish@gmail.com>
 status: DRAFT
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-8c13-context-authority-routing-with-object-integrity-proofs-for-restricted-threads/8446
-relatedFeps: FEP-7888, FEP-8b32, FEP-1b12, FEP-171b
+relatedFeps: FEP-7888, FEP-f228, FEP-8b32, FEP-1b12, FEP-171b
 dateReceived: 2026-06-27
 trackingIssue: https://codeberg.org/fediverse/fep/issues/870
 ---
@@ -23,14 +23,16 @@ Because all traffic flows through one authority, every participant converges on 
 
 ### How it works, end to end
 
-1. **Every thread has a Context Object** - a dereferenceable collection (per FEP-7888) that represents the thread and
-   is hosted by the root author's server. Its URI is the `context` value carried on posts in the thread.
+1. **Every thread has a Context Object** - a dereferenceable collection of the thread's *activities* (a FEP-7888 /
+   [FEP-f228] collection of activities) hosted by the root author's server. Its URI is the `contextHistory` value
+   carried on the thread's posts. Each post also carries an ordinary `context` value referencing the thread's
+   [FEP-f228] *collection of posts*.
 2. **A sender replies normally.** They use ordinary `to`/`cc` addressing (e.g. the author and their followers) and
-   include the thread's `context`. They do **not** put the context URI in `to`/`cc`. They deliver the reply to the
+   set `contextHistory` (and `context`). They do **not** put those URIs in `to`/`cc`. They deliver the reply to the
    root author's inbox.
 3. **The Context Authority routes it.** The root author's server recognizes itself as the Context Authority for that
-   `context`, validates the reply (authorization + addressing rules + integrity), stores it in the Context Object, and
-   forwards it to everyone currently authorized.
+   `contextHistory`, validates the reply (authorization + addressing rules + integrity), stores it in the Context
+   Object, and forwards it to everyone currently authorized.
 4. **"Currently authorized" is the Thread Policy** - the `to`/`cc` of the root post as the Context Authority last
    published it. If the author later tightens or loosens visibility, the Context Authority republishes the root object
    via `Update`, and future activities are routed to the new audience.
@@ -50,9 +52,10 @@ addressing it chose, so recipients can verify the routing offline instead of tru
 
 ### Backward compatibility
 
-The `context` field and the proofs are additive: servers that don't understand them ignore them harmlessly. Such
-legacy servers can still receive forwarded replies and reply into a thread (their reply reaches the directly addressed
-author), but they cannot originate or relay integrity-protected context fan-out.
+The `contextHistory` field and the proofs are additive: servers that don't understand them ignore them harmlessly,
+while FEP-f228 servers obtain a usable thread from `context`. Such legacy servers can still receive forwarded replies and
+reply into a thread (their reply reaches the directly addressed author), but they cannot originate or relay
+integrity-protected context fan-out.
 
 ### Applicability across visibility classes
 
@@ -94,7 +97,7 @@ authority and delivery semantics.
 
 | Dimension          | FEP-8c13 (Context Authority Routing)                      | FEP-171b (Conversation Containers)                        |
 |--------------------|-----------------------------------------------------------|-----------------------------------------------------------|
-| Core mechanism     | Native activities routed via `context` field              | Owner republishes activities via `Add` wrapper            |
+| Core mechanism     | Native activities routed via `contextHistory` field       | Owner republishes activities via `Add` wrapper            |
 | Authority model    | Context Authority validates and forwards eligible replies | Conversation owner explicitly approves and commits events |
 | Commit semantics   | Rule-based inclusion (authorization + integrity)          | Explicit owner approval (`Add`)                           |
 | Wire format        | Standard ActivityPub activities                           | `Add(Activity)` wrapper required                          |
@@ -107,11 +110,16 @@ authority and delivery semantics.
 - **Context Authority**
   The server that hosts the Context Object and the thread's root object, subject to Root Authority Alignment. A valid
   Context Authority controls the Context Object URI and can authoritatively publish `Update` activities for the root
-  object. If a context IRI resolves but violates Root Authority Alignment, it is not a valid Context Object under this
-  FEP.
+  object. If a `contextHistory` IRI resolves but violates Root Authority Alignment, it is not a valid Context Object
+  under this FEP.
 - **Context Object**
-  A dereferenceable ActivityPub object (typically an `OrderedCollection`) representing a conversation thread, as defined
-  in FEP-7888 - i.e. the `context` of a post.
+  A dereferenceable `OrderedCollection` holding the stream of **Context Activities** for a thread - its
+  integrity-protected event log and the target of the `contextHistory` property (the *collection of activities* of
+  [FEP-f228]). It is the container the Context Authority ingests into, fans out from, and serves for backfill.
+- **Posts Collection**
+  The [FEP-f228] *collection of posts*: an `OrderedCollection` of a thread's attributed objects (`Note`, `Article`,
+  ...), identified by the ordinary `context` property. `context` resolves to the Posts Collection; `contextHistory`
+  resolves to the Context Object.
 - **Context Activity**
   Any ActivityStreams **activity** that participates in the thread lifecycle and is eligible for context fan-out,
   including but not limited to `Create`, `Update`, `Delete`, `Like`, `EmojiReact`, `Announce`, and `Undo`.
@@ -166,13 +174,14 @@ authority and delivery semantics.
 
 ### Context Object
 
-The `context` property of an ActivityPub object **MUST** be an IRI identifying a dereferenceable Context Object: an
-authorized `GET` returns an ActivityPub representation, while unauthorized requests **MAY** receive 401/403 under the
-access control below.
+The `contextHistory` property of an ActivityPub object **MUST** be an IRI identifying a dereferenceable Context Object
+(the thread's *collection of activities*): an authorized `GET` returns an ActivityPub representation, while unauthorized
+requests **MAY** receive 401/403 under the access control below. The ordinary `context` property separately identifies
+the [FEP-f228] *collection of posts* (see [Posts Collection](#posts-collection-fep-f228)); it is not the Context Object.
 
-The `context` property **MUST** be treated as a first-class payload reference, not an opaque identifier. The Context
-Authority **MUST** resolve it to obtain authoritative metadata about the thread; other servers **SHOULD** resolve it
-when they need backfill or authorization decisions.
+The `contextHistory` property **MUST** be treated as a first-class payload reference, not an opaque identifier. The
+Context Authority **MUST** resolve it to obtain authoritative metadata about the thread; other servers **SHOULD**
+resolve it when they need backfill or authorization decisions.
 
 The Context Object is authoritative for **thread history indexing and backfill discovery** only. **Authorization**
 ("who may receive content") is defined separately by the root object's current `to`/`cc` (the Thread Policy) plus local
@@ -180,8 +189,9 @@ policy. The Context Object does not encode membership; it indexes the thread's C
 convergence.
 
 A Context Object URI **MUST** be stable and **SHOULD** be derivable. A simple, recommended construction is
-`https://{context-authority}/contexts/{topLevelPostId}`, which allows deterministic discovery of the context given the
-root object.
+`https://{context-authority}/history/{topLevelPostId}` for the Context Object (`contextHistory`) and
+`https://{context-authority}/contexts/{topLevelPostId}` for the Posts Collection (`context`), allowing deterministic
+discovery of both given the root object.
 
 #### Root Authority Alignment (Normative)
 
@@ -202,37 +212,46 @@ Example:
 
 ```json
 {
-  "id": "https://alice.example/contexts/12345",
+  "id": "https://alice.example/history/12345",
   "type": "OrderedCollection",
   "totalItems": 5,
-  "first": "https://alice.example/contexts/12345?page=1"
+  "first": "https://alice.example/history/12345?page=1"
 }
 ```
 
 #### Collection Contents (Normative)
 
-When the context resolves to an `OrderedCollection`, that collection:
+When the `contextHistory` (Context Object) resolves to an `OrderedCollection`, that collection:
 
 - **MUST** contain the stream of **Context Activities** (activities only) that define the thread's state and history.
 - **MUST** contain activity IDs or embedded activities; bare objects **MUST NOT** appear.
 - Ordering is implementation-defined.
 
+#### Posts Collection
+
+A Context Authority **SHOULD** also expose the thread as an [FEP-f228] *collection of posts*, identified by the ordinary
+`context` property, for interoperability with servers that consume `context` as a collection of posts (Mastodon,
+NodeBB, WordPress, Discourse, Lemmy, and others). When present, this collection **MUST** be an
+`OrderedCollection` whose items are the thread's attributed objects (`Note`, `Article`, ...) rather than activities, per
+[FEP-f228], and **SHOULD** be ordered chronologically. It carries no integrity or routing semantics; all routing,
+ingestion, and fan-out operate on the Context Object identified by `contextHistory`.
+
 #### Access Control for Limited-Visibility Contexts
 
 For restricted conversations (followers-only, direct, etc.), the Context Authority **MAY** allow dereferencing of the
-Context Object and its collection pages, subject to strict access control. Authorization for such dereferencing **MUST**
-be evaluated by the Context Authority using the current Thread Policy plus local policy.
+Context Object, the Posts Collection, and their collection pages, subject to strict access control. Authorization for
+such dereferencing **MUST** be evaluated by the Context Authority using the current Thread Policy plus local policy.
 
 A Context Authority **MAY** decline remote dereferencing entirely (always returning 401/403) and rely exclusively on
 inbox delivery and forwarding for propagation, while still satisfying the dereferenceability requirement for local
 processing and authorized local actors.
 
-These access controls apply both to the Context Object itself and to any collection pages or backfill endpoints that
-enumerate its Context Activities.
+These access controls apply to the Context Object, the Posts Collection, and any collection pages or backfill endpoints
+that enumerate their contents.
 
 #### Authenticated Context Dereference (Restricted Contexts)
 
-Dereferencing a restricted Context Object **MUST** be authenticated by an actor-bound signature (authorized fetch);
+Dereferencing a restricted Context Object or Posts Collection **MUST** be authenticated by an actor-bound signature (authorized fetch);
 instance-only signatures **MUST** be rejected. Because federation trust is instance-mediated this cannot guarantee
 user-scoped enforcement - a server may proxy access to its own users - so a Context Authority **MAY** additionally
 require an actor authorized under the current Thread Policy, with logging, rate limits, and auditing. This is distinct
@@ -240,34 +259,41 @@ from the instance-actor authentication used for forwarded deliveries.
 
 ### Context Activities and Integrity Proofs
 
-When a Context Activity is ingested, its context reference **MUST** be resolved to the Context Object and associated
-with it, not with the immediate parent (`inReplyTo`) alone. Servers **MUST NOT** treat `context` as purely
-informational; it defines authoritative thread context for history and lifecycle.
+When a Context Activity is ingested, its `contextHistory` reference **MUST** be resolved to the Context Object and
+associated with it, not with the immediate parent (`inReplyTo`) alone. Servers **MUST NOT** treat `contextHistory` as
+purely informational; it defines the authoritative thread context for history and lifecycle. (The activity's `context`,
+when present, identifies only the Posts Collection.)
 
 This applies to **every** activity type that participates in the thread - `Create`, `Update`, `Delete`, `Like`,
-`EmojiReact`, `Announce`, `Undo`, etc. - not only to reply posts. Many of these (e.g. `Like`, `EmojiReact`, `Announce`)
-carry their target as an IRI in `object` rather than an embedded object; for those, `context` and the Author Proof are
-carried on the **activity** itself.
+`EmojiReact`, `Announce`, `Undo`, etc. - not only to reply posts. In all cases `contextHistory` and the Author Proof are
+carried on the **activity** itself (many activities, e.g. `Like`, `EmojiReact`, `Announce`, carry their target as an IRI
+in `object` and have no embedded object).
 
-When generating a Context Activity for an object with a resolvable context, implementations:
+When generating a Context Activity for a thread with a resolvable Context Object, implementations:
 
-- **MUST** carry `context` on the embedded **object** when the activity embeds the object as a JSON object.
-- **MUST** carry `context` on the **activity** when it does not embed an object containing `context` (including when
-  `object` is an IRI).
+- **MUST** carry `contextHistory` on the **activity**; this is the routing anchor.
+- **MUST** carry `context` on any embedded **object** (`Note`, `Article`, ...) so the post
+  joins the thread's collection of posts.
+- **SHOULD** also carry `contextHistory` on the embedded object and on the thread's top-level post.
 - **MUST** include ordinary `to`/`cc` addressing as currently deployed (e.g. Mastodon-style), regardless of whether
   context routing is desired.
-- **MUST NOT** include the Context Object URI in `to`/`cc`.
+- **MUST NOT** include the `contextHistory` or `context` URIs in `to`/`cc`.
 - For reply Notes specifically: **MUST** include `inReplyTo`.
 - **MUST** include an Author Proof on the enclosing activity when requesting context fan-out.
 
-#### Effective Context IRI (Normative)
+#### Effective Context History IRI (Normative)
 
-- If the activity's object is embedded and contains `context`, that value is the Effective Context IRI.
-- Otherwise, if the activity contains `context`, the activity's value is the Effective Context IRI.
-- If both are present and equal (string equality), that value is the Effective Context IRI.
+The routing anchor is the **`contextHistory`** value, determined as follows:
+
+- If the activity contains `contextHistory`, the activity's value is the Effective Context History IRI.
+- Otherwise, if the activity's object is embedded and contains `contextHistory`, that value is the Effective Context
+  History IRI.
+- If both are present and equal (string equality), that value is the Effective Context History IRI.
 - If both are present and differ, the activity **MUST** be rejected by the Context Authority and by recipients
   implementing this FEP.
 - If neither is present, the activity is not requesting context routing.
+
+The `context` property is **never** the routing anchor and does not participate in this determination.
 
 If both a legacy Linked Data `signature` and a Data Integrity `proof` are present, implementations **MUST** ignore the
 legacy signature for object integrity.
@@ -276,9 +302,9 @@ All Context Activities intended for context fan-out **MUST** carry a valid Autho
 
 #### JSON-LD Context and Extension Terms (Normative)
 
-`authorProof` and `forwardingProof` are not defined by the ActivityStreams 2.0 context. Activities carrying them
-**SHOULD** include an `@context` defining them, alongside the Data Integrity context from the deployment's FEP-8b32
-profile, so JSON-LD processors do not drop them:
+`authorProof`, `forwardingProof`, and `contextHistory` are not defined by the ActivityStreams 2.0 context. Activities
+carrying them **SHOULD** include an `@context` defining them, alongside the Data Integrity context from the deployment's
+FEP-8b32 profile, so JSON-LD processors do not drop them:
 
 ```json
 "@context": [
@@ -289,8 +315,7 @@ profile, so JSON-LD processors do not drop them:
 ```
 
 The `https://w3id.org/fep/8c13` term context (provisional; to be assigned on publication) defines `authorProof` and
-`forwardingProof` as `DataIntegrityProof` containers. The Data Integrity context **MUST** match the one used by the
-deployment's FEP-8b32 profile.
+`forwardingProof` as `DataIntegrityProof` containers and `contextHistory` as an `@id` reference to the Context Object. The Data Integrity context **MUST** match the one used by the deployment's FEP-8b32 profile.
 
 Because `eddsa-jcs-2022` canonicalizes the JSON document with JCS - including `@context` - signers and verifiers
 **MUST** use the same `@context`; it is part of the Author Proof signed input and is **not** among the excluded fields.
@@ -349,7 +374,7 @@ The Forwarding Proof input **MUST** be a JSON object with exactly these keys:
 - `id`: forwarded activity `id` (string)
 - `type`: forwarded activity `type` (string)
 - `actor`: forwarded activity `actor` (string IRI)
-- `context`: Effective Context IRI (string IRI)
+- `contextHistory`: Effective Context History IRI (string IRI)
 - `object`: forwarded activity object (string IRI)
 - `to`: forwarded `to` list, normalized as below
 - `cc`: forwarded `cc` list, normalized as below
@@ -396,6 +421,7 @@ The sender addresses the reply to match the Thread Policy (followers-only here).
   "id": "https://bob.example/activities/98765",
   "type": "Create",
   "actor": "https://bob.example/u/bob",
+  "contextHistory": "https://alice.example/history/12345",
   "to": ["https://alice.example/u/alice/followers"],
   "cc": ["https://alice.example/u/alice"],
   "object": {
@@ -431,6 +457,7 @@ actor.
   "id": "https://bob.example/activities/98765",
   "type": "Create",
   "actor": "https://bob.example/u/bob",
+  "contextHistory": "https://alice.example/history/12345",
   "to": ["https://alice.example/u/alice/followers"],
   "cc": ["https://alice.example/u/alice"],
   "object": {
@@ -476,7 +503,7 @@ the **activity**. The Author Proof is still computed with `to`/`cc` excluded.
   "actor": "https://bob.example/u/bob",
   "to": ["https://alice.example/u/alice/followers"],
   "cc": ["https://alice.example/u/alice"],
-  "context": "https://alice.example/contexts/12345",
+  "contextHistory": "https://alice.example/history/12345",
   "object": "https://alice.example/posts/12345",
   "authorProof": {
     "type": "DataIntegrityProof",
@@ -501,8 +528,8 @@ When constructing a Context Activity for context-audience routing, the sender:
   preserve legacy safety). Senders **MAY** narrow by addressing a strict subset (e.g. explicit actor IRIs).
 - **SHOULD**, for inherited visibility, copy the `to`/`cc` of the object being responded to (the root object for a
   direct reply to root, the immediate parent for a nested reply, the target object for a reaction) onto the new object.
-- **MUST** carry `context` on the embedded object, or on the activity when `object` is an IRI.
-- **MUST NOT** include the Context Object URI in `to`/`cc`.
+- **MUST** carry `contextHistory` on the activity, and `context` on the embedded object when the activity embeds one.
+- **MUST NOT** include the `contextHistory` or `context` URIs in `to`/`cc`.
 - **MUST** include an Author Proof (see [Author Proof Canonicalization](#author-proof-canonicalization-normative)).
 
 When requesting context routing, senders **MUST** deliver the Context Activity to the `inbox` (or
@@ -511,20 +538,20 @@ The root object's `attributedTo` actor's `inbox` is the discovery target.
 
 A receiving server treats an activity as requesting context routing only when both:
 
-- the activity carries an Effective Context IRI, and
-- the receiving server is the Context Authority for that Effective Context IRI (per Root Authority Alignment).
+- the activity carries an Effective Context History IRI, and
+- the receiving server is the Context Authority for that Effective Context History IRI (per Root Authority Alignment).
 
 This specification requires **no** capability discovery or negotiation. Routing intent is expressed solely by the
-presence of an Effective Context IRI in the payload; whether routing occurs additionally depends on the receiver being
+presence of an Effective Context History IRI in the payload; whether routing occurs additionally depends on the receiver being
 the Context Authority and on the validation requirements below.
 
-### Normative Meaning of Effective Context IRI
+### Normative Meaning of Effective Context History IRI
 
-If an activity carries an Effective Context IRI and the receiving server is the Context Authority for it, the activity
+If an activity carries an Effective Context History IRI and the receiving server is the Context Authority for it, the activity
 is requesting (a) ingestion into the thread as a Context Activity, and (b) potential forwarding to authorized
 recipients, subject to the validation and integrity requirements below.
 
-The presence of an Effective Context IRI is **necessary but not sufficient** for context routing. Eligibility is
+The presence of an Effective Context History IRI is **necessary but not sufficient** for context routing. Eligibility is
 determined exclusively by a valid Author Proof and authorization checks - never by the perceived capabilities of the
 sender's server.
 
@@ -532,7 +559,7 @@ sender's server.
 
 - Senders **MUST NOT** gate sending on capability discovery for context routing.
 - Context Authorities **MUST NOT** require recipients to advertise support before accepting context-routed activities.
-- The presence of an Effective Context IRI is the only signal of routing intent.
+- The presence of an Effective Context History IRI is the only signal of routing intent.
 
 ### Reply Visibility Rules
 
@@ -620,6 +647,7 @@ is just an `Update` to the root `to`/`cc`, after which the new actor's server ba
   "id": "https://bob.example/activities/3002",
   "type": "Create",
   "actor": "https://bob.example/u/bob",
+  "contextHistory": "https://alice.example/history/3001",
   "to": [
     "https://alice.example/u/alice",
     "https://carol.example/u/carol"
@@ -679,6 +707,7 @@ replies publicly, delivering to Alice's inbox:
   "id": "https://dave.example/activities/4004",
   "type": "Create",
   "actor": "https://dave.example/u/dave",
+  "contextHistory": "https://alice.example/history/4000",
   "to": ["https://www.w3.org/ns/activitystreams#Public"],
   "cc": [
     "https://alice.example/u/alice/followers",
@@ -710,7 +739,7 @@ replies publicly, delivering to Alice's inbox:
 
 ## Context Authority Processing
 
-When a Context Authority receives an activity whose Effective Context IRI references a local Context Object, it **MUST**
+When a Context Authority receives an activity whose Effective Context History IRI references a local Context Object, it **MUST**
 process it per the steps below. Authorization to submit and to deliver is decided by the Context Authority using the
 current Thread Policy (root `to`/`cc`) plus local rules (blocks, mutes).
 
@@ -718,7 +747,7 @@ current Thread Policy (root `to`/`cc`) plus local rules (blocks, mutes).
 
 The Context Authority **MUST**:
 
-1. Resolve the Effective Context IRI and confirm it is a Context Object controlled by a local actor (per Root Authority
+1. Resolve the Effective Context History IRI and confirm it is a Context Object controlled by a local actor (per Root Authority
    Alignment).
 2. Authenticate the sender via transport (HTTP Signatures or equivalent) and map the request to an ActivityPub actor.
 3. Check sender authorization to submit Context Activities, informed by the current Thread Policy and local policy.
@@ -753,7 +782,7 @@ Activity unless it carries a **verified** Author Proof. This is absolute and ind
 or perceived capabilities. The Context Authority **MUST** determine routing solely from the activity payload and local
 authorization policy:
 
-| Effective Context IRI | Author Proof                 | Sender Authorized | Required Behavior                                                                              |
+| Effective Context History IRI | Author Proof                 | Sender Authorized | Required Behavior                                                                              |
 |-----------------------|------------------------------|-------------------|-----------------------------------------------------------------------------------------------|
 | No                    | Any                          | Any               | Treat as ordinary ActivityPub delivery                                                        |
 | Yes                   | Absent                       | Any               | MAY deliver to directly addressed local recipients; **MUST NOT** ingest; **MUST NOT** forward |
@@ -766,7 +795,9 @@ No additional server capability checks or negotiations are permitted or required
 ### Ingestion
 
 For Context Activities from authorized senders with a verified Author Proof, the Context Authority **MUST** persist the
-activity/object and **MUST** add the activity ID to the Context Object's collection.
+activity/object and **MUST** add the activity ID to the Context Object's collection (`contextHistory`). When the
+activity creates or updates a post, the Context Authority **SHOULD** also reflect that post in the Posts
+Collection (`context`).
 
 Activities lacking a valid Author Proof **MAY** be delivered to directly addressed local recipients (subject to local
 policy) but **MUST NOT** be added to the Context Object's collection and are ineligible for context-audience routing.
@@ -897,6 +928,10 @@ current Thread Policy for a context and has learned one or more Context Object U
 3. It **SHOULD** fetch and ingest referenced Context Activities (replies, reactions, updates, deletes, etc.), subject
    to local retention policy and resource limits.
 
+Consistent with [FEP-f228], a server backfilling a thread **SHOULD** prefer `contextHistory`, **MAY** fall back to `context` 
+when it only needs the posts, and **MAY** fall back to recursive `replies` traversal when neither is
+available.
+
 **Fallback (normative):** If the Context Authority does not permit remote dereferencing, or dereferencing fails due to
 authorization or network constraints, the server **MUST** treat backfill as unavailable and rely solely on delivered
 activities. Full history convergence is then not guaranteed.
@@ -907,14 +942,15 @@ first") backfill to reduce amplification risk and allow partial convergence unde
 #### Example: Mid-Thread Follow
 
 Alice creates a followers-only thread. Bob follows Alice after 5 Context Activities already exist. Bob's server performs
-`GET https://alice.example/contexts/12345`, receives an `OrderedCollection` with 5 items, and backfills all 5 (including
+`GET https://alice.example/history/12345`, receives an `OrderedCollection` with 5 items, and backfills all 5 (including
 non-reply events such as reactions or edits) to present a complete conversation view.
 
 ### Context Retention and Deletion (Normative)
 
 If a server reasonably determines (from locally observable state) that it no longer hosts **any** actor authorized under
 the current Thread Policy for a Context Object, it **SHOULD** delete its entire local copy of that context - the Context
-Object and all Context Activities associated exclusively with it - subject to local policy and legal/operational
+Object, the Posts Collection, and all Context Activities associated exclusively with it - subject to local policy and
+legal/operational
 constraints. Implementations **SHOULD** apply a grace period to avoid thrash from transient authorization changes.
 
 This prevents indefinite retention of private or restricted conversations by unrelated servers.
@@ -922,30 +958,34 @@ This prevents indefinite retention of private or restricted conversations by unr
 #### Example: Audience Exhaustion
 
 Bob and Carol both unfollow Alice; no local actors remain in Alice's Context Audience. Bob's server **SHOULD** delete
-`https://alice.example/contexts/12345` and all Context Activities belonging solely to that context. If Bob later
-re-follows Alice, the context is rediscovered and backfilled per the previous section.
+`https://alice.example/history/12345` (and the Posts Collection `https://alice.example/contexts/12345`) and all Context
+Activities belonging solely to that context. If Bob later re-follows Alice, the context is rediscovered and backfilled
+per the previous section.
 
-### Context Payload Resolution
+### Context History Resolution
 
-When resolving a `context` URI, the receiving server **MUST** resolve it to a Context Object and associate Context
-Activities with that object. The `context` **MUST NOT** be resolved to the root `Note` object, an `inReplyTo` chain, or
-a transient/inferred thread identifier. The Context Object is the **sole authoritative container** for the conversation,
-ensuring consistent backfill, authorization checks, and lifecycle management across servers.
+When resolving a `contextHistory` URI, the receiving server **MUST** resolve it to a Context Object and associate
+Context Activities with that object. The `contextHistory` **MUST NOT** be resolved to the root `Note` object, an
+`inReplyTo` chain, or a transient/inferred thread identifier. The Context Object is the **sole authoritative container**
+for the conversation's activity history, ensuring consistent backfill, authorization checks, and lifecycle management
+across servers. The `context` URI resolves separately to the Posts Collection and **MUST NOT** be treated as
+the Context Object.
 
 ### Design Note (Non-Normative)
 
 This mechanism intentionally avoids explicit capability discovery. Compliance is inferred *per activity* from payload
-semantics: an Effective Context IRI signals routing intent; a valid Author Proof signals eligibility; transport
+semantics: an Effective Context History IRI signals routing intent; a valid Author Proof signals eligibility; transport
 authentication (HTTP Signatures) is the baseline for trusting context-forwarded delivery; and an optional Forwarding
 Proof provides enhanced payload-level verification. This eliminates downgrade attacks via mixed-compliance networks and
 allows gradual adoption without coordination.
 
 ## Legacy Interoperability
 
-### Unknown `context` Field (Informative)
+### Unknown `contextHistory` Field (Informative)
 
-Legacy servers ignore the `context` field, so including it is safe: it causes no extra fetches and no effect on access
-control.
+Servers that do not implement this FEP ignore the `contextHistory` field and the proofs, so including them is safe: they
+cause no extra fetches and no effect on access control. FEP-f228 servers understand the ordinary `context` property
+and obtain a usable collection of posts from it.
 
 ### Acceptance of Legacy Objects
 
@@ -1041,6 +1081,7 @@ compliant implementations, not guaranteed erasure.
 ## References
 
 - [FEP-7888: Demystifying the context property](https://codeberg.org/fediverse/fep/src/branch/main/fep/7888/fep-7888.md)
+- [FEP-f228: Backfilling conversations](https://codeberg.org/fediverse/fep/src/branch/main/fep/f228/fep-f228.md)
 - [FEP-8b32: Object Integrity Proofs](https://codeberg.org/fediverse/fep/src/branch/main/fep/8b32/fep-8b32.md)
 - [FEP-1b12: Group Federation](https://codeberg.org/fediverse/fep/src/branch/main/fep/1b12/fep-1b12.md)
 - [FEP-171b: Conversation Containers](https://codeberg.org/fediverse/fep/src/branch/main/fep/171b/fep-171b.md)
