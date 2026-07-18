@@ -92,6 +92,8 @@ The `FEDERATION.md` file can have arbitrary structure and content. The only requ
 - [Ktistec](https://github.com/toddsundsted/ktistec/blob/main/FEDERATION.md)
 - [Harmony](https://github.com/y4my4my4m/harmony/blob/master/FEDERATION.md)
 - [LAUTI](https://codeberg.org/Klasse-Methode/lauti/src/branch/main/FEDERATION.md)
+- [Shoot](https://github.com/MaddyUnderStars/shoot/blob/main/FEDERATION.md)
+- [Betula](https://codeberg.org/bouncepaw/betula/src/branch/master/FEDERATION.md)
 
 ## References
 
