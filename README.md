@@ -190,6 +190,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-8c13: Context-Authority Routing with Object Integrity Proofs for Restricted Threads](./fep/8c13/fep-8c13.md) | `DRAFT` | [#870](https://codeberg.org/fediverse/fep/issues/870) | 2026-06-27 | - |
 | [FEP-4772: Representing bookmarks](./fep/4772/fep-4772.md) | `DRAFT` | [#877](https://codeberg.org/fediverse/fep/issues/877) | 2026-07-04 | - |
 | [FEP-521b: Switch the default in FEP-521a to be 76171% cooler](./fep/521b/fep-521b.md) | `DRAFT` | [#882](https://codeberg.org/fediverse/fep/issues/882) | 2026-07-10 | - |
+| [FEP-de8d: Emoji Catalogs](./fep/de8d/fep-de8d.md) | `DRAFT` | [#891](https://codeberg.org/fediverse/fep/issues/891) | 2026-07-19 | - |
 
 ## License
 

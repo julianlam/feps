@@ -1423,5 +1423,15 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/882",
     "title": "Switch the default in FEP-521a to be 76171% cooler",
     "implementations": 0
+  },
+  {
+    "slug": "de8d",
+    "authors": "Reese Armstrong <me@reeseric.ci>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-de8d-emoji-catalogs/8825",
+    "dateReceived": "2026-07-19",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/891",
+    "title": "Emoji Catalogs",
+    "implementations": 0
   }
 ]

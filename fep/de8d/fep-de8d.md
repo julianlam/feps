@@ -2,8 +2,9 @@
 slug: "de8d"
 authors: Reese Armstrong <me@reeseric.ci>
 status: DRAFT
-dateReceived: 2026-07-19
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-de8d-emoji-catalogs/8825
+dateReceived: 2026-07-19
+trackingIssue: https://codeberg.org/fediverse/fep/issues/891
 ---
 
 # FEP-de8d: Emoji Catalogs
