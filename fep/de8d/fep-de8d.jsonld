@@ -1,0 +1,9 @@
+{
+  "@context": {
+    "emojiCatalog": {
+      "@id": "https://w3id.org/fep/de8d#emojiCatalog",
+      "@type": "@id"
+    },
+    "emojiCategory": "https://w3id.org/fep/de8d#emojiCategory"
+  }
+}
