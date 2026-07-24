@@ -570,23 +570,34 @@ determined by comparing its Effective Addressing against the root object's curre
 > reactions, edits, deletes, etc.).
 
 **Inherited ("follow-post") addressing:** Effective Addressing exactly equal (set-equality, order-insensitive) to the
-root object's current `to`/`cc`. This signals "same visibility as thread."
+root object's current `to`/`cc`. This signals "same visibility as thread." Inherited activities are forwarded with the
+Thread Policy addressing.
 
 **Narrowed addressing:** An activity **MAY** narrow visibility using any addressing forms permitted by ActivityPub
-(individual actor IRIs and/or collections), provided the resulting Effective Addressing is not more permissive than the
-current Thread Policy and is a subset of the Authorized Recipient Set under the current Thread Policy and local policy.
+(individual actor IRIs and/or collections), provided every entry of its Effective Addressing is authorized under the
+current Thread Policy and local policy.
 
-The Context Authority **MUST** evaluate whether the narrowed Effective Addressing is a subset of the Authorized
-Recipient Set, including membership in collections it controls (e.g. followers). If it cannot determine subset safety
-(e.g. unknown external collection semantics), it **MUST** treat the activity as more permissive and **MUST** reject it
-for context routing.
+**Address Filtering:** The Context Authority **MUST** compute the **filtered addressing** of every Context Activity:
+the Effective Addressing with every entry removed that the Context Authority cannot verify as authorized under the
+current Thread Policy and local policy. Verification uses locally available state for collections the Context Authority
+controls (e.g. followers) and string-level comparison against the Thread Policy for all other entries; entries whose
+authorization cannot be established (e.g. collections with unknown semantics, or the public sentinel when the Thread
+Policy does not include it) **MUST** be removed.
 
-For narrowed activities, the Context Authority **MUST** preserve the sender's narrowed Effective Addressing when
-forwarding, except to remove recipients no longer authorized under the current Thread Policy and local policy. It
-**MUST NOT** widen a narrowed activity to the full Thread Policy.
+- If the filtered addressing is empty, the activity **MUST** be rejected for context routing: the Context Authority
+  cannot establish any authorized audience the sender intended, and substituting the Thread Policy could deliver a
+  deliberately narrowed activity (e.g. one addressed only to a since-removed member) to recipients its author never
+  chose.
+- If the filtered addressing is non-empty, the activity **MUST** be forwarded with the filtered addressing. Filtering
+  keeps the thread convergent when a sender composes addressing against a stale copy of the root object (for example,
+  after the Thread Policy was tightened), while never delivering more broadly than the current Thread Policy permits.
 
-**Prohibited addressing:** An activity **MUST NOT** be more permissive than the Thread Policy. Violations **MUST** be
-rejected by the Context Authority.
+The forwarded addressing **MUST NOT** contain any entry absent from the sender's Effective Addressing (no widening) and
+**MUST NOT** be more permissive than the current Thread Policy. A Context Authority **MAY** additionally reject an
+activity by local policy (for example, one whose Effective Addressing includes the public sentinel in a direct thread).
+Filtering, not rejection, is the interoperable default for over-broad addressing: rejection does not prevent the
+sender's own server from delivering the activity to the addressed audience, it only removes the activity from the
+thread.
 
 **Recipient set equality:** Two addressing fields are equal if they contain the same IRIs as a set, ignoring order and
 duplicates. Implementations **MUST** canonicalize lists before comparison by removing duplicates and sorting
@@ -623,11 +634,13 @@ controls. The two subsections below add the rules for the direct and public clas
 ### Direct Conversations (Normative)
 
 When the Thread Policy is a set of explicit actor IRIs (a direct message or an enumerated private group), the
-Authorized Recipient Set and the Delivery Target are both that explicit actor set, so subset checks under the
-[Reply Visibility Rules](#reply-visibility-rules) are exact: a reply addressing any actor outside the set - or
-`as:Public` - is more permissive than the Thread Policy and **MUST** be rejected, which is what stops a participant from
-leaking the thread by replying broadly. Membership is changed by the root author updating the root object's `to`/`cc`,
-propagated via [Root Policy Update Propagation](#root-policy-update-propagation-normative).
+Authorized Recipient Set and the Delivery Target are both that explicit actor set, so Address Filtering under the
+[Reply Visibility Rules](#reply-visibility-rules) is exact: any actor outside the set - and `as:Public` - is removed
+from the forwarded addressing, and a reply retaining no member of the set is rejected. The Context Authority thus never
+amplifies an over-broad reply beyond the member set; whether the sender's own server delivers that reply elsewhere is
+outside the Context Authority's control, as in ordinary ActivityPub federation. Membership is changed by the root
+author updating the root object's `to`/`cc`, propagated via
+[Root Policy Update Propagation](#root-policy-update-propagation-normative).
 
 The Author Proof is the primary defense against the Context Authority fabricating a message attributed to another
 participant; recipients **MUST** reject forwarded activities whose Author Proof does not verify against the activity
@@ -751,9 +764,9 @@ The Context Authority **MUST**:
    Alignment).
 2. Authenticate the sender via transport (HTTP Signatures or equivalent) and map the request to an ActivityPub actor.
 3. Check sender authorization to submit Context Activities, informed by the current Thread Policy and local policy.
-4. Verify the activity's addressing conforms to the [Reply Visibility Rules](#reply-visibility-rules). Subset
-   evaluation **MUST** use locally available state for collections it controls (including followers) and any local
-   policy inputs.
+4. Apply Address Filtering to the activity's addressing per the [Reply Visibility Rules](#reply-visibility-rules),
+   rejecting the activity if the filtered addressing is empty. Authorization evaluation **MUST** use locally available
+   state for collections it controls (including followers) and any local policy inputs.
 5. Verify the Author Proof: canonicalize with the Author Proof exclusions, then verify against the referenced
    verification method (which **MUST** belong to the activity's `actor`). An Author Proof is **verified** iff present
    and successfully verified.
@@ -822,12 +835,11 @@ The Context Authority **MUST NOT** rewrite `to`/`cc` to enumerate individual act
 recipients.
 
 The Context Authority **MAY** rewrite `to`/`cc` to make forwarded deliveries conform to the current Thread Policy,
-including when:
+including when the Thread Policy changed since the sender last observed the root object.
 
-- the Thread Policy changed since the sender last observed the root object, or
-- the sender used older addressing that is not more permissive than the current Thread Policy.
-
-If the sender's addressing is more permissive than the current Thread Policy, the activity **MUST** be rejected.
+If the sender's Effective Addressing contains entries not authorized under the current Thread Policy, the Context
+Authority **MUST** forward the activity with its filtered addressing, or reject it if the filtered addressing is empty,
+per Address Filtering in the [Reply Visibility Rules](#reply-visibility-rules).
 
 When forwarding an embedded-object activity, rewiring **MUST** be applied consistently:
 
@@ -902,6 +914,29 @@ When the root object's addressing (`to`/`cc`) changes, the Context Authority **M
 
 Receiving servers implementing this FEP **MUST** update their stored copy of the root object upon accepting the
 `Update`, and **MUST** treat the updated addressing as the current Thread Policy for the context.
+
+### Deletion Fallback on Policy Tightening (Normative, Optional)
+
+An `Update` cannot make servers that do not implement this FEP stop displaying the root object (see
+[Visibility Changes and Retroactive Tightening](#visibility-changes-and-retroactive-tightening-informative)). When a
+Thread Policy change leaves a server with no authorized recipients, deletion is the correct end state for that server's
+copy whether or not it implements this FEP.
+
+When the root object's addressing is updated, the Context Authority **MAY** deliver a `Delete` activity for the root
+object to each known server that previously received the root object but hosts no actor authorized under the current
+Thread Policy. For servers implementing this FEP, the `Delete` is an explicit trigger for the purge described in
+[Context Retention and Deletion](#context-retention-and-deletion-normative); for other servers, it is the only signal
+that removes the object from display.
+
+The Context Authority **MUST NOT** deliver such a `Delete` to a server that hosts at least one actor authorized under
+the current Thread Policy.
+
+This mechanism is best-effort. The set of servers holding a copy is approximated from the Context Authority's delivery
+and interaction records; for threads whose Thread Policy previously included `as:Public`, copies obtained through
+relays, third-party announces, or ad-hoc fetches may reside on servers unknown to the Context Authority. After the
+policy change, the access controls of
+[Access Control for Limited-Visibility Contexts](#access-control-for-limited-visibility-contexts) prevent unauthorized
+re-fetching of the root object, so such copies cannot be refreshed.
 
 ### Thread Visibility Re-evaluation (Normative)
 
@@ -1071,9 +1106,19 @@ Updating the root object's addressing lets compliant implementations retroactive
 stored thread items for local users no longer authorized under the updated Thread Policy. This provides no guarantee of
 content recall across the federation:
 
-- Servers that do not implement this FEP may continue to display previously delivered content.
+- Servers that do not implement this FEP may continue to display previously delivered content. In particular, several
+  widely deployed implementations treat an object's visibility as immutable after first receipt and discard the
+  addressing carried by an `Update` while applying its content changes. On such servers the root object remains
+  displayed at its original visibility indefinitely, and content edits published after a tightening continue to reach
+  the original, broader audience there.
 - Users may have copied or screenshotted content before the change.
-- The Context Authority cannot force remote servers to delete or hide content.
+- The Context Authority cannot force remote servers to delete or hide content; the
+  [Deletion Fallback on Policy Tightening](#deletion-fallback-on-policy-tightening-normative-optional) removes the
+  root object only from servers that host no authorized recipients.
+
+Tightening is therefore reliable only across servers implementing this FEP. Implementations acting as Context Authority
+SHOULD surface this limitation to users when a visibility change is privacy-motivated (for example, by offering
+delete-and-repost as an alternative).
 
 This limitation is inherent to federated systems: the policy update mechanism provides best-effort restriction for
 compliant implementations, not guaranteed erasure.
