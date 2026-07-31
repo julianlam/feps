@@ -106,7 +106,7 @@ Example of a portable object:
   ],
   "type": "Note",
   "id": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/objects/dc505858-08ec-4a80-81dd-e6670fd8c55f",
-  "attributedTo": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?gateways=https%3A%2F%2Fserver1.example,https%3A%2F%2Fserver2.example",
+  "attributedTo": "ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?@gateway=https%3A%2F%2Fserver1.example&@gateway=https%3A%2F%2Fserver2.example",
   "inReplyTo": "ap://did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK/objects/f66a006b-fe66-4ca6-9a4c-b292e33712ec",
   "content": "Hello!",
   "attachment": [
@@ -218,12 +218,12 @@ Example:
 
 ### Location hints
 
-When ActivityPub object containing a reference to another actor is being constructed, implementations SHOULD provide a list of gateways where specified actor object can be retrieved. This list MAY be provided using the `gateways` query parameter. Each gateway address MUST be URI-encoded, and if multiple addresses are present they MUST be separated by commas.
+When ActivityPub object containing a reference to another actor is being constructed, implementations SHOULD provide a list of gateways where the specified actor object can be retrieved. Each gateway address MUST be URI-encoded and combined with the `@gateway` query parameter. The resulting pair MUST be appended to the query component of an URI.
 
 Example:
 
 ```
-ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?gateways=https%3A%2F%2Fserver1.example,https%3A%2F%2Fserver2.example
+ap://did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k1pZZ6pvBQ7XJPt4swbTQ2/actor?@gateway=https%3A%2F%2Fserver1.example&@gateway=https%3A%2F%2Fserver2.example
 ```
 
 This URI indicates that object can be retrieved from two gateways:
@@ -302,7 +302,7 @@ https://social.example/.well-known/apgateway/did:key:z6MkrJVnaZkeFzdQyMZu1cgjg7k
 
 Publishers MUST use the first gateway from actor's `gateways` list when constructing compatible identifiers. Consuming implementations that support 'ap' URIs MUST remove the part of the URI preceding `did:` and re-construct the canonical identifier. Objects with the same canonical identifier, but located on different gateways MUST be treated as different instances of the same object.
 
-Publishers MUST NOT add the `gateways` query parameter to object IDs if compatible identifiers are used.
+Publishers MUST NOT add `@gateway` query parameters to object IDs if compatible identifiers are used.
 
 When HTTP signatures are necessary for communicating with other servers, each gateway that makes requests on behalf of an actor SHOULD use a separate secret key. The corresponding public keys MUST be added to actor document using the `assertionMethod` property as described in [FEP-521a].
 
