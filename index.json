@@ -1433,5 +1433,15 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/891",
     "title": "Emoji Catalogs",
     "implementations": 0
+  },
+  {
+    "slug": "2345",
+    "authors": "Eugen Rochko <eugen@joinmastodon.org>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-2345-fediverse-creator/8844",
+    "dateReceived": "2026-07-27",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/894",
+    "title": "fediverse:creator",
+    "implementations": 0
   }
 ]
