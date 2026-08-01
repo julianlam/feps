@@ -110,7 +110,7 @@ An embedded object can be trusted if the following conditions are met:
 
 Consumers MUST NOT trust embedded objects that do not satisfy these conditions.
 
-In order to mitigate impersonation risks resulting from consumers not verifying ownership during the authentication, originating servers MUST enforce actor isolation by recursively verifying those objects when a client submits an activity. If an embedded object is owned by a different local actor, the server must either authenticate the object or reject the activity.
+In order to mitigate impersonation risks resulting from consumers not verifying ownership during the authentication, originating servers MUST enforce actor isolation by recursively verifying embedded objects when a client submits an activity. If an embedded object is owned by a different local actor, the server must either authenticate the object or reject the activity.
 
 Embedded non-anonymous objects SHOULD NOT be partial representations. A server that relies on embedding for authentication might save a partial representation of an object to the cache, replacing the full object.
 
