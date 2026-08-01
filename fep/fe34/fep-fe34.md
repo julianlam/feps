@@ -41,7 +41,7 @@ Object identifiers are assumed to be HTTP(S) URIs. The model can also be used wi
 
 ## Origin
 
-Object identifiers can be grouped together into protection domains called "origins". This concept is similar to the "web origin" concept described in [RFC-6454], and origins of object IDs are computed by the same algorithm.
+Object identifiers are grouped together into protection domains called "origins". This concept is similar to the "web origin" concept described in [RFC-6454], and origins of object IDs are computed by the same algorithm.
 
 The same-origin policy determines when a relationship between objects can be trusted. Different origins are considered potentially hostile and are isolated from each other to varying degrees. Actors sharing an origin are assumed to trust each other because the server enforces boundaries between them.
 
@@ -102,13 +102,15 @@ In order to minimize damage in the event of a key compromise or insufficient val
 
 ### Embedding
 
-In some cases, an embedded object can be trusted when its wrapping object is trusted:
+An embedded object can be trusted if the following conditions are met:
 
-- An embedded object has the same origin and the same [owner](#ownership) as the wrapping object.
-- An embedded object is identified as a [fragment][Fragment] of the wrapping object.
-- An embedded object is anonymous (doesn't have an ID).
+- Its wrapping object is trusted.
+- The embedded object is anonymous (doesn't have an ID), or has the same origin as the wrapping object.
+- The embedded object is anonymous, or has the same [owner](#ownership) as the wrapping object.
 
-Servers MUST NOT allow clients to publish activities where embedded objects are owned by another local actor.
+Consumers MUST NOT trust embedded objects that do not satisfy these conditions.
+
+In order to mitigate impersonation risks resulting from consumers not verifying ownership during the authentication, originating servers MUST enforce actor isolation by recursively verifying those objects when a client submits an activity. If an embedded object is owned by a different local actor, the server must either authenticate the object or reject the activity.
 
 Embedded non-anonymous objects SHOULD NOT be partial representations. A server that relies on embedding for authentication might save a partial representation of an object to the cache, replacing the full object.
 
@@ -134,7 +136,7 @@ In some cases ownership might be implicit. Examples:
 - A `replies` collection is owned by the actor to which the post is attributed.
 - All pages of a collection are expected to be owned by the same actor.
 
-Anonymous objects are not supposed to have an owner.
+An anonymous object has the same owner as its wrapping object.
 
 Applications can use the following algorithm to determine the owner of an object:
 
