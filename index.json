@@ -1443,5 +1443,15 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/894",
     "title": "fediverse:creator",
     "implementations": 0
+  },
+  {
+    "slug": "d471",
+    "authors": "Ben Pate \\<@benpate@mastodon.social\\>",
+    "status": "DRAFT",
+    "discussionsTo": "https://activitypub.space/topic/439/fep-3447-endorsements/26",
+    "dateReceived": "2026-08-03",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/900",
+    "title": "Endorsements",
+    "implementations": 0
   }
 ]

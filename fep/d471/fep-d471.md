@@ -2,8 +2,9 @@
 slug: "d471"
 authors: Ben Pate \<@benpate@mastodon.social\>
 status: DRAFT
-dateReceived: 2024-08-02
 discussionsTo: https://activitypub.space/topic/439/fep-3447-endorsements/26
+dateReceived: 2026-08-03
+trackingIssue: https://codeberg.org/fediverse/fep/issues/900
 ---
 
 # FEP-d471: Endorsements

@@ -192,6 +192,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-521b: Switch the default in FEP-521a to be 76171% cooler](./fep/521b/fep-521b.md) | `DRAFT` | [#882](https://codeberg.org/fediverse/fep/issues/882) | 2026-07-10 | - |
 | [FEP-de8d: Emoji Catalogs](./fep/de8d/fep-de8d.md) | `DRAFT` | [#891](https://codeberg.org/fediverse/fep/issues/891) | 2026-07-19 | - |
 | [FEP-2345: fediverse:creator](./fep/2345/fep-2345.md) | `DRAFT` | [#894](https://codeberg.org/fediverse/fep/issues/894) | 2026-07-27 | - |
+| [FEP-d471: Endorsements](./fep/d471/fep-d471.md) | `DRAFT` | [#900](https://codeberg.org/fediverse/fep/issues/900) | 2026-08-03 | - |
 
 ## License
 
