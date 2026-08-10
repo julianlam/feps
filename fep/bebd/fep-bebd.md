@@ -22,7 +22,7 @@ Some use cases include:
 - To lift some burden of Accepting Follow requests manually
 - The ability to Follow Actors via short identifiers rather than a full Actor ID or Webfinger mention.
 - The ability to restrict certain InviteCodes
-- The ability to provide a tentative inviteCode to a group without establishing a full Follow relationship
+- The ability to provide a tentative InviteCode to a group without establishing a full Follow relationship
 
 ## Requirements
 
@@ -60,7 +60,7 @@ A Follow activity MAY include the ID of an InviteCode in the `instrument` field.
 
 When an Actor receives a Follow activity containing an InviteCode:
 1. If the Actor does not manually approve follows, the InviteCode is ignored
-2. The Actor MUST ensure that the InviteCode exists and was acknowledged by the Actor prior to its use
+2. The Actor MUST ensure that the InviteCode exists and was acknowledged prior to its use
 3. The Actor MAY impose any additional restrictions to the InviteCodes use
 4. If the InviteCode has been deemed valid, an Accept activity is automatically sent for the Follow as would be normal for an Actor not gated by an InviteCode.
 
@@ -79,18 +79,23 @@ If the InviteCode is not valid, a Reject activity SHOULD be sent.
 
 For the purposes of Group moderation by external Actors is it useful to allow modifications to InviteCodes via activities.
 
-When an activity modifying the InviteCodes for an Actor is received, the Actor MUST ensure that the activity is being performed by an authorised Actor.
+When an activity modifying the `invites` collection of an Actor is received, the Actor MUST ensure that the activity is being performed by an [authorised Actor](#authorised-actors).
 
-- To create a new InviteCode for an Actor, a standard `Add` activity is sent to the Actor the InviteCode is associated with.
-- To update an InviteCode, a standard `Update` activity is sent to the Actor the InviteCode is associated with.
-- To remove an InviteCode, a standard `Remove` activity is sent to the Actor the InviteCode is associated with.
+The following activities are used to modify the `invites` collection:
 
-When an Add, Update, or Remove activity is received by an Actor from an unauthorised Actor, the Actor MAY send a `Reject(InviteCode)`, refuse to add it to its `invites` Collection, and deem the InviteCode invalid for future Follow requests.
+- Create
+- Add
+- Update
+- Remove
+
+When a Create, Add, Update, or Remove activity is received by an Actor from an [unauthorised Actor](#authorised-actors), the Actor MAY send a `Reject(InviteCode)`, refuse to add it to its `invites` Collection, and deem the InviteCode invalid for future Follow requests.
+
+InviteCodes MAY be Created without being Added to the `invites` collection. Such InviteCodes are not discoverable via the collection and therefore can be used as 'secrets'.
 
 ### `invites` Collection
 
 Actors that accept InviteCodes SHOULD include an `invites` field that resolves to a Collection containing valid InviteCodes for this Actor.
-If present, the `invites` Collection MUST be private and only accessible to authorised Actors.
+If present, the `invites` Collection MUST be private and only accessible to [authorised Actors](#authorised-actors). The mechanism described by [FEP-db0e](https://codeberg.org/fediverse/fep/src/branch/main/fep/db0e/fep-db0e.md#fetching-content-from-the-server-that-hosts-the-group) MAY be used to achieve this.
 
 ## InviteCode Dereferencing via Webfinger
 
@@ -105,19 +110,23 @@ GET https://example.com/.well-known/webfinger?resource=invite:ABCDE@example.com
 
 This will resolve to an InviteCode object which can further be resolved via the `attributedTo` field to the target Actor.
 
-## A note on Authorised Actors
+## Authorised Actors
 
-*This section is non-normative*
+The set of Actors authorised to make changes to an `invites` collection is up to the specific software controlling the collection.
 
-For the purposes of viewing the `invites` collection, authorised actors may include only the 'invite-actor', or it may include anyone following them, or any other criteria.
-For the purposes of updating, adding, or removing InviteCodes from Actors, authorised actors may be the same set as above but that is not required.
+Some examples include:
+
+- The attributedTo Actor itself
+- The followers of the attributedTo Actor
+- [FEP-1b12 group moderators](https://codeberg.org/fediverse/fep/src/branch/main/fep/1b12/fep-1b12.md#group-moderation)
 
 ## References
 
-- [ActivityPub] Christine Lemmer Webber, Jessica Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
+- [ActivityPub] C. Lemmer Webber, J. Tallon, [ActivityPub](https://www.w3.org/TR/activitypub/), 2018
 - [ActivityStreams] J. Snell, E. Prodromou, [ActivityStreams](https://www.w3.org/TR/activitystreams-core/), 2017
 - [Webfinger] P. Jones, G. Salgueiro, M. Jones, J. Smarr, [RFC 7033](https://datatracker.ietf.org/doc/html/rfc7033),2013
 - [FEP-1b12 Groups] F. Ableitner, [FEP-1b12: Group federation](https://codeberg.org/fediverse/fep/src/branch/main/fep/1b12/fep-1b12.md)
+- [FEP-db0e Authentication mechanism for non-public groups] G. Klyushnikov, [FEP-dboe: Authentication mechanism for non-public groups](https://codeberg.org/fediverse/fep/src/branch/main/fep/db0e/fep-db0e.md)
 
 ## Copyright
 
