@@ -1453,5 +1453,16 @@
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/900",
     "title": "Endorsements",
     "implementations": 0
+  },
+  {
+    "slug": "e4de",
+    "authors": "Dmitry Skavish <skavish@gmail.com>",
+    "status": "DRAFT",
+    "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-e4de-closing-registration-on-unattended-servers/8854",
+    "relatedFeps": "FEP-f1d5, FEP-baf5, FEP-d556, FEP-2677",
+    "dateReceived": "2026-08-10",
+    "trackingIssue": "https://codeberg.org/fediverse/fep/issues/907",
+    "title": "Closing Registration on Unattended Servers",
+    "implementations": 0
   }
 ]

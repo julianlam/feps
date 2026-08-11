@@ -5,6 +5,7 @@ status: DRAFT
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-e4de-closing-registration-on-unattended-servers/8854
 relatedFeps: FEP-f1d5, FEP-baf5, FEP-d556, FEP-2677
 dateReceived: 2026-08-10
+trackingIssue: https://codeberg.org/fediverse/fep/issues/907
 ---
 # FEP-e4de: Closing Registration on Unattended Servers
 
