@@ -1,0 +1,9 @@
+{
+  "@context": {
+    "fep-e4de": "https://w3id.org/fep/e4de#",
+    "unattendedSince": {
+      "@id": "fep-e4de:unattendedSince",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    }
+  }
+}
