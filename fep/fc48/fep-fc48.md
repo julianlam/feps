@@ -21,6 +21,15 @@ Even a server that implements the entirety of [ActivityPub] specification is lim
 
 A truly generic server does not have these limitations and can work with any type of client application.
 
+## Capabilities
+
+A generic ActivityPub server MUST be able to:
+
+- Register an actor
+- Verify and store activities delivered to local outboxes
+- Verify and store activities delivered to local inboxes
+- Serve any objects created by local actors, including collections
+
 ## Object classification
 
 A generic server MUST determine the class of an object before processing it. The classification of ActivityPub objects is covered in [FEP-2277: ActivityPub core types][FEP-2277].
@@ -52,6 +61,18 @@ When processing activities submitted by a client, the server can only check perm
 A generic server MUST automatically create `inbox`, `outbox` and other actor collections defined in the ActivityPub specification after registering an actor.
 
 Other collections MUST be created by clients using `Create` activities where `object` is an empty collection.
+
+## Examples
+
+Upon receiving a `Follow` activity, approved by the user, the client is expected to publish an `Accept` activity and two additional activities representing side effects:
+
+- `Create` activity for a `Relationship` object
+- `Add` activity that adds the `actor` of `Follow` to the `followers` collection
+
+Upon receiving an `Accept` activity in response to a `Follow`, the client is expected to publish two additional activities representing side effects:
+
+- `Create` activity for a `Relationship` object
+- `Add` activity that adds the `actor` of `Accept` to the `following` collection
 
 ## References
 
