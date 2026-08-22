@@ -2,8 +2,9 @@
 slug: "49eb"
 authors: MaddyUnderStars <maddyunderstars@aus.social>
 status: DRAFT
-dateReceived: 2026-08-22
 discussionsTo: https://activitypub.space/topic/71072c6d-55a6-4c3b-8aaf-1584d0e60955/fep-49eb-batched-inbox-delivery
+dateReceived: 2026-08-22
+trackingIssue: https://codeberg.org/fediverse/fep/issues/913
 ---
 # FEP-49eb: Batched Inbox Delivery
 

@@ -195,6 +195,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-2345: fediverse:creator](./fep/2345/fep-2345.md) | `DRAFT` | [#894](https://codeberg.org/fediverse/fep/issues/894) | 2026-07-27 | - |
 | [FEP-d471: Endorsements](./fep/d471/fep-d471.md) | `DRAFT` | [#900](https://codeberg.org/fediverse/fep/issues/900) | 2026-08-03 | - |
 | [FEP-e4de: Closing Registration on Unattended Servers](./fep/e4de/fep-e4de.md) | `DRAFT` | [#907](https://codeberg.org/fediverse/fep/issues/907) | 2026-08-10 | - |
+| [FEP-49eb: Batched Inbox Delivery](./fep/49eb/fep-49eb.md) | `DRAFT` | [#913](https://codeberg.org/fediverse/fep/issues/913) | 2026-08-22 | - |
 
 ## License
 
