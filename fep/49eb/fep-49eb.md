@@ -35,8 +35,8 @@ It MUST include the following properties:
 
 A batch SHOULD include the following properties:
 
-- `startTime`: The creation time of the chronologically first activity in this batch.
-- `endTime`: The creation time of the chronologically last activity in this batch.
+- `startTime`: The `published` time of the chronologically first activity in this batch.
+- `endTime`: The `published` time of the chronologically last activity in this batch.
 
 The batch MAY include any additional properties.
 
@@ -46,11 +46,13 @@ When signing activities using [FEP-8b32: Object Integrity Proofs](https://codebe
 
 ## Delivery
 
-To deliver a batch to an inbox, POST an Add activity to the inbox with the batch embedded in the `object` property.
+To deliver a batch to an inbox, POST a `DeliverBatch` activity to the inbox with the batch collection embedded in the `object` property.
 
 ```json
 {
-	"type": "Add",
+	"type": "DeliverBatch",
+	"id": "https://example.com/batch/1",
+	"actor": "https://example.com/actor",
 	"object": {
 		"items": [
 			// ... activities
@@ -61,6 +63,8 @@ To deliver a batch to an inbox, POST an Add activity to the inbox with the batch
 	},
 }
 ```
+
+The `actor` of this `DeliverBatch` activity SHOULD be the [Application Actor](https://codeberg.org/fediverse/fep/src/branch/main/fep/2677/fep-2677.md#application-actor) if there is more than one `actor` of the batch's activities. Otherwise, if all the batched activities share the same `actor`, the `DeliverBatch`'s `actor` MAY be the same.
 
 When delivering activities via FEP-0499: Multibox, the `target` property is added as described in FEP-0499.
 
@@ -75,14 +79,32 @@ Conversely, activities within a batch of type Collection MAY be processed in any
 Batched activities are processed and addressed as if they were sent individually.
 Receiving a `Create<Note>` individually and receiving a batch containing `Create<Note>` MUST have the same effect.
 
+Servers MUST NOT add the `DeliverBatch` activity to inboxes.
+
 ## Capability Discovery
 
 As batched inbox support may be present on any inbox, there is no way to tell if an inbox supports it without first attempting it and falling back on failure.
-However, doing so may be unreliable as servers may only do light processing of the Add activity and/or signatures before adding it to a queue and failing later, as the object of the Add is a Collection.
+However, doing so may be unreliable as servers may only do light processing of the `DeliverBatch` activity and/or signatures before adding it to a queue and failing later.
 
 To solve this, [FEP-844e: Capability Discovery](https://codeberg.org/fediverse/fep/src/branch/main/fep/844e/fep-844e.md) MAY be used to determine if a server supports batched inboxes.
 
 When doing so, the value of the `href` property MUST be `http://w3id.org/fep/49eb` and the value of the `name` property MUST be `FEP-49eb: Batched Inbox Delivery`. Additionally, the server MUST support batched inbox delivery for all inboxes it controls.
+
+### Batched Inboxes
+
+Alternatively to using FEP-844e to signal batched support globally, a server MAY include a `batchedInbox` property on actors that accept `DeliverBatch` activities.
+
+```json
+{
+	"type": "Person",
+	"id": "https://example.com/me",
+	// ...
+	"inbox": "https://example.com/me/inbox",
+	"batchedInbox": "https://example.com/me/inbox",
+}
+```
+
+As shown in the above example, the `batchedInbox` MAY be the same as the actor's regular `inbox`.
 
 ## References
 
@@ -93,6 +115,7 @@ When doing so, the value of the `href` property MUST be `http://w3id.org/fep/49e
 - Felix Ableitner [FEP-1b12: Group federation](https://fediverse.codeberg.page/fep/fep/1b12/), 2022
 - silverpill [FEP-8b32: Object Integrity Proofs](https://fediverse.codeberg.page/fep/fep/8b32/), 2022
 - silverpill, [FEP-844e: Capability discovery](https://codeberg.org/fediverse/fep/src/branch/main/fep/844e/fep-844e.md), 2025
+- Helge, [FEP-2677: Identifying the Application Actor](https://codeberg.org/fediverse/fep/src/branch/main/fep/2677/fep-2677.md), 2023
 
 ## Copyright
 
