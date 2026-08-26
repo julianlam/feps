@@ -41,7 +41,7 @@ The process of proof generation consists of the following steps:
 
 The resulting proof is added to the original JSON object under the key `proof`.
 
-The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [2.1 Proofs][DI-Proofs]. The proof type SHOULD be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof][DI-DataIntegrityProof]. The value of `proofPurpose` attribute MUST be `assertionMethod`.
+The list of attributes used in integrity proof is defined in *Data Integrity* specification, section [2.1 Proofs][DI-Proofs]. The proof type MUST be `DataIntegrityProof`, as specified in section [3.1 DataIntegrityProof][DI-DataIntegrityProof]. The value of `proofPurpose` attribute MUST be `assertionMethod`.
 
 The value of the `verificationMethod` attribute of the proof can be an HTTP(S) URI or a [DID URL][DID-URL].
 
