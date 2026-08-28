@@ -97,6 +97,7 @@ Implementers MUST NOT use it in cases where capabilities can be inferred from pr
 | ---  | ---        |
 | RFC-9421: HTTP Message Signatures | https://datatracker.ietf.org/doc/html/rfc9421 |
 | RFC-9421 signatures using the Ed25519 algorithm | https://datatracker.ietf.org/doc/html/rfc9421#name-eddsa-using-curve-edwards25 |
+| RFC-9421 signatures using the ml-dsa-44 algorithm | https://c2sp.org/httpsig-pq@v1.0.0#ml-dsa-44 |
 
 ## Implementations
 
