@@ -7,6 +7,7 @@ steps:
   build:
     image: python:3.13-alpine
     commands:
+      - pip install ./scripts
       - ./scripts/update_issues.py
       - ./scripts/create_readme.py
     environment:
