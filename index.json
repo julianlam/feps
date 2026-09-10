@@ -1770,10 +1770,24 @@
   },
   {
     "slug": "633c",
-    "authors": "Bart Overkamp <bart@bedrijfzondernaam.nl>, Robin Genis <roboburr@gmail.com>",
+    "authors": [
+      "Bart Overkamp <bart@bedrijfzondernaam.nl>",
+      "Robin Genis <roboburr@gmail.com>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-633c-guardians/8816",
-    "relatedFeps": "FEP-e232, FEP-5624, FEP-5feb, FEP-5e53, FEP-8b32, FEP-521a, FEP-7888, FEP-171b, FEP-7458, FEP-11dd",
+    "relatedFeps": [
+      "FEP-e232",
+      "FEP-5624",
+      "FEP-5feb",
+      "FEP-5e53",
+      "FEP-8b32",
+      "FEP-521a",
+      "FEP-7888",
+      "FEP-171b",
+      "FEP-7458",
+      "FEP-11dd"
+    ],
     "dateReceived": "2026-07-21",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/910",
     "title": "Guardians",
@@ -1805,10 +1819,14 @@
   },
   {
     "slug": "e4de",
-    "authors": "Dmitry Skavish <skavish@gmail.com>",
+    "authors": [
+      "Dmitry Skavish <skavish@gmail.com>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-e4de-closing-registration-on-unattended-servers/8854",
-    "relatedFeps": "FEP-f1d5, FEP-baf5, FEP-d556, FEP-2677",
+    "relatedFeps": [
+      "FEP-f1d5, FEP-baf5, FEP-d556, FEP-2677"
+    ],
     "dateReceived": "2026-08-10",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/907",
     "title": "Closing Registration on Unattended Servers",
@@ -1816,7 +1834,9 @@
   },
   {
     "slug": "49eb",
-    "authors": "MaddyUnderStars <maddyunderstars@aus.social>",
+    "authors": [
+      "MaddyUnderStars <maddyunderstars@aus.social>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://activitypub.space/topic/71072c6d-55a6-4c3b-8aaf-1584d0e60955/fep-49eb-batched-inbox-delivery",
     "dateReceived": "2026-08-22",
