@@ -6,16 +6,18 @@ steps:
   check_create_readme_works:
     image: python:3.13-alpine
     commands:
+      - pip install ./scripts
       - ./scripts/create_readme.py
 
   check_new_proposal_works:
     image: python:3.13-alpine
     commands:
+      - pip install ./scripts
       - ./scripts/new_proposal.py Your Title Goes Here
       - rm -rf fep/7f9d
 
   run_pytest:
     image: python:3.13-alpine
     commands:
-      - pip install pytest
+      - pip install ./scripts
       - pytest scripts

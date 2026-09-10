@@ -13,6 +13,7 @@ dependencies = [
     "markdown-callouts>=0.4.0",
     "fep",
     "nh3>=0.3.0",
+    "PyYAML>=6.0.3"
 ]
 
 [tool.setuptools]

@@ -1,6 +1,6 @@
 ---
 slug: "f1d5"
-authors: CJ <cjslep@gmail.com>, silverpill <@silverpill@mitra.social>
+authors: [CJ <cjslep@gmail.com>, silverpill <@silverpill@mitra.social>]
 status: FINAL
 dateReceived: 2020-12-13
 dateFinalized: 2023-06-02

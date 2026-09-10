@@ -15,7 +15,7 @@ def is_valid_url(url: str):
     return True
 
 
-@pytest.mark.parametrize("fep", get_fep_ids())
+@pytest.mark.parametrize("fep", list(get_fep_ids()))
 def test_fep_front_matter(fep):
     fep_file = FepFile(fep)
     parsed_frontmatter = fep_file.parsed_frontmatter
@@ -23,9 +23,13 @@ def test_fep_front_matter(fep):
     assert "status" in parsed_frontmatter
     assert parsed_frontmatter["status"] in ["DRAFT", "FINAL", "WITHDRAWN"]
     assert parsed_frontmatter["slug"] == fep
-    assert "authors" in parsed_frontmatter
     assert "dateReceived" in parsed_frontmatter
     assert "discussionsTo" in parsed_frontmatter
+
+    assert isinstance(parsed_frontmatter["authors"], list)
+
+    if "relatedFeps" in parsed_frontmatter:
+        assert isinstance(parsed_frontmatter["relatedFeps"], list)
 
     discussions_to = parsed_frontmatter["discussionsTo"]
     assert is_valid_url(discussions_to), (
@@ -42,13 +46,13 @@ def test_fep_front_matter(fep):
 
     for field_name in ["dateReceived", "dateFinalized", "dateWithdrawn"]:
         if field_name in parsed_frontmatter:
-            datetime.datetime.strptime(parsed_frontmatter[field_name], "%Y-%m-%d")
+            assert isinstance(parsed_frontmatter[field_name], datetime.date)
 
     if "type" in parsed_frontmatter:
         assert parsed_frontmatter["type"] in ["informational", "implementation"]
 
 
-@pytest.mark.parametrize("fep", get_fep_ids())
+@pytest.mark.parametrize("fep", list(get_fep_ids()))
 def test_fep_content(fep):
     fep_file = FepFile(fep)
 

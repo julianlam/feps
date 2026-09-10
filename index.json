@@ -1,7 +1,9 @@
 [
   {
     "slug": "a4ed",
-    "authors": "pukkamustard <pukkamustard@posteo.net>",
+    "authors": [
+      "pukkamustard <pukkamustard@posteo.net>"
+    ],
     "status": "FINAL",
     "dateReceived": "2020-10-16",
     "dateFinalized": "2021-01-18",
@@ -12,7 +14,9 @@
   },
   {
     "slug": "8fcf",
-    "authors": "Claire <claire.fep-1d7d@sitedethib.com>",
+    "authors": [
+      "Claire <claire.fep-1d7d@sitedethib.com>"
+    ],
     "status": "FINAL",
     "dateReceived": "2020-10-24",
     "dateFinalized": "2022-02-07",
@@ -23,7 +27,10 @@
   },
   {
     "slug": "f1d5",
-    "authors": "CJ <cjslep@gmail.com>, silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "CJ <cjslep@gmail.com>",
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "status": "FINAL",
     "dateReceived": "2020-12-13",
     "dateFinalized": "2023-06-02",
@@ -34,7 +41,9 @@
   },
   {
     "slug": "400e",
-    "authors": "Gregory Klyushnikov <activitypub@grishka.me>",
+    "authors": [
+      "Gregory Klyushnikov <activitypub@grishka.me>"
+    ],
     "status": "FINAL",
     "dateReceived": "2021-02-16",
     "dateFinalized": "2022-02-04",
@@ -45,7 +54,10 @@
   },
   {
     "slug": "8c3f",
-    "authors": "Diogo Peralta Cordeiro <mail@diogo.site>, Phablulo Joel <phablulo@gmail.com>",
+    "authors": [
+      "Diogo Peralta Cordeiro <mail@diogo.site>",
+      "Phablulo Joel <phablulo@gmail.com>"
+    ],
     "status": "WITHDRAWN",
     "dateReceived": "2022-01-18",
     "dateWithdrawn": "2023-10-27",
@@ -56,7 +68,9 @@
   },
   {
     "slug": "2100",
-    "authors": "Diogo Peralta Cordeiro <mail@diogo.site>",
+    "authors": [
+      "Diogo Peralta Cordeiro <mail@diogo.site>"
+    ],
     "status": "WITHDRAWN",
     "dateReceived": "2022-03-31",
     "dateWithdrawn": "2025-04-06",
@@ -67,7 +81,9 @@
   },
   {
     "slug": "e232",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "status": "FINAL",
     "dateReceived": "2022-08-01",
     "dateFinalized": "2023-12-03",
@@ -78,7 +94,9 @@
   },
   {
     "slug": "5624",
-    "authors": "Claire <claire.fep-1d7d@sitedethib.com>",
+    "authors": [
+      "Claire <claire.fep-1d7d@sitedethib.com>"
+    ],
     "status": "WITHDRAWN",
     "dateReceived": "2022-08-23",
     "dateWithdrawn": "2025-06-24",
@@ -89,7 +107,9 @@
   },
   {
     "slug": "1b12",
-    "authors": "Felix Ableitner <me@nutomic.com>",
+    "authors": [
+      "Felix Ableitner <me@nutomic.com>"
+    ],
     "status": "FINAL",
     "dateReceived": "2022-11-12",
     "dateFinalized": "2023-02-09",
@@ -100,7 +120,9 @@
   },
   {
     "slug": "8b32",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2022-11-12",
@@ -111,11 +133,15 @@
   },
   {
     "slug": "c390",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2022-11-23",
-    "relatedFeps": "FEP-8b32",
+    "relatedFeps": [
+      "FEP-8b32"
+    ],
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/34",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-c390-identity-proofs/2726",
     "title": "Identity Proofs",
@@ -123,7 +149,9 @@
   },
   {
     "slug": "cb76",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "WITHDRAWN",
     "dateReceived": "2022-11-29",
     "dateWithdrawn": "2025-04-07",
@@ -134,7 +162,9 @@
   },
   {
     "slug": "fb2a",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2022-12-09",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/45",
@@ -144,7 +174,9 @@
   },
   {
     "slug": "c118",
-    "authors": "Tim Bray <tbray@texgtuality.com>",
+    "authors": [
+      "Tim Bray <tbray@texgtuality.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-01-16",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/57",
@@ -154,7 +186,9 @@
   },
   {
     "slug": "2e40",
-    "authors": "Helge Krueger <helge.krueger@gmail.com>",
+    "authors": [
+      "Helge Krueger <helge.krueger@gmail.com>"
+    ],
     "status": "WITHDRAWN",
     "dateReceived": "2023-02-13",
     "dateWithdrawn": "2023-09-04",
@@ -165,7 +199,9 @@
   },
   {
     "slug": "7888",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-03-14",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/68",
@@ -175,7 +211,9 @@
   },
   {
     "slug": "d767",
-    "authors": "Lynn Foster <lynnfoster@social.coop>",
+    "authors": [
+      "Lynn Foster <lynnfoster@social.coop>"
+    ],
     "status": "WITHDRAWN",
     "dateReceived": "2023-04-02",
     "dateWithdrawn": "2024-02-03",
@@ -186,7 +224,9 @@
   },
   {
     "slug": "5bf0",
-    "authors": "Michael Puckett <michael@puckett.contact>",
+    "authors": [
+      "Michael Puckett <michael@puckett.contact>"
+    ],
     "status": "WITHDRAWN",
     "dateReceived": "2023-04-10",
     "dateWithdrawn": "2025-06-14",
@@ -197,7 +237,9 @@
   },
   {
     "slug": "888d",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-04-10",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/83",
@@ -207,7 +249,9 @@
   },
   {
     "slug": "0ea0",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2023-04-18",
@@ -218,7 +262,9 @@
   },
   {
     "slug": "612d",
-    "authors": "Helge <helge.krueger@gmail.com>",
+    "authors": [
+      "Helge <helge.krueger@gmail.com>"
+    ],
     "status": "WITHDRAWN",
     "dateReceived": "2023-04-18",
     "dateWithdrawn": "2025-10-10",
@@ -229,7 +275,10 @@
   },
   {
     "slug": "fffd",
-    "authors": "Adam R. Nelson <adam@nels.onl>, Ryan Barrett <snarfed.org> (administrative only)",
+    "authors": [
+      "Adam R. Nelson <adam@nels.onl>",
+      "Ryan Barrett <snarfed.org> (administrative only)"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-04-29",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/95",
@@ -239,7 +288,9 @@
   },
   {
     "slug": "4adb",
-    "authors": "Helge <helge.krueger@gmail.com>",
+    "authors": [
+      "Helge <helge.krueger@gmail.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-05-13",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/100",
@@ -249,7 +300,9 @@
   },
   {
     "slug": "a070",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "WITHDRAWN",
     "dateReceived": "2023-06-13",
     "dateWithdrawn": "2026-04-10",
@@ -260,7 +313,9 @@
   },
   {
     "slug": "c648",
-    "authors": "Evan Prodromou <evan@prodromou.name>",
+    "authors": [
+      "Evan Prodromou <evan@prodromou.name>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-06-14",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/123",
@@ -270,7 +325,9 @@
   },
   {
     "slug": "bad1",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-06-15",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/124",
@@ -280,7 +337,9 @@
   },
   {
     "slug": "4ccd",
-    "authors": "Evan Prodromou <evan@prodromou.name>",
+    "authors": [
+      "Evan Prodromou <evan@prodromou.name>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-06-21",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/129",
@@ -290,7 +349,9 @@
   },
   {
     "slug": "d36d",
-    "authors": "Zack Dunn <zack@tilde.team>",
+    "authors": [
+      "Zack Dunn <zack@tilde.team>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-07-01",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/125",
@@ -300,7 +361,9 @@
   },
   {
     "slug": "1970",
-    "authors": "John Livingston <git@john-livingston.fr>",
+    "authors": [
+      "John Livingston <git@john-livingston.fr>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-07-04",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/128",
@@ -310,7 +373,9 @@
   },
   {
     "slug": "521a",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "FINAL",
     "dateReceived": "2023-07-08",
@@ -322,7 +387,9 @@
   },
   {
     "slug": "ae97",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2023-08-14",
@@ -333,7 +400,9 @@
   },
   {
     "slug": "0837",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2023-08-17",
@@ -344,7 +413,9 @@
   },
   {
     "slug": "67ff",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "status": "FINAL",
     "dateReceived": "2023-09-05",
     "dateFinalized": "2024-09-22",
@@ -355,7 +426,9 @@
   },
   {
     "slug": "5feb",
-    "authors": "Claire <claire.fep-1d7d@sitedethib.com>",
+    "authors": [
+      "Claire <claire.fep-1d7d@sitedethib.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-09-06",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/154",
@@ -365,7 +438,9 @@
   },
   {
     "slug": "dc88",
-    "authors": "Calvin Lee <pounce@integraldoma.in>",
+    "authors": [
+      "Calvin Lee <pounce@integraldoma.in>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-09-12",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/161",
@@ -375,7 +450,9 @@
   },
   {
     "slug": "d8c2",
-    "authors": "Evan Prodromou <evanp@socialwebfoundation.org>",
+    "authors": [
+      "Evan Prodromou <evanp@socialwebfoundation.org>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-09-17",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/165",
@@ -385,7 +462,9 @@
   },
   {
     "slug": "7628",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "informational",
     "status": "DRAFT",
     "dateReceived": "2023-09-20",
@@ -396,7 +475,9 @@
   },
   {
     "slug": "07d7",
-    "authors": "Jennifer Moore <contact@jenniferplusplus.com>",
+    "authors": [
+      "Jennifer Moore <contact@jenniferplusplus.com>"
+    ],
     "status": "WITHDRAWN",
     "dateReceived": "2023-09-22",
     "dateWithdrawn": "2025-04-22",
@@ -407,7 +488,9 @@
   },
   {
     "slug": "37f2",
-    "authors": "bengo <https://mastodon.social/@bengo>",
+    "authors": [
+      "bengo <https://mastodon.social/@bengo>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-09-28",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/184",
@@ -417,7 +500,9 @@
   },
   {
     "slug": "2677",
-    "authors": "Helge <helge.krueger@gmail.com>",
+    "authors": [
+      "Helge <helge.krueger@gmail.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-10-14",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/190",
@@ -427,7 +512,9 @@
   },
   {
     "slug": "03c1",
-    "authors": "helge <@helge@mymath.rocks>",
+    "authors": [
+      "helge <@helge@mymath.rocks>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-11-10",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/205",
@@ -437,7 +524,9 @@
   },
   {
     "slug": "ef61",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2023-12-06",
@@ -448,7 +537,9 @@
   },
   {
     "slug": "7502",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2023-12-24",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/218",
@@ -458,7 +549,9 @@
   },
   {
     "slug": "2c59",
-    "authors": "Evan Prodromou <evan@prodromou.name>",
+    "authors": [
+      "Evan Prodromou <evan@prodromou.name>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-01-04",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/226",
@@ -469,7 +562,9 @@
   {
     "slug": "d556",
     "type": "implementation",
-    "authors": "Steve Bate <svc-fep@stevebate.net>",
+    "authors": [
+      "Steve Bate <svc-fep@stevebate.net>"
+    ],
     "status": "FINAL",
     "dateReceived": "2024-01-20",
     "dateFinalized": "2025-03-15",
@@ -480,7 +575,9 @@
   },
   {
     "slug": "3264",
-    "authors": "Lynn Foster <lynn@mikorizal.org>",
+    "authors": [
+      "Lynn Foster <lynn@mikorizal.org>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2024-01-31",
@@ -491,7 +588,9 @@
   },
   {
     "slug": "c5a1",
-    "authors": "Lynn Foster <lynn@mikorizal.org>",
+    "authors": [
+      "Lynn Foster <lynn@mikorizal.org>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2024-01-31",
@@ -502,7 +601,9 @@
   },
   {
     "slug": "61cf",
-    "authors": "FenTiger <@FenTiger@zotum.net>",
+    "authors": [
+      "FenTiger <@FenTiger@zotum.net>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2024-02-06",
@@ -513,9 +614,18 @@
   },
   {
     "slug": "73cd",
-    "authors": "Bumblefudge <@learningproof.xyz> / <@by_caballero@mastodon.social>",
+    "authors": [
+      "Bumblefudge <@learningproof.xyz> / <@by_caballero@mastodon.social>"
+    ],
     "status": "DRAFT",
-    "relatedFeps": "FEP-8b32, FEP-7628, FEP-c390, FEP-ae97, FEP-ef61, FEP-521a",
+    "relatedFeps": [
+      "FEP-8b32",
+      "FEP-7628",
+      "FEP-c390",
+      "FEP-ae97",
+      "FEP-ef61",
+      "FEP-521a"
+    ],
     "dateReceived": "2024-02-07",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/265",
     "discussionsTo": "https://codeberg.org/fediverse/fep/issues/265",
@@ -524,7 +634,9 @@
   },
   {
     "slug": "96ff",
-    "authors": "Erin Shepherd <fep@erinshepherd.net>",
+    "authors": [
+      "Erin Shepherd <fep@erinshepherd.net>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-02-17",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/272",
@@ -534,11 +646,15 @@
   },
   {
     "slug": "6481",
-    "authors": "James Smith <james@floppy.org.uk>",
+    "authors": [
+      "James Smith <james@floppy.org.uk>"
+    ],
     "status": "WITHDRAWN",
     "dateReceived": "2024-03-12",
     "dateWithdrawn": "2024-10-31",
-    "relatedFeps": "FEP-f1d5",
+    "relatedFeps": [
+      "FEP-f1d5"
+    ],
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/279",
     "discussionsTo": "https://codeberg.org/fediverse/fep/issues/279",
     "title": "Specifying ActivityPub extension support with NodeInfo",
@@ -546,7 +662,9 @@
   },
   {
     "slug": "9fde",
-    "authors": "Nik Clayton <nik@ngo.org.uk>",
+    "authors": [
+      "Nik Clayton <nik@ngo.org.uk>"
+    ],
     "dateReceived": "2024-03-14",
     "status": "DRAFT",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/282",
@@ -556,7 +674,9 @@
   },
   {
     "slug": "e229",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-04-02",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/293",
@@ -566,10 +686,15 @@
   },
   {
     "slug": "3b86",
-    "authors": "Ben Pate \\<@benpate@mastodon.social\\>",
+    "authors": [
+      "Ben Pate \\<@benpate@mastodon.social\\>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-04-19",
-    "relatedFeps": "FEP-4adb, FEP-888d",
+    "relatedFeps": [
+      "FEP-4adb",
+      "FEP-888d"
+    ],
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/302",
     "discussionsTo": "https://codeberg.org/fediverse/fep/issues/302",
     "title": "Activity Intents",
@@ -577,7 +702,9 @@
   },
   {
     "slug": "7458",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-04-26",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/307",
@@ -587,10 +714,15 @@
   },
   {
     "slug": "0391",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-04-29",
-    "relatedFeps": "FEP-7458, FEP-7888",
+    "relatedFeps": [
+      "FEP-7458",
+      "FEP-7888"
+    ],
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/310",
     "discussionsTo": "https://codeberg.org/fediverse/fep/issues/310",
     "title": "Special collection proofs",
@@ -598,10 +730,14 @@
   },
   {
     "slug": "db0e",
-    "authors": "Gregory Klyushnikov <activitypub@grishka.me>",
+    "authors": [
+      "Gregory Klyushnikov <activitypub@grishka.me>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-05-03",
-    "relatedFeps": "FEP-400e",
+    "relatedFeps": [
+      "FEP-400e"
+    ],
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/313",
     "discussionsTo": "https://codeberg.org/fediverse/fep/issues/313",
     "title": "Authentication mechanism for non-public groups",
@@ -609,7 +745,9 @@
   },
   {
     "slug": "cd47",
-    "authors": "Bumblefudge <bumblefudge@learningproof.xyz>",
+    "authors": [
+      "Bumblefudge <bumblefudge@learningproof.xyz>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-05-31",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/319",
@@ -619,7 +757,9 @@
   },
   {
     "slug": "c7d3",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "status": "WITHDRAWN",
     "dateReceived": "2024-06-04",
     "dateWithdrawn": "2025-02-21",
@@ -630,7 +770,9 @@
   },
   {
     "slug": "5e53",
-    "authors": "Don Marti <dmarti@zgp.org>",
+    "authors": [
+      "Don Marti <dmarti@zgp.org>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-06-09",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/327",
@@ -640,7 +782,10 @@
   },
   {
     "slug": "7952",
-    "authors": "Dmitri Zagidulin <@dmitri@social.coop>, bumblefudge <bumblefudge@learningproof.xyz>",
+    "authors": [
+      "Dmitri Zagidulin <@dmitri@social.coop>",
+      "bumblefudge <bumblefudge@learningproof.xyz>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-06-20",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-7952-roadmap-for-actor-and-object-portability/4332/",
@@ -650,7 +795,10 @@
   },
   {
     "slug": "e3e9",
-    "authors": "Dmitri Zagidulin <@dmitri@social.coop>, bumblefudge <bumblefudge@learningproof.xyz>",
+    "authors": [
+      "Dmitri Zagidulin <@dmitri@social.coop>",
+      "bumblefudge <bumblefudge@learningproof.xyz>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-06-29",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/346",
@@ -660,7 +808,9 @@
   },
   {
     "slug": "d9ad",
-    "authors": "bengo <ben@bengo.co>",
+    "authors": [
+      "bengo <ben@bengo.co>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-07-02",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/350",
@@ -670,7 +820,10 @@
   },
   {
     "slug": "e965",
-    "authors": "bumblefudge <bumblefudge@learningproof.xyz>, bengo <@bengo@social.coop>",
+    "authors": [
+      "bumblefudge <bumblefudge@learningproof.xyz>",
+      "bengo <@bengo@social.coop>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-07-05",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-0f2a-announce-activity-for-migrations-and-tombstone-events/4349",
@@ -680,7 +833,9 @@
   },
   {
     "slug": "9091",
-    "authors": "Dmitri Zagidulin <@dmitri@social.coop>",
+    "authors": [
+      "Dmitri Zagidulin <@dmitri@social.coop>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-07-08",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-9091-export-actor-service-endpoint/4354",
@@ -690,7 +845,9 @@
   },
   {
     "slug": "6fcd",
-    "authors": "Dmitri Zagidulin <@dmitri@social.coop>",
+    "authors": [
+      "Dmitri Zagidulin <@dmitri@social.coop>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-07-11",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-6fcd-account-export-container-format/4355",
@@ -700,7 +857,9 @@
   },
   {
     "slug": "c551",
-    "authors": "bengo <ben@bengo.co>",
+    "authors": [
+      "bengo <ben@bengo.co>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-07-11",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/366",
@@ -710,7 +869,9 @@
   },
   {
     "slug": "a5c5",
-    "authors": "AvidSeeker <avidseeker7@protonmail.com>",
+    "authors": [
+      "AvidSeeker <avidseeker7@protonmail.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-07-15",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/4362",
@@ -721,7 +882,9 @@
   },
   {
     "slug": "c4ad",
-    "authors": "AvidSeeker <avidseeker7@protonmail.com>",
+    "authors": [
+      "AvidSeeker <avidseeker7@protonmail.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-07-15",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/4361",
@@ -732,7 +895,9 @@
   },
   {
     "slug": "c893",
-    "authors": "AvidSeeker <avidseeker7@protonmail.com>",
+    "authors": [
+      "AvidSeeker <avidseeker7@protonmail.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-07-15",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-c893-doap/4363",
@@ -745,14 +910,18 @@
     "title": "Hashtags",
     "dateReceived": "2024-07-16",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/4369",
-    "authors": "AvidSeeker <avidseeker7@protonmail.com>",
+    "authors": [
+      "AvidSeeker <avidseeker7@protonmail.com>"
+    ],
     "status": "DRAFT",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/373",
     "implementations": 0
   },
   {
     "slug": "eb22",
-    "authors": "Manton Reece <manton@micro.blog>",
+    "authors": [
+      "Manton Reece <manton@micro.blog>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-07-25",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-eb22-supported-activitystreams-types-with-nodeinfo/4469",
@@ -762,7 +931,9 @@
   },
   {
     "slug": "c0e0",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2024-08-08",
@@ -773,18 +944,24 @@
   },
   {
     "slug": "c16b",
-    "authors": "ilja <ilja@ilja.space>",
+    "authors": [
+      "ilja <ilja@ilja.space>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-08-10",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-c16b-formatting-mfm-functions/4448",
-    "relatedFeps": "FEP-dc88",
+    "relatedFeps": [
+      "FEP-dc88"
+    ],
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/383",
     "title": "Formatting MFM functions",
     "implementations": 0
   },
   {
     "slug": "0499",
-    "authors": "a <trwnh.com>",
+    "authors": [
+      "a <trwnh.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-09-30",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-0499-delivering-to-multiple-inboxes-with-a-multibox-endpoint/4586",
@@ -794,7 +971,9 @@
   },
   {
     "slug": "76ea",
-    "authors": "Evan Prodromou <evan@socialwebfoundation.org>",
+    "authors": [
+      "Evan Prodromou <evan@socialwebfoundation.org>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-10-04",
     "discussionsTo": "https://codeberg.org/evanp/fep/issues",
@@ -804,7 +983,9 @@
   },
   {
     "slug": "1985",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-10-10",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-1985-signaling-how-an-orderedcollection-is-ordered/4653",
@@ -814,18 +995,24 @@
   },
   {
     "slug": "268d",
-    "authors": "Daiki \"tesaguri\" Mizukami <tesaguriguma+fep-268d@gmail.com>",
+    "authors": [
+      "Daiki \"tesaguri\" Mizukami <tesaguriguma+fep-268d@gmail.com>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-10-12",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-268d-search-consent-signals-for-objects/4654",
-    "relatedFeps": "FEP-5feb",
+    "relatedFeps": [
+      "FEP-5feb"
+    ],
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/421",
     "title": "Search consent signals for objects",
     "implementations": 0
   },
   {
     "slug": "ae0c",
-    "authors": "Steve Bate <svc-fep@stevebate.net>",
+    "authors": [
+      "Steve Bate <svc-fep@stevebate.net>"
+    ],
     "status": "FINAL",
     "category": "informational",
     "dateReceived": "2024-10-19",
@@ -837,7 +1024,9 @@
   },
   {
     "slug": "b2b8",
-    "authors": "Evan Prodromou <evan@socialwebfoundation.org>",
+    "authors": [
+      "Evan Prodromou <evan@socialwebfoundation.org>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-11-07",
     "discussionsTo": "https://codeberg.org/evanp/fep/issues",
@@ -847,7 +1036,9 @@
   },
   {
     "slug": "fe34",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2024-11-15",
@@ -858,7 +1049,9 @@
   },
   {
     "slug": "171b",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "dateReceived": "2024-11-23",
@@ -869,7 +1062,9 @@
   },
   {
     "slug": "6606",
-    "authors": "Marius Orcsik <marius@federated.id>",
+    "authors": [
+      "Marius Orcsik <marius@federated.id>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-12-04",
     "discussionsTo": "https://lists.sr.ht/~mariusor/go-activitypub-discuss/%3Cwecobrezdaeqzfsukst42hncuuimomii5oeixonirrksrvs4md@4l76dr4obisi%3E",
@@ -879,7 +1074,9 @@
   },
   {
     "slug": "1311",
-    "authors": "Helge <@helge@mymath.rocks>",
+    "authors": [
+      "Helge <@helge@mymath.rocks>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2024-12-08",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-1311-media-attachments/4796",
@@ -889,7 +1086,9 @@
   },
   {
     "slug": "7d8c",
-    "authors": "Helge <@helge@mymath.rocks>",
+    "authors": [
+      "Helge <@helge@mymath.rocks>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-repo-rights/4797/3",
     "dateReceived": "2025-01-20",
@@ -899,7 +1098,9 @@
   },
   {
     "slug": "9967",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-9967-polls/4885",
@@ -910,7 +1111,9 @@
   },
   {
     "slug": "2277",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "informational",
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
@@ -921,7 +1124,9 @@
   },
   {
     "slug": "a974",
-    "authors": "James Smith <james@floppy.org.uk>",
+    "authors": [
+      "James Smith <james@floppy.org.uk>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/proposed-fep-a974-all-actor-types-should-be-followable/5012",
     "dateReceived": "2025-02-05",
@@ -931,7 +1136,9 @@
   },
   {
     "slug": "efda",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-efda-followable-objects/5030",
     "dateReceived": "2025-02-13",
@@ -941,7 +1148,9 @@
   },
   {
     "slug": "f228",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
@@ -952,7 +1161,9 @@
   },
   {
     "slug": "f06f",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
@@ -963,7 +1174,9 @@
   },
   {
     "slug": "dd4b",
-    "authors": "Evan Prodromou <evan@socialwebfoundation.org>",
+    "authors": [
+      "Evan Prodromou <evan@socialwebfoundation.org>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/evanp/fep/issues",
     "dateReceived": "2025-02-21",
@@ -973,7 +1186,9 @@
   },
   {
     "slug": "c180",
-    "authors": "Evan Prodromou <evan@socialwebfoundation.org>",
+    "authors": [
+      "Evan Prodromou <evan@socialwebfoundation.org>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/evanp/fep/issues",
     "dateReceived": "2025-03-11",
@@ -983,10 +1198,14 @@
   },
   {
     "slug": "2931",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-2931-representing-context-with-a-collection/5154",
-    "relatedFeps": "FEP-7888",
+    "relatedFeps": [
+      "FEP-7888"
+    ],
     "type": "implementation",
     "dateReceived": "2025-03-22",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/534",
@@ -995,7 +1214,9 @@
   },
   {
     "slug": "5711",
-    "authors": "Evan Prodromou <evan@socialwebfoundation.org>",
+    "authors": [
+      "Evan Prodromou <evan@socialwebfoundation.org>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/evanp/fep/issues",
     "dateReceived": "2025-03-24",
@@ -1005,7 +1226,9 @@
   },
   {
     "slug": "044f",
-    "authors": "Claire <claire.fep-1d7d@sitedethib.com>",
+    "authors": [
+      "Claire <claire.fep-1d7d@sitedethib.com>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/pre-fep-quote-posts-quote-policies-and-quote-controls/5031",
     "dateReceived": "2025-04-03",
@@ -1015,7 +1238,9 @@
   },
   {
     "slug": "1042",
-    "authors": "Mauve Signweaver <contact@mauve.moe>",
+    "authors": [
+      "Mauve Signweaver <contact@mauve.moe>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-1024-peer-to-peer-fediverse-identities/4400",
     "dateReceived": "2025-04-03",
@@ -1025,7 +1250,10 @@
   },
   {
     "slug": "4f05",
-    "authors": "Julian Lam <julian@nodebb.org>, Angus McLeod <angus@pavilion.tech>",
+    "authors": [
+      "Julian Lam <julian@nodebb.org>",
+      "Angus McLeod <angus@pavilion.tech>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-4f05-soft-deletion",
     "dateReceived": "2025-04-15",
@@ -1035,7 +1263,10 @@
   },
   {
     "slug": "8a8e",
-    "authors": "Andr\u00e9 Menrath <andre.menrath@posteo.de>, les <lesion@autistici.org>",
+    "authors": [
+      "Andr\u00e9 Menrath <andre.menrath@posteo.de>",
+      "les <lesion@autistici.org>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/events-interoperability-validation-minimum-requirements-common-extensions/3849/",
     "dateReceived": "2025-04-23",
@@ -1045,7 +1276,9 @@
   },
   {
     "slug": "0151",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "FINAL",
     "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
@@ -1057,7 +1290,9 @@
   },
   {
     "slug": "82f6",
-    "authors": "Gregory Klyushnikov <activitypub@grishka.me>",
+    "authors": [
+      "Gregory Klyushnikov <activitypub@grishka.me>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-82f6-actor-statuses/5310",
     "dateReceived": "2025-05-12",
@@ -1067,7 +1302,9 @@
   },
   {
     "slug": "844e",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
@@ -1078,7 +1315,9 @@
   },
   {
     "slug": "b06c",
-    "authors": "Evan Prodromou <evan@socialwebfoundation.org>",
+    "authors": [
+      "Evan Prodromou <evan@socialwebfoundation.org>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/evanp/fep/issues",
     "dateReceived": "2025-06-25",
@@ -1088,7 +1327,9 @@
   },
   {
     "slug": "9098",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
@@ -1099,7 +1340,9 @@
   },
   {
     "slug": "11dd",
-    "authors": "Julian Lam <julian@nodebb.org>",
+    "authors": [
+      "Julian Lam <julian@nodebb.org>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://activitypub.space/topic/22/fep-11dd-context-ownership-and-inheritance",
     "dateReceived": "2025-09-11",
@@ -1109,7 +1352,9 @@
   },
   {
     "slug": "8967",
-    "authors": "a <a@trwnh.com>",
+    "authors": [
+      "a <a@trwnh.com>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-8967-generating-link-previews-for-attached-links/5598",
     "dateReceived": "2025-09-16",
@@ -1119,11 +1364,20 @@
   },
   {
     "slug": "1580",
-    "authors": "Jonny Saunders <j@nny.fyi>",
+    "authors": [
+      "Jonny Saunders <j@nny.fyi>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-1580-move-actor-objects-with-a-migration-collection/8111",
     "type": "implementation",
-    "relatedFeps": "FEP-7628, FEP-73cd, FEP-e965, FEP-888d, FEP-8b32, FEP-fe34",
+    "relatedFeps": [
+      "FEP-7628",
+      "FEP-73cd",
+      "FEP-e965",
+      "FEP-888d",
+      "FEP-8b32",
+      "FEP-fe34"
+    ],
     "dateReceived": "2025-10-09",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/702",
     "title": "Move Actor Objects with a `migration` Collection",
@@ -1131,7 +1385,9 @@
   },
   {
     "slug": "d8c8",
-    "authors": "Jonny Saunders <j@nny.fyi>",
+    "authors": [
+      "Jonny Saunders <j@nny.fyi>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-d8c8-bittorrent-torrent-objects/8309",
     "dateReceived": "2025-11-03",
@@ -1141,7 +1397,9 @@
   },
   {
     "slug": "19b3",
-    "authors": "Helge",
+    "authors": [
+      "Helge"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-19b3-specifying-properties-of-a-service/8311",
     "dateReceived": "2025-11-04",
@@ -1151,7 +1409,9 @@
   },
   {
     "slug": "22b6",
-    "authors": "Helge <@helge@mymath.rocks>",
+    "authors": [
+      "Helge <@helge@mymath.rocks>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-22b6-linking-an-activitypub-object-to-a-html-page-and-back/8369",
     "dateReceived": "2025-11-12",
@@ -1161,7 +1421,11 @@
   },
   {
     "slug": "f15d",
-    "authors": "Julian Lam <julian@nodebb.org>, Felix Ableitner <me@nutomic.com>, Rimu Atkinson <rimu@rimu.geek.nz>",
+    "authors": [
+      "Julian Lam <julian@nodebb.org>",
+      "Felix Ableitner <me@nutomic.com>",
+      "Rimu Atkinson <rimu@rimu.geek.nz>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://activitypub.space/topic/86/fep-f15d-context-relocation-and-removal",
     "dateReceived": "2026-01-12",
@@ -1171,7 +1435,9 @@
   },
   {
     "slug": "ee3a",
-    "authors": "Marcin Czachurski <mczachurski@icloud.com>",
+    "authors": [
+      "Marcin Czachurski <mczachurski@icloud.com>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-ee3a-exif-metadata-support/8439",
     "dateReceived": "2026-01-13",
@@ -1181,7 +1447,9 @@
   },
   {
     "slug": "34c1",
-    "authors": "Fred Hauschel <@naturzukunft2026@mastodon.social>",
+    "authors": [
+      "Fred Hauschel <@naturzukunft2026@mastodon.social>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-34c1-collection-filtering-using-tree-hypermedia-vocabulary/8494",
     "dateReceived": "2026-02-19",
@@ -1191,10 +1459,15 @@
   },
   {
     "slug": "a427",
-    "authors": "Dmitry Skavish <skavish@gmail.com>",
+    "authors": [
+      "Dmitry Skavish <skavish@gmail.com>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-a427-server-domain-move/8517",
-    "relatedFeps": "FEP-8b32, FEP-d556",
+    "relatedFeps": [
+      "FEP-8b32",
+      "FEP-d556"
+    ],
     "dateReceived": "2026-02-25",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/767",
     "title": "Server Domain Migration",
@@ -1202,7 +1475,9 @@
   },
   {
     "slug": "fc48",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
@@ -1213,7 +1488,9 @@
   },
   {
     "slug": "3ab2",
-    "authors": "Steve Bate <svc-fep@stevebate.net>",
+    "authors": [
+      "Steve Bate <svc-fep@stevebate.net>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/steve-bate/fep/issues",
     "dateReceived": "2026-03-14",
@@ -1223,19 +1500,28 @@
   },
   {
     "slug": "34ec",
-    "authors": "Fred Hauschel <@naturzukunft2026@mastodon.social>",
+    "authors": [
+      "Fred Hauschel <@naturzukunft2026@mastodon.social>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-34ec-notification-collection-endpoint/8568",
     "dateReceived": "2026-03-15",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/782",
-    "categories": "[\"Collections & Filtering\", \"Social Features\"]",
-    "protocols": "[\"C2S\"]",
+    "categories": [
+      "Collections & Filtering",
+      "Social Features"
+    ],
+    "protocols": [
+      "C2S"
+    ],
     "title": "Notification Collection Endpoint",
     "implementations": 0
   },
   {
     "slug": "c07e",
-    "authors": "potato <@potatomeow@fosstodon.org>",
+    "authors": [
+      "potato <@potatomeow@fosstodon.org>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-c07e-add-product-type-to-object/8544",
@@ -1246,7 +1532,9 @@
   },
   {
     "slug": "db70",
-    "authors": "Fred Hauschel <@naturzukunft2026@mastodon.social>",
+    "authors": [
+      "Fred Hauschel <@naturzukunft2026@mastodon.social>"
+    ],
     "status": "DRAFT",
     "dateReceived": "2026-03-15",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-db70-removeall-collection-activity/8569",
@@ -1257,7 +1545,9 @@
   {
     "slug": "c195",
     "type": "implementation",
-    "authors": "Steve Bate <svc-fep@stevebate.net>",
+    "authors": [
+      "Steve Bate <svc-fep@stevebate.net>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/steve-bate/fep/issues",
     "dateReceived": "2026-03-17",
@@ -1268,7 +1558,9 @@
   {
     "slug": "f011",
     "type": "implementation",
-    "authors": "Steve Bate <svc-fep@stevebate.net>",
+    "authors": [
+      "Steve Bate <svc-fep@stevebate.net>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/steve-bate/fep/issues",
     "dateReceived": "2026-03-17",
@@ -1278,10 +1570,15 @@
   },
   {
     "slug": "c81b",
-    "authors": "Aron Price <aron@lessersoul.ai>",
+    "authors": [
+      "Aron Price <aron@lessersoul.ai>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/fediverse/fep/pulls/794",
-    "relatedFeps": "FEP-c390, FEP-2677",
+    "relatedFeps": [
+      "FEP-c390",
+      "FEP-2677"
+    ],
     "dateReceived": "2026-03-18",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/798",
     "title": "Agent Social Attribution for ActivityPub",
@@ -1290,7 +1587,9 @@
   {
     "slug": "a1d1",
     "type": "implementation",
-    "authors": "Steve Bate <svc-fep@stevebate.net>",
+    "authors": [
+      "Steve Bate <svc-fep@stevebate.net>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/steve-bate/fep/issues",
     "dateReceived": "2026-03-19",
@@ -1300,9 +1599,14 @@
   },
   {
     "slug": "7b29",
-    "authors": "Ben Pate \\<@benpate@mastodon.social\\>, Dan Supernault \\<@dansup@mastodon.social\\>",
+    "authors": [
+      "Ben Pate \\<@benpate@mastodon.social\\>",
+      "Dan Supernault \\<@dansup@mastodon.social\\>"
+    ],
     "status": "DRAFT",
-    "relatedFeps": "FEP-3b86",
+    "relatedFeps": [
+      "FEP-3b86"
+    ],
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-7b29-federated-signup-requests/8649",
     "dateReceived": "2026-03-26",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/822",
@@ -1311,7 +1615,9 @@
   },
   {
     "slug": "1a11",
-    "authors": "Rimu Atkinson <contact@piefed.social>",
+    "authors": [
+      "Rimu Atkinson <contact@piefed.social>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-1a11-send-announces-containing-many-activities/8629",
     "dateReceived": "2026-04-01",
@@ -1321,7 +1627,9 @@
   },
   {
     "slug": "9f9f",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "informational",
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
@@ -1332,7 +1640,9 @@
   },
   {
     "slug": "35b7",
-    "authors": "Steve Bate <svc-fep@stevebate.net>",
+    "authors": [
+      "Steve Bate <svc-fep@stevebate.net>"
+    ],
     "type": "informational",
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/steve-bate/fep/issues",
@@ -1343,7 +1653,9 @@
   },
   {
     "slug": "ae49",
-    "authors": "Steve Bate <svc-fep@stevebate.net>",
+    "authors": [
+      "Steve Bate <svc-fep@stevebate.net>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/steve-bate/fep/issues",
@@ -1354,7 +1666,9 @@
   },
   {
     "slug": "baf5",
-    "authors": "Julian Lam <julian@nodebb.org>",
+    "authors": [
+      "Julian Lam <julian@nodebb.org>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://activitypub.space/topic/178/fep-baf5-administrator-collection",
     "dateReceived": "2026-05-22",
@@ -1364,7 +1678,9 @@
   },
   {
     "slug": "bebd",
-    "authors": "MaddyUnderStars <maddyunderstars@aus.social>",
+    "authors": [
+      "MaddyUnderStars <maddyunderstars@aus.social>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://activitypub.space/topic/28f8ab19-d074-4494-9e72-3aabdf1606ab/fep-bebd-follow-invites",
     "dateReceived": "2026-06-05",
@@ -1374,7 +1690,9 @@
   },
   {
     "slug": "5219",
-    "authors": "silverpill <@silverpill@mitra.social>",
+    "authors": [
+      "silverpill <@silverpill@mitra.social>"
+    ],
     "type": "implementation",
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/silverpill/feps/issues",
@@ -1385,7 +1703,9 @@
   },
   {
     "slug": "7aa9",
-    "authors": "David Roetzel <david@joinmastodon.org>",
+    "authors": [
+      "David Roetzel <david@joinmastodon.org>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://github.com/mastodon/featured_collections/pull/1",
     "dateReceived": "2026-06-12",
@@ -1395,10 +1715,18 @@
   },
   {
     "slug": "8c13",
-    "authors": "Dmitry Skavish <skavish@gmail.com>",
+    "authors": [
+      "Dmitry Skavish <skavish@gmail.com>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-8c13-context-authority-routing-with-object-integrity-proofs-for-restricted-threads/8446",
-    "relatedFeps": "FEP-7888, FEP-f228, FEP-8b32, FEP-1b12, FEP-171b",
+    "relatedFeps": [
+      "FEP-7888",
+      "FEP-f228",
+      "FEP-8b32",
+      "FEP-1b12",
+      "FEP-171b"
+    ],
     "dateReceived": "2026-06-27",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/870",
     "title": "Context-Authority Routing with Object Integrity Proofs for Restricted Threads",
@@ -1406,7 +1734,9 @@
   },
   {
     "slug": "4772",
-    "authors": "Timur Ismagilov <bouncepaw@icloud.com>",
+    "authors": [
+      "Timur Ismagilov <bouncepaw@icloud.com>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-4772-representing-bookmarks/8805",
     "dateReceived": "2026-07-04",
@@ -1416,7 +1746,9 @@
   },
   {
     "slug": "521b",
-    "authors": "Soatok Dreamseeker <soatok.dhole@gmail.com>",
+    "authors": [
+      "Soatok Dreamseeker <soatok.dhole@gmail.com>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://codeberg.org/fediverse/fep/issues/710",
     "dateReceived": "2026-07-10",
@@ -1426,7 +1758,9 @@
   },
   {
     "slug": "de8d",
-    "authors": "Reese Armstrong <me@reeseric.ci>",
+    "authors": [
+      "Reese Armstrong <me@reeseric.ci>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-de8d-emoji-catalogs/8825",
     "dateReceived": "2026-07-19",
@@ -1447,7 +1781,9 @@
   },
   {
     "slug": "2345",
-    "authors": "Eugen Rochko <eugen@joinmastodon.org>",
+    "authors": [
+      "Eugen Rochko <eugen@joinmastodon.org>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-2345-fediverse-creator/8844",
     "dateReceived": "2026-07-27",
@@ -1457,7 +1793,9 @@
   },
   {
     "slug": "d471",
-    "authors": "Ben Pate \\<@benpate@mastodon.social\\>",
+    "authors": [
+      "Ben Pate \\<@benpate@mastodon.social\\>"
+    ],
     "status": "DRAFT",
     "discussionsTo": "https://activitypub.space/topic/439/fep-3447-endorsements/26",
     "dateReceived": "2026-08-03",

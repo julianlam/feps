@@ -24,6 +24,10 @@ class TableLineBuilder:
         return f"[FEP-{self.fep.fep}: {self.fep.title}](fep/{self.fep.fep}/index.md)"
 
     @property
+    def authors(self):
+        return ", ".join(self.parsed["authors"])
+
+    @property
     def repo_link_image(self):
         return f"[<img src='../assets/codeberg.png' width=20 height=20 alt='codeberg'>]({repo_base}{self.fep.filename})"
 
@@ -40,24 +44,30 @@ class TableLineBuilder:
         status = self.parsed["status"]
         return f"`{status}`"
 
+    def _convert_date(self, key):
+        try:
+            return self.parsed[key].strftime("%Y-%m-%d")
+        except KeyError:
+            return "-"
+
     @property
     def date_received(self):
-        return self.parsed.get("dateReceived", "-")
+        return self._convert_date("dateReceived")
 
     @property
     def date_finalized(self):
-        return self.parsed.get("dateFinalized", "-")
+        return self._convert_date("dateFinalized")
 
     @property
     def date_withdrawn(self):
-        return self.parsed.get("dateWithdrawn", "-")
+        return self._convert_date("dateWithdrawn")
 
     @property
     def date_final(self):
         if "dateFinalized" in self.parsed:
-            return self.parsed["dateFinalized"]
+            return self.date_finalized
         if "dateWithdrawn" in self.parsed:
-            return self.parsed["dateWithdrawn"]
+            return self.date_withdrawn
         return "-"
 
     @property

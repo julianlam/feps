@@ -1,6 +1,6 @@
 ---
 slug: "xxxx"
-authors: Alyssa P. Hacker <alyssa.p.hacker@email.example>, Chatty Ben <@ben@fediverse.example>
+authors: [Alyssa P. Hacker <alyssa.p.hacker@email.example>, Chatty Ben <@ben@fediverse.example>]
 status: DRAFT
 dateReceived: 1970-01-01
 discussionsTo: https://forum.example/topics/xxxx

@@ -3,7 +3,7 @@ slug: "a427"
 authors: Dmitry Skavish <skavish@gmail.com>
 status: DRAFT
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-a427-server-domain-move/8517
-relatedFeps: FEP-8b32, FEP-d556
+relatedFeps: [FEP-8b32, FEP-d556]
 dateReceived: 2026-02-25
 trackingIssue: https://codeberg.org/fediverse/fep/issues/767
 ---

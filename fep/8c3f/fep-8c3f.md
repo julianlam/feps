@@ -1,6 +1,6 @@
 ---
 slug: "8c3f"
-authors: Diogo Peralta Cordeiro <mail@diogo.site>, Phablulo Joel <phablulo@gmail.com>
+authors: [Diogo Peralta Cordeiro <mail@diogo.site>, Phablulo Joel <phablulo@gmail.com>]
 status: WITHDRAWN
 dateReceived: 2022-01-18
 dateWithdrawn: 2023-10-27

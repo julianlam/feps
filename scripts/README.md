@@ -1,6 +1,14 @@
 # tools for fep facilitators
 
-Please follow the steps in configuration before following "Merge a FEP".
+## Configuration
+
+Before starting, ensure that PyYAML is installed. To install all required dependencies in a virtualenv:
+
+```bash
+pip install scripts/
+```
+
+Please follow the steps in [API token configuration](#api-token-configuration) before following "Merge a FEP".
 
 ## Merge a FEP
 
@@ -22,7 +30,7 @@ to update the table in `README.md`. You are now ready to commit the
 changes to the FEP (added `trackingIssue` to frontmatter) and README.md,
 added the new FEP.
 
-## Configuration
+## API token configuration
 
 Add a file `config.json` to the directory `scripts` with content
 
@@ -37,12 +45,6 @@ Add a file `config.json` to the directory `scripts` with content
 The API token can be obtained by visiting [https://codeberg.org/user/settings/applications](https://codeberg.org/user/settings/applications) and generating one with scope `write:issue`.
 
 ## Setup for running pytest
-
-Ensure dependencies (use a virtualenv)
-
-```bash
-pip install pytest
-```
 
 Check validity
 

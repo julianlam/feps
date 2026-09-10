@@ -1,6 +1,6 @@
 ---
 slug: "7b29"
-authors: Ben Pate \<@benpate@mastodon.social\>, Dan Supernault \<@dansup@mastodon.social\>
+authors: [Ben Pate \<@benpate@mastodon.social\>, Dan Supernault \<@dansup@mastodon.social\>]
 status: DRAFT
 relatedFeps: FEP-3b86
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-7b29-federated-signup-requests/8649

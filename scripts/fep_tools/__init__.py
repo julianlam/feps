@@ -59,6 +59,11 @@ def data_for_json_file() -> list[dict[str, str]]:
         data = fep.parsed_frontmatter
         data["title"] = fep.title
         data["implementations"] = fep.implementation_count
+        for field_name in ["date", "dateReceived", "dateFinalized", "dateWithdrawn"]:
+            try:
+                data[field_name] = data[field_name].strftime("%Y-%m-%d")
+            except KeyError:
+                pass
         result.append(data)
 
     return result

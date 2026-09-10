@@ -59,21 +59,21 @@ The type is chosen by the author. If the type is not specified, the proposal is 
 
 ### Metadata
 
-Proposal metadata is placed at the top of the document as key-value pairs between opening and closing ~---~.
+Proposal metadata is placed at the top of the document as YAML key-value pairs between opening and closing `---`.
 
 Following metadata key-value pairs may be placed at the top of a proposal:
 
 - `type`: Indicates the type of the proposal. Can be either `informational` or `implementation`.
 - `slug`: the proposal identifier. The value must be enclosed within double quote marks, e.g. `"a4ed"`.
-- `authors`: A comma separated list of authors of the proposal. Each item of the list should contain an author's name followed by a contact address in angle brackets (e.g. `Alyssa P. Hacker <alyssa.p.hacker@email.example>`, `Alyssa P. Hacker <@alyssa.p.hacker@fediverse.example>`).
+- `authors`: A list of authors of the proposal. Each item of the list should contain an author's name followed by a contact address in angle brackets (e.g. `[Alyssa P. Hacker <alyssa.p.hacker@email.example>, Alyssa P. Hacker <@alyssa.p.hacker@fediverse.example>]`).
 - `status`: Indicates the proposal status. Can be either `DRAFT`, `WITHDRAWN` or `FINAL`.
 - `dateReceived`: Date of when the proposal was added to the repository (when status is set to `DRAFT`).
 - `dateWithdrawn`: Date of when the proposal status was set to `WITHDRAWN` (only for proposals with status `WITHDRAWN`).
 - `dateFinalized`: Date of when the proposal status was set to `FINAL` (only for proposals with status `FINAL`).
 - `trackingIssue`: Link to the tracking issue for the proposal.
 - `discussionsTo`: Link to the discussion.
-- `relatedFeps`: A comma separated list of related FEPs (e.g. `FEP-a4ed, FEP-141a, FEP-686f`).
-- `replaces`: A comma separated list of FEPs that are replaced by the proposal.
+- `relatedFeps`: A list of related FEPs (e.g. `[FEP-a4ed, FEP-141a, FEP-686f]`).
+- `replaces`: A list of FEPs that are replaced by the proposal.
 - `replacedBy`: Identifier of a FEP that replaces the proposal.
 
 ### Required Sections

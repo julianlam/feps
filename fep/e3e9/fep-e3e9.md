@@ -1,6 +1,6 @@
 ---
 slug: "e3e9"
-authors: Dmitri Zagidulin <@dmitri@social.coop>, bumblefudge <bumblefudge@learningproof.xyz>
+authors: [Dmitri Zagidulin <@dmitri@social.coop>, bumblefudge <bumblefudge@learningproof.xyz>]
 status: DRAFT
 dateReceived: 2024-06-29
 trackingIssue: https://codeberg.org/fediverse/fep/issues/346

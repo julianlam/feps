@@ -1,6 +1,6 @@
 ---
 slug: "f15d"
-authors: Julian Lam <julian@nodebb.org>, Felix Ableitner <me@nutomic.com>, Rimu Atkinson <rimu@rimu.geek.nz>
+authors: [Julian Lam <julian@nodebb.org>, Felix Ableitner <me@nutomic.com>, Rimu Atkinson <rimu@rimu.geek.nz>]
 status: DRAFT
 discussionsTo: https://activitypub.space/topic/86/fep-f15d-context-relocation-and-removal
 dateReceived: 2026-01-12

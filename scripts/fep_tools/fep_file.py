@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-
+import yaml
 
 def unquote(value: str) -> str:
     if value.startswith('"') and value.endswith('"'):
@@ -7,6 +7,13 @@ def unquote(value: str) -> str:
     else:
         return value
 
+def to_list(data: dict, key: str):
+    try:
+        value = data[key]
+        if not isinstance(value, list):
+            data[key] = [ value ]
+    except KeyError:
+        pass
 
 @dataclass
 class FepFile:
@@ -58,8 +65,10 @@ class FepFile:
 
     @property
     def parsed_frontmatter(self):
-        split = [x.split(":", 1) for x in self.frontmatter]
-        return {a: unquote(b.strip()) for a, b in split}
+        data = yaml.load("\n".join(self.frontmatter), Loader=yaml.SafeLoader)
+        to_list(data, "authors")
+        to_list(data, "relatedFeps")
+        return data
 
     @property
     def status(self):

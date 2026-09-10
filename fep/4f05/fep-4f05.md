@@ -1,6 +1,6 @@
 ---
 slug: "4f05"
-authors: Julian Lam <julian@nodebb.org>, Angus McLeod <angus@pavilion.tech>
+authors: [Julian Lam <julian@nodebb.org>, Angus McLeod <angus@pavilion.tech>]
 status: DRAFT
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-4f05-soft-deletion
 dateReceived: 2025-04-15

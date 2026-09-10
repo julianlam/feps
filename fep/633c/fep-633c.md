@@ -1,9 +1,9 @@
 ---
 slug: "633c"
-authors: Bart Overkamp <bart@bedrijfzondernaam.nl>, Robin Genis <roboburr@gmail.com>
+authors: [Bart Overkamp <bart@bedrijfzondernaam.nl>, Robin Genis <roboburr@gmail.com>]
 status: DRAFT
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-633c-guardians/8816
-relatedFeps: FEP-e232, FEP-5624, FEP-5feb, FEP-5e53, FEP-8b32, FEP-521a, FEP-7888, FEP-171b, FEP-7458, FEP-11dd
+relatedFeps: [FEP-e232, FEP-5624, FEP-5feb, FEP-5e53, FEP-8b32, FEP-521a, FEP-7888, FEP-171b, FEP-7458, FEP-11dd]
 dateReceived: 2026-07-21
 trackingIssue: https://codeberg.org/fediverse/fep/issues/910
 ---

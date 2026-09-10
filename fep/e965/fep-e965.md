@@ -1,6 +1,6 @@
 ---
 slug: "e965"
-authors: bumblefudge <bumblefudge@learningproof.xyz>, bengo <@bengo@social.coop>
+authors: [bumblefudge <bumblefudge@learningproof.xyz>, bengo <@bengo@social.coop>]
 status: DRAFT
 dateReceived: 2024-07-05
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-0f2a-announce-activity-for-migrations-and-tombstone-events/4349
