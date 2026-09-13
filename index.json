@@ -9,6 +9,9 @@
     "dateFinalized": "2021-01-18",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/201",
     "discussionsTo": "https://codeberg.org/fediverse/fep/issues/201",
+    "tags": [
+      "meta"
+    ],
     "title": "The Fediverse Enhancement Proposal Process",
     "implementations": 0
   },
