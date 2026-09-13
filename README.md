@@ -91,7 +91,7 @@ Do you have ideas to improve the FEP Process? Post your suggestions to the issue
 | [FEP-5feb: Search indexing consent for actors](./fep/5feb/fep-5feb.md) | `DRAFT` | [#154](https://codeberg.org/fediverse/fep/issues/154) | 2023-09-06 | - |
 | [FEP-dc88: Formatting Mathematics](./fep/dc88/fep-dc88.md) | `DRAFT` | [#161](https://codeberg.org/fediverse/fep/issues/161) | 2023-09-12 | - |
 | [FEP-d8c2: OAuth 2.0 Profile for the ActivityPub API](./fep/d8c2/fep-d8c2.md) | `DRAFT` | [#165](https://codeberg.org/fediverse/fep/issues/165) | 2023-09-17 | - |
-| [FEP-7628: Move actor](./fep/7628/fep-7628.md) | `DRAFT` | [#168](https://codeberg.org/fediverse/fep/issues/168) | 2023-09-20 | - |
+| [FEP-7628: Move actor](./fep/7628/fep-7628.md) | `FINAL` | [#168](https://codeberg.org/fediverse/fep/issues/168) | 2023-09-20 | 2026-08-26 |
 | [FEP-07d7: A Custom URL Scheme and Web-Based Protocol Handlers for Linking to ActivityPub Resources](./fep/07d7/fep-07d7.md) | `WITHDRAWN` | [#171](https://codeberg.org/fediverse/fep/issues/171) | 2023-09-22 | 2025-04-22 |
 | [FEP-37f2: a policy for calls for consensus on SWICG group decisions](./fep/37f2/fep-37f2.md) | `DRAFT` | [#184](https://codeberg.org/fediverse/fep/issues/184) | 2023-09-28 | - |
 | [FEP-2677: Identifying the Application Actor](./fep/2677/fep-2677.md) | `DRAFT` | [#190](https://codeberg.org/fediverse/fep/issues/190) | 2023-10-14 | - |

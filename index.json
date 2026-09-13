@@ -469,8 +469,9 @@
       "silverpill <@silverpill@mitra.social>"
     ],
     "type": "informational",
-    "status": "DRAFT",
+    "status": "FINAL",
     "dateReceived": "2023-09-20",
+    "dateFinalized": "2026-08-26",
     "trackingIssue": "https://codeberg.org/fediverse/fep/issues/168",
     "discussionsTo": "https://socialhub.activitypub.rocks/t/fep-7628-move-actor/3583",
     "title": "Move actor",
