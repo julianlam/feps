@@ -6,6 +6,7 @@ dateReceived: 2020-10-16
 dateFinalized: 2021-01-18
 trackingIssue: https://codeberg.org/fediverse/fep/issues/201
 discussionsTo: https://codeberg.org/fediverse/fep/issues/201
+tags: ["meta"]
 ---
 # FEP-a4ed: The Fediverse Enhancement Proposal Process
 
@@ -72,6 +73,7 @@ Following metadata key-value pairs may be placed at the top of a proposal:
 - `dateFinalized`: Date of when the proposal status was set to `FINAL` (only for proposals with status `FINAL`).
 - `trackingIssue`: Link to the tracking issue for the proposal.
 - `discussionsTo`: Link to the discussion.
+- `tags`: A list of tags, to be used for categorization. Tags are case-insensitive and can contain any characters.
 - `relatedFeps`: A list of related FEPs (e.g. `[FEP-a4ed, FEP-141a, FEP-686f]`).
 - `replaces`: A list of FEPs that are replaced by the proposal.
 - `replacedBy`: Identifier of a FEP that replaces the proposal.

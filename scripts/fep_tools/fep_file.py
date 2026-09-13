@@ -1,3 +1,4 @@
+import json
 from dataclasses import dataclass, field
 import yaml
 
@@ -67,6 +68,7 @@ class FepFile:
     def parsed_frontmatter(self):
         data = yaml.load("\n".join(self.frontmatter), Loader=yaml.SafeLoader)
         to_list(data, "authors")
+        to_list(data, "tags")
         to_list(data, "relatedFeps")
         return data
 

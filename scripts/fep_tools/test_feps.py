@@ -51,6 +51,10 @@ def test_fep_front_matter(fep):
     if "type" in parsed_frontmatter:
         assert parsed_frontmatter["type"] in ["informational", "implementation"]
 
+    if "tags" in parsed_frontmatter:
+        assert type(parsed_frontmatter["tags"] == list)
+        assert all(type(item) == str for item in parsed_frontmatter["tags"])
+
 
 @pytest.mark.parametrize("fep", list(get_fep_ids()))
 def test_fep_content(fep):
