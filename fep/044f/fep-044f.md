@@ -25,7 +25,7 @@ In the remaining of this document, “quoted object” refers to the object bein
 
 (This section is non-normative.)
 
-This proposal has benefitted from significant discussions on SocialHub as well as discussions with _trwnh_ and [GoToSocial](https://gotosocial.org/) developers. In fact, the `interactionPolicy` vocabulary directly comes from [GoToSocial's interaction policies](https://docs.gotosocial.org/en/latest/federation/interaction_policy/) which have since evolved along the current proposal.
+This proposal has benefitted from significant discussions on SocialHub as well as discussions with _trwnh_ and [GoToSocial](https://gotosocial.org/) developers. In fact, the `interactionPolicy` vocabulary directly comes from [GoToSocial's interaction controls](https://docs.gotosocial.org/en/latest/federation/interaction_controls/) which have since evolved along the current proposal.
 
 ## Representation of a quote post {#quote}
 
