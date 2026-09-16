@@ -3,8 +3,9 @@ slug: "22cd"
 authors: Hong Minhee <hong@minhee.org>
 type: implementation
 status: DRAFT
-dateReceived: 2026-09-16
 discussionsTo: https://socialhub.activitypub.rocks/t/fep-22cd-attributing-translations/8897
+dateReceived: 2026-09-16
+trackingIssue: https://codeberg.org/fediverse/fep/issues/923
 ---
 
 # FEP-22cd: Attributing translations
