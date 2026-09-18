@@ -12,7 +12,7 @@ dateReceived: 2026-09-18
 
 Context locking (and its inverse, unlocking) refer to the action whereby a topic no longer accepts new replies.
 
-This proposal introduces a `locked` property on the context object, and two new activity types, `Lock` and `Unlock`, to signal changes to a topic's locked state across the fediverse. It builds on [FEP 1b12: Group federation][1b12] for audience identification (the `audience` property) and the `Announce` wrapping pattern, and on [FEP fe34: Origin-based security model][OriginBasedSecurityModel] for authorization.
+This proposal introduces a `locked` property on the context object, and a new activity type, `Lock`, to signal changes to a topic's locked state across the fediverse. Unlocking is expressed with the standard ActivityStreams [`Undo` activity][Undo], applied to the original `Lock`. It builds on [FEP 1b12: Group federation][1b12] for audience identification (the `audience` property) and the `Announce` wrapping pattern, and on [FEP fe34: Origin-based security model][OriginBasedSecurityModel] for authorization.
 
 This FEP is a sibling of [FEP f15d: Context Relocation and Removal][f15d], which covers the `Move` and `Remove` moderation actions.
 
@@ -37,6 +37,19 @@ A group of related objects (i.e. via reply-association) is referred to as a "con
 Contexts (see above) can be further grouped together into "audiences". Other terms for this concept would be "community", "category", or "forum". In ActivityPub, audiences usually take the form of a [`Group` Actor type][GroupActor].
 
 
+### Referencing threaded objects as a whole
+
+ActivityPub implementations differ in how they represent the aggregated collection of threaded objects.
+
+Some implementations represent these collections as a distinct abstraction (e.g. a context.)
+
+Others make no such distinction and represent them via the root-level object (e.g. link aggregators.)
+
+The resolvable contexts tree of FEPs _requires_ that abstraction in order to communicate actions pertaining to it in an explicit manner.
+
+For more information, see [FEP 7888][7888].
+
+
 ### Topic locking
 
 A context may be in a **locked** state, in which new replies are not accepted. Locking and unlocking a context is a moderation action, typically performed by a moderator of the context's audience.
@@ -51,22 +64,21 @@ A resolvable context (per [FEP 7888][7888]) MUST expose a `locked` property, a b
 * `locked: true` — the context does not accept new replies.
 * `locked: false` — the context accepts new replies.
 
-The `locked` property represents the *current state* of the context. The `Lock` and `Unlock` activities described below signal *changes* to that state; a receiver SHOULD update the `locked` property of a mirrored context when it processes such an activity.
+The `locked` property represents the *current state* of the context. The `Lock` activity and its `Undo`, described below, signal *changes* to that state; a receiver SHOULD update the `locked` property of a mirrored context when it processes such an activity.
 
 For robustness, receivers SHOULD treat an absent `locked` property as `false`.
 
 
-## The `Lock` and `Unlock` activities
+## The `Lock` activity
 
-When a context's locked state changes, `Lock` and `Unlock` activities are published to the followers of the context's audience.
+When a context is locked, a `Lock` activity is published to the followers of the context's audience.
 
 ``` json
 {
     @context: [
         "https://www.w3.org/ns/activitystreams",
         {
-            "Lock": "https://w3id.org/fep/c0d0/Lock",
-            "Unlock": "https://w3id.org/fep/c0d0/Unlock"
+            "Lock": "https://w3id.org/fep/c0d0/Lock"
         }
     ],
     id: "https://example.social/context/123#activity/lock/<timestamp>",
@@ -83,22 +95,40 @@ Note the following properties:
 * `audience` is the context's audience (a `Group` actor), per [FEP 1b12][1b12]
 * `object` is the context (a resolvable context, per [FEP 7888][7888])
 
-The `Unlock` activity is identical in shape, with `type: "Unlock"`.
+### Unlocking via `Undo`
 
->[!NOTE]
-> `Lock` and `Unlock` are not standard ActivityStreams types. Implementations SHOULD declare them in `@context`, expanded to the FEP namespace (`https://w3id.org/fep/c0d0/Lock`, `https://w3id.org/fep/c0d0/Unlock`) per [FEP 888d][888d], to avoid collisions. Receivers SHOULD resolve the bare `Lock`/`Unlock` terms to these URIs, and SHOULD also accept the full URIs used directly in `type`.
-
-### `Audience` wrapper
-
-Implementations MAY wrap the `Lock`/`Unlock` activity in an `Announce` activity, with the audience's `Group` actor as the `actor` and the audience's followers among the recipients. Receivers are recommended to support both the direct and wrapped forms.
+Unlocking a context is expressed with the standard ActivityStreams 2.0 [`Undo` activity][Undo], whose `object` is the `Lock` activity being undone:
 
 ``` json
 {
     @context: [
         "https://www.w3.org/ns/activitystreams",
         {
-            "Lock": "https://w3id.org/fep/c0d0/Lock",
-            "Unlock": "https://w3id.org/fep/c0d0/Unlock"
+            "Lock": "https://w3id.org/fep/c0d0/Lock"
+        }
+    ],
+    id: "https://example.social/context/123#activity/undo/<timestamp>",
+    type: "Undo",
+    actor: "https://example.social/uid/1",
+    object: "https://example.social/context/123#activity/lock/<timestamp>",
+}
+```
+
+Per ActivityStreams 2.0, the `object` of an `Undo` is the activity being undone — not the context itself. A receiver resolves the referenced `Lock` activity and applies the unlock to its `object` (the context).
+
+>[!NOTE]
+> `Lock` is not a standard ActivityStreams type. Implementations SHOULD declare it in `@context`, expanded to the FEP namespace (`https://w3id.org/fep/c0d0/Lock`) per [FEP 888d][888d], to avoid collisions. Receivers SHOULD resolve the bare `Lock` term to this URI, and SHOULD also accept the full URI used directly in `type`. The `Undo` type is standard ActivityStreams 2.0 and requires no such declaration.
+
+### `Audience` wrapper
+
+Implementations MAY wrap the `Lock` activity (or its `Undo`) in an `Announce` activity, with the audience's `Group` actor as the `actor` and the audience's followers among the recipients. Receivers are recommended to support both the direct and wrapped forms.
+
+``` json
+{
+    @context: [
+        "https://www.w3.org/ns/activitystreams",
+        {
+            "Lock": "https://w3id.org/fep/c0d0/Lock"
         }
     ],
     id: "https://example.social/audience/1#activity/announce/<timestamp>",
@@ -116,14 +146,14 @@ Implementations MAY wrap the `Lock`/`Unlock` activity in an `Announce` activity,
 }
 ```
 
-When the wrapped form is used, the `audience` property on the inner `Lock`/`Unlock` activity and the `Announce`'s `actor` SHOULD identify the same audience.
+When the wrapped form is used, the `audience` property on the inner `Lock` activity and the `Announce`'s `actor` SHOULD identify the same audience.
 
 
 ## Reception
 
-A receiver of a `Lock`/`Unlock` activity (direct, or via `Announce`) SHOULD:
+A receiver of a `Lock` activity, or the `Undo` of one (direct, or via `Announce`) SHOULD:
 
-1. Resolve `object` to a locally mirrored context. If the context is not mirrored locally, the activity SHOULD be ignored.
+1. Resolve the target context: for a `Lock`, this is its `object`; for an `Undo`, this is the `object` of the referenced `Lock` activity. If the context is not mirrored locally, the activity SHOULD be ignored.
 2. Verify authorization (see [Security Considerations](#security)).
 3. Update the context's locked state accordingly, attributing the change to the activity's `actor`.
 
@@ -137,13 +167,13 @@ Receivers SHOULD treat these activities as idempotent: locking an already-locked
 
 ### Same-Origin Check
 
-As per [FEP fe34][OriginBasedSecurityModel], a `Lock`/`Unlock` activity is assumed to be authentic if the `actor` and the context's `audience` are same-origin.
+As per [FEP fe34][OriginBasedSecurityModel], a `Lock` activity (or its `Undo`) is assumed to be authentic if the `actor` and the context's `audience` are same-origin.
 
 ### Moderator Collection Check
 
 [FEP-1b12: Group federation][1b12] describes the use of an `OrderedCollection` referenced in an audience's `attributedTo` [to represent an audience's moderators](https://codeberg.org/fediverse/fep/src/branch/main/fep/1b12/fep-1b12.md#group-moderation).
 
-If the `actor` of the `Lock`/`Unlock` activity is not same-origin to the context's `audience`, this collection SHOULD be cross-referenced for authorization.
+If the `actor` of the `Lock` activity (or its `Undo`) is not same-origin to the context's `audience`, this collection SHOULD be cross-referenced for authorization.
 
 ### Superseding the Same-Origin Check
 
@@ -178,6 +208,7 @@ Superseding is OPTIONAL, but RECOMMENDED where the audience exposes a moderator 
 [888d]: https://w3id.org/fep/888d
 [f15d]: https://w3id.org/fep/f15d
 [GroupActor]: https://www.w3.org/TR/activitystreams-vocabulary/#dfn-group
+[Undo]: https://www.w3.org/TR/activitystreams-core/#activity-undo
 [RFC-2119]: https://www.ietf.org/rfc/rfc2119
 
 ## Copyright
