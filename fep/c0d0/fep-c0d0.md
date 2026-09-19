@@ -57,6 +57,30 @@ A context may be in a **locked** state, in which new replies are not accepted. L
 This FEP assumes the resolvable-contexts model of [FEP 7888][7888], in which a context is addressable as a discrete object so that actions pertaining to it (such as locking) can be communicated explicitly.
 
 
+## Prior art
+
+The `Lock` activity is not new. [Lemmy][LemmyFederation] already uses a `Lock` activity in the same manner and intent: to lock a thread so that no new replies can be created.
+
+``` json
+{
+    id: "http://lemmy-alpha:8541/activities/lock/cb48761d-9e8c-42ce-aacb-b4bbe6408db2",
+    actor: "http://lemmy-alpha:8541/u/lemmy_alpha",
+    to: ["https://www.w3.org/ns/activitystreams#Public"],
+    object: "http://lemmy-alpha:8541/post/2",
+    cc: ["http://lemmy-alpha:8541/c/main"],
+    type: "Lock",
+    audience: "http://lemmy-alpha:8541/c/main",
+}
+```
+
+The distinction between Lemmy's usage and this FEP is what the `object` property points to:
+
+* In **Lemmy**, `object` is the post itself — a `Page` (Note-like) object. Lemmy has no separate context abstraction: the top-level post is both the root object and, implicitly, the thread, so pointing `object` at the post is sufficient to identify the thread being locked.
+* In **this FEP**, `object` is a **resolvable context** (per [FEP 7888][7888]) — a distinct, addressable object that represents the thread as a whole, separate from its root post.
+
+This reflects the broader divergence described in [Referencing threaded objects as a whole](#referencing-threaded-objects-as-a-whole). Because the two `object` values are different kinds of objects (a `Page`/`Note` versus a context), a receiver of one form is not expected to understand the other.
+
+
 ## The `locked` property
 
 A resolvable context (per [FEP 7888][7888]) MUST expose a `locked` property, a boolean value indicating the context's current locked state.
@@ -199,6 +223,7 @@ Superseding is OPTIONAL, but RECOMMENDED where the audience exposes a moderator 
 - silverpill, [FEP fe34][OriginBasedSecurityModel]: Origin-based security model
 - [FEP 888d: Using https://w3id.org/fep as a base for FEP-specific namespaces][888d], 2023
 - Julian Lam, Felix Ableitner, Rimu Atkinson, [FEP f15d: Context Relocation and Removal][f15d], 2026
+- Lemmy, [Federation documentation][LemmyFederation]
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [7888]: https://w3id.org/fep/7888
@@ -207,6 +232,7 @@ Superseding is OPTIONAL, but RECOMMENDED where the audience exposes a moderator 
 [OriginBasedSecurityModel]: https://w3id.org/fep/fe34
 [888d]: https://w3id.org/fep/888d
 [f15d]: https://w3id.org/fep/f15d
+[LemmyFederation]: https://join-lemmy.org/docs/contributors/05-federation.html
 [GroupActor]: https://www.w3.org/TR/activitystreams-vocabulary/#dfn-group
 [Undo]: https://www.w3.org/TR/activitystreams-core/#activity-undo
 [RFC-2119]: https://www.ietf.org/rfc/rfc2119
