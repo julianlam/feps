@@ -59,6 +59,8 @@ This FEP assumes the resolvable-contexts model of [FEP 7888][7888], in which a c
 
 ## Prior art
 
+### Lemmy
+
 The `Lock` activity is not new. [Lemmy][LemmyFederation] already uses a `Lock` activity in the same manner and intent: to lock a thread so that no new replies can be created.
 
 ``` json
@@ -79,6 +81,25 @@ The distinction between Lemmy's usage and this FEP is what the `object` property
 * In **this FEP**, `object` is a **resolvable context** (per [FEP 7888][7888]) — a distinct, addressable object that represents the thread as a whole, separate from its root post.
 
 This reflects the broader divergence described in [Referencing threaded objects as a whole](#referencing-threaded-objects-as-a-whole). Because the two `object` values are different kinds of objects (a `Page`/`Note` versus a context), a receiver of one form is not expected to understand the other.
+
+### GoToSocial interaction controls
+
+[GoToSocial][GotoSocialInteractionControls] implements per-object **interaction controls** via an `interactionPolicy` property on post-like objects (`Note`, `Article`, `Question`, …), with `canLike`, `canReply`, and `canAnnounce` sub-policies. The closest analogue to locking a context is a `canReply` policy that permits no automatic replies:
+
+``` json
+{
+    interactionPolicy: {
+        canReply: {
+            automaticApproval: [],
+        },
+    },
+}
+```
+
+This is materially different from the `Lock` activity in two ways:
+
+* **Scope.** An `interactionPolicy` is attached to a single post-like object, not to a context. GoToSocial has no context abstraction, and each reply in a thread carries its own policy, so the scope of a thread can widen post-hoc. A `Lock` targets the resolvable context as a whole and applies to every object in it — including cross-origin (mirrored) objects — so no new replies are accepted to any of them.
+* **Hardness.** GoToSocial always enforces two *implicit assumptions*, regardless of the stated policy: the post author can always reply to their own post, and any actor mentioned in or replied to by a post can always reply. A `canReply` policy of `automaticApproval: []` therefore does not in fact lock the thread for the author (or for mentioned/replied-to actors). This FEP does **not** adopt those implicit assumptions: a locked context accepts no new replies, full stop.
 
 
 ## The `locked` property
@@ -224,6 +245,7 @@ Superseding is OPTIONAL, but RECOMMENDED where the audience exposes a moderator 
 - [FEP 888d: Using https://w3id.org/fep as a base for FEP-specific namespaces][888d], 2023
 - Julian Lam, Felix Ableitner, Rimu Atkinson, [FEP f15d: Context Relocation and Removal][f15d], 2026
 - Lemmy, [Federation documentation][LemmyFederation]
+- GoToSocial, [Interaction controls][GotoSocialInteractionControls]
 
 [ActivityPub]: https://www.w3.org/TR/activitypub/
 [7888]: https://w3id.org/fep/7888
@@ -233,6 +255,7 @@ Superseding is OPTIONAL, but RECOMMENDED where the audience exposes a moderator 
 [888d]: https://w3id.org/fep/888d
 [f15d]: https://w3id.org/fep/f15d
 [LemmyFederation]: https://join-lemmy.org/docs/contributors/05-federation.html
+[GotoSocialInteractionControls]: https://docs.gotosocial.org/en/latest/federation/interaction_controls/
 [GroupActor]: https://www.w3.org/TR/activitystreams-vocabulary/#dfn-group
 [Undo]: https://www.w3.org/TR/activitystreams-core/#activity-undo
 [RFC-2119]: https://www.ietf.org/rfc/rfc2119
